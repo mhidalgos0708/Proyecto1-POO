@@ -48,55 +48,70 @@ public class AdministradorAplicacion {
     
     public void registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
-                   Calendar fechaExpiracionLicencia, String imagen)
+                   Calendar fechaExpiracionLicencia, String imagen, boolean lectura)
     {
         if(obtenerCliente(cedula) == null) {
             Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
                                            numeroLicencia, fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,
                                            imagen);
             listaClientes.add(nuevoCliente);
+            if(!lectura) {
+                agregarInformacionJSON("clientes.json","Cliente");
+            }
         }
     }
     public void registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
                     String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
-                    TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen)
+                    TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen, boolean lectura)
     {
         if(obtenerVehiculo(placa) == null) {
             Vehiculo nuevoVehiculo = new Vehiculo(placa, añoFabricacion, estilo, color, marca, capacidad, kilometraje,
                                               numeroPuertas, numeroVin, mpg, sede, costoDiario, capacidadMaletas,
                                               tipoTransmision, estado, listaServiciosRelacionados, imagen);
             listaVehiculos.add(nuevoVehiculo);
+            if(!lectura) {
+                agregarInformacionJSON("vehiculos.json", "Vehiculo");
+            }
         }
     }
     public void registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
-                                          String canton, String distrito, String señas)
+                                          String canton, String distrito, String señas, boolean lectura)
     {
         if(obtenerEmpresa(numeroCedula) == null) {
             EmpresaMantenimiento nuevaEmpresa = new EmpresaMantenimiento(razonSocial, numeroCedula, telefono, provincia,
                                                                      canton, distrito, señas);
             listaEmpresasMantenimiento.add(nuevaEmpresa);
+            if(!lectura) {
+                agregarInformacionJSON("empresas.json","Empresa");
+            }
         }
     }
     public void registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
-                                       String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada)
+                                       String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada, boolean lectura)
     {
         if(obtenerServicio(identificador) == null) {
             Servicio nuevoServicio = new Servicio(identificador, fechaInicio, fechaFinalizacion, montoPagado, 
                                               detalles, tipo, empresaRelacionada);
-        listaServicios.add(nuevoServicio);
+            listaServicios.add(nuevoServicio);
+            if(!lectura) {
+                agregarInformacionJSON("servicios.json","Servicio");
+            }
         }
     }
-    public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado)
+    public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
     {
         if(obtenerOperador(correoElectronico) == null) {
             Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
             listaOperadores.add(nuevoOperador);
+            if(!lectura) {
+                agregarInformacionJSON("operadores.json","Operador");
+            }
         }
     }
     public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
-                   Dictionary serviciosOpcionales)
+                   Dictionary serviciosOpcionales, boolean lectura)
     {
         Reserva nuevaReserva = new Reserva(sedeRecogida, sedeEntrega, fechaInicio, fechaFinalizacion, fechaSolicitud, operador,
                                            vehiculoSeleccionado, clienteRelacionado, serviciosOpcionales, numeroFactura);
@@ -317,40 +332,144 @@ public class AdministradorAplicacion {
                 /*registrarCliente(dato.get("Nombre"), dato.get("Cedula"), dato.get("Direccion"), 
                                    dato.get("Correo"), dato.get("Telefono"), dato.get("Numero licencia"),
                                    dato.get("Fecha emision licencia"), dato.get("Tipo licencia"), 
-                                   dato.get("Fecha expiracion licencia"), dato.get("Imagen"));*/
+                                   dato.get("Fecha expiracion licencia"), dato.get("Imagen"), true);*/
                 break;
             case "Operador":
                 registrarOperador((dato.get("Correo")).toString(), (dato.get("Contraseña")).toString(), 
-                                  (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()));
+                                  (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()), true);
                 break;
             case "Vehiculo":
                 /*registrarVehiculo(dato.get("Placa"), dato.get("Año fabricación"), dato.get("Estilo"), dato.get("Color"), 
                                   dato.get("Marca"), dato.get("Capacidad"), dato.get("Kilometraje"), dato.get("Numero puertas"),
                                   dato.get("Numero vin"), dato.get("Mpg"), dato.get("Sede"), dato.get("Costo diario"), 
                                   dato.get("Capacidad maletas"), dato.get("Transmision"), dato.get("Estado"), 
-                                  dato.get("Lista servicios relacionados"), dato.get("Imagen"));*/
+                                  dato.get("Lista servicios relacionados"), dato.get("Imagen"), true);*/
                 break;
             case "Empresa":
                 /*registrarEmpresaServicios(dato.get("Razon social"), dato.get("Cedula"), dato.get("Telefono"), 
                                           dato.get("Provincia"), dato.get("Canton"), dato.get("Distrito"),
-                                          dato.get("Señas"));*/
+                                          dato.get("Señas"), true);*/
                 break;
             case "Servicio":
                 /*registrarNuevoServicio(dato.get("Identificador"), dato.get("Fecha inicio"), dato.get("Fecha final"), 
                                        dato.get("Monto pagado"), dato.get("Detalles"), dato.get("Tipo"), 
-                                       dato.get("Empresa relacionada"));*/
+                                       dato.get("Empresa relacionada"), true);*/
                 break;
             case "Reserva":
                 /*realizarReserva(dato.get("Sede recogida"), dato.get("Sede entrega"), dato.get("Fecha inicio"), 
                                 dato.get("Fecha final"), dato.get("Fecha solicitud"), dato.get("Operador"), 
                                 dato.get("Vehiculo seleccionado"), dato.get("Cliente relacionado"), 
-                                dato.get("Servicios opcionales"));*/
+                                dato.get("Servicios opcionales"), true);*/
                 break;
             default:
                 break;
         }
     }
     
+    //NombresObjeto Cliente, Operador, Vehiculo, Empresa, Servicio, Reserva
+    public boolean agregarInformacionJSON(String nombreArchivo, String nombreObjeto) {
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader(nombreArchivo)) {
+            Object objetos = jsonParser.parse(reader);
+            JSONArray listaDatosJSON = (JSONArray) objetos;
+            
+            JSONObject datoActualJSON = new JSONObject();
+            datoActualJSON = agregarDato(datoActualJSON, nombreObjeto);
+            
+            JSONObject paquete = new JSONObject();
+            paquete.put(nombreObjeto, datoActualJSON);
+            listaDatosJSON.add(paquete);
+            
+            try (FileWriter archivo = new FileWriter(nombreArchivo)) {
+                archivo.write(listaDatosJSON.toJSONString());
+                archivo.flush();
+            } catch (IOException e) {
+                return false;
+            }
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException | ParseException e) {
+            return false;
+        }
+        return true;
+    }
     
-    
+    public JSONObject agregarDato(JSONObject dato, String nombreObjeto) {
+        switch(nombreObjeto) {
+            case "Cliente":
+                Cliente ultimoCliente = listaClientes.get(listaClientes.size()-1);
+                dato.put("Nombre", ultimoCliente.getNombreCompleto());
+                dato.put("Cedula", ultimoCliente.getCedula());
+                dato.put("Direccion", ultimoCliente.getDireccionExacta());
+                dato.put("Correo", ultimoCliente.getCorreoElectronico());
+                dato.put("Telefono", ultimoCliente.getTelefono());
+                dato.put("Numero licencia", ultimoCliente.getNumeroLicencia());
+                dato.put("Fecha emision licencia", ultimoCliente.getFechaEmisionLicencia());
+                dato.put("Tipo licencia", ultimoCliente.getTipoLicencia());
+                dato.put("Fecha expiracion licencia", ultimoCliente.getFechaExpiracionLicencia());
+                dato.put("Imagen", ultimoCliente.getImagen());
+                break;
+            case "Operador":
+                Operador ultimoOperador = listaOperadores.get(listaOperadores.size()-1);
+                dato.put("Correo", ultimoOperador.getCorreoElectronico());
+                dato.put("Contraseña", ultimoOperador.getContraseña());
+                dato.put("Nombre", ultimoOperador.getNombreCompleto());
+                dato.put("Estado", ultimoOperador.isEstado());
+            case "Vehiculo":
+                Vehiculo ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
+                dato.put("Placa", ultimoVehiculo.getPlaca());
+                dato.put("Año fabricación", ultimoVehiculo.getAñoFabricacion());
+                dato.put("Estilo", ultimoVehiculo.getEstilo());
+                dato.put("Color", ultimoVehiculo.getColor());
+                dato.put("Marca", ultimoVehiculo.getMarca());
+                dato.put("Capacidad", ultimoVehiculo.getCapacidad());
+                dato.put("Kilometraje", ultimoVehiculo.getKilometraje());
+                dato.put("Numero puertas", ultimoVehiculo.getNumeroPuertas());
+                dato.put("Numero vin", ultimoVehiculo.getNumeroVin());
+                dato.put("Mpg", ultimoVehiculo.getMpg());
+                dato.put("Sede", ultimoVehiculo.getSede());
+                dato.put("Costo diario", ultimoVehiculo.getCostoDiario());
+                dato.put("Capacidad maletas", ultimoVehiculo.getCapacidadMaletas());
+                dato.put("Transmision", ultimoVehiculo.getTipoTransmision());
+                dato.put("Estado", ultimoVehiculo.getEstado());
+                dato.put("Lista servicios relacionados", ultimoVehiculo.getListaServiciosRelacionados());
+                dato.put("Imagen", ultimoVehiculo.getImagen());
+                break;
+            case "Empresa":
+                EmpresaMantenimiento ultimaEmpresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                dato.put("Razon social", ultimaEmpresa.getRazonSocial());
+                dato.put("Cedula", ultimaEmpresa.getNumeroCedula());
+                dato.put("Telefono", ultimaEmpresa.getTelefono());
+                dato.put("Provincia", ultimaEmpresa.getProvincia());
+                dato.put("Canton", ultimaEmpresa.getCanton());
+                dato.put("Distrito", ultimaEmpresa.getDistrito());
+                dato.put("Señas", ultimaEmpresa.getSeñas());
+                break;
+            case "Servicio":
+                Servicio ultimoServicio = listaServicios.get(listaServicios.size()-1);
+                dato.put("Identificador", ultimoServicio.getIdentificador());
+                dato.put("Fecha inicio", ultimoServicio.getFechaInicio());
+                dato.put("Fecha final", ultimoServicio.getFechaFinalizacion());
+                dato.put("Monto pagado", ultimoServicio.getMontoPagado());
+                dato.put("Detalles", ultimoServicio.getDetalles());
+                dato.put("Tipo", ultimoServicio.getTipo());
+                dato.put("Empresa relacionada", ultimoServicio.getEmpresaRelacionada());
+                break;
+            case "Reserva":
+                Reserva ultimaReserva = listaReservas.get(listaReservas.size()-1);
+                dato.put("Sede recogida", ultimaReserva.getSedeRecogida());
+                dato.put("Sede entrega", ultimaReserva.getSedeEntrega());
+                dato.put("Fecha inicio", ultimaReserva.getFechaInicio());
+                dato.put("Fecha final", ultimaReserva.getFechaFinalizacion());
+                dato.put("Fecha solicitud", ultimaReserva.getFechaSolicitud());
+                dato.put("Operador", ultimaReserva.getOperador());
+                dato.put("Vehiculo seleccionado", ultimaReserva.getVehiculoSeleccionado());
+                dato.put("Cliente relacionado", ultimaReserva.getClienteRelacionado());
+                dato.put("Servicios opcionales", ultimaReserva.getServiciosOpcionales());
+                break;
+            default:
+                break;
+        }
+        return dato;
+    }
 }
