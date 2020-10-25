@@ -23,6 +23,15 @@ import java.util.Dictionary;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author Silvia Rodriguez
@@ -41,39 +50,49 @@ public class AdministradorAplicacion {
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
                    Calendar fechaExpiracionLicencia, String imagen)
     {
-        Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
+        if(obtenerCliente(cedula) == null) {
+            Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
                                            numeroLicencia, fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,
                                            imagen);
-        listaClientes.add(nuevoCliente);
+            listaClientes.add(nuevoCliente);
+        }
     }
     public void registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
                     String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
                     TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen)
     {
-        Vehiculo nuevoVehiculo = new Vehiculo(placa, añoFabricacion, estilo, color, marca, capacidad, kilometraje,
+        if(obtenerVehiculo(placa) == null) {
+            Vehiculo nuevoVehiculo = new Vehiculo(placa, añoFabricacion, estilo, color, marca, capacidad, kilometraje,
                                               numeroPuertas, numeroVin, mpg, sede, costoDiario, capacidadMaletas,
                                               tipoTransmision, estado, listaServiciosRelacionados, imagen);
-        listaVehiculos.add(nuevoVehiculo);
+            listaVehiculos.add(nuevoVehiculo);
+        }
     }
     public void registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
                                           String canton, String distrito, String señas)
     {
-        EmpresaMantenimiento nuevaEmpresa = new EmpresaMantenimiento(razonSocial, numeroCedula, telefono, provincia,
+        if(obtenerEmpresa(numeroCedula) == null) {
+            EmpresaMantenimiento nuevaEmpresa = new EmpresaMantenimiento(razonSocial, numeroCedula, telefono, provincia,
                                                                      canton, distrito, señas);
-        listaEmpresasMantenimiento.add(nuevaEmpresa);
+            listaEmpresasMantenimiento.add(nuevaEmpresa);
+        }
     }
     public void registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
                                        String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada)
     {
-        Servicio nuevoServicio = new Servicio(identificador, fechaInicio, fechaFinalizacion, montoPagado, 
+        if(obtenerServicio(identificador) == null) {
+            Servicio nuevoServicio = new Servicio(identificador, fechaInicio, fechaFinalizacion, montoPagado, 
                                               detalles, tipo, empresaRelacionada);
         listaServicios.add(nuevoServicio);
+        }
     }
     public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado)
     {
-        Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
-        listaOperadores.add(nuevoOperador);
+        if(obtenerOperador(correoElectronico) == null) {
+            Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
+            listaOperadores.add(nuevoOperador);
+        }
     }
     public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
@@ -90,7 +109,7 @@ public class AdministradorAplicacion {
         for(int i = 0; i < listaVehiculos.size(); i++)
         {
             elVehiculo = listaVehiculos.get(i);
-            if(elVehiculo.getPlaca() == pID)
+            if(elVehiculo.getPlaca().equals(pID))
             {
                 return elVehiculo;
             }
@@ -103,7 +122,7 @@ public class AdministradorAplicacion {
         for(int i = 0; i < listaOperadores.size(); i++)
         {
             elOperador = listaOperadores.get(i);
-            if(elOperador.getCorreoElectronico() == pCorreo)
+            if(elOperador.getCorreoElectronico().equals(pCorreo))
             {
                 return elOperador;
             }
@@ -116,7 +135,7 @@ public class AdministradorAplicacion {
         for(int i = 0; i < listaClientes.size(); i++)
         {
             elCliente = listaClientes.get(i);
-            if(elCliente.getCedula()== pId)
+            if(elCliente.getCedula().equals(pId))
             {
                 return elCliente;
             }
@@ -145,6 +164,19 @@ public class AdministradorAplicacion {
             if(laReserva.getNumeroFactura() == pId)
             {
                 return laReserva;
+            }
+        }
+        return null;
+    }
+    public EmpresaMantenimiento obtenerEmpresa(String pId)
+    {
+        EmpresaMantenimiento laEmpresa;
+        for(int i = 0; i < listaEmpresasMantenimiento.size(); i++)
+        {
+            laEmpresa = listaEmpresasMantenimiento.get(i);
+            if(laEmpresa.getNumeroCedula().equals(pId))
+            {
+                return laEmpresa;
             }
         }
         return null;
@@ -258,4 +290,67 @@ public class AdministradorAplicacion {
         }
         return true;       
     }
+    
+    //Archivos clientes.json, operadores.json, vehiculos.json, empresas.json, servicios.json, reservas.json
+    //NombresObjeto Cliente, Operador, Vehiculo, Empresa, Servicio, Reserva
+    public boolean cargarInformacionJSON(String archivo, String nombreObjeto) {
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader(archivo)) {
+            Object objetos = jsonParser.parse(reader);
+            JSONArray listaDatosJSON = (JSONArray) objetos;
+            for(int i = 0; i < listaDatosJSON.size(); i++) {
+                JSONObject objetoDato = (JSONObject) listaDatosJSON.get(i);
+                JSONObject dato = (JSONObject) objetoDato.get(nombreObjeto);
+                registrarDato(dato, nombreObjeto);
+            }
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException | ParseException e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public void registrarDato(JSONObject dato, String nombreObjeto) {
+        switch(nombreObjeto) {
+            case "Cliente":
+                /*registrarCliente(dato.get("Nombre"), dato.get("Cedula"), dato.get("Direccion"), 
+                                   dato.get("Correo"), dato.get("Telefono"), dato.get("Numero licencia"),
+                                   dato.get("Fecha emision licencia"), dato.get("Tipo licencia"), 
+                                   dato.get("Fecha expiracion licencia"), dato.get("Imagen"));*/
+                break;
+            case "Operador":
+                registrarOperador((dato.get("Correo")).toString(), (dato.get("Contraseña")).toString(), 
+                                  (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()));
+                break;
+            case "Vehiculo":
+                /*registrarVehiculo(dato.get("Placa"), dato.get("Año fabricación"), dato.get("Estilo"), dato.get("Color"), 
+                                  dato.get("Marca"), dato.get("Capacidad"), dato.get("Kilometraje"), dato.get("Numero puertas"),
+                                  dato.get("Numero vin"), dato.get("Mpg"), dato.get("Sede"), dato.get("Costo diario"), 
+                                  dato.get("Capacidad maletas"), dato.get("Transmision"), dato.get("Estado"), 
+                                  dato.get("Lista servicios relacionados"), dato.get("Imagen"));*/
+                break;
+            case "Empresa":
+                /*registrarEmpresaServicios(dato.get("Razon social"), dato.get("Cedula"), dato.get("Telefono"), 
+                                          dato.get("Provincia"), dato.get("Canton"), dato.get("Distrito"),
+                                          dato.get("Señas"));*/
+                break;
+            case "Servicio":
+                /*registrarNuevoServicio(dato.get("Identificador"), dato.get("Fecha inicio"), dato.get("Fecha final"), 
+                                       dato.get("Monto pagado"), dato.get("Detalles"), dato.get("Tipo"), 
+                                       dato.get("Empresa relacionada"));*/
+                break;
+            case "Reserva":
+                /*realizarReserva(dato.get("Sede recogida"), dato.get("Sede entrega"), dato.get("Fecha inicio"), 
+                                dato.get("Fecha final"), dato.get("Fecha solicitud"), dato.get("Operador"), 
+                                dato.get("Vehiculo seleccionado"), dato.get("Cliente relacionado"), 
+                                dato.get("Servicios opcionales"));*/
+                break;
+            default:
+                break;
+        }
+    }
+    
+    
+    
 }
