@@ -25,6 +25,24 @@ public class Cliente {
     
     public void Cliente(){};
 
+    public Cliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
+                   String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
+                   Calendar fechaExpiracionLicencia, String imagen) {
+        
+        this.nombreCompleto = nombreCompleto;
+        this.cedula = cedula;
+        this.direccionExacta = direccionExacta;
+        this.correoElectronico = correoElectronico;
+        this.telefono = telefono;
+        this.numeroLicencia = numeroLicencia;
+        this.fechaEmisionLicencia = fechaEmisionLicencia;
+        this.tipoLicencia = tipoLicencia;
+        this.fechaExpiracionLicencia = fechaExpiracionLicencia;
+        this.imagen = imagen;
+    }
+    
+    
+
     public String getNombreCompleto() {
         return nombreCompleto;
     }
@@ -104,6 +122,17 @@ public class Cliente {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "nombreCompleto=" + nombreCompleto + ", cedula=" + cedula + ", direccionExacta=" + 
+                direccionExacta + ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", "
+                + "numeroLicencia=" + numeroLicencia + ", fechaEmisionLicencia=" + fechaEmisionLicencia + 
+                ", tipoLicencia=" + tipoLicencia + ", fechaExpiracionLicencia=" + fechaExpiracionLicencia + 
+                ", imagen=" + imagen + '}';
+    }
+    
+    
     
     
 }

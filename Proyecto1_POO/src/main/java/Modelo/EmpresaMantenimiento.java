@@ -12,15 +12,27 @@ package Modelo;
  */
 public class EmpresaMantenimiento {
     private String razonSocial;
-    private String numeroCeluda;
+    private String numeroCedula;
     private String telefono;
     private String provincia;
     private String canton;
     private String distrito;
     private String señas;
 
-    public EmpresaMantenimiento() {
+    public EmpresaMantenimiento() {}
+
+    public EmpresaMantenimiento(String razonSocial, String numeroCedula, String telefono, String provincia, 
+                                String canton, String distrito, String señas) {
+        this.razonSocial = razonSocial;
+        this.numeroCedula = numeroCedula;
+        this.telefono = telefono;
+        this.provincia = provincia;
+        this.canton = canton;
+        this.distrito = distrito;
+        this.señas = señas;
     }
+    
+    
 
     public String getRazonSocial() {
         return razonSocial;
@@ -30,12 +42,12 @@ public class EmpresaMantenimiento {
         this.razonSocial = razonSocial;
     }
 
-    public String getNumeroCeluda() {
-        return numeroCeluda;
+    public String getNumeroCedula() {
+        return numeroCedula;
     }
 
-    public void setNumeroCeluda(String numeroCeluda) {
-        this.numeroCeluda = numeroCeluda;
+    public void setNumeroCedula(String numeroCedula) {
+        this.numeroCedula = numeroCedula;
     }
 
     public String getTelefono() {
@@ -77,6 +89,14 @@ public class EmpresaMantenimiento {
     public void setSeñas(String señas) {
         this.señas = señas;
     }
+
+    @Override
+    public String toString() {
+        return "EmpresaMantenimiento{" + "razonSocial=" + razonSocial + ", numeroCedula=" + numeroCedula + 
+                ", telefono=" + telefono + ", provincia=" + provincia + ", canton=" + canton + ", distrito=" 
+                + distrito + ", se\u00f1as=" + señas + '}';
+    }
+    
     
     
 }

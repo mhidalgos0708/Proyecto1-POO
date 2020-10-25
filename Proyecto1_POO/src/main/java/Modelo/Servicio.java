@@ -22,6 +22,19 @@ public class Servicio {
 
     public Servicio() {}
 
+    public Servicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
+                    String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada) {
+        this.identificador = identificador;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinalizacion = fechaFinalizacion;
+        this.montoPagado = montoPagado;
+        this.detalles = detalles;
+        this.tipo = tipo;
+        this.empresaRelacionada = empresaRelacionada;
+    }
+    
+    
+
     public int getIdentificador() {
         return identificador;
     }
@@ -76,6 +89,13 @@ public class Servicio {
 
     public void setEmpresaRelacionada(EmpresaMantenimiento empresaRelacionada) {
         this.empresaRelacionada = empresaRelacionada;
+    }
+
+    @Override
+    public String toString() {
+        return "Servicio{" + "identificador=" + identificador + ", fechaInicio=" + fechaInicio + 
+                ", fechaFinalizacion=" + fechaFinalizacion + ", montoPagado=" + montoPagado + 
+                ", detalles=" + detalles + ", tipo=" + tipo + ", empresaRelacionada=" + empresaRelacionada + '}';
     }
     
     

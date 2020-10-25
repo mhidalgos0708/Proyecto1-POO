@@ -22,11 +22,26 @@ public class Reserva {
     private Vehiculo vehiculoSeleccionado;
     private Cliente clienteRelacionado;
     private Dictionary serviciosOpcionales;
-    private int factura;
+    private int numeroFactura;
 
     public Reserva() {
     }
 
+    public Reserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
+                   Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
+                   Dictionary serviciosOpcionales, int numeroFactura) {
+        this.sedeRecogida = sedeRecogida;
+        this.sedeEntrega = sedeEntrega;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinalizacion = fechaFinalizacion;
+        this.fechaSolicitud = fechaSolicitud;
+        this.operador = operador;
+        this.vehiculoSeleccionado = vehiculoSeleccionado;
+        this.clienteRelacionado = clienteRelacionado;
+        this.serviciosOpcionales = serviciosOpcionales;
+        this.numeroFactura = numeroFactura;
+    }
+    
     public String getSedeRecogida() {
         return sedeRecogida;
     }
@@ -75,12 +90,12 @@ public class Reserva {
         this.serviciosOpcionales = serviciosOpcionales;
     }
 
-    public int getFactura() {
-        return factura;
+    public int getNumeroFactura() {
+        return numeroFactura;
     }
 
-    public void setFactura(int factura) {
-        this.factura = factura;
+    public void setNumeroFactura(int numeroFactura) {
+        this.numeroFactura = numeroFactura;
     }
 
     public Calendar getFechaInicio() {
@@ -105,6 +120,15 @@ public class Reserva {
 
     public void setFechaSolicitud(Calendar fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "sedeRecogida=" + sedeRecogida + ", sedeEntrega=" + sedeEntrega + 
+                ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + 
+                ", fechaSolicitud=" + fechaSolicitud + ", operador=" + operador + ", vehiculoSeleccionado=" 
+                + vehiculoSeleccionado + ", clienteRelacionado=" + clienteRelacionado + ", serviciosOpcionales=" 
+                + serviciosOpcionales + ", numeroFactura=" + numeroFactura + '}';
     }
     
     

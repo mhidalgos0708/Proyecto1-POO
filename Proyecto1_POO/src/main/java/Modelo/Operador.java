@@ -17,6 +17,13 @@ public class Operador {
 
     public Operador() {} 
 
+    public Operador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado) {
+        this.correoElectronico = correoElectronico;
+        this.contraseña = contraseña;
+        this.nombreCompleto = nombreCompleto;
+        this.estado = estado;
+    }
+    
     public String getCorreoElectronico() {
         return correoElectronico;
     }
@@ -47,6 +54,12 @@ public class Operador {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Operador{" + "correoElectronico=" + correoElectronico + ", contrase\u00f1a=" 
+                + contraseña + ", nombreCompleto=" + nombreCompleto + ", estado=" + estado + '}';
     }
     
     

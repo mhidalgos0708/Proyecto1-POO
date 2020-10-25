@@ -14,7 +14,7 @@ import java.util.Calendar;
  */
 public class Vehiculo {
     private String placa;
-    private Calendar añoFabricacion;
+    private int añoFabricacion;
     private TEstilo estilo;
     private String color;
     private String marca;
@@ -34,6 +34,31 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
+    public Vehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
+                    int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
+                    String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
+                    TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen) {
+        this.placa = placa;
+        this.añoFabricacion = añoFabricacion;
+        this.estilo = estilo;
+        this.color = color;
+        this.marca = marca;
+        this.capacidad = capacidad;
+        this.kilometraje = kilometraje;
+        this.numeroPuertas = numeroPuertas;
+        this.numeroVin = numeroVin;
+        this.mpg = mpg;
+        this.sede = sede;
+        this.costoDiario = costoDiario;
+        this.capacidadMaletas = capacidadMaletas;
+        this.tipoTransmision = tipoTransmision;
+        this.estado = estado;
+        this.listaServiciosRelacionados = listaServiciosRelacionados;
+        this.imagen = imagen;
+    }
+    
+    
+
     public String getPlaca() {
         return placa;
     }
@@ -42,11 +67,11 @@ public class Vehiculo {
         this.placa = placa;
     }
 
-    public Calendar getAñoFabricacion() {
+    public int getAñoFabricacion() {
         return añoFabricacion;
     }
 
-    public void setAñoFabricacion(Calendar añoFabricacion) {
+    public void setAñoFabricacion(int añoFabricacion) {
         this.añoFabricacion = añoFabricacion;
     }
 
@@ -168,6 +193,17 @@ public class Vehiculo {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" + "placa=" + placa + ", a\u00f1oFabricacion=" + añoFabricacion + 
+                ", estilo=" + estilo + ", color=" + color + ", marca=" + marca + ", capacidad=" 
+                + capacidad + ", kilometraje=" + kilometraje + ", numeroPuertas=" + numeroPuertas 
+                + ", numeroVin=" + numeroVin + ", mpg=" + mpg + ", sede=" + sede + ", costoDiario=" 
+                + costoDiario + ", capacidadMaletas=" + capacidadMaletas + ", tipoTransmision=" + 
+                tipoTransmision + ", estado=" + estado + ", listaServiciosRelacionados=" + 
+                listaServiciosRelacionados + ", imagen=" + imagen + '}';
     }
     
     
