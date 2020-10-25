@@ -37,8 +37,8 @@ import org.json.simple.parser.ParseException;
  * @author Silvia Rodriguez
  */
 public class AdministradorAplicacion {
-    private ArrayList<Cliente> listaClientes;
-    private ArrayList<Operador> listaOperadores;
+    private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+    private ArrayList<Operador> listaOperadores = new ArrayList<Operador>();
     private ArrayList<Vehiculo> listaVehiculos;
     private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento;
     private ArrayList<Servicio> listaServicios;
@@ -50,7 +50,7 @@ public class AdministradorAplicacion {
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
                    Calendar fechaExpiracionLicencia, String imagen, boolean lectura)
     {
-        if(obtenerCliente(cedula) == null) {
+        /*if(obtenerCliente(cedula) == null) {*/
             Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
                                            numeroLicencia, fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,
                                            imagen);
@@ -58,7 +58,7 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("clientes.json","Cliente");
             }
-        }
+        //}
     }
     public void registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
@@ -101,13 +101,13 @@ public class AdministradorAplicacion {
     }
     public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
     {
-        if(obtenerOperador(correoElectronico) == null) {
+        //if(obtenerOperador(correoElectronico) == null) {
             Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
             listaOperadores.add(nuevoOperador);
             if(!lectura) {
                 agregarInformacionJSON("operadores.json","Operador");
             }
-        }
+        //}
     }
     public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
@@ -369,10 +369,14 @@ public class AdministradorAplicacion {
     //NombresObjeto Cliente, Operador, Vehiculo, Empresa, Servicio, Reserva
     public boolean agregarInformacionJSON(String nombreArchivo, String nombreObjeto) {
         JSONParser jsonParser = new JSONParser();
+        JSONArray listaDatosJSON;
         try (FileReader reader = new FileReader(nombreArchivo)) {
-            Object objetos = jsonParser.parse(reader);
-            JSONArray listaDatosJSON = (JSONArray) objetos;
-            
+            if(listaTieneDatos(nombreObjeto)) {
+                Object objetos = jsonParser.parse(reader);
+                listaDatosJSON = (JSONArray) objetos;
+            } else {
+                listaDatosJSON = new JSONArray();
+            }
             JSONObject datoActualJSON = new JSONObject();
             datoActualJSON = agregarDato(datoActualJSON, nombreObjeto);
             
@@ -386,6 +390,7 @@ public class AdministradorAplicacion {
             } catch (IOException e) {
                 return false;
             }
+            
         } catch (FileNotFoundException e) {
             return false;
         } catch (IOException | ParseException e) {
@@ -393,7 +398,7 @@ public class AdministradorAplicacion {
         }
         return true;
     }
-    
+   
     public JSONObject agregarDato(JSONObject dato, String nombreObjeto) {
         switch(nombreObjeto) {
             case "Cliente":
@@ -415,6 +420,7 @@ public class AdministradorAplicacion {
                 dato.put("Contraseña", ultimoOperador.getContraseña());
                 dato.put("Nombre", ultimoOperador.getNombreCompleto());
                 dato.put("Estado", ultimoOperador.isEstado());
+                break;
             case "Vehiculo":
                 Vehiculo ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
                 dato.put("Placa", ultimoVehiculo.getPlaca());
@@ -472,4 +478,13 @@ public class AdministradorAplicacion {
         }
         return dato;
     }
+    
+    public boolean listaTieneDatos(String nombreObjeto) {
+        switch(nombreObjeto) {
+            case "Operador":
+                return listaOperadores.size() > 1;
+        }
+        return false;
+    }
+    
 }
