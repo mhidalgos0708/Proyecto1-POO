@@ -5,8 +5,9 @@
  */
 package Modelo;
 
+import Controlador.Utilitaria;
 import java.util.Calendar;
-import java.util.Dictionary;
+import java.util.HashMap;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Reserva {
     private Operador operador;
     private Vehiculo vehiculoSeleccionado;
     private Cliente clienteRelacionado;
-    private Dictionary serviciosOpcionales;
+    private HashMap serviciosOpcionales;
     private int numeroFactura;
 
     public Reserva() {
@@ -29,7 +30,7 @@ public class Reserva {
 
     public Reserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
-                   Dictionary serviciosOpcionales, int numeroFactura) {
+                   HashMap serviciosOpcionales, int numeroFactura) {
         this.sedeRecogida = sedeRecogida;
         this.sedeEntrega = sedeEntrega;
         this.fechaInicio = fechaInicio;
@@ -82,11 +83,11 @@ public class Reserva {
         this.clienteRelacionado = clienteRelacionado;
     }
 
-    public Dictionary getServiciosOpcionales() {
+    public HashMap getServiciosOpcionales() {
         return serviciosOpcionales;
     }
 
-    public void setServiciosOpcionales(Dictionary serviciosOpcionales) {
+    public void setServiciosOpcionales(HashMap serviciosOpcionales) {
         this.serviciosOpcionales = serviciosOpcionales;
     }
 
@@ -125,10 +126,10 @@ public class Reserva {
     @Override
     public String toString() {
         return "Reserva{" + "sedeRecogida=" + sedeRecogida + ", sedeEntrega=" + sedeEntrega + 
-                ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + 
-                ", fechaSolicitud=" + fechaSolicitud + ", operador=" + operador + ", vehiculoSeleccionado=" 
-                + vehiculoSeleccionado + ", clienteRelacionado=" + clienteRelacionado + ", serviciosOpcionales=" 
-                + serviciosOpcionales + ", numeroFactura=" + numeroFactura + '}';
+                ", fechaInicio=" + Utilitaria.formatoFecha(fechaInicio) + ", fechaFinalizacion=" +
+                Utilitaria.formatoFecha(fechaFinalizacion) + ", fechaSolicitud=" + Utilitaria.formatoFecha(fechaSolicitud) + 
+                ", operador=" + operador + ", vehiculoSeleccionado=" + vehiculoSeleccionado + ", clienteRelacionado=" + 
+                clienteRelacionado + ", serviciosOpcionales=" + serviciosOpcionales + ", numeroFactura=" + numeroFactura + '}';
     }
     
     

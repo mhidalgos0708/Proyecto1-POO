@@ -19,7 +19,6 @@ import Modelo.TTransmision;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Dictionary;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +28,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -43,7 +43,7 @@ public class AdministradorAplicacion {
     private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento = new ArrayList<EmpresaMantenimiento>();
     private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
     private ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
-    private Dictionary ServiciosEspeciales;
+    private HashMap ServiciosEspeciales;
     private int numeroFactura;
     
     public void registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
@@ -111,11 +111,14 @@ public class AdministradorAplicacion {
     }
     public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
-                   Dictionary serviciosOpcionales, boolean lectura)
+                   HashMap serviciosOpcionales, boolean lectura)
     {
         Reserva nuevaReserva = new Reserva(sedeRecogida, sedeEntrega, fechaInicio, fechaFinalizacion, fechaSolicitud, operador,
                                            vehiculoSeleccionado, clienteRelacionado, serviciosOpcionales, numeroFactura);
         listaReservas.add(nuevaReserva);
+        if(!lectura) {
+            agregarInformacionJSON("reservas.json","Reserva");
+        }
         numeroFactura++;
     }
     public Vehiculo obtenerVehiculo(String pID)
@@ -195,6 +198,9 @@ public class AdministradorAplicacion {
             }
         }
         return null;
+    }
+    public int getNumeroFactura() {
+        return numeroFactura;
     }
     public ArrayList<Vehiculo> filtrarTipoVehiculo(TEstilo tipo)
     {
@@ -373,10 +379,20 @@ public class AdministradorAplicacion {
                                        (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()), empresa, true);
                 break;
             case "Reserva":
-                /*realizarReserva(dato.get("Sede recogida"), dato.get("Sede entrega"), dato.get("Fecha inicio"), 
-                                dato.get("Fecha final"), dato.get("Fecha solicitud"), dato.get("Operador"), 
-                                dato.get("Vehiculo seleccionado"), dato.get("Cliente relacionado"), 
-                                dato.get("Servicios opcionales"), true);*/
+                HashMap<String, Double> dicServiciosOpcionales = new HashMap<String, Double>();
+                JSONArray serviciosOpcionales = (JSONArray) dato.get("Servicios opcionales");
+                for(int i = 0; i < dicServiciosOpcionales.size(); i++) {
+                    JSONArray pares = (JSONArray) dato.get("Servicio opcional");
+                    for(int j = 0; j < pares.size(); j++) {
+                        JSONObject par = (JSONObject) serviciosOpcionales.get(j);
+                        dicServiciosOpcionales.put((par.get("Key")).toString(), Double.parseDouble((par.get("Value")).toString()));
+                    }
+                }
+                realizarReserva((dato.get("Sede recogida")).toString(), (dato.get("Sede entrega")).toString(), 
+                                Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
+                                Utilitaria.obtenerFecha((dato.get("Fecha solicitud")).toString()), obtenerOperador(buscarObjeto(dato, "Operador", "Correo")),
+                                obtenerVehiculo(buscarObjeto(dato, "Vehiculo", "Placa")), obtenerCliente(buscarObjeto(dato, "Cliente", "Cedula")), 
+                                dicServiciosOpcionales, true);
                 break;
             default:
                 break;
@@ -449,7 +465,12 @@ public class AdministradorAplicacion {
                 dato.put("Estado", ultimoOperador.isEstado());
                 break;
             case "Vehiculo":
-                Vehiculo ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
+                Vehiculo ultimoVehiculo;
+                if(ultimo) {
+                    ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
+                } else {
+                    ultimoVehiculo = listaReservas.get(listaReservas.size()-1).getVehiculoSeleccionado();
+                }
                 ArrayList<Servicio> listaServiciosRegistrados = ultimoVehiculo.getListaServiciosRelacionados();
                 JSONObject servicioJSON = new JSONObject();
                 JSONArray listaServiciosJSON = new JSONArray();
@@ -512,15 +533,30 @@ public class AdministradorAplicacion {
                 break;
             case "Reserva":
                 Reserva ultimaReserva = listaReservas.get(listaReservas.size()-1);
+                JSONArray operadorJSON = prepararArrayObjetos("Operador");
+                JSONArray vehiculoJSON = prepararArrayObjetos("Vehiculo");
+                JSONArray clienteJSON = prepararArrayObjetos("Cliente");
+                HashMap<String, Double> serviciosOpcionales = ultimaReserva.getServiciosOpcionales();
+                JSONArray serviciosOpcionalesJSON = new JSONArray();
+                for (String i : serviciosOpcionales.keySet()) {
+                    JSONArray par = new JSONArray();
+                    JSONObject key = new JSONObject();
+                    key.put("Key", i);
+                    JSONObject value = new JSONObject();
+                    value.put("Value", serviciosOpcionales.get(i));
+                    par.add(key);
+                    par.add(value);
+                    serviciosOpcionalesJSON.add(par);
+                }
                 dato.put("Sede recogida", ultimaReserva.getSedeRecogida());
                 dato.put("Sede entrega", ultimaReserva.getSedeEntrega());
-                dato.put("Fecha inicio", ultimaReserva.getFechaInicio());
-                dato.put("Fecha final", ultimaReserva.getFechaFinalizacion());
-                dato.put("Fecha solicitud", ultimaReserva.getFechaSolicitud());
-                dato.put("Operador", ultimaReserva.getOperador());
-                dato.put("Vehiculo seleccionado", ultimaReserva.getVehiculoSeleccionado());
-                dato.put("Cliente relacionado", ultimaReserva.getClienteRelacionado());
-                dato.put("Servicios opcionales", ultimaReserva.getServiciosOpcionales());
+                dato.put("Fecha inicio", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaInicio()));
+                dato.put("Fecha final", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaFinalizacion()));
+                dato.put("Fecha solicitud", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaSolicitud()));
+                dato.put("Operador", operadorJSON);
+                dato.put("Vehiculo", vehiculoJSON);
+                dato.put("Cliente", clienteJSON);
+                dato.put("Servicios opcionales", serviciosOpcionalesJSON);
                 break;
             default:
                 break;
@@ -544,6 +580,22 @@ public class AdministradorAplicacion {
                 return listaReservas.size() > 1;
         }
         return false;
+    }
+    
+    public String buscarObjeto(JSONObject dato, String nombreObjeto, String id) {
+        JSONArray listaObjetos = (JSONArray) dato.get(nombreObjeto);
+        JSONObject objetoJSON = (JSONObject) listaObjetos.get(0);
+        System.out.println(nombreObjeto + "         " + id);
+        registrarDato(objetoJSON, nombreObjeto);
+        return (objetoJSON.get(id)).toString();
+    }
+    
+    public JSONArray prepararArrayObjetos(String nombreObjeto) {
+        JSONObject objetoJSON = new JSONObject();
+        JSONArray arrayObjeto = new JSONArray();
+        objetoJSON = agregarDato(objetoJSON, nombreObjeto, false, 0);
+        arrayObjeto.add(objetoJSON);
+        return arrayObjeto;
     }
     
 }
