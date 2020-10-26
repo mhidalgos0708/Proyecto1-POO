@@ -382,11 +382,10 @@ public class AdministradorAplicacion {
                 HashMap<String, Double> dicServiciosOpcionales = new HashMap<String, Double>();
                 JSONArray serviciosOpcionales = (JSONArray) dato.get("Servicios opcionales");
                 for(int i = 0; i < dicServiciosOpcionales.size(); i++) {
-                    JSONArray pares = (JSONArray) dato.get("Servicio opcional");
-                    for(int j = 0; j < pares.size(); j++) {
-                        JSONObject par = (JSONObject) serviciosOpcionales.get(j);
-                        dicServiciosOpcionales.put((par.get("Key")).toString(), Double.parseDouble((par.get("Value")).toString()));
-                    }
+                    JSONArray par = (JSONArray) serviciosOpcionales.get(i);
+                    JSONObject key = (JSONObject) par.get(0);
+                    JSONObject value = (JSONObject) par.get(1);
+                    dicServiciosOpcionales.put((key.get("Key")).toString(), Double.parseDouble((value.get("Value")).toString()));
                 }
                 realizarReserva((dato.get("Sede recogida")).toString(), (dato.get("Sede entrega")).toString(), 
                                 Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
@@ -412,18 +411,15 @@ public class AdministradorAplicacion {
             }
             JSONObject datoActualJSON = new JSONObject();
             datoActualJSON = agregarDato(datoActualJSON, nombreObjeto, true, 0);
-            
             JSONObject paquete = new JSONObject();
             paquete.put(nombreObjeto, datoActualJSON);
             listaDatosJSON.add(paquete);
-            
             try (FileWriter archivo = new FileWriter(nombreArchivo)) {
                 archivo.write(listaDatosJSON.toJSONString());
                 archivo.flush();
             } catch (IOException e) {
                 return false;
             }
-            
         } catch (FileNotFoundException e) {
             return false;
         } catch (IOException | ParseException e) {
@@ -539,13 +535,9 @@ public class AdministradorAplicacion {
                 HashMap<String, Double> serviciosOpcionales = ultimaReserva.getServiciosOpcionales();
                 JSONArray serviciosOpcionalesJSON = new JSONArray();
                 for (String i : serviciosOpcionales.keySet()) {
-                    JSONArray par = new JSONArray();
-                    JSONObject key = new JSONObject();
-                    key.put("Key", i);
-                    JSONObject value = new JSONObject();
-                    value.put("Value", serviciosOpcionales.get(i));
-                    par.add(key);
-                    par.add(value);
+                    JSONObject par = new JSONObject();
+                    par.put("Key", i);
+                    par.put("Value", serviciosOpcionales.get(i));
                     serviciosOpcionalesJSON.add(par);
                 }
                 dato.put("Sede recogida", ultimaReserva.getSedeRecogida());
@@ -585,7 +577,6 @@ public class AdministradorAplicacion {
     public String buscarObjeto(JSONObject dato, String nombreObjeto, String id) {
         JSONArray listaObjetos = (JSONArray) dato.get(nombreObjeto);
         JSONObject objetoJSON = (JSONObject) listaObjetos.get(0);
-        System.out.println(nombreObjeto + "         " + id);
         registrarDato(objetoJSON, nombreObjeto);
         return (objetoJSON.get(id)).toString();
     }

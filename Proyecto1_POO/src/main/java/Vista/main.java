@@ -68,7 +68,7 @@ public class main {
         Cliente cliente1 = adminApp.obtenerCliente("2");
         //adminApp.registrarOperador("nanahs0708@gmail.com", "12324234", "Mariana", false, false);
         Operador operador1 = adminApp.obtenerOperador("nanahs0708@gmail.com");
-        //adminApp.realizarReserva("Escazú", "Escazú", fExpiracion, fExpiracion, fExpiracion, operador1, vehiculo1, cliente1, diccionario,false);
+        adminApp.realizarReserva("Escazú", "Escazú", fEmision, fEmision, fEmision, operador1, vehiculo1, cliente1, diccionario,false);
         Reserva reserva1 = adminApp.obtenerReserva(adminApp.getNumeroFactura()-1);
         System.out.println(reserva1.toString());
     }
