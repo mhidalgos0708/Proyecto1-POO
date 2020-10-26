@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Controlador.Utilitaria;
 import java.util.Calendar;
 
 /**
@@ -127,8 +128,8 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "nombreCompleto=" + nombreCompleto + ", cedula=" + cedula + ", direccionExacta=" + 
                 direccionExacta + ", correoElectronico=" + correoElectronico + ", telefono=" + telefono + ", "
-                + "numeroLicencia=" + numeroLicencia + ", fechaEmisionLicencia=" + fechaEmisionLicencia + 
-                ", tipoLicencia=" + tipoLicencia + ", fechaExpiracionLicencia=" + fechaExpiracionLicencia + 
+                + "numeroLicencia=" + numeroLicencia + ", fechaEmisionLicencia=" + Utilitaria.formatoFecha(fechaEmisionLicencia) + 
+                ", tipoLicencia=" + tipoLicencia + ", fechaExpiracionLicencia=" + Utilitaria.formatoFecha(fechaExpiracionLicencia) + 
                 ", imagen=" + imagen + '}';
     }
     

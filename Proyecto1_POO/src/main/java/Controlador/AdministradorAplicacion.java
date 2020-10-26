@@ -39,10 +39,10 @@ import org.json.simple.parser.ParseException;
 public class AdministradorAplicacion {
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     private ArrayList<Operador> listaOperadores = new ArrayList<Operador>();
-    private ArrayList<Vehiculo> listaVehiculos;
-    private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento;
-    private ArrayList<Servicio> listaServicios;
-    private ArrayList<Reserva> listaReservas;
+    private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
+    private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento = new ArrayList<EmpresaMantenimiento>();
+    private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
+    private ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
     private Dictionary ServiciosEspeciales;
     private int numeroFactura;
     
@@ -50,7 +50,7 @@ public class AdministradorAplicacion {
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
                    Calendar fechaExpiracionLicencia, String imagen, boolean lectura)
     {
-        /*if(obtenerCliente(cedula) == null) {*/
+        if(obtenerCliente(cedula) == null) {
             Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
                                            numeroLicencia, fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,
                                            imagen);
@@ -58,7 +58,7 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("clientes.json","Cliente");
             }
-        //}
+        }
     }
     public void registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
@@ -101,13 +101,13 @@ public class AdministradorAplicacion {
     }
     public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
     {
-        //if(obtenerOperador(correoElectronico) == null) {
+        if(obtenerOperador(correoElectronico) == null) {
             Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
             listaOperadores.add(nuevoOperador);
             if(!lectura) {
                 agregarInformacionJSON("operadores.json","Operador");
             }
-        //}
+        }
     }
     public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
@@ -297,7 +297,7 @@ public class AdministradorAplicacion {
         {
             if(Telefono.charAt(i) != '1' && Telefono.charAt(i) != '2' && Telefono.charAt(i) != '3' &&
                Telefono.charAt(i) != '4' && Telefono.charAt(i) != '5' && Telefono.charAt(i) != '6' &&
-               Telefono.charAt(i) != '7' && Telefono.charAt(i) != '8' && Telefono.charAt(i) != '0' &&
+               Telefono.charAt(i) != '7' && Telefono.charAt(i) != '8' && Telefono.charAt(i) != '9' &&
                Telefono.charAt(i) != '0')
             {
                 return false;
@@ -329,31 +329,44 @@ public class AdministradorAplicacion {
     public void registrarDato(JSONObject dato, String nombreObjeto) {
         switch(nombreObjeto) {
             case "Cliente":
-                /*registrarCliente(dato.get("Nombre"), dato.get("Cedula"), dato.get("Direccion"), 
-                                   dato.get("Correo"), dato.get("Telefono"), dato.get("Numero licencia"),
-                                   dato.get("Fecha emision licencia"), dato.get("Tipo licencia"), 
-                                   dato.get("Fecha expiracion licencia"), dato.get("Imagen"), true);*/
+                registrarCliente((dato.get("Nombre")).toString(), (dato.get("Cedula")).toString(), (dato.get("Direccion")).toString(), 
+                                (dato.get("Correo")).toString(), (dato.get("Telefono")).toString(), (dato.get("Numero licencia")).toString(),
+                                Utilitaria.obtenerFecha((dato.get("Fecha emision licencia")).toString()), TLicencia.valueOf((dato.get("Tipo licencia")).toString()), 
+                                Utilitaria.obtenerFecha((dato.get("Fecha expiracion licencia")).toString()), (dato.get("Imagen")).toString(), true);
                 break;
             case "Operador":
                 registrarOperador((dato.get("Correo")).toString(), (dato.get("Contraseña")).toString(), 
                                   (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()), true);
                 break;
             case "Vehiculo":
-                /*registrarVehiculo(dato.get("Placa"), dato.get("Año fabricación"), dato.get("Estilo"), dato.get("Color"), 
-                                  dato.get("Marca"), dato.get("Capacidad"), dato.get("Kilometraje"), dato.get("Numero puertas"),
-                                  dato.get("Numero vin"), dato.get("Mpg"), dato.get("Sede"), dato.get("Costo diario"), 
-                                  dato.get("Capacidad maletas"), dato.get("Transmision"), dato.get("Estado"), 
-                                  dato.get("Lista servicios relacionados"), dato.get("Imagen"), true);*/
+                ArrayList<Servicio> listaServiciosRelacionados = new ArrayList<Servicio>();
+                JSONArray servicios = (JSONArray) dato.get("Lista servicios relacionados");
+                for(int i = 0; i < servicios.size(); i++) {
+                    registrarDato((JSONObject) servicios.get(i), "Servicio");
+                    listaServiciosRelacionados.add(listaServicios.get(listaServicios.size()-1));
+                }
+                registrarVehiculo((dato.get("Placa")).toString(), Integer.parseInt((dato.get("Año fabricación")).toString()),
+                                  TEstilo.valueOf((dato.get("Estilo")).toString()), (dato.get("Color")).toString(), (dato.get("Marca")).toString(), 
+                                  Integer.parseInt((dato.get("Capacidad")).toString()), Double.parseDouble((dato.get("Kilometraje")).toString()),
+                                  Integer.parseInt((dato.get("Numero puertas")).toString()), (dato.get("Numero vin")).toString(),
+                                  Double.parseDouble((dato.get("Mpg")).toString()), (dato.get("Sede")).toString(), 
+                                  Double.parseDouble((dato.get("Costo diario")).toString()), Integer.parseInt((dato.get("Capacidad maletas")).toString()),
+                                  TTransmision.valueOf((dato.get("Transmision")).toString()), TEstado.valueOf(( dato.get("Estado")).toString()), 
+                                  listaServiciosRelacionados, (dato.get("Imagen")).toString(), true);
                 break;
             case "Empresa":
-                /*registrarEmpresaServicios(dato.get("Razon social"), dato.get("Cedula"), dato.get("Telefono"), 
-                                          dato.get("Provincia"), dato.get("Canton"), dato.get("Distrito"),
-                                          dato.get("Señas"), true);*/
+                registrarEmpresaServicios((dato.get("Razon social")).toString(), (dato.get("Cedula")).toString(), 
+                                          (dato.get("Telefono")).toString(), (dato.get("Provincia")).toString(), 
+                                          (dato.get("Canton")).toString(), (dato.get("Distrito")).toString(),
+                                          (dato.get("Señas")).toString(), true);
                 break;
             case "Servicio":
-                /*registrarNuevoServicio(dato.get("Identificador"), dato.get("Fecha inicio"), dato.get("Fecha final"), 
-                                       dato.get("Monto pagado"), dato.get("Detalles"), dato.get("Tipo"), 
-                                       dato.get("Empresa relacionada"), true);*/
+                JSONArray empresas = (JSONArray) dato.get("Empresa relacionada");
+                registrarDato((JSONObject) empresas.get(0), "Empresa");
+                EmpresaMantenimiento empresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                registrarNuevoServicio(Integer.parseInt((dato.get("Identificador")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()),
+                                       Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), Double.parseDouble((dato.get("Monto pagado")).toString()),
+                                       (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()), empresa, true);
                 break;
             case "Reserva":
                 /*realizarReserva(dato.get("Sede recogida"), dato.get("Sede entrega"), dato.get("Fecha inicio"), 
@@ -378,7 +391,7 @@ public class AdministradorAplicacion {
                 listaDatosJSON = new JSONArray();
             }
             JSONObject datoActualJSON = new JSONObject();
-            datoActualJSON = agregarDato(datoActualJSON, nombreObjeto);
+            datoActualJSON = agregarDato(datoActualJSON, nombreObjeto, true, 0);
             
             JSONObject paquete = new JSONObject();
             paquete.put(nombreObjeto, datoActualJSON);
@@ -399,23 +412,33 @@ public class AdministradorAplicacion {
         return true;
     }
    
-    public JSONObject agregarDato(JSONObject dato, String nombreObjeto) {
+    public JSONObject agregarDato(JSONObject dato, String nombreObjeto, boolean ultimo, int indice) {
         switch(nombreObjeto) {
             case "Cliente":
-                Cliente ultimoCliente = listaClientes.get(listaClientes.size()-1);
+                Cliente ultimoCliente;
+                if(ultimo) {
+                    ultimoCliente = listaClientes.get(listaClientes.size()-1);
+                } else {
+                    ultimoCliente = (listaReservas.get(listaReservas.size()-1)).getClienteRelacionado();
+                }
                 dato.put("Nombre", ultimoCliente.getNombreCompleto());
                 dato.put("Cedula", ultimoCliente.getCedula());
                 dato.put("Direccion", ultimoCliente.getDireccionExacta());
                 dato.put("Correo", ultimoCliente.getCorreoElectronico());
                 dato.put("Telefono", ultimoCliente.getTelefono());
                 dato.put("Numero licencia", ultimoCliente.getNumeroLicencia());
-                dato.put("Fecha emision licencia", ultimoCliente.getFechaEmisionLicencia());
-                dato.put("Tipo licencia", ultimoCliente.getTipoLicencia());
-                dato.put("Fecha expiracion licencia", ultimoCliente.getFechaExpiracionLicencia());
+                dato.put("Fecha emision licencia", Utilitaria.formatoFechaJSON(ultimoCliente.getFechaEmisionLicencia()));
+                dato.put("Tipo licencia", (ultimoCliente.getTipoLicencia()).toString());
+                dato.put("Fecha expiracion licencia", Utilitaria.formatoFechaJSON(ultimoCliente.getFechaExpiracionLicencia()));
                 dato.put("Imagen", ultimoCliente.getImagen());
                 break;
             case "Operador":
-                Operador ultimoOperador = listaOperadores.get(listaOperadores.size()-1);
+                Operador ultimoOperador;
+                if(ultimo) {
+                    ultimoOperador = listaOperadores.get(listaOperadores.size()-1);
+                } else {
+                    ultimoOperador = (listaReservas.get(listaReservas.size()-1)).getOperador();
+                }
                 dato.put("Correo", ultimoOperador.getCorreoElectronico());
                 dato.put("Contraseña", ultimoOperador.getContraseña());
                 dato.put("Nombre", ultimoOperador.getNombreCompleto());
@@ -423,9 +446,16 @@ public class AdministradorAplicacion {
                 break;
             case "Vehiculo":
                 Vehiculo ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
+                ArrayList<Servicio> listaServiciosRegistrados = ultimoVehiculo.getListaServiciosRelacionados();
+                JSONObject servicioJSON = new JSONObject();
+                JSONArray listaServiciosJSON = new JSONArray();
+                for(int i = 0; i < listaServiciosRegistrados.size(); i++) {
+                    servicioJSON = agregarDato(servicioJSON, "Servicio", false, i);
+                    listaServiciosJSON.add(servicioJSON);
+                }
                 dato.put("Placa", ultimoVehiculo.getPlaca());
                 dato.put("Año fabricación", ultimoVehiculo.getAñoFabricacion());
-                dato.put("Estilo", ultimoVehiculo.getEstilo());
+                dato.put("Estilo", (ultimoVehiculo.getEstilo()).toString());
                 dato.put("Color", ultimoVehiculo.getColor());
                 dato.put("Marca", ultimoVehiculo.getMarca());
                 dato.put("Capacidad", ultimoVehiculo.getCapacidad());
@@ -436,13 +466,18 @@ public class AdministradorAplicacion {
                 dato.put("Sede", ultimoVehiculo.getSede());
                 dato.put("Costo diario", ultimoVehiculo.getCostoDiario());
                 dato.put("Capacidad maletas", ultimoVehiculo.getCapacidadMaletas());
-                dato.put("Transmision", ultimoVehiculo.getTipoTransmision());
-                dato.put("Estado", ultimoVehiculo.getEstado());
-                dato.put("Lista servicios relacionados", ultimoVehiculo.getListaServiciosRelacionados());
+                dato.put("Transmision", (ultimoVehiculo.getTipoTransmision()).toString());
+                dato.put("Estado", (ultimoVehiculo.getEstado()).toString());
+                dato.put("Lista servicios relacionados", listaServiciosJSON);
                 dato.put("Imagen", ultimoVehiculo.getImagen());
                 break;
             case "Empresa":
-                EmpresaMantenimiento ultimaEmpresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                EmpresaMantenimiento ultimaEmpresa;
+                if(ultimo) {
+                    ultimaEmpresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                } else {
+                    ultimaEmpresa = (listaServicios.get(listaServicios.size()-1)).getEmpresaRelacionada();
+                }
                 dato.put("Razon social", ultimaEmpresa.getRazonSocial());
                 dato.put("Cedula", ultimaEmpresa.getNumeroCedula());
                 dato.put("Telefono", ultimaEmpresa.getTelefono());
@@ -452,14 +487,24 @@ public class AdministradorAplicacion {
                 dato.put("Señas", ultimaEmpresa.getSeñas());
                 break;
             case "Servicio":
-                Servicio ultimoServicio = listaServicios.get(listaServicios.size()-1);
+                Vehiculo ultimoVehiculoRegistrado = listaVehiculos.get(listaVehiculos.size()-1);
+                Servicio ultimoServicio;
+                if(ultimo) {
+                    ultimoServicio = listaServicios.get(listaServicios.size()-1);
+                } else {
+                    ultimoServicio = ultimoVehiculoRegistrado.getListaServiciosRelacionados().get(indice);
+                }
+                JSONObject empresaJSON = new JSONObject();
+                JSONArray listaEmpresasJSON = new JSONArray();
                 dato.put("Identificador", ultimoServicio.getIdentificador());
-                dato.put("Fecha inicio", ultimoServicio.getFechaInicio());
-                dato.put("Fecha final", ultimoServicio.getFechaFinalizacion());
+                dato.put("Fecha inicio", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaInicio()));
+                dato.put("Fecha final", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaFinalizacion()));
                 dato.put("Monto pagado", ultimoServicio.getMontoPagado());
                 dato.put("Detalles", ultimoServicio.getDetalles());
-                dato.put("Tipo", ultimoServicio.getTipo());
-                dato.put("Empresa relacionada", ultimoServicio.getEmpresaRelacionada());
+                dato.put("Tipo", (ultimoServicio.getTipo()).toString());
+                empresaJSON = agregarDato(empresaJSON, "Empresa", false, 0);
+                listaEmpresasJSON.add(empresaJSON);
+                dato.put("Empresa relacionada", listaEmpresasJSON);
                 break;
             case "Reserva":
                 Reserva ultimaReserva = listaReservas.get(listaReservas.size()-1);
@@ -483,6 +528,16 @@ public class AdministradorAplicacion {
         switch(nombreObjeto) {
             case "Operador":
                 return listaOperadores.size() > 1;
+            case "Empresa":
+                return listaEmpresasMantenimiento.size() > 1;
+            case "Cliente":
+                return listaClientes.size() > 1;
+            case "Servicio":
+                return listaServicios.size() > 1;
+            case "Vehiculo":
+                return listaVehiculos.size() > 1;
+            case "Reserva":
+                return listaReservas.size() > 1;
         }
         return false;
     }

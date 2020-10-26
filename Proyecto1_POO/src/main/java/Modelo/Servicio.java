@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.util.Calendar;
+import Controlador.Utilitaria;
 
 /**
  *
@@ -93,8 +94,8 @@ public class Servicio {
 
     @Override
     public String toString() {
-        return "Servicio{" + "identificador=" + identificador + ", fechaInicio=" + fechaInicio + 
-                ", fechaFinalizacion=" + fechaFinalizacion + ", montoPagado=" + montoPagado + 
+        return "Servicio{" + "identificador=" + identificador + ", fechaInicio=" + Utilitaria.formatoFecha(fechaInicio) + 
+                ", fechaFinalizacion=" + Utilitaria.formatoFecha(fechaFinalizacion) + ", montoPagado=" + montoPagado + 
                 ", detalles=" + detalles + ", tipo=" + tipo + ", empresaRelacionada=" + empresaRelacionada + '}';
     }
     
