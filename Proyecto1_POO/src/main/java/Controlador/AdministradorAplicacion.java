@@ -342,8 +342,10 @@ public class AdministradorAplicacion {
                 ArrayList<Servicio> listaServiciosRelacionados = new ArrayList<Servicio>();
                 JSONArray servicios = (JSONArray) dato.get("Lista servicios relacionados");
                 for(int i = 0; i < servicios.size(); i++) {
-                    registrarDato((JSONObject) servicios.get(i), "Servicio");
-                    listaServiciosRelacionados.add(listaServicios.get(listaServicios.size()-1));
+                    JSONObject servicioJSON = (JSONObject) servicios.get(i);
+                    int identificador = Integer.parseInt((servicioJSON.get("Identificador")).toString());
+                    registrarDato(servicioJSON, "Servicio");
+                    listaServiciosRelacionados.add(obtenerServicio(identificador));
                 }
                 registrarVehiculo((dato.get("Placa")).toString(), Integer.parseInt((dato.get("Año fabricación")).toString()),
                                   TEstilo.valueOf((dato.get("Estilo")).toString()), (dato.get("Color")).toString(), (dato.get("Marca")).toString(), 
@@ -362,8 +364,10 @@ public class AdministradorAplicacion {
                 break;
             case "Servicio":
                 JSONArray empresas = (JSONArray) dato.get("Empresa relacionada");
-                registrarDato((JSONObject) empresas.get(0), "Empresa");
-                EmpresaMantenimiento empresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                JSONObject empresaJSON = (JSONObject) empresas.get(0);
+                String cedulaJuridica = (empresaJSON.get("Cedula")).toString();
+                registrarDato(empresaJSON, "Empresa");
+                EmpresaMantenimiento empresa = obtenerEmpresa(cedulaJuridica);
                 registrarNuevoServicio(Integer.parseInt((dato.get("Identificador")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()),
                                        Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), Double.parseDouble((dato.get("Monto pagado")).toString()),
                                        (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()), empresa, true);
@@ -487,11 +491,11 @@ public class AdministradorAplicacion {
                 dato.put("Señas", ultimaEmpresa.getSeñas());
                 break;
             case "Servicio":
-                Vehiculo ultimoVehiculoRegistrado = listaVehiculos.get(listaVehiculos.size()-1);
                 Servicio ultimoServicio;
                 if(ultimo) {
                     ultimoServicio = listaServicios.get(listaServicios.size()-1);
                 } else {
+                    Vehiculo ultimoVehiculoRegistrado = listaVehiculos.get(listaVehiculos.size()-1);
                     ultimoServicio = ultimoVehiculoRegistrado.getListaServiciosRelacionados().get(indice);
                 }
                 JSONObject empresaJSON = new JSONObject();
