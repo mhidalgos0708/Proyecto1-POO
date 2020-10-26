@@ -20,6 +20,7 @@ import Modelo.TTransmision;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Dictionary;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -222,6 +223,86 @@ public class AdministradorAplicacion {
         return reservasSegunInicio;
     }
    
+    public String generarContraseña()
+    {
+        Random random = new Random();
+        int[] posiblesLongitudes = {8, 9, 10, 11, 12};
+        char[] mayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".toCharArray();
+        char[] minusculas = "abcdefghijklmnñopqrstuvwxyz".toCharArray();
+        char[] numeros = "0123456789".toCharArray();
+        char[] caracteresEspeciales = "!#$?@^~".toCharArray();
+        int mayusLong = mayusculas.length;
+        int minusLong = minusculas.length;
+        int numerosLong = numeros.length;
+        int especialesLong = caracteresEspeciales.length;       
+
+        String contraseña = "";
+        int size = posiblesLongitudes[random.nextInt(5)];
+        int numero = (int)(Math.random()*2);
+        for(int i = 0; i < size; i++)
+        {
+            if (i == 0)
+            {
+                contraseña += caracteresEspeciales[random.nextInt(especialesLong)];
+            }
+            else if(i < size/2)
+            {
+                contraseña += numeros[random.nextInt(numerosLong)];
+            }
+            else
+            {
+                if(numero == 1)
+                {
+                    if(i % 2 == 0)
+                    {
+                        contraseña += mayusculas[random.nextInt(mayusLong)];
+                    }
+                    else
+                    {
+                        contraseña += minusculas[random.nextInt(minusLong)];
+                    }
+                }
+                else
+                {
+                    if(i % 2 != 0)
+                    {
+                        contraseña += mayusculas[random.nextInt(mayusLong)];
+                    }
+                    else
+                    {
+                        contraseña += minusculas[random.nextInt(minusLong)];
+                    }
+                }
+            }
+        }
+        return contraseña;
+    }
+    public boolean verificarPlaca(String placa)
+    {
+        if(placa.length() != 6 && placa.length() != 7)
+        {
+            return false;
+        }
+        else if(placa.length() == 6)
+        {
+            Pattern patron = Pattern.compile("0-9");
+            Matcher comparador = patron.matcher(placa);        
+            return comparador.find();
+        }
+        else
+        {
+            if(placa.charAt(3) != '-')
+            {
+                return false;
+            }
+            else
+            {
+                Pattern patron2 = Pattern.compile("[a-zA-Z][-][0-9]");
+                Matcher comparador = patron2.matcher(placa);        
+                return comparador.find();
+            }
+        }
+    }
     public boolean verificarCorreo(String correo)
     {
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
