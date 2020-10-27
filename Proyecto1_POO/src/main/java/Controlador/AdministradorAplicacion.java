@@ -46,7 +46,7 @@ public class AdministradorAplicacion {
     private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento = new ArrayList<EmpresaMantenimiento>();
     private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
     private ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
-    private HashMap ServiciosEspeciales;
+    private HashMap<String, Double> serviciosEspeciales = new HashMap<String, Double>();
     private int numeroFactura;
     
     public void registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
@@ -204,6 +204,24 @@ public class AdministradorAplicacion {
     }
     public int getNumeroFactura() {
         return numeroFactura;
+    }
+    public HashMap getServiciosEspeciales() {
+        return serviciosEspeciales;
+    }
+    public void inicializarServiciosEspeciales() {
+        serviciosEspeciales.put("WiFi limitado", 15.0);
+        serviciosEspeciales.put("Asistencia en carretera", 3.99);
+        serviciosEspeciales.put("GPS", 13.99);
+        serviciosEspeciales.put("Asiento para niño", 6.99);
+        serviciosEspeciales.put("Cobertura por daños a terceros", 12.99);
+    }
+    public HashMap generarServiciosEspeciales(ArrayList<String> serviciosSeleccionados) {
+        HashMap<String, Double> servicios = new HashMap<>();
+        for(int i = 0; i < serviciosSeleccionados.size(); i++) {
+            String nombreServicio = serviciosSeleccionados.get(i);
+            servicios.put(nombreServicio, serviciosEspeciales.get(nombreServicio));
+        }
+        return servicios;
     }
     public ArrayList<Vehiculo> filtrarTipoVehiculo(TEstilo tipo)
     {
