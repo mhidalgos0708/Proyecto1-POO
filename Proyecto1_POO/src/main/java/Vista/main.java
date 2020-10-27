@@ -59,7 +59,7 @@ public class main {
         Vehiculo vehiculo1 = adminApp.obtenerVehiculo("12387234");
         System.out.println(vehiculo1.toString());
         
-        HashMap<String, Double> diccionario = new HashMap<String, Double>();
+        HashMap<String, Double> diccionario = new HashMap<>();
         diccionario.put("Servicio 1", 5.65);
         diccionario.put("Servicio 2", 7.69);
         diccionario.put("Servicio 3", 2.55);
@@ -68,7 +68,7 @@ public class main {
         Cliente cliente1 = adminApp.obtenerCliente("2");
         //adminApp.registrarOperador("nanahs0708@gmail.com", "12324234", "Mariana", false, false);
         Operador operador1 = adminApp.obtenerOperador("nanahs0708@gmail.com");
-        adminApp.realizarReserva("Escazú", "Escazú", fEmision, fEmision, fEmision, operador1, vehiculo1, cliente1, diccionario,false);
+        ///adminApp.realizarReserva("Escazú", "Escazú", fEmision, fEmision, fEmision, operador1, vehiculo1, cliente1, diccionario,false);
         Reserva reserva1 = adminApp.obtenerReserva(adminApp.getNumeroFactura()-1);
         System.out.println(reserva1.toString());
     }

@@ -428,7 +428,7 @@ public class AdministradorAplicacion {
                                   (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()), true);
                 break;
             case "Vehiculo":
-                ArrayList<Servicio> listaServiciosRelacionados = new ArrayList<Servicio>();
+                ArrayList<Servicio> listaServiciosRelacionados = new ArrayList<>();
                 JSONArray servicios = (JSONArray) dato.get("Lista servicios relacionados");
                 for(int i = 0; i < servicios.size(); i++) {
                     JSONObject servicioJSON = (JSONObject) servicios.get(i);
@@ -462,13 +462,11 @@ public class AdministradorAplicacion {
                                        (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()), empresa, true);
                 break;
             case "Reserva":
-                HashMap<String, Double> dicServiciosOpcionales = new HashMap<String, Double>();
+                HashMap<String, Double> dicServiciosOpcionales = new HashMap<>();
                 JSONArray serviciosOpcionales = (JSONArray) dato.get("Servicios opcionales");
-                for(int i = 0; i < dicServiciosOpcionales.size(); i++) {
-                    JSONArray par = (JSONArray) serviciosOpcionales.get(i);
-                    JSONObject key = (JSONObject) par.get(0);
-                    JSONObject value = (JSONObject) par.get(1);
-                    dicServiciosOpcionales.put((key.get("Key")).toString(), Double.parseDouble((value.get("Value")).toString()));
+                for(int i = 0; i < serviciosOpcionales.size(); i++) {
+                    JSONObject par = (JSONObject) serviciosOpcionales.get(i);
+                    dicServiciosOpcionales.put((par.get("Key")).toString(), Double.parseDouble((par.get("Value")).toString()));
                 }
                 realizarReserva((dato.get("Sede recogida")).toString(), (dato.get("Sede entrega")).toString(), 
                                 Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
