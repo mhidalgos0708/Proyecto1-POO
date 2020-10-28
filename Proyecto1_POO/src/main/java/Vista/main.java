@@ -20,6 +20,7 @@ import Modelo.TTransmision;
 import java.util.ArrayList;
 import Modelo.Vehiculo;
 import java.util.HashMap;
+import Controlador.EnviarEmail;
 /**
  *
  * @author mhidalgos0708
@@ -80,6 +81,8 @@ public class main {
         if(adminApp.editarVehiculoJSON("6128374", diccionario2)) {
             System.out.println((adminApp.obtenerVehiculo("6128374")).toString());
         }
+        
+        //EnviarEmail.enviarCorreo(correo, asunto, texto, direccion);
         
     }
 }
