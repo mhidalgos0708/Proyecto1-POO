@@ -123,7 +123,7 @@ public class Reserva {
         this.fechaSolicitud = fechaSolicitud;
     }
 
-    public long getDuracion()
+    public int getDuracion()
     {
         int days = 0;
         while (fechaInicio.compareTo(fechaFinalizacion) < 0) 
