@@ -29,4 +29,12 @@ public class Utilitaria {
         return fechaCalendar.get(Calendar.DATE)+" "+(fechaCalendar.get(Calendar.MONTH)+1)+" "+fechaCalendar.get(Calendar.YEAR);
     }
     
+    public static String verificarMetodo(boolean estadoMetodo) {
+        if(estadoMetodo) {
+            return "El proceso ha concluido existosamente.";
+        } else {
+            return "Ha ocurrido un error.";
+        }
+    }
+    
 }
