@@ -557,7 +557,7 @@ public class AdministradorAplicacion {
                 dato.put("Correo", ultimoOperador.getCorreoElectronico());
                 dato.put("Contraseña", ultimoOperador.getContraseña());
                 dato.put("Nombre", ultimoOperador.getNombreCompleto());
-                dato.put("Estado", ultimoOperador.isEstado());
+                dato.put("Estado", String.valueOf(ultimoOperador.isEstado()));
                 break;
             case "Vehiculo":
                 Vehiculo ultimoVehiculo;
@@ -574,18 +574,18 @@ public class AdministradorAplicacion {
                     listaServiciosJSON.add(servicioJSON);
                 }
                 dato.put("Placa", ultimoVehiculo.getPlaca());
-                dato.put("Año fabricación", ultimoVehiculo.getAñoFabricacion());
+                dato.put("Año fabricación", Integer.toString(ultimoVehiculo.getAñoFabricacion()));
                 dato.put("Estilo", (ultimoVehiculo.getEstilo()).toString());
                 dato.put("Color", ultimoVehiculo.getColor());
                 dato.put("Marca", ultimoVehiculo.getMarca());
-                dato.put("Capacidad", ultimoVehiculo.getCapacidad());
-                dato.put("Kilometraje", ultimoVehiculo.getKilometraje());
-                dato.put("Numero puertas", ultimoVehiculo.getNumeroPuertas());
+                dato.put("Capacidad", Integer.toString(ultimoVehiculo.getCapacidad()));
+                dato.put("Kilometraje", Double.toString(ultimoVehiculo.getKilometraje()));
+                dato.put("Numero puertas", Integer.toString(ultimoVehiculo.getNumeroPuertas()));
                 dato.put("Numero vin", ultimoVehiculo.getNumeroVin());
-                dato.put("Mpg", ultimoVehiculo.getMpg());
+                dato.put("Mpg", Double.toString(ultimoVehiculo.getMpg()));
                 dato.put("Sede", ultimoVehiculo.getSede());
-                dato.put("Costo diario", ultimoVehiculo.getCostoDiario());
-                dato.put("Capacidad maletas", ultimoVehiculo.getCapacidadMaletas());
+                dato.put("Costo diario", Double.toString(ultimoVehiculo.getCostoDiario()));
+                dato.put("Capacidad maletas", Integer.toString(ultimoVehiculo.getCapacidadMaletas()));
                 dato.put("Transmision", (ultimoVehiculo.getTipoTransmision()).toString());
                 dato.put("Estado", (ultimoVehiculo.getEstado()).toString());
                 dato.put("Lista servicios relacionados", listaServiciosJSON);
@@ -616,10 +616,10 @@ public class AdministradorAplicacion {
                 }
                 JSONObject empresaJSON = new JSONObject();
                 JSONArray listaEmpresasJSON = new JSONArray();
-                dato.put("Identificador", ultimoServicio.getIdentificador());
+                dato.put("Identificador", Integer.toString(ultimoServicio.getIdentificador()));
                 dato.put("Fecha inicio", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaInicio()));
                 dato.put("Fecha final", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaFinalizacion()));
-                dato.put("Monto pagado", ultimoServicio.getMontoPagado());
+                dato.put("Monto pagado", Double.toString(ultimoServicio.getMontoPagado()));
                 dato.put("Detalles", ultimoServicio.getDetalles());
                 dato.put("Tipo", (ultimoServicio.getTipo()).toString());
                 empresaJSON = agregarDato(empresaJSON, "Empresa", false, 0);
@@ -686,6 +686,34 @@ public class AdministradorAplicacion {
         objetoJSON = agregarDato(objetoJSON, nombreObjeto, false, 0);
         arrayObjeto.add(objetoJSON);
         return arrayObjeto;
+    }
+    
+    public boolean editarVehiculoJSON(String placa, HashMap edicion) {
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("vehiculos.json")) {
+            Object objetos = jsonParser.parse(reader);
+            JSONArray listaVehiculosJSON = (JSONArray) objetos;
+            for(int i = 0; i < listaVehiculosJSON.size(); i++) { 
+                JSONObject vehiculoActualJSON = (JSONObject) listaVehiculosJSON.get(i);
+                JSONObject vehiculo = (JSONObject) vehiculoActualJSON.get("Vehiculo");
+                for(int j = 0; j < edicion.keySet().size(); j++) {
+                    if((vehiculo.get("Placa")).toString().equals(placa)) {
+                        vehiculo.put(edicion.keySet().toArray()[j], edicion.get(edicion.keySet().toArray()[j]));
+                    }
+                }
+            }
+        try (FileWriter archivo = new FileWriter("vehiculos.json")) {
+                archivo.write(listaVehiculosJSON.toJSONString());
+                archivo.flush();
+            } catch (IOException e) {
+                return false;
+            }
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException | ParseException e) {
+            return false;
+        }
+        return true;
     }
     
 }
