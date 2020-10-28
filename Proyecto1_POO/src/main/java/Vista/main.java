@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import Modelo.Vehiculo;
 import java.util.HashMap;
 import Controlador.EnviarEmail;
+import Controlador.TipoCambioBCCR;
 /**
  *
  * @author mhidalgos0708
@@ -83,6 +84,12 @@ public class main {
         }
         
         //EnviarEmail.enviarCorreo(correo, asunto, texto, direccion);
+        
+        TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
+        //Obtiene el valor double del precio de compra USD
+        System.out.println("Compra: " + servicioTipoCambio.getCompra());
+        //Obtiene el valor double del precio de venta USD
+        System.out.println("Venta: " + servicioTipoCambio.getVenta());
         
     }
 }
