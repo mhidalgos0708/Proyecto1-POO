@@ -886,15 +886,28 @@ public class AdministradorAplicacion {
         documento.add(p15);
         documento.add(p16);
         
+        Paragraph p17 = new Paragraph("\nServicios especiales solicitados:\n");
+        documento.add(p17);
+        double pagoServicios = 0;
         HashMap servicios = laReserva.getServiciosOpcionales();
         for(int i = 0; i < servicios.keySet().size(); i++)
-        {
-            System.out.println(servicios.keySet().toArray()[i].toString());
-            
-            Paragraph se = new Paragraph(servicios.toString());
+        {            
+            String key = servicios.keySet().toArray()[i].toString();
+            Paragraph se = new Paragraph(key);
+            Paragraph costo = new Paragraph(servicios.get(key).toString());
+            costo.setAlignment(Paragraph.ALIGN_RIGHT);
             documento.add(se);
+            documento.add(costo);
+            
+            //pagoServicios += (float)servicios.get(key);
         }
-                
+        Paragraph p18 = new Paragraph("\nTotal de servicios especiales: ");
+        Paragraph p19 = new Paragraph("CRC");
+        p19.setAlignment(Paragraph.ALIGN_RIGHT);
+        documento.add(p18);   
+        documento.add(p19); 
+        
+        
         // Se cierra el documento
         documento.close();
         
