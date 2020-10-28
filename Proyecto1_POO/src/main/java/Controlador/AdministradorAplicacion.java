@@ -77,7 +77,7 @@ public class AdministradorAplicacion {
     private HashMap<String, Double> serviciosEspeciales = new HashMap<String, Double>();
     private int numeroFactura;
     
-    public void registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
+    public boolean registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
                    Calendar fechaExpiracionLicencia, String imagen, boolean lectura)
     {
@@ -89,9 +89,11 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("clientes.json","Cliente");
             }
+            return true;
         }
+        return false;
     }
-    public void registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
+    public boolean registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
                     String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
                     TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen, boolean lectura)
@@ -104,9 +106,11 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("vehiculos.json", "Vehiculo");
             }
+            return true;
         }
+        return false;
     }
-    public void registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
+    public boolean registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
                                           String canton, String distrito, String señas, boolean lectura)
     {
         if(obtenerEmpresa(numeroCedula) == null) {
@@ -116,9 +120,11 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("empresas.json","Empresa");
             }
+            return true;
         }
+        return false;
     }
-    public void registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
+    public boolean registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
                                        String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada, boolean lectura)
     {
         if(obtenerServicio(identificador) == null) {
@@ -128,9 +134,11 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("servicios.json","Servicio");
             }
+            return true;
         }
+        return false;
     }
-    public void registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
+    public boolean registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
     {
         if(obtenerOperador(correoElectronico) == null) {
             Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
@@ -138,9 +146,11 @@ public class AdministradorAplicacion {
             if(!lectura) {
                 agregarInformacionJSON("operadores.json","Operador");
             }
+            return true;
         }
+        return false;
     }
-    public void realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
+    public boolean realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
                    HashMap serviciosOpcionales, boolean lectura)
     {
@@ -151,6 +161,7 @@ public class AdministradorAplicacion {
             agregarInformacionJSON("reservas.json","Reserva");
         }
         numeroFactura++;
+        return true;
     }
     public Vehiculo obtenerVehiculo(String pID)
     {

@@ -22,8 +22,8 @@ import Modelo.Vehiculo;
 import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.util.HashMap;
-
-
+import Controlador.EnviarEmail;
+import Controlador.TipoCambioBCCR;
 /**
  *
  * @author mhidalgos0708
@@ -96,6 +96,12 @@ public class main {
         System.out.println(reserva1.toString());
         
         System.out.println(adminApp.crearPDF(reserva1));
-
+        //EnviarEmail.enviarCorreo(correo, asunto, texto, direccion);
+        
+        TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
+        //Obtiene el valor double del precio de compra USD
+        System.out.println("Compra: " + servicioTipoCambio.getCompra());
+        //Obtiene el valor double del precio de venta USD
+        System.out.println("Venta: " + servicioTipoCambio.getVenta());
     }
 }
