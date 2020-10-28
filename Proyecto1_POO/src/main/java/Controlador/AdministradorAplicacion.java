@@ -690,16 +690,23 @@ public class AdministradorAplicacion {
     
     public boolean editarVehiculoJSON(String placa, HashMap edicion) {
         JSONParser jsonParser = new JSONParser();
+        //Línea para comprobar la actualización de la lista de vehículos
+        Vehiculo vehiculoActual = obtenerVehiculo(placa);
+        
         try (FileReader reader = new FileReader("vehiculos.json")) {
             Object objetos = jsonParser.parse(reader);
             JSONArray listaVehiculosJSON = (JSONArray) objetos;
-            for(int i = 0; i < listaVehiculosJSON.size(); i++) { 
+            for(int i = 0; i < listaVehiculosJSON.size(); i++) {
                 JSONObject vehiculoActualJSON = (JSONObject) listaVehiculosJSON.get(i);
                 JSONObject vehiculo = (JSONObject) vehiculoActualJSON.get("Vehiculo");
                 for(int j = 0; j < edicion.keySet().size(); j++) {
                     if((vehiculo.get("Placa")).toString().equals(placa)) {
                         vehiculo.put(edicion.keySet().toArray()[j], edicion.get(edicion.keySet().toArray()[j]));
                     }
+                    //Línea para comprobar la actualización de la lista de vehículos
+                    setDatoEdicion(vehiculoActual, (edicion.keySet().toArray()[j]).toString(), 
+                                   (edicion.get(edicion.keySet().toArray()[j])).toString());
+                    
                 }
             }
         try (FileWriter archivo = new FileWriter("vehiculos.json")) {
@@ -714,6 +721,59 @@ public class AdministradorAplicacion {
             return false;
         }
         return true;
+    }
+    
+    //Método de prueba para actualizar la lista de vehículos del administrador
+    public void setDatoEdicion(Vehiculo vehiculoActual, String nombreDato, String datoActualizado) {
+        switch(nombreDato) {
+            case "Año fabricación":
+                vehiculoActual.setAñoFabricacion(Integer.parseInt(datoActualizado));
+                break;
+            case "Estilo":
+                vehiculoActual.setEstilo(TEstilo.valueOf(datoActualizado));
+                break;
+            case "Color":
+                vehiculoActual.setColor(datoActualizado);
+                break;
+            case "Marca":
+                vehiculoActual.setMarca(datoActualizado);
+                break;
+            case "Capacidad":
+                vehiculoActual.setCapacidad(Integer.parseInt(datoActualizado));
+                break;
+            case "Kilometraje":
+                vehiculoActual.setKilometraje(Double.parseDouble(datoActualizado));
+                break;
+            case "Numero puertas":
+                vehiculoActual.setNumeroPuertas(Integer.parseInt(datoActualizado));
+                break;
+            case "Numero vin":
+                vehiculoActual.setNumeroVin(datoActualizado);
+                break;
+            case "Mpg":
+                vehiculoActual.setMpg(Double.parseDouble(datoActualizado));
+                break;
+            case "Sede":
+                vehiculoActual.setSede(datoActualizado);
+                break;
+            case "Costo diario":
+                vehiculoActual.setCostoDiario(Double.parseDouble(datoActualizado));
+                break;
+            case "Capacidad maletas":
+                vehiculoActual.setCapacidadMaletas(Integer.parseInt(datoActualizado));
+                break;
+            case "Transmision":
+                vehiculoActual.setTipoTransmision(TTransmision.valueOf(datoActualizado));
+                break;
+            case "Estado":
+                vehiculoActual.setEstado(TEstado.valueOf(datoActualizado));
+                break;
+            case "Imagen":
+                vehiculoActual.setImagen(datoActualizado);
+                break;
+            default:
+                break;
+        }
     }
     
 }

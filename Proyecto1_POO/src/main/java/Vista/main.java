@@ -69,11 +69,16 @@ public class main {
         diccionario2.put("Color", "Azul");
         diccionario2.put("Imagen", "Fotografía");
         
+        System.out.println((adminApp.obtenerVehiculo("28642891")).toString());
+        
         if(adminApp.editarVehiculoJSON("28642891", diccionario)) {
-            System.out.println("YAYYYYYYYY");
+            System.out.println((adminApp.obtenerVehiculo("28642891")).toString());
         }
+        
+        System.out.println((adminApp.obtenerVehiculo("6128374")).toString());
+        
         if(adminApp.editarVehiculoJSON("6128374", diccionario2)) {
-            System.out.println("YAY X2");
+            System.out.println((adminApp.obtenerVehiculo("6128374")).toString());
         }
         
     }
