@@ -19,7 +19,11 @@ import Modelo.TEstilo;
 import Modelo.TTransmision;
 import java.util.ArrayList;
 import Modelo.Vehiculo;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
 import java.util.HashMap;
+
+
 /**
  *
  * @author mhidalgos0708
@@ -28,7 +32,9 @@ public class main {
     
     private static AdministradorAplicacion adminApp = new AdministradorAplicacion();
     
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws DocumentException, IOException {
+        
         adminApp.cargarInformacionJSON("empresas.json", "Empresa");
         adminApp.cargarInformacionJSON("servicios.json", "Servicio");
         adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
@@ -80,6 +86,16 @@ public class main {
         if(adminApp.editarVehiculoJSON("6128374", diccionario2)) {
             System.out.println((adminApp.obtenerVehiculo("6128374")).toString());
         }
+
+        //adminApp.registrarCliente("Mariana", "2", "Escazú", "mhidalgos0708@gmail.com", "+50683926433", "1", fEmision, TLicencia.C1, fExpiracion, "Imagen", false);
+        Cliente cliente1 = adminApp.obtenerCliente("2");
+        //adminApp.registrarOperador("nanahs0708@gmail.com", "12324234", "Mariana", false, false);
+        Operador operador1 = adminApp.obtenerOperador("nanahs0708@gmail.com");
+        //adminApp.realizarReserva("Escazú", "Escazú", fEmision, fEmision, fEmision, operador1, vehiculo1, cliente1, diccionario,false);
+        Reserva reserva1 = adminApp.obtenerReserva(adminApp.getNumeroFactura()-1);
+        System.out.println(reserva1.toString());
         
+        System.out.println(adminApp.crearPDF(reserva1));
+
     }
 }

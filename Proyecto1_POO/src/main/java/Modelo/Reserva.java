@@ -123,6 +123,17 @@ public class Reserva {
         this.fechaSolicitud = fechaSolicitud;
     }
 
+    public long getDuracion()
+    {
+        int days = 0;
+        while (fechaInicio.compareTo(fechaFinalizacion) < 0) 
+        {
+            fechaInicio.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
+            days++;
+        }
+        return days;
+    }
+    
     @Override
     public String toString() {
         return "Reserva{" + "sedeRecogida=" + sedeRecogida + ", sedeEntrega=" + sedeEntrega + 

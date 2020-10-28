@@ -5,6 +5,34 @@
  */
 package Controlador;
 
+import static Controlador.Utilitaria.formatoFecha;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfWriter;
+
+//import com.itextpdf.io.font.FontConstants;
+//import com.itextpdf.kernel.font.PdfFont;
+//import com.itextpdf.kernel.font.PdfFontFactory;
+//import com.itextpdf.kernel.pdf.PdfDocument;
+//import com.itextpdf.kernel.pdf.PdfWriter;
+
+//import com.itextpdf.layout.Document;
+//import com.itextpdf.layout.element.IBlockElement;
+//import com.itextpdf.layout.element.ListItem;
+import com.itextpdf.text.Font;
+//import com.itextpdf.layout.element.Paragraph;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
 import Modelo.Servicio;
 import Modelo.Cliente;
 import Modelo.Operador;
@@ -774,6 +802,92 @@ public class AdministradorAplicacion {
             default:
                 break;
         }
+    }
+
+    public String crearPDF(Reserva laReserva) throws FileNotFoundException, DocumentException, IOException
+    {
+        Document documento = new Document();
+        
+        // El OutPutStream para el fichero donde crearemos el PDF
+        FileOutputStream ficheroPDF = new FileOutputStream("Reserva" + laReserva.getNumeroFactura() + ".pdf");
+        
+        // Se asocia el documento de OutPutStream
+        PdfWriter.getInstance(documento, ficheroPDF);
+        
+        // Se abre el documento
+        documento.open();
+        
+        // Fuente
+        //PdfFont font = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
+        
+        // Parrafo}
+        Paragraph titulo = new Paragraph("Rent A Car",
+                FontFactory.getFont("arial",
+                22,
+                Font.BOLD,
+                BaseColor.BLUE));
+        // Añadimos el titulo al documento    
+        titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        documento.add(titulo);
+        
+        Paragraph p1 = new Paragraph ("\nFecha de solicitud: " + formatoFecha(laReserva.getFechaSolicitud()));
+        Paragraph p2 = new Paragraph("Número de factura: " + laReserva.getNumeroFactura());
+        p1.setAlignment(Paragraph.ALIGN_RIGHT);
+        p2.setAlignment(Paragraph.ALIGN_RIGHT);
+        
+        Operador varOperador = laReserva.getOperador();
+        Paragraph p3 = new Paragraph("\nNombre del operador que le atendió: "
+                + varOperador.getNombreCompleto());
+        
+        Paragraph p4 = new Paragraph("\n\nDatos del cliente");
+        Paragraph p5 = new Paragraph("Nombre completo: " + laReserva.getClienteRelacionado().getNombreCompleto());
+        Paragraph p6 = new Paragraph("Número de teléfono: " + laReserva.getClienteRelacionado().getCedula());
+        Paragraph p7 = new Paragraph("Correo electrónico: " + laReserva.getClienteRelacionado().getCorreoElectronico());
+        Paragraph p8 = new Paragraph("Dirección exacta: " + laReserva.getClienteRelacionado().getDireccionExacta());
+      
+        Paragraph p9 = new Paragraph("\nDatos de la reserva");
+        Paragraph p10 = new Paragraph("Sede donde se entrega el vehículo: " + laReserva.getSedeEntrega());
+        Paragraph p11 = new Paragraph("Sede donde se recoge el vehículo: " + laReserva.getSedeRecogida());
+        Paragraph p12 = new Paragraph("Fecha de inicio de la renta: " + formatoFecha(laReserva.getFechaInicio()));
+        Paragraph p13 = new Paragraph("Fecha de finalización de la renta: " + formatoFecha(laReserva.getFechaFinalizacion()));
+        Paragraph p14 = new Paragraph("Duración de la reserva: " + laReserva.getDuracion());
+        Paragraph p15 = new Paragraph("\nDatos del vehículo");
+        Paragraph p16 = new Paragraph("Estilo: " + laReserva.getVehiculoSeleccionado().getEstilo() + 
+                "\nMarca: " + laReserva.getVehiculoSeleccionado().getMarca() + 
+                "\nAño de fabricación: " + laReserva.getVehiculoSeleccionado().getAñoFabricacion() + 
+                "\nNúmero de placa: " + laReserva.getVehiculoSeleccionado().getPlaca());
+        
+        
+        documento.add(p1);
+        documento.add(p2);
+        documento.add(p3);
+        documento.add(p4);
+        documento.add(p5);
+        documento.add(p6);
+        documento.add(p7);
+        documento.add(p8);
+        documento.add(p9);
+        documento.add(p10);
+        documento.add(p11);
+        documento.add(p12);
+        documento.add(p13);
+        documento.add(p14);
+        documento.add(p15);
+        documento.add(p16);
+        
+        HashMap servicios = laReserva.getServiciosOpcionales();
+        for(int i = 0; i < servicios.keySet().size(); i++)
+        {
+            System.out.println(servicios.keySet().toArray()[i].toString());
+            
+            Paragraph se = new Paragraph(servicios.toString());
+            documento.add(se);
+        }
+                
+        // Se cierra el documento
+        documento.close();
+        
+        return "";
     }
     
 }
