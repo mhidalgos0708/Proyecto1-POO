@@ -68,7 +68,6 @@ public class TipoCambioBCCR {
     private void setFecha(){
         Calendar fecha = Calendar.getInstance();
         String formatoFecha = fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
-        System.out.println(formatoFecha);
         this.fechaInicio = formatoFecha;
         this.fechaFinal = formatoFecha;
     }
