@@ -57,8 +57,6 @@ public class Vehiculo {
         this.imagen = imagen;
     }
     
-    
-
     public String getPlaca() {
         return placa;
     }

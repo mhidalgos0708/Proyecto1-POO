@@ -817,10 +817,13 @@ public class AdministradorAplicacion {
 
     public String crearPDF(Reserva laReserva) throws FileNotFoundException, DocumentException, IOException
     {
+        TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
+        String nombre= "Reserva" + laReserva.getNumeroFactura() + ".pdf";
         Document documento = new Document();
         
         // El OutPutStream para el fichero donde crearemos el PDF
-        FileOutputStream ficheroPDF = new FileOutputStream("Reserva" + laReserva.getNumeroFactura() + ".pdf");
+        /*******************cambiar ruta*********************/
+        FileOutputStream ficheroPDF = new FileOutputStream("C:\\Users\\Wendy\\OneDrive\\Escritorio\\" + nombre);
         
         // Se asocia el documento de OutPutStream
         PdfWriter.getInstance(documento, ficheroPDF);
@@ -843,14 +846,16 @@ public class AdministradorAplicacion {
         
         Paragraph p1 = new Paragraph ("\nFecha de solicitud: " + formatoFecha(laReserva.getFechaSolicitud()));
         Paragraph p2 = new Paragraph("Número de factura: " + laReserva.getNumeroFactura());
+        Paragraph p25 = new Paragraph("Tipo de cambio del dólar: " + servicioTipoCambio.getVenta());  
         p1.setAlignment(Paragraph.ALIGN_RIGHT);
         p2.setAlignment(Paragraph.ALIGN_RIGHT);
+        p25.setAlignment(Paragraph.ALIGN_RIGHT);
         
         Operador varOperador = laReserva.getOperador();
         Paragraph p3 = new Paragraph("\nNombre del operador que le atendió: "
                 + varOperador.getNombreCompleto());
         
-        Paragraph p4 = new Paragraph("\n\nDatos del cliente");
+        Paragraph p4 = new Paragraph("\nDatos del cliente");
         Paragraph p5 = new Paragraph("Nombre completo: " + laReserva.getClienteRelacionado().getNombreCompleto());
         Paragraph p6 = new Paragraph("Número de teléfono: " + laReserva.getClienteRelacionado().getCedula());
         Paragraph p7 = new Paragraph("Correo electrónico: " + laReserva.getClienteRelacionado().getCorreoElectronico());
@@ -861,16 +866,18 @@ public class AdministradorAplicacion {
         Paragraph p11 = new Paragraph("Sede donde se recoge el vehículo: " + laReserva.getSedeRecogida());
         Paragraph p12 = new Paragraph("Fecha de inicio de la renta: " + formatoFecha(laReserva.getFechaInicio()));
         Paragraph p13 = new Paragraph("Fecha de finalización de la renta: " + formatoFecha(laReserva.getFechaFinalizacion()));
-        Paragraph p14 = new Paragraph("Duración de la reserva: " + laReserva.getDuracion());
+        Paragraph p14 = new Paragraph("Duración de la reserva: " + laReserva.getDuracion() + " día(s)");
         Paragraph p15 = new Paragraph("\nDatos del vehículo");
         Paragraph p16 = new Paragraph("Estilo: " + laReserva.getVehiculoSeleccionado().getEstilo() + 
                 "\nMarca: " + laReserva.getVehiculoSeleccionado().getMarca() + 
                 "\nAño de fabricación: " + laReserva.getVehiculoSeleccionado().getAñoFabricacion() + 
-                "\nNúmero de placa: " + laReserva.getVehiculoSeleccionado().getPlaca());
+                "\nNúmero de placa: " + laReserva.getVehiculoSeleccionado().getPlaca() + 
+                "\nCosto diario: " + laReserva.getVehiculoSeleccionado().getCostoDiario());
         
         
         documento.add(p1);
         documento.add(p2);
+        documento.add(p25);
         documento.add(p3);
         documento.add(p4);
         documento.add(p5);
@@ -886,19 +893,41 @@ public class AdministradorAplicacion {
         documento.add(p15);
         documento.add(p16);
         
+        Paragraph p17 = new Paragraph("\nServicios especiales solicitados:\n\n");
+        documento.add(p17);
         HashMap servicios = laReserva.getServiciosOpcionales();
         for(int i = 0; i < servicios.keySet().size(); i++)
-        {
-            System.out.println(servicios.keySet().toArray()[i].toString());
-            
-            Paragraph se = new Paragraph(servicios.toString());
+        {            
+            String key = servicios.keySet().toArray()[i].toString();
+            Paragraph se = new Paragraph(key);
+            Paragraph costo = new Paragraph(servicios.get(key).toString());
+            costo.setAlignment(Paragraph.ALIGN_RIGHT);
             documento.add(se);
+            documento.add(costo);
         }
-                
+        Paragraph p18 = new Paragraph("\nMonto de la reserva la cantidad de días seleccionados: ");
+        Paragraph p19 = new Paragraph("CRC " + laReserva.getCostoRenta());
+        p19.setAlignment(Paragraph.ALIGN_RIGHT);
+        documento.add(p18);
+        documento.add(p19);
+        Paragraph p20 = new Paragraph("\nTotal de servicios especiales: ");
+        Paragraph p21 = new Paragraph("CRC " + laReserva.getCostoSO());
+        p21.setAlignment(Paragraph.ALIGN_RIGHT);
+        documento.add(p20);   
+        documento.add(p21);
+        Paragraph p22 = new Paragraph("\nMonto Total: ");
+        Paragraph p23 = new Paragraph("CRC " + laReserva.getCostoTotal());
+        Paragraph p24 = new Paragraph("USD " + laReserva.getCostoTotal()/servicioTipoCambio.getVenta());
+        p23.setAlignment(Paragraph.ALIGN_RIGHT);
+        p24.setAlignment(Paragraph.ALIGN_RIGHT);
+        documento.add(p22);   
+        documento.add(p23); 
+        documento.add(p24); 
+              
         // Se cierra el documento
         documento.close();
         
-        return "";
+        return nombre;
     }
     
 }

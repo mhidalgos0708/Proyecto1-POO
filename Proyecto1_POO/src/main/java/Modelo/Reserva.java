@@ -6,6 +6,7 @@
 package Modelo;
 
 import Controlador.Utilitaria;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -131,9 +132,31 @@ public class Reserva {
             fechaInicio.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
             days++;
         }
+        if (days == 0)
+            days++;
         return days;
     }
     
+    public double getCostoRenta()
+    {
+        double costo = getDuracion() * vehiculoSeleccionado.getCostoDiario();
+        return costo;
+    }
+    public double getCostoSO()
+    {
+        double se = 0;
+        for(int i = 0; i < serviciosOpcionales.keySet().size(); i++)
+        {            
+            String key = serviciosOpcionales.keySet().toArray()[i].toString();
+            serviciosOpcionales.get(key).toString();
+            se += (Double)serviciosOpcionales.get(key);
+        }        
+        return se * getDuracion();
+    }
+    public double getCostoTotal()
+    {
+        return getCostoSO() + getCostoRenta();
+    }
     @Override
     public String toString() {
         return "Reserva{" + "sedeRecogida=" + sedeRecogida + ", sedeEntrega=" + sedeEntrega + 

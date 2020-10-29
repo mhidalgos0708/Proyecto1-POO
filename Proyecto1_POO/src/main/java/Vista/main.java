@@ -95,6 +95,8 @@ public class main {
         Reserva reserva1 = adminApp.obtenerReserva(adminApp.getNumeroFactura()-1);
         System.out.println(reserva1.toString());
         
+        System.out.println(reserva1.getCostoTotal());
+        
         System.out.println(adminApp.crearPDF(reserva1));
         //EnviarEmail.enviarCorreo(correo, asunto, texto, direccion);
         
