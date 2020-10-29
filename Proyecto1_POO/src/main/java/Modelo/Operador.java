@@ -55,6 +55,12 @@ public class Operador {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public String getUsername()
+    {
+        String[] username = correoElectronico.split("@", 2); 
+        return username[0];
+    }
 
     @Override
     public String toString() {

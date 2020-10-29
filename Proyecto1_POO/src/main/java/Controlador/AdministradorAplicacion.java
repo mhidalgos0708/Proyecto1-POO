@@ -15,17 +15,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
 
-//import com.itextpdf.io.font.FontConstants;
-//import com.itextpdf.kernel.font.PdfFont;
-//import com.itextpdf.kernel.font.PdfFontFactory;
-//import com.itextpdf.kernel.pdf.PdfDocument;
-//import com.itextpdf.kernel.pdf.PdfWriter;
-
-//import com.itextpdf.layout.Document;
-//import com.itextpdf.layout.element.IBlockElement;
-//import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.text.Font;
-//import com.itextpdf.layout.element.Paragraph;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -262,19 +252,56 @@ public class AdministradorAplicacion {
         }
         return servicios;
     }
-    public ArrayList<Vehiculo> filtrarTipoVehiculo(TEstilo tipo)
+    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunFecha(Calendar fInicio, Calendar fFinal)
     {
         ArrayList<Vehiculo> vehiculosSegunTipo = new ArrayList();
         Vehiculo elVehiculo;
         for(int i = 0; i < listaVehiculos.size(); i++)
         {
             elVehiculo = listaVehiculos.get(i);
-            if(elVehiculo.getEstilo() == tipo)
+            ArrayList<Servicio> listaServicios = elVehiculo.getListaServiciosRelacionados();
+            if(elVehiculo.getEstado() == TEstado.Activo)
             {
-                vehiculosSegunTipo.add(elVehiculo);
+                if(listaServicios.isEmpty())
+                {
+                    vehiculosSegunTipo.add(elVehiculo);
+                }
+                else
+                {
+                    for(int j = 0; j < listaServicios.size(); j++)
+                    {
+                        Servicio elServicio = listaServicios.get(j);
+                        if(fInicio.before(elServicio.getFechaInicio())&& fFinal.after(elServicio.getFechaFinalizacion()))
+                        {}
+                        else if(fFinal.after(elServicio.getFechaInicio())&& fFinal.before(elServicio.getFechaFinalizacion()))
+                        {}
+                        else if(fInicio.after(elServicio.getFechaInicio())&& fInicio.before(elServicio.getFechaFinalizacion()))
+                        {}
+                        else if(fInicio.after(elServicio.getFechaInicio())&& fFinal.before(elServicio.getFechaFinalizacion()))
+                        {}
+                        else
+                        {
+                            vehiculosSegunTipo.add(elVehiculo);
+                        }
+                    }
+                }
             }
         }
         return vehiculosSegunTipo;
+    }
+    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunEstilo(TEstilo estilo, ArrayList<Vehiculo> listaActVehiculos)
+    {
+        ArrayList<Vehiculo> vehiculosSegunEstilo = new ArrayList();
+        Vehiculo elVehiculo;
+        for(int i = 0; i < listaActVehiculos.size(); i++)
+        {
+            elVehiculo = listaActVehiculos.get(i);
+            if(elVehiculo.getEstilo() == estilo)
+            {
+                vehiculosSegunEstilo.add(elVehiculo);
+            }
+        }
+        return vehiculosSegunEstilo;
     }
     public ArrayList<Reserva> filtrarReservaOperador(String pNombreCompleto)
     {
@@ -928,6 +955,41 @@ public class AdministradorAplicacion {
         documento.close();
         
         return nombre;
+    }
+    
+    public boolean verificarCredenciales(String username, String password)
+    {
+        Operador elOperador;
+        for(int i = 0; i < listaOperadores.size(); i++)
+        {
+            elOperador = listaOperadores.get(i);
+            if(elOperador.getUsername().equals(username))
+            {
+                if(elOperador.getContraseña().equals(password))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean mandarCorreoCredenciales(Operador elOperador) throws FileNotFoundException, DocumentException
+    {
+        String password = generarContraseña();
+        String nombre = "Credenciales" + elOperador.getNombreCompleto()+ ".pdf";
+        String ruta = "C:\\Users\\Wendy\\OneDrive\\Escritorio\\" + nombre;
+        Document documento = new Document();        
+        FileOutputStream ficheroPDF = new FileOutputStream(ruta);        
+        PdfWriter.getInstance(documento, ficheroPDF);      
+        documento.open();
+        Paragraph p1 = new Paragraph("Credenciales para poder acceder al sistema:"
+                                    + "\nUsername:" + elOperador.getUsername()
+                                    + "\nContraseña:" + password);
+        documento.add(p1);
+        documento.close();        
+        return EnviarEmail.enviarCorreo(elOperador.getCorreoElectronico(),"Envio de credenciales", 
+                "Se adjunta un pdf con los credenciales", ruta);        
     }
     
 }
