@@ -5,8 +5,6 @@
  */
 package GUI;
 
-import GUI.Login;
-
 /**
  *
  * @author JoJo
@@ -35,21 +33,18 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 250));
 
         TextoListaServicioseleccionado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Wifi", "Seleccione vehículo Primero"},
-                {"Sillas de niños", "Seleccione vehículo Primero"},
-                {"Seguro", "Seleccione vehículo Primero"},
-                {"GPS", "Seleccione vehículo Primero"},
-                {"Asistencia en carretera", "Seleccione vehículo Primero"}
+
             },
             new String [] {
-                "Servicios Asociados", "Activo"
+                "Servicios Asociados"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -82,7 +77,7 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addGap(0, 26, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -92,7 +87,7 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Login.VentanaEditarVehiculo(true);
+        Login.frameSeleccionadoVehículo.setEnabled(true);
         frameVentanillaObjeto.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -104,28 +99,26 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
      static public void correrVentanilla(){
       frameVentanillaObjeto.setVisible(true);
     }
-     static public void ModificarTablaServiciosAsociados(String Servicio1,String Servicio2,String Servicio3,String Servicio4,String Servicio5){
-     TextoListaServicioseleccionado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Wifi", Servicio1},
-                {"Sillas de niños", Servicio2},
-                {"Seguro", Servicio3},
-                {"GPS", Servicio4},
-                {"Asistencia en carretera", Servicio5}
-            },
-            new String [] {
-                "Servicios Asociados", "Activo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+     static public void ModificarTablaServiciosAsociados(String[] Servicios){
+         javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+         model.addColumn("Servicios Asociados");
+         model.setRowCount(0);
+         System.out.println("4");
+         for (int i = 0; i < Servicios.length; i++) {
+             System.out.println("5");
+           model.addRow(new Object[]{
+                    Servicios[i]
+                            });
+             
+         }
+     TextoListaServicioseleccionado.setModel(model);
      
+     }
+     static void LimpiarTabla(){
+        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+        model.addColumn("Servicios Asociados");
+        model.setRowCount(0);
+     TextoListaServicioseleccionado.setModel(model);
      }
     
      

@@ -16,6 +16,12 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton loginButton = new JButton("Iniciar Sesión");
     JButton resetButton = new JButton("Resetear");
     JCheckBox showPassword = new JCheckBox("Mostrar Contraseña");
+    
+    ImageIcon icon = new ImageIcon("src\\main\\java\\img\\loginP.jpg");
+    JLabel Picture = new JLabel(icon);
+    Image imagenSinResize = icon.getImage();
+    Image ImagenFinal = imagenSinResize.getScaledInstance(250, 450, Image.SCALE_DEFAULT);
+    
  
  
     LoginFrame() {
@@ -23,6 +29,10 @@ public class LoginFrame extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        
+        
+        icon = new ImageIcon(ImagenFinal);
+        Picture.setIcon(icon);
  
     }
  
@@ -38,11 +48,15 @@ public class LoginFrame extends JFrame implements ActionListener {
         showPassword.setBounds(150, 250, 150, 30);
         loginButton.setBounds((200-150/2), 300, 150, 30);
         resetButton.setBounds((200-150/2), 340, 150, 30);
- 
+        Picture.setBounds(450, 0, 250, 450);
  
     }
  
     public void addComponentsToContainer() {
+        
+
+        container.add(Picture);
+        
         container.add(userLabel);
         container.add(passwordLabel);
         container.add(userTextField);

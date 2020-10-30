@@ -14,7 +14,7 @@ import javax.swing.JComboBox;
  */
 public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     static String ServicioSeleccionado="";
-    javax.swing.table.DefaultTableModel model;
+    static javax.swing.table.DefaultTableModel model;
     static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo= new TablaAgregarServiciosAsociados();
     /**
      * Creates new form TablaAgregarServiciosAsociados
@@ -53,8 +53,8 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
         ServiciosAsociadosDisponibles = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 250));
         TablaEditarServiciosAsociados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null}
@@ -134,7 +134,10 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            frameTablaEditarServiciosVehiculo.setVisible(false);    // TODO add your handling code here:
+            Login.frameEditarVehiculo.setEnabled(true);
+            Login.frameAgregarVehiculo.setEnabled(true);
+        frameTablaEditarServiciosVehiculo.setVisible(false);
+            // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ServiciosAsociadosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServiciosAsociadosDisponiblesActionPerformed
@@ -177,7 +180,10 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         model.removeRow(TablaEditarServiciosAsociados.getSelectedRow());        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    static void LimpiarTabla(){
+        model.setRowCount(0);
+        ServiciosAsociadosDisponibles.setSelectedIndex(0);
+    }
     /**
      * @param args the command line arguments
      */
@@ -185,7 +191,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JComboBox<String> ServiciosAsociadosDisponibles;
-    private static javax.swing.JTable TablaEditarServiciosAsociados;
+    public static javax.swing.JTable TablaEditarServiciosAsociados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

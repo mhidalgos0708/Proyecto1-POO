@@ -36,12 +36,12 @@ public final class Reservas extends JFrame implements ActionListener {
     JLabel ContenidoTextoOperador = new JLabel();
     JLabel ContenidoTextoVehiculo = new JLabel();
     JLabel ContenidoTextoCliente = new JLabel();
-    JLabel ContenidoTextoServicio = new JLabel();
-    JLabel ContenidoTextoFactura = new JLabel();
+    JButton ContenidoTextoServicio = new JButton("Ver");
     
     
     
-    JLabel TextoID = new JLabel("ID de Reserva");
+    
+    JLabel TextoID = new JLabel("Factura");
     JLabel ContenidoTextoID = new JLabel();
     
     JLabel TextoSedeRecogida = new JLabel("Sede de Recogida");
@@ -53,7 +53,7 @@ public final class Reservas extends JFrame implements ActionListener {
     JLabel TextoVehiculo = new JLabel("Vehiculo Seleccionado");
     JLabel TextoCliente = new JLabel("Cliente Relacionado");
     JLabel TextoServicio = new JLabel("Servicios Opcionales");
-    JLabel TextoFactura = new JLabel("Factura");
+    
 
     JButton botonAtras = new JButton("Atrás");
     JButton botonOk = new JButton("Ok");
@@ -81,7 +81,7 @@ public final class Reservas extends JFrame implements ActionListener {
         TextoVehiculo.setBounds(40, 340-k, 150, 30);  
         TextoCliente.setBounds(40, 380-k, 150, 30);  
         TextoServicio.setBounds(40, 420-k, 150, 30);  
-        TextoFactura.setBounds(40, 460-k, 150, 30);  
+        
         
         ContenidoTextoID.setBounds(270, 50-k, 150, 30);
         ContenidoTextoRecogida.setBounds(200, 100-k, 150, 30);
@@ -93,7 +93,7 @@ public final class Reservas extends JFrame implements ActionListener {
         ContenidoTextoVehiculo.setBounds(200, 340-k, 150, 30);
         ContenidoTextoCliente.setBounds(200, 380-k, 150, 30);
         ContenidoTextoServicio.setBounds(200, 420-k, 150, 30);
-        ContenidoTextoFactura.setBounds(200, 460-k, 150, 30);
+        
         botonOk.setBounds(220, 550-k, 150, 30);
     }
  
@@ -113,7 +113,7 @@ public final class Reservas extends JFrame implements ActionListener {
         container.add(TextoVehiculo);
         container.add(TextoCliente);  
         container.add(TextoServicio);  
-        container.add(TextoFactura);  
+        
         container.add(ContenidoTextoRecogida);
         container.add(ContenidoTextoFinal);
         container.add(ContenidoTextoSolicitud);
@@ -122,11 +122,15 @@ public final class Reservas extends JFrame implements ActionListener {
         container.add(ContenidoTextoEntrega);
         container.add(ContenidoTextoInicio);
         container.add(botonAtras);
+        container.add(ContenidoTextoCliente);
+        container.add(ContenidoTextoServicio);
+        
     }
  
     public void addActionEvent() {
         botonAtras.addActionListener(this);
         botonOk.addActionListener(this);   
+        ContenidoTextoServicio.addActionListener(this);
     }
  
  
@@ -146,8 +150,9 @@ public final class Reservas extends JFrame implements ActionListener {
             Login.VentanaReserva(false); 
           
         }
-        String fiTemp;
-        String ffTemp;
+        if(e.getSource()==ContenidoTextoServicio){
+            TablaServiciosReserva.frameTablaServiciosPorReserva.setVisible(true);
+        }
             
         
        //Coding Part of showPassword JCheckBox

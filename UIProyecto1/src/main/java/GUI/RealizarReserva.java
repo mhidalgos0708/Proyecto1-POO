@@ -11,21 +11,20 @@ import java.util.Dictionary;
  
 
 public class RealizarReserva extends JFrame implements ActionListener {
-    String filename;
-    String[] TiposLicencias = {"", "A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","D1","D2","D3","E1","E1"};
+    
     String[] ClientesTotales = {"", "Abiel", "Chuculun"};
-    String[] OperadoresTotales={"", "Jason", "Roy"};
+    
     String [] SedesTotales = {"","Zapote","Cartago"};
     Container container = getContentPane();
-    final JFileChooser explorer = new JFileChooser();
     
-    JComboBox<String> TextFieldNombreCompleto = new JComboBox<>(SedesTotales);
-    JComboBox<String> TextFieldCédula = new JComboBox<>(SedesTotales);
-    com.toedter.calendar.JDateChooser TextFieldDirección= new com.toedter.calendar.JDateChooser();
-    com.toedter.calendar.JDateChooser TextFieldCorreo= new com.toedter.calendar.JDateChooser();
-    JComboBox<String> TextFieldTipoLicencia = new JComboBox<>(ClientesTotales);
-    JButton TextFieldFechaEmisionLicencia= new JButton("Seleccionar");
-   JCheckBox TextFieldFechaExpiracionLicencia= new JCheckBox();
+    
+    JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(SedesTotales);
+    JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(SedesTotales);
+    com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
+    com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
+    JComboBox<String> comboBoxCliente = new JComboBox<>(ClientesTotales);
+    JButton botonSeleccionarvehiculo= new JButton("Seleccionar");
+   JCheckBox SO1= new JCheckBox();
    JCheckBox SO2= new JCheckBox();
    JCheckBox SO3= new JCheckBox();
    JCheckBox SO4= new JCheckBox();
@@ -92,16 +91,16 @@ public class RealizarReserva extends JFrame implements ActionListener {
         
         TextoSedeEntrega.setBounds(370, 140, 150, 30);
         
-        TextFieldNombreCompleto.setBounds((325-150/2), 100, 150, 30);
-        TextFieldCédula.setBounds((325-150/2), 140, 150, 30);
-        TextFieldDirección.setBounds((325-150/2), 180, 150, 30); 
-        TextFieldCorreo.setBounds((325-150/2), 220, 150, 30); 
-        TextFieldFechaEmisionLicencia.setBounds((325-150/2), 260, 150, 30); 
+        TextFieldSedeRecogida.setBounds((325-150/2), 100, 150, 30);
+        TextFieldSedeEntrega.setBounds((325-150/2), 140, 150, 30);
+        TextFieldFechaInicio.setBounds((325-150/2), 180, 150, 30); 
+        TextFieldFechaFinalizacion.setBounds((325-150/2), 220, 150, 30); 
+        botonSeleccionarvehiculo.setBounds((325-150/2), 260, 150, 30); 
         TextoPlacaSeleccionada.setBounds((325-150/2), 300, 250, 30);
         
         
-        TextFieldTipoLicencia.setBounds((325-150/2), 340, 150, 30); 
-        TextFieldFechaExpiracionLicencia.setBounds(370, 420, 20, 30);
+        comboBoxCliente.setBounds((325-150/2), 340, 150, 30); 
+        SO1.setBounds(370, 420, 20, 30);
         SO2.setBounds(370, 460, 20, 30);
         SO3.setBounds(370, 500, 20, 30);
         SO4.setBounds(370+160, 420, 20, 30);
@@ -137,13 +136,13 @@ public class RealizarReserva extends JFrame implements ActionListener {
         container.add(TextoFechaExpiracionLicencia);
         container.add(TextoSedeRecogida);
         container.add(TextoSedeEntrega);
-        container.add(TextFieldNombreCompleto);
-        container.add(TextFieldCédula);
-        container.add(TextFieldDirección);
-        container.add(TextFieldCorreo);
-        container.add(TextFieldFechaEmisionLicencia);
-        container.add(TextFieldTipoLicencia);
-        container.add(TextFieldFechaExpiracionLicencia);
+        container.add(TextFieldSedeRecogida);
+        container.add(TextFieldSedeEntrega);
+        container.add(TextFieldFechaInicio);
+        container.add(TextFieldFechaFinalizacion);
+        container.add(botonSeleccionarvehiculo);
+        container.add(comboBoxCliente);
+        container.add(SO1);
         container.add(SO2);
         container.add(SO3);
         container.add(SO4);
@@ -160,10 +159,10 @@ public class RealizarReserva extends JFrame implements ActionListener {
 
         botonAtras.addActionListener(this);
         botonAgregarOperador.addActionListener(this);
-        TextFieldNombreCompleto.addActionListener(this);
-        TextFieldTipoLicencia.addActionListener(this);
-        TextFieldCédula.addActionListener(this);
-        TextFieldFechaEmisionLicencia.addActionListener(this);
+        TextFieldSedeRecogida.addActionListener(this);
+        comboBoxCliente.addActionListener(this);
+        TextFieldSedeEntrega.addActionListener(this);
+        botonSeleccionarvehiculo.addActionListener(this);
     }
  
  
@@ -171,13 +170,13 @@ public class RealizarReserva extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonAtras){
-            TextFieldNombreCompleto.setSelectedIndex(0);
-            TextFieldCédula.setSelectedIndex(0);
-            TextFieldDirección.setDate(null);
-            TextFieldCorreo.setDate(null);
+            TextFieldSedeRecogida.setSelectedIndex(0);
+            TextFieldSedeEntrega.setSelectedIndex(0);
+            TextFieldFechaInicio.setDate(null);
+            TextFieldFechaFinalizacion.setDate(null);
             
-            TextFieldTipoLicencia.setSelectedIndex(0);
-            TextFieldFechaExpiracionLicencia.setSelected(false);
+            comboBoxCliente.setSelectedIndex(0);
+            SO1.setSelected(false);
             SO2.setSelected(false);
             SO3.setSelected(false);
             SO4.setSelected(false);
@@ -205,16 +204,16 @@ public class RealizarReserva extends JFrame implements ActionListener {
             
             NombreTemporal = TextoSedeRecogida.getText();
             cédulaTemporal = TextoSedeEntrega.getText();
-            if(TextFieldDirección.getCalendar()!=null){
-               int año = TextFieldDirección.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldDirección.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldDirección.getCalendar().get(Calendar.DAY_OF_MONTH);
+            if(TextFieldFechaInicio.getCalendar()!=null){
+               int año = TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
+               int mes = TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
                 direccionTemporal=dia+"/"+mes+"/"+año;
             }
-            if(TextFieldCorreo.getCalendar()!=null){
-               int año = TextFieldCorreo.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldCorreo.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldCorreo.getCalendar().get(Calendar.DAY_OF_MONTH);
+            if(TextFieldFechaFinalizacion.getCalendar()!=null){
+               int año = TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
+               int mes = TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
                 correoTemporal=dia+"/"+mes+"/"+año;
             }
             
@@ -225,18 +224,18 @@ public class RealizarReserva extends JFrame implements ActionListener {
             
             
             
-            if (NombreTemporal.equals("") || cédulaTemporal.equals("") ||TextFieldDirección.getDate()==null ||TextFieldCorreo.getDate()==null ||numerolicenciaTemporal.equals("No se ha seleccionado el vehículo") ||tipolicenciaTemporal.equals("No se ha seleccionado Cliente")) {
+            if (NombreTemporal.equals("") || cédulaTemporal.equals("") ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null ||numerolicenciaTemporal.equals("No se ha seleccionado el vehículo") ||TextoTL.getText().equals("No se ha seleccionado Cliente") || TextoTL.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else {
             JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
-            TextFieldNombreCompleto.setSelectedIndex(0);
-            TextFieldCédula.setSelectedIndex(0);
-            TextFieldDirección.setDate(null);
-            TextFieldCorreo.setDate(null);
+            TextFieldSedeRecogida.setSelectedIndex(0);
+            TextFieldSedeEntrega.setSelectedIndex(0);
+            TextFieldFechaInicio.setDate(null);
+            TextFieldFechaFinalizacion.setDate(null);
             
-            TextFieldTipoLicencia.setSelectedIndex(0);
-            TextFieldFechaExpiracionLicencia.setSelected(false);
+            comboBoxCliente.setSelectedIndex(0);
+            SO1.setSelected(false);
             SO2.setSelected(false);
             SO3.setSelected(false);
             SO4.setSelected(false);
@@ -252,22 +251,28 @@ public class RealizarReserva extends JFrame implements ActionListener {
 
         }
         
-        if(e.getSource()==TextFieldTipoLicencia){
+        if(e.getSource()==comboBoxCliente){
             JComboBox cb=(JComboBox)e.getSource();
             TextoTL.setText((String)cb.getSelectedItem());
+            if("".equals((String)cb.getSelectedItem())){
+                TextoTL.setText("No se ha seleccionado Cliente");
+            } 
+            
         }
-        if(e.getSource()==TextFieldNombreCompleto){
+        if(e.getSource()==TextFieldSedeRecogida){
             JComboBox cb=(JComboBox)e.getSource();
+            TextoSedeRecogida.setVisible(false);
             TextoSedeRecogida.setText((String)cb.getSelectedItem());
         }
         
-        if(e.getSource()==TextFieldCédula){
+        if(e.getSource()==TextFieldSedeEntrega){
             JComboBox cb=(JComboBox)e.getSource();
+            TextoSedeEntrega.setVisible(false);
             TextoSedeEntrega.setText((String)cb.getSelectedItem());
         }
-        if(e.getSource()==TextFieldFechaEmisionLicencia){
-            
-            TextoPlacaSeleccionada.setText("caca");
+        if(e.getSource()==botonSeleccionarvehiculo){
+            Login.frameRealizarReserva.setEnabled(false);
+            Login.VentanaSeleccionadoVehículo(true);
         }
 
         

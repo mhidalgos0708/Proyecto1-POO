@@ -1,43 +1,71 @@
 package GUI;
 
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
+
 public class Login {
-        static ImageIcon img = new ImageIcon("C:\\Users\\fabri\\Desktop\\A.png");
-        static LoginFrame frameLogin = new LoginFrame();
-        static MenuPrincipal frameMenuPrincipal = new MenuPrincipal();
-        static RegistrarOperador frameRegistrarOperador = new RegistrarOperador();
-        static RegistrarCliente frameRegistrarCliente = new RegistrarCliente();
-        static RealizarReserva frameRealizarReserva = new RealizarReserva();
-        static ConsultarReserva frameConsultarReserva = new ConsultarReserva();
-        static MenuAdministrador frameMenuAdministrador = new MenuAdministrador();
-        static AgregarVehiculo frameAgregarVehiculo = new AgregarVehiculo();
-        static AgregarServicio frameAgregarServicio = new AgregarServicio();
-        static AgregarEmpresa frameAgregarEmpresa = new AgregarEmpresa();
-        static Reservas frameRes = new Reservas();
-        static EditarVehiculo frameEditarVehiculo = new EditarVehiculo();
         
+        static ImageIcon img;
+        static LoginFrame frameLogin;
+        static MenuPrincipal frameMenuPrincipal;
+        static RegistrarOperador frameRegistrarOperador;
+        static RegistrarCliente frameRegistrarCliente;
+        static RealizarReserva frameRealizarReserva;
+        static ConsultarReserva frameConsultarReserva;
+        static MenuAdministrador frameMenuAdministrador;
+        static AgregarVehiculo frameAgregarVehiculo;
+        static AgregarServicio frameAgregarServicio;
+        static AgregarEmpresa frameAgregarEmpresa;
+        static Reservas frameRes;
+        static EditarVehiculo frameEditarVehiculo;
+        static SeleccionadoVehículo frameSeleccionadoVehículo;
+        static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        public static void center(JFrame J){
+            J.setLocation(dim.width/2-J.getSize().width/2, dim.height/2-J.getSize().height/2);
+        }
     public static void main(String[] a) {
-        VentanaMenuAdministrador(true);
+        FlatDarculaLaf.install();
+       img = new ImageIcon( "src\\main\\java\\img\\A.png");
+       frameLogin = new LoginFrame();
+        frameMenuPrincipal = new MenuPrincipal();
+        frameRegistrarOperador = new RegistrarOperador();
+       frameRegistrarCliente = new RegistrarCliente();
+        frameRealizarReserva = new RealizarReserva();
+         frameConsultarReserva = new ConsultarReserva();
+         frameMenuAdministrador = new MenuAdministrador();
+        frameAgregarVehiculo = new AgregarVehiculo();
+         frameAgregarServicio = new AgregarServicio();
+         frameAgregarEmpresa = new AgregarEmpresa();
+         frameRes = new Reservas();
+         frameEditarVehiculo = new EditarVehiculo();
+         frameSeleccionadoVehículo = new SeleccionadoVehículo();
+        VentanaMenuPrincipal(true);
+        
+        
         
     }
     
     public static void VentanaLogin(boolean visibilidad){
         frameLogin.setTitle("Rent a Car - Inicio de Sesión");
         frameLogin.setVisible(visibilidad);
-        frameLogin.setBounds(500, 30, 400, 450);
+        frameLogin.setBounds(410, 190, 700, 450);
+        center(frameLogin);
         frameLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLogin.setResizable(false);
         frameLogin.setIconImage(img.getImage());
     }
     public static void VentanaMenuPrincipal(boolean visibilidad){
-        frameMenuPrincipal.setTitle("Rent a Car - Menú Principal");
+        frameMenuPrincipal.setTitle(" Plataforma Rent a Car");
         frameMenuPrincipal.setVisible(visibilidad);
-        frameMenuPrincipal.setBounds(550, 220, 400, 450);
+        frameMenuPrincipal.setBounds(410, 190, 700, 450);
+        center(frameMenuPrincipal);
         frameMenuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenuPrincipal.setResizable(false);
         frameMenuPrincipal.setIconImage(img.getImage());
@@ -46,6 +74,7 @@ public class Login {
         frameRegistrarOperador.setTitle("Rent a Car - Registrar Operador");
         frameRegistrarOperador.setVisible(visibilidad);
         frameRegistrarOperador.setBounds(500, 30, 400, 450);
+        center(frameRegistrarOperador);
         frameRegistrarOperador.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRegistrarOperador.setResizable(false);
         frameRegistrarOperador.setIconImage(img.getImage());
@@ -55,6 +84,7 @@ public class Login {
         frameRegistrarCliente.setTitle("Rent a Car - Registrar Cliente");
         frameRegistrarCliente.setVisible(visibilidad);
         frameRegistrarCliente.setBounds(500, 30, 400, 650);
+        center(frameRegistrarCliente);
         frameRegistrarCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRegistrarCliente.setResizable(false);
         frameRegistrarCliente.setIconImage(img.getImage());
@@ -64,6 +94,7 @@ public class Login {
         frameRealizarReserva.setTitle("Rent a Car - Realizar Reserva");
         frameRealizarReserva.setVisible(visibilidad);
         frameRealizarReserva.setBounds(500, 30, 650, 650);
+        center(frameRealizarReserva);
         frameRealizarReserva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRealizarReserva.setResizable(false);
         frameRealizarReserva.setIconImage(img.getImage());  
@@ -73,6 +104,7 @@ public class Login {
         frameConsultarReserva.setTitle("Rent a Car - Consultar Reserva");
         frameConsultarReserva.setVisible(visibilidad);
         frameConsultarReserva.setBounds(450, 200, 650, 450);
+        center(frameConsultarReserva);
         frameConsultarReserva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameConsultarReserva.setResizable(false);
         frameConsultarReserva.setIconImage(img.getImage());  
@@ -82,6 +114,7 @@ public class Login {
         frameMenuAdministrador.setTitle("Rent a Car - Menú Administrador");
         frameMenuAdministrador.setVisible(visibilidad);
         frameMenuAdministrador.setBounds(450, 200, 650, 400);
+        center(frameMenuAdministrador);
         frameMenuAdministrador.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMenuAdministrador.setResizable(false);
         frameMenuAdministrador.setIconImage(img.getImage());  
@@ -91,6 +124,7 @@ public class Login {
         frameAgregarVehiculo.setTitle("Rent a Car - Menú Administrador - Agregar Vehículo");
         frameAgregarVehiculo.setVisible(visibilidad);
         frameAgregarVehiculo.setBounds(400, 100, 750, 600);
+        center(frameAgregarVehiculo);
         frameAgregarVehiculo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameAgregarVehiculo.setResizable(false);
         frameAgregarVehiculo.setIconImage(img.getImage());  
@@ -100,6 +134,7 @@ public class Login {
         frameAgregarServicio.setTitle("Rent a Car - Menú Administrador - Agregar Servicio");
         frameAgregarServicio.setVisible(visibilidad);
         frameAgregarServicio.setBounds(560, 140, 400, 600);
+        center(frameAgregarServicio);
         frameAgregarServicio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameAgregarServicio.setResizable(false);
         frameAgregarServicio.setIconImage(img.getImage());  
@@ -109,6 +144,7 @@ public class Login {
         frameAgregarEmpresa.setTitle("Rent a Car - Agregar Empresa");
         frameAgregarEmpresa.setVisible(visibilidad);
         frameAgregarEmpresa.setBounds(560, 140, 400, 600);
+        center(frameAgregarEmpresa);
         frameAgregarEmpresa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameAgregarEmpresa.setResizable(false);
         frameAgregarEmpresa.setIconImage(img.getImage());  
@@ -119,6 +155,7 @@ public class Login {
         frameRes.setTitle("Rent a Car - Consultar");
         frameRes.setVisible(visibilidad);
         frameRes.setBounds(500, 50, 600, 700);
+        center(frameRes);
         frameRes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frameRes.setResizable(true);
         frameRes.setIconImage(img.getImage());
@@ -129,9 +166,21 @@ public class Login {
         frameEditarVehiculo.setTitle("Rent a Car - Menú Administrador - Editar Vehículo");
         frameEditarVehiculo.setVisible(visibilidad);
         frameEditarVehiculo.setBounds(200, 30, 850, 650);
+        center(frameEditarVehiculo);
         frameEditarVehiculo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameEditarVehiculo.setResizable(false);
         frameEditarVehiculo.setIconImage(img.getImage());  
+    }
+    public static void VentanaSeleccionadoVehículo(boolean visibilidad){
+        
+        frameSeleccionadoVehículo.setTitle("Rent a Car - Seleccionando Vehículo");
+        frameSeleccionadoVehículo.setVisible(visibilidad);
+        frameSeleccionadoVehículo.setBounds(200, 30, 850, 650);
+        center(frameSeleccionadoVehículo);
+        frameSeleccionadoVehículo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameSeleccionadoVehículo.setResizable(false);
+        frameSeleccionadoVehículo.setIconImage(img.getImage()); 
+        
     }
 
     

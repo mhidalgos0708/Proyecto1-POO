@@ -11,8 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.HashSet;
 import javax.swing.JFrame;
  
 
@@ -24,12 +22,12 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
     final JFrame frame = new JFrame();
         
     
-    JComboBox<String> TextFieldRecogida = new JComboBox<>(SedesTotales);
-    JTextField TextFieldVehiculo = new JTextField();
+    JButton TextFieldRecogida = new JButton("Ir a filtro");
+    JButton TextFieldVehiculo = new JButton("Ir a filtro");
     JTextField TextFieldIDReserva = new JTextField();
     
-    com.toedter.calendar.JDateChooser TextFieldInicioReserva= new com.toedter.calendar.JDateChooser();
-    JComboBox<String> TextFieldOperadores = new JComboBox<>(Operadores);
+    JButton TextFieldInicioReserva= new JButton("Ir a filtro");
+    JButton TextFieldOperadores = new JButton("Ir a filtro");
     
     JLabel TextoFiltro = new JLabel("Filtro:");
     JLabel TextoPuntoRecogida = new JLabel("Punto de recogida del vehículo");
@@ -107,39 +105,41 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         TextFieldOperadores.addActionListener(this);
         TextFieldVehiculo.addActionListener(this);
         TextFieldIDReserva.addActionListener(this);
+        TextFieldInicioReserva.addActionListener(this);
 
     }
     
  
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(TextFieldIDReserva.getText());
-            if (!"".equals(TextFieldIDReserva.getText())){
-                TextFieldVehiculo.setEnabled(false);
-                TextFieldRecogida.setEnabled(false);
-                TextFieldOperadores.setEnabled(false);
-                TextFieldVehiculo.setEnabled(false);
-                TextFieldInicioReserva.setEnabled(false);
-            }else{
-                TextFieldVehiculo.setEnabled(true);
-                TextFieldRecogida.setEnabled(true);
-                TextFieldOperadores.setEnabled(true);
-                TextFieldVehiculo.setEnabled(true);
-                TextFieldInicioReserva.setEnabled(true);
-            }
+        
+            
+            
         
         //Coding Part of LOGIN button
         if (e.getSource()==botonAtras){
-            TextFieldRecogida.setSelectedIndex(0);
-            TextFieldInicioReserva.setDate(null);
+           
+            
 
-            TextFieldOperadores.setSelectedIndex(0);
             TextoOperadorSeleccionado.setText("No se ha seleccionado Cliente");
 
             Login.VentanaMenuPrincipal(true);
             Login.VentanaConsultarReserva(false);
-          
+         
         }
+        if(e.getSource()==TextFieldOperadores){
+            FiltroOperador.frameRegistrarOperador.setVisible(true);
+        }
+        if(e.getSource()==TextFieldRecogida){
+            FiltroPuntoRecogida.frameRegistrarOperador.setVisible(true);
+        }
+        if(e.getSource()==TextFieldVehiculo){
+            FiltroPlaca.frameRegistrarOperador.setVisible(true);
+        }
+        if(e.getSource()==TextFieldInicioReserva){
+            FiltroFecha.frameRegistrarOperador.setVisible(true);
+        }
+        
         if (e.getSource()==botonConsultarReserva){
             
             
@@ -148,6 +148,7 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
             
             System.out.println(TextFieldIDReserva.getText());
             
+            String textoID =TextFieldIDReserva.getText(); 
             String textoDeSedeRecogida;
             textoDeSedeRecogida = TextoSedeRecogida.getText();
             
@@ -160,14 +161,9 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
             
             String textoDeFechaDeRecogida;
             
-            if(TextFieldInicioReserva.getCalendar()!=null){
-               int año = TextFieldInicioReserva.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldInicioReserva.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldInicioReserva.getCalendar().get(Calendar.DAY_OF_MONTH);
-                textoDeFechaDeRecogida=dia+"/"+mes+"/"+año;
-            }
+            
 
-            if (TextFieldVehiculo.getText().equals("") && TextFieldIDReserva.getText().equals("") && TextFieldInicioReserva.getDate()==null && TextFieldRecogida.getSelectedItem().equals("") && TextFieldOperadores.getSelectedItem().equals("")) {
+            if (textoID.equals("")) {
             JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else {
@@ -175,17 +171,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
             Login.VentanaReserva(true);
             Login.VentanaConsultarReserva(false);   
                 
-            }
+            } 
         }
         
-        if(e.getSource()==TextFieldOperadores){
-            JComboBox cb=(JComboBox)e.getSource();
-            TextoOperadorSeleccionado.setText((String)cb.getSelectedItem());
-        }
-        if(e.getSource()==TextFieldRecogida){
-            JComboBox cb=(JComboBox)e.getSource();
-            TextoSedeRecogida.setText((String)cb.getSelectedItem());
-        }
+        
         
     }
  

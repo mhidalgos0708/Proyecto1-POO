@@ -6,6 +6,7 @@
 package GUI;
 
 import java.awt.Container;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -26,7 +27,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     String[] TiposEstilos = {"", "Compacto", "Pick-Up", "Intermedio", "SUV", "Mini-Van", "Convertible", "Económico"};
     String[] TiposTransmision = {"", "Automática", "Manual"};
     String[] TiposSedes = {"", "Cartago", "Zapote"};
-    String[] TiposServicios = {"", "Servicio1", "Servicio2"};
+    
     Container container = getContentPane();
     final JFileChooser explorer = new JFileChooser();
     
@@ -46,7 +47,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     JComboBox<String> TextFieldSede = new JComboBox<>(TiposSedes);
     JComboBox<String> TextFieldEstilo = new JComboBox<>(TiposEstilos);
     JComboBox<String> TextFieldTransmision = new JComboBox<>(TiposTransmision);
-    JComboBox<String> TextFieldServicio = new JComboBox<>(TiposServicios);
+    JButton TextFieldServicio = new JButton("Seleccionar");
    
     JLabel TextoPlaca = new JLabel("Placa");
     JLabel TextoEstilo = new JLabel("Estilo");
@@ -69,7 +70,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
      
     JButton TextFieldImágen = new JButton("Seleccionar Imagen");
     JButton botonAtras = new JButton("Atrás");
-    JButton botonAgregarOperador = new JButton("Agregar");
+    JButton botonAgregar = new JButton("Agregar");
     
     
     ImageIcon img = new ImageIcon("");
@@ -126,14 +127,14 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
         TextFieldTransmision.setBounds(550, 220, 150, 30);
         TextFieldServicio.setBounds(550, 260, 150, 30);
         
-       botonAgregarOperador.setBounds((400-150/2)-5, 475, 150, 30);
+        botonAgregar.setBounds(300, 500, 150, 30);
         botonAtras.setBounds(550,30, 150, 30);
  
  
     }
  
     public void addComponentsToContainer() {
-        container.add(botonAgregarOperador);
+        container.add(botonAgregar);
         
         container.add(TextoPlaca);
         container.add(TextoEstilo);
@@ -177,9 +178,10 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
-        botonAgregarOperador.addActionListener(this);
+        botonAgregar.addActionListener(this);
         TextFieldImágen.addActionListener(this);
         TextFieldVin.addActionListener(this);
+        TextFieldServicio.addActionListener(this);
         
     }
  
@@ -198,17 +200,19 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             TextFieldEstilo.setSelectedIndex(0);
             TextFieldTransmision.setSelectedIndex(0);
             TextFieldSede.setSelectedIndex(0);
-            TextFieldServicio.setSelectedIndex(0);
+            
             TextFieldMPG.setText("");
             TextFieldCostoDiario.setText("");
             TextFieldCapacidadMaletas.setText("");
+            TablaAgregarServiciosAsociados.LimpiarTabla();   
             
             Login.VentanaMenuAdministrador(true);
-            Login.VentanaAgregarVehiculo(false); 
+            Login.VentanaAgregarVehiculo(false);
+            
           
         }
-        if (e.getSource()==botonAgregarOperador){
-            if (TextFieldServicio.getSelectedItem().equals("") || TextFieldTransmision.getSelectedItem().equals("") || TextFieldEstilo.getSelectedItem().equals("") || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
+        if (e.getSource()==botonAgregar){
+            if (TextFieldTransmision.getSelectedItem().equals("") || TextFieldEstilo.getSelectedItem().equals("") || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else {
@@ -223,10 +227,11 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
                 TextFieldEstilo.setSelectedIndex(0);
                 TextFieldTransmision.setSelectedIndex(0);
                 TextFieldSede.setSelectedIndex(0);
-                TextFieldServicio.setSelectedIndex(0);
+                
                 TextFieldMPG.setText("");
                 TextoCostoDiario.setText("");
                 TextoTL.setText("");
+                TablaAgregarServiciosAsociados.LimpiarTabla(); 
                 Login.VentanaMenuAdministrador(true);
                 Login.VentanaAgregarVehiculo(false);    
                 
@@ -236,14 +241,18 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
         if(e.getSource()==TextFieldImágen){
             int accion = explorer.showOpenDialog(Login.frameRegistrarCliente);
             if (accion == JFileChooser.APPROVE_OPTION){  
-                System.out.println("AAAAAAAAAa");
+                
                 JLabel images = new JLabel();
                 filename = explorer.getSelectedFile().toString();
                 container.remove(img2);
                 ruta.setText(filename);
-                ImageIcon h = new ImageIcon(ruta.getText());
-                JLabel K = new JLabel(h);
+                ImageIcon icon = new ImageIcon(ruta.getText());
+                JLabel K = new JLabel(icon);
+                Image imagenSinResize = icon.getImage();
+                Image ImagenFinal = imagenSinResize.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+                icon = new ImageIcon(ImagenFinal);
                 K.setBounds(550, 350, 150, 150);
+                K.setIcon(icon);
                 img2=K;
                 container.add(img2);
                 container.revalidate();
@@ -259,6 +268,11 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             JComboBox cb=(JComboBox)e.getSource();
             TextoTL.setText((String)cb.getSelectedItem());
         }
+        if(e.getSource()==TextFieldServicio){
+            Login.frameAgregarServicio.setEnabled(false);
+            TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
+        }
+        
             
         
        //Coding Part of showPassword JCheckBox

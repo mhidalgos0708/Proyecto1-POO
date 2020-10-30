@@ -202,7 +202,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonModificarServicios){
+            Login.frameEditarVehiculo.setEnabled(false);
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
+            
             
           
         }
@@ -243,7 +245,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
             
             imagenTemporal= TextoURL.getText();
             
-            if (NombreTemporal.equals("") || cédulaTemporal.equals("") || EstadoVehículoTemporal.equals("Inactivo") ) {
+            if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this, "Ingreso inválido, estado incompleto de elementos");
             
             } else {
@@ -280,7 +282,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
              TextFieldTransmision.setSelectedIndex(0);
              TextoImagenSeleccionado.setText("");
              TextFieldVin.setText("");
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados("Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero");
+             TablaAgregarServiciosAsociados.LimpiarTabla();
+             
+             
              TextoImagenSeleccionado.setIcon(null);
                 ComboBoxVehículoSeleccionado.removeAllItems();
                 ComboBoxVehículoSeleccionado.setEnabled(false);
@@ -354,7 +358,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
              TextFieldEstado.setSelectedIndex(0);
              TextoImagenSeleccionado.setText("");
              TextFieldVin.setText("");
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados("Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero", "Seleccione vehículo Primero");
+             TablaAgregarServiciosAsociados.LimpiarTabla(); 
+             
 
              TextoImagenSeleccionado.setIcon(null);
             }
@@ -374,10 +379,10 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
              
 
              TextFieldVin.setText("12323");
-             ImageIcon img= new ImageIcon("C:\\Users\\fabri\\OneDrive\\Pictures\\Original.jpg");
+             ImageIcon img= new ImageIcon("src\\main\\java\\img\\carro1.jpg");
              TextoImagenSeleccionado.setIcon(img);
              TextoImagenSeleccionado.setText("f");
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados("No", "Si", "Sí", "Sí", "Sí");
+             
              
             }
             if(ComboBoxVehículoSeleccionado.getSelectedIndex()==2){
@@ -396,7 +401,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
              ImageIcon img= new ImageIcon("src\\main\\java\\img\\carro2.jpg");
              TextoImagenSeleccionado.setIcon(img);
              TextoImagenSeleccionado.setText("h");
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados("Sí", "No", "Sí", "Sí", "No");
+             
 
 
              TextFieldVin.setText("45453");
