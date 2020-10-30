@@ -1,5 +1,8 @@
 package GUI;
 
+import Controlador.AdministradorAplicacion;
+import Modelo.Operador;
+import static Vista.yanoMAin.adminApp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -71,25 +74,24 @@ public class RegistrarOperador extends JFrame implements ActionListener {
             TextFieldNombreCompleto.setText("");
             TextFieldCorreo.setText("");
             
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRegistrarOperador(false);
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaRegistrarOperador(false);
           
         }
         if (e.getSource()==botonAgregarOperador){
-            String NombreTemporal;
-            String correoTemporal;
-            NombreTemporal = TextFieldNombreCompleto.getText();
-            correoTemporal = TextFieldCorreo.getText();
             
-            if (NombreTemporal.equals("") || correoTemporal.equals("")) {
-            JOptionPane.showMessageDialog(this, "Correo ingresado inválido");    
-            
-            } else {
-            JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo usuario para Soporte al Cliente!");
-            TextFieldNombreCompleto.setText("");
-            TextFieldCorreo.setText("");
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRegistrarOperador(false);    
+            if (!Inicio.adminApp.verificarCorreo(TextFieldCorreo.getText())) {
+                JOptionPane.showMessageDialog(this, "El correo ingresado es inválido");    
+            }else if(TextFieldCorreo.getText().equals("") || TextFieldNombreCompleto.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "Ingreso incompleto de datos");
+            }else {
+                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), AdministradorAplicacion.generarContraseña(), TextFieldNombreCompleto.getText(), false, false);
+                Inicio.adminApp.cargarInformacionJSON("operadores.json", "Operador");
+                JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo usuario para Soporte al Cliente!");
+                TextFieldNombreCompleto.setText("");
+                TextFieldCorreo.setText("");
+                Inicio.VentanaMenuPrincipal(true);
+                Inicio.VentanaRegistrarOperador(false);    
                 
             }
 

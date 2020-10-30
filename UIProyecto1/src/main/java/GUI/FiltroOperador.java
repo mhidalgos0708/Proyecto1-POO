@@ -137,9 +137,9 @@ public class FiltroOperador extends javax.swing.JFrame {
         } else if(SedesDisponibles.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Elementos incompletos");
         } else{
-            Login.VentanaReserva(true);
+            Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Login.frameRes.ContenidoTextoID.setText(SedeSeleccionada);
+            Inicio.frameRes.ContenidoTextoID.setText(SedeSeleccionada);
             SedesDeRecogida.setSelectedIndex(0);
         
         

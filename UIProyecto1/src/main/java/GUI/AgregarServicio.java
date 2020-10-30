@@ -135,8 +135,8 @@ public class AgregarServicio extends JFrame implements ActionListener {
             TextFieldFechaInicio.setDate(null);
             TextFieldFechaFinal.setDate(null);
 
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaAgregarServicio(false); 
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaAgregarServicio(false); 
           
         }
         String fiTemp;
@@ -168,8 +168,8 @@ public class AgregarServicio extends JFrame implements ActionListener {
 
                 TextFieldEmpresaServicio.setSelectedIndex(0);
 
-                Login.VentanaMenuAdministrador(true);
-                Login.VentanaAgregarServicio(false);    
+                Inicio.VentanaMenuAdministrador(true);
+                Inicio.VentanaAgregarServicio(false);    
                 
             }
 

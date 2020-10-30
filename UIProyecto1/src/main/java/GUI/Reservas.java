@@ -146,8 +146,8 @@ public final class Reservas extends JFrame implements ActionListener {
             ContenidoTextoEntrega.setText("");
             ContenidoTextoInicio.setText("");
 
-            Login.VentanaConsultarReserva(true);
-            Login.VentanaReserva(false); 
+            Inicio.VentanaConsultarReserva(true);
+            Inicio.VentanaReserva(false); 
           
         }
         if(e.getSource()==ContenidoTextoServicio){

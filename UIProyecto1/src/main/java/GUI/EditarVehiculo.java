@@ -202,7 +202,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonModificarServicios){
-            Login.frameEditarVehiculo.setEnabled(false);
+            Inicio.frameEditarVehiculo.setEnabled(false);
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
             
             
@@ -211,8 +211,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         if (e.getSource()==botonAtras){
             
             ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaEditarVehiculo(false);
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaEditarVehiculo(false);
           
         }
         if (e.getSource()==botonConfirmar){
@@ -252,8 +252,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
             
             ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaEditarVehiculo(false);   
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaEditarVehiculo(false);   
                 
             }
 
@@ -410,7 +410,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
      
         if(e.getSource()==TextFieldImágen){
             System.out.println("AAAAAA");
-            int accion = explorer.showOpenDialog(Login.frameEditarVehiculo);
+            int accion = explorer.showOpenDialog(Inicio.frameEditarVehiculo);
             if (accion == JFileChooser.APPROVE_OPTION){  
                 filename = explorer.getSelectedFile().toString();
                 ImageIcon img= new ImageIcon(filename);

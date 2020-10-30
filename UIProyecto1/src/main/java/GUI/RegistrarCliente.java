@@ -1,17 +1,17 @@
 package GUI;
 
+import Modelo.TLicencia;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.toedter.calendar.JDateChooser;
 import java.util.Calendar;
-import java.util.Date;
  
 
-public class RegistrarCliente extends JFrame implements ActionListener {
+public final class RegistrarCliente extends JFrame implements ActionListener {
+    
     String filename;
-    String[] TiposLicencias = {"", "A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","D1","D2","D3","E1","E1"};
+    TLicencia[] TiposLicencias = {TLicencia.A1, TLicencia.A2, TLicencia.A3, TLicencia.A4, TLicencia.B1, TLicencia.B2, TLicencia.B3, TLicencia.B4, TLicencia.C1, TLicencia.C2, TLicencia.D1, TLicencia.D2, TLicencia.D3, TLicencia.E1, TLicencia.E2};
     Container container = getContentPane();
     final JFileChooser explorer = new JFileChooser();
     
@@ -21,9 +21,12 @@ public class RegistrarCliente extends JFrame implements ActionListener {
     JTextField TextFieldCorreo = new JTextField();
     JTextField TextFieldTeléfono = new JTextField();
     JTextField TextFieldNumeroLicencia = new JTextField();
-    JComboBox<String> TextFieldTipoLicencia = new JComboBox<>(TiposLicencias);
+    
+    JComboBox<TLicencia> TextFieldTipoLicencia = new JComboBox<>(TiposLicencias);
+    
     com.toedter.calendar.JDateChooser TextFieldFechaEmisionLicencia= new com.toedter.calendar.JDateChooser();
     com.toedter.calendar.JDateChooser TextFieldFechaExpiracionLicencia= new com.toedter.calendar.JDateChooser();
+    
     JLabel TextoNombreCompleto = new JLabel("Nombre Completo");
     JLabel TextoCédula = new JLabel("Cédula");
     JLabel TextoDirección = new JLabel("Dirección Exacta");
@@ -143,27 +146,16 @@ public class RegistrarCliente extends JFrame implements ActionListener {
             TextFieldFechaExpiracionLicencia.setDate(null);
             TextoURL.setText("No se ha seleccionado imagen");
             
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRegistrarCliente(false);
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaRegistrarCliente(false);
           
         }
         if (e.getSource()==botonAgregarOperador){
-            String NombreTemporal;
-            String cédulaTemporal;
-            String direccionTemporal;
-            String correoTemporal;
-            String telefonoTemporal;
-            String numerolicenciaTemporal;
+
             String fechaemisionlicenciaTemporal;
-            String tipolicenciaTemporal;
             String fechaexpiracionlicenciaTemporal;
-            String imagenTemporal;
-            NombreTemporal = TextFieldNombreCompleto.getText();
-            cédulaTemporal = TextFieldCédula.getText();
-            direccionTemporal= TextFieldDirección.getText();
-            correoTemporal= TextFieldCorreo.getText();
-            telefonoTemporal= TextFieldTeléfono.getText();
-            numerolicenciaTemporal= TextFieldNumeroLicencia.getText();
+
+
             if(TextFieldFechaEmisionLicencia.getCalendar()!=null){
                 int año = TextFieldFechaEmisionLicencia.getCalendar().get(Calendar.YEAR);
                 int mes = TextFieldFechaEmisionLicencia.getCalendar().get(Calendar.MONTH) + 1;
@@ -171,7 +163,6 @@ public class RegistrarCliente extends JFrame implements ActionListener {
                 fechaemisionlicenciaTemporal=dia+"/"+mes+"/"+año;
             }
             
-            tipolicenciaTemporal= TextoTL.getText();
             if(TextFieldFechaExpiracionLicencia.getCalendar()!=null){
                int año = TextFieldFechaExpiracionLicencia.getCalendar().get(Calendar.YEAR);
                int mes = TextFieldFechaExpiracionLicencia.getCalendar().get(Calendar.MONTH) + 1;
@@ -179,32 +170,32 @@ public class RegistrarCliente extends JFrame implements ActionListener {
                 fechaexpiracionlicenciaTemporal=dia+"/"+mes+"/"+año;
             }
             
-            imagenTemporal= TextoURL.getText();
-            
-            if (NombreTemporal.equals("") || cédulaTemporal.equals("") ||direccionTemporal.equals("") ||correoTemporal.equals("") ||telefonoTemporal.equals("") ||numerolicenciaTemporal.equals("") ||tipolicenciaTemporal.equals("") ||imagenTemporal.equals("No se ha seleccionado imagen") || TextFieldFechaEmisionLicencia.getDate() == null || TextFieldFechaExpiracionLicencia.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
-            
-            } else {
-            JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo Cliente");
-            TextFieldNombreCompleto.setText("");
-            TextFieldCédula.setText("");
-            TextFieldDirección.setText("");
-            TextFieldCorreo.setText("");
-            TextFieldTeléfono.setText("");
-            TextFieldNumeroLicencia.setText("");
-            TextFieldFechaEmisionLicencia.setDate(null);
-            TextFieldTipoLicencia.setSelectedIndex(0);
-            TextFieldFechaExpiracionLicencia.setDate(null);
-            TextoURL.setText("No se ha seleccionado imagen");
-            TextoTL.setText("");
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRegistrarCliente(false);    
+            if (TextFieldNombreCompleto.getText().equals("") || TextFieldCédula.getText().equals("") ||TextFieldDirección.getText().equals("") ||TextFieldCorreo.getText().equals("") ||TextFieldTeléfono.getText().equals("") ||TextFieldNumeroLicencia.getText().equals("") || filename.equals("No se ha seleccionado imagen") || TextFieldFechaEmisionLicencia.getDate() == null || TextFieldFechaExpiracionLicencia.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
+            }else {
                 
-            }
-
+                Inicio.adminApp.registrarCliente(TextFieldNombreCompleto.getText(), TextFieldCédula.getText(), TextFieldDirección.getText(), TextFieldCorreo.getText(), TextFieldTeléfono.getText(), TextFieldNumeroLicencia.getText(), TextFieldFechaEmisionLicencia.getCalendar(), (TLicencia) TextFieldTipoLicencia.getSelectedItem(), TextFieldFechaExpiracionLicencia.getCalendar(), filename, false);
+                Inicio.adminApp.cargarInformacionJSON("clientes.json", "Cliente");
+                JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo Cliente");
+                TextFieldNombreCompleto.setText("");
+                TextFieldCédula.setText("");
+                TextFieldDirección.setText("");
+                TextFieldCorreo.setText("");
+                TextFieldTeléfono.setText("");
+                TextFieldNumeroLicencia.setText("");
+                TextFieldFechaEmisionLicencia.setDate(null);
+                TextFieldTipoLicencia.setSelectedIndex(0);
+                TextFieldFechaExpiracionLicencia.setDate(null);
+                TextoURL.setText("No se ha seleccionado imagen");
+                TextoTL.setText("");
+                Inicio.VentanaMenuPrincipal(true);
+                Inicio.VentanaRegistrarCliente(false);
+                
+            }   
         }
+
         if(e.getSource()==TextFieldImágen){
-            int accion = explorer.showOpenDialog(Login.frameRegistrarCliente);
+            int accion = explorer.showOpenDialog(Inicio.frameRegistrarCliente);
             if (accion == JFileChooser.APPROVE_OPTION){            
                 filename = explorer.getSelectedFile().toString();
                 TextoURL.setText(filename);
@@ -212,13 +203,5 @@ public class RegistrarCliente extends JFrame implements ActionListener {
                 filename = "Error, no se encuentra el archivo";
             }
         }
-        if(e.getSource()==TextFieldTipoLicencia){
-            JComboBox cb=(JComboBox)e.getSource();
-            TextoTL.setText((String)cb.getSelectedItem());
-        }
-            
-        
-       //Coding Part of showPassword JCheckBox
     }
- 
 }

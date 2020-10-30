@@ -134,8 +134,8 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            Login.frameEditarVehiculo.setEnabled(true);
-            Login.frameAgregarVehiculo.setEnabled(true);
+            Inicio.frameEditarVehiculo.setEnabled(true);
+            Inicio.frameAgregarVehiculo.setEnabled(true);
         frameTablaEditarServiciosVehiculo.setVisible(false);
             // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -111,8 +111,8 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
             TextFieldFechaInicio.setText("");
             TextFieldFechaFinal.setText("");
 
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaAgregarEmpresa(false); 
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaAgregarEmpresa(false); 
           
         }
         String fiTemp;
@@ -129,8 +129,8 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
                 TextFieldMontoPagado.setText("");
                 TextFieldDetalles.setText("");
                 TextFieldEmpresaServicio.setText("");
-                Login.VentanaMenuAdministrador(true);
-                Login.VentanaAgregarServicio(false);    
+                Inicio.VentanaMenuAdministrador(true);
+                Inicio.VentanaAgregarServicio(false);    
                 
             }
 

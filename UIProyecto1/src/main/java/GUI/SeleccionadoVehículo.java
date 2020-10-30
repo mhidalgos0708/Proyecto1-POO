@@ -204,8 +204,8 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         if (e.getSource()==botonAtras){
             
             ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
-            Login.frameRealizarReserva.setEnabled(true);
-            Login.VentanaSeleccionadoVehículo(false);
+            Inicio.frameRealizarReserva.setEnabled(true);
+            Inicio.VentanaSeleccionadoVehículo(false);
           
         }
         if (e.getSource()==botonAgregarOperador){
@@ -244,10 +244,10 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
             } else {
             JOptionPane.showMessageDialog(this, "Se ha seleccionado un vehículo");
             
-            Login.frameRealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
+            Inicio.frameRealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
             ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
-            Login.frameRealizarReserva.setEnabled(true);
-            Login.VentanaSeleccionadoVehículo(false);   
+            Inicio.frameRealizarReserva.setEnabled(true);
+            Inicio.VentanaSeleccionadoVehículo(false);   
                 
             }
 
@@ -409,7 +409,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextoListaServicioseleccionado){
             
-            Login.frameSeleccionadoVehículo.setEnabled(false);
+            Inicio.frameSeleccionadoVehículo.setEnabled(false);
             TablaServiciosAsociados.correrVentanilla();
         }
         

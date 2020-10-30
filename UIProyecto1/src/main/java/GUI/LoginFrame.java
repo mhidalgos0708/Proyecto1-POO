@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
  
 
-public class LoginFrame extends JFrame implements ActionListener {
- 
+public final class LoginFrame extends JFrame implements ActionListener {
+    
+    
     Container container = getContentPane();
     JLabel userLabel = new JLabel("Nombre de Usuario");
     JLabel passwordLabel = new JLabel("Contraseña");
@@ -25,6 +29,8 @@ public class LoginFrame extends JFrame implements ActionListener {
  
  
     LoginFrame() {
+        
+        
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -79,20 +85,30 @@ public class LoginFrame extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             String userText;
             String pwdText;
+            
+            boolean passcheck = false;
+            
             userText = userTextField.getText();
             pwdText = passwordField.getText();
-            if (userText.equalsIgnoreCase("johan") && pwdText.equalsIgnoreCase("123")) {
-                JOptionPane.showMessageDialog(this, "Inicio de Sesión Aceptado");
-                passwordField.setText("");
-                userTextField.setText("");
+            for (int i = 0; i < Inicio.listaOperadores.size(); i++) {
+                    if(pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
+                        passcheck=true;
+                        JOptionPane.showMessageDialog(this, "Inicio de Sesión Aceptado");
+                        passwordField.setText("");
+                        userTextField.setText("");
+                        Inicio.VentanaMenuPrincipal(true);
+                        Inicio.VentanaLogin(false);
+                        Inicio.listaOperadores.get(i).setEstado(true);
+                        MenuPrincipal.NombreUsuario.setText(Inicio.listaOperadores.get(i).getNombreCompleto());
                 
-                Login.VentanaMenuPrincipal(true);
-                Login.VentanaLogin(false);
-            } else {
+            
+                    }
+                }
+            if (!passcheck){
                 JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña inválidos");
             }
- 
         }
+
         //Coding Part of RESET button
         if (e.getSource() == resetButton) {
             userTextField.setText("");

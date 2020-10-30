@@ -17,12 +17,12 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     JButton botonRegistrarOperador = new JButton("Registar Operador");
     JButton botonCerrarSesion = new JButton("Salir de la sesión");
     
-    JLabel NombreUsuario = new JLabel("canesa");
+    static JLabel NombreUsuario = new JLabel("Usuario");
     
     JPanel rectangle = new JPanel();
     Color color = new Color(58, 58, 58); 
     
-    ImageIcon icon = new ImageIcon("src\\main\\java\\img\\leonard_snake.jpg");
+    ImageIcon icon = new ImageIcon("src\\main\\java\\img\\profile.png");
     JLabel Picture = new JLabel(icon);
     Image imagenSinResize = icon.getImage();
     Image ImagenFinal = imagenSinResize.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -33,6 +33,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     
  
     MenuPrincipal() {
+        
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -55,7 +56,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         int ancho = 25;
         int alto =10;
         int SV =-5;
-        NombreUsuario.setBounds(80, 25, 150, 20);
+        NombreUsuario.setBounds(80, 15, 150, 30);
         botonReserva.setBounds((200-150/2)+k, 100+SV, 150+ancho, 30+alto);
         botonConsultarReserva.setBounds((200-150/2)+k, 160+SV, 150+ancho, 30+alto);
         botonAdministracion.setBounds((200-150/2)+k, 220+SV, 150+ancho, 30+alto);
@@ -100,32 +101,37 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonReserva) {
-            Login.VentanaRealizarReserva(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaRealizarReserva(true);
+            Inicio.VentanaMenuPrincipal(false);
         }
         if (e.getSource() == botonConsultarReserva) {
-            Login.VentanaConsultarReserva(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaConsultarReserva(true);
+            Inicio.VentanaMenuPrincipal(false);
         }
         if (e.getSource() == botonAdministracion) {
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaMenuPrincipal(false);
         }
         
         if (e.getSource()==botonRegistrarCliente){
             
-            Login.VentanaRegistrarCliente(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaRegistrarCliente(true);
+            Inicio.VentanaMenuPrincipal(false);
         }
         
         if (e.getSource()==botonRegistrarOperador){
             
-            Login.VentanaRegistrarOperador(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaRegistrarOperador(true);
+            Inicio.VentanaMenuPrincipal(false);
         }
         if (e.getSource()==botonCerrarSesion){
-            Login.VentanaLogin(true);
-            Login.VentanaMenuPrincipal(false);
+            Inicio.VentanaLogin(true);
+            Inicio.VentanaMenuPrincipal(false);
+            for (int i = 0; i < Inicio.listaOperadores.size(); i++) {
+                if(Inicio.listaOperadores.get(i).isEstado()){
+                    Inicio.listaOperadores.get(i).setEstado(false);
+                }
+            }
 
         }
         

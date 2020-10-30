@@ -58,29 +58,29 @@ public final class MenuAdministrador extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botonRegistrarServicioMantenimiento) {
-            Login.VentanaAgregarServicio(true);
-            Login.VentanaMenuAdministrador(false);
+            Inicio.VentanaAgregarServicio(true);
+            Inicio.VentanaMenuAdministrador(false);
         }
 
         if (e.getSource() == botonRegistrarEmpresaServicios) {
-            Login.VentanaAgregarEmpresa(true);
-            Login.VentanaMenuAdministrador(false);
+            Inicio.VentanaAgregarEmpresa(true);
+            Inicio.VentanaMenuAdministrador(false);
         }
         
         if (e.getSource() == botonAgregarVehiculo) {
-            Login.VentanaAgregarVehiculo(true);
-            Login.VentanaMenuAdministrador(false);
+            Inicio.VentanaAgregarVehiculo(true);
+            Inicio.VentanaMenuAdministrador(false);
         }
         
         if (e.getSource()==botonEditarVehiculo){
             
-            Login.VentanaEditarVehiculo(true);
-            Login.VentanaMenuAdministrador(false);
+            Inicio.VentanaEditarVehiculo(true);
+            Inicio.VentanaMenuAdministrador(false);
         }
         
         if (e.getSource()==botonAtras){
-            Login.VentanaMenuAdministrador(false);
-            Login.VentanaMenuPrincipal(true);
+            Inicio.VentanaMenuAdministrador(false);
+            Inicio.VentanaMenuPrincipal(true);
         }
     }
  

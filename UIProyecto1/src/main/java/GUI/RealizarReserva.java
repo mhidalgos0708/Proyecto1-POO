@@ -185,8 +185,8 @@ public class RealizarReserva extends JFrame implements ActionListener {
             TextoTL.setText("No se ha seleccionado Cliente");
             
             
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRealizarReserva(false);
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaRealizarReserva(false);
           
         }
         if (e.getSource()==botonAgregarOperador){
@@ -244,8 +244,8 @@ public class RealizarReserva extends JFrame implements ActionListener {
             TextoTL.setText("No se ha seleccionado Cliente");
             
          
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaRealizarReserva(false);    
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaRealizarReserva(false);    
                 
             }
 
@@ -271,8 +271,8 @@ public class RealizarReserva extends JFrame implements ActionListener {
             TextoSedeEntrega.setText((String)cb.getSelectedItem());
         }
         if(e.getSource()==botonSeleccionarvehiculo){
-            Login.frameRealizarReserva.setEnabled(false);
-            Login.VentanaSeleccionadoVehículo(true);
+            Inicio.frameRealizarReserva.setEnabled(false);
+            Inicio.VentanaSeleccionadoVehículo(true);
         }
 
         

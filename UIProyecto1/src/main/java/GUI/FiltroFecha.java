@@ -132,9 +132,9 @@ public class FiltroFecha extends javax.swing.JFrame {
         } else if(SedesDisponibles.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Elementos incompletos");
         } else{
-            Login.VentanaReserva(true);
+            Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Login.frameRes.ContenidoTextoID.setText(ReservaSeleccionada);
+            Inicio.frameRes.ContenidoTextoID.setText(ReservaSeleccionada);
             jDateChooser1.setDate(null);
             SedesDisponibles.setEnabled(false);
                 SedesDisponibles.setSelectedIndex(0);

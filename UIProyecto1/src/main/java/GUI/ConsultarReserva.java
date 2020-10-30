@@ -5,8 +5,8 @@ package GUI;
  * @author fabri
  */
 
-import static GUI.Login.frameAgregarEmpresa;
-import static GUI.Login.img;
+import static GUI.Inicio.frameAgregarEmpresa;
+import static GUI.Inicio.img;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -123,8 +123,8 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
 
             TextoOperadorSeleccionado.setText("No se ha seleccionado Cliente");
 
-            Login.VentanaMenuPrincipal(true);
-            Login.VentanaConsultarReserva(false);
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaConsultarReserva(false);
          
         }
         if(e.getSource()==TextFieldOperadores){
@@ -167,9 +167,9 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else {
-            Login.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
-            Login.VentanaReserva(true);
-            Login.VentanaConsultarReserva(false);   
+            Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
+            Inicio.VentanaReserva(true);
+            Inicio.VentanaConsultarReserva(false);   
                 
             } 
         }

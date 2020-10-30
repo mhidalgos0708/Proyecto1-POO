@@ -206,8 +206,8 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             TextFieldCapacidadMaletas.setText("");
             TablaAgregarServiciosAsociados.LimpiarTabla();   
             
-            Login.VentanaMenuAdministrador(true);
-            Login.VentanaAgregarVehiculo(false);
+            Inicio.VentanaMenuAdministrador(true);
+            Inicio.VentanaAgregarVehiculo(false);
             
           
         }
@@ -232,14 +232,14 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
                 TextoCostoDiario.setText("");
                 TextoTL.setText("");
                 TablaAgregarServiciosAsociados.LimpiarTabla(); 
-                Login.VentanaMenuAdministrador(true);
-                Login.VentanaAgregarVehiculo(false);    
+                Inicio.VentanaMenuAdministrador(true);
+                Inicio.VentanaAgregarVehiculo(false);    
                 
             }
 
         }
         if(e.getSource()==TextFieldImágen){
-            int accion = explorer.showOpenDialog(Login.frameRegistrarCliente);
+            int accion = explorer.showOpenDialog(Inicio.frameRegistrarCliente);
             if (accion == JFileChooser.APPROVE_OPTION){  
                 
                 JLabel images = new JLabel();
@@ -269,7 +269,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             TextoTL.setText((String)cb.getSelectedItem());
         }
         if(e.getSource()==TextFieldServicio){
-            Login.frameAgregarServicio.setEnabled(false);
+            Inicio.frameAgregarServicio.setEnabled(false);
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
         }
         
