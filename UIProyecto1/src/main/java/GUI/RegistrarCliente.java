@@ -170,10 +170,13 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
                 fechaexpiracionlicenciaTemporal=dia+"/"+mes+"/"+año;
             }
             
-            if (TextFieldNombreCompleto.getText().equals("") || TextFieldCédula.getText().equals("") ||TextFieldDirección.getText().equals("") ||TextFieldCorreo.getText().equals("") ||TextFieldTeléfono.getText().equals("") ||TextFieldNumeroLicencia.getText().equals("") || filename.equals("No se ha seleccionado imagen") || TextFieldFechaEmisionLicencia.getDate() == null || TextFieldFechaExpiracionLicencia.getDate() == null) {
+            if (TextFieldFechaExpiracionLicencia.getDate() == null || TextFieldNombreCompleto.getText().equals("") || TextFieldCédula.getText().equals("") ||TextFieldDirección.getText().equals("") ||TextFieldCorreo.getText().equals("") ||TextFieldTeléfono.getText().equals("") ||TextFieldNumeroLicencia.getText().equals("") || filename.equals("No se ha seleccionado imagen") || TextFieldFechaEmisionLicencia.getDate() == null) {
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
-            }else {
-                
+            }else if (!Inicio.adminApp.verificarCorreo(TextFieldCorreo.getText())){
+                JOptionPane.showMessageDialog(this, "Correo inválido");
+            }else if (!Inicio.adminApp.verificarTelefono(TextFieldTeléfono.getText())){
+                JOptionPane.showMessageDialog(this, "Número telefónico inválido");
+            }else {   
                 Inicio.adminApp.registrarCliente(TextFieldNombreCompleto.getText(), TextFieldCédula.getText(), TextFieldDirección.getText(), TextFieldCorreo.getText(), TextFieldTeléfono.getText(), TextFieldNumeroLicencia.getText(), TextFieldFechaEmisionLicencia.getCalendar(), (TLicencia) TextFieldTipoLicencia.getSelectedItem(), TextFieldFechaExpiracionLicencia.getCalendar(), filename, false);
                 Inicio.adminApp.cargarInformacionJSON("clientes.json", "Cliente");
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo Cliente");

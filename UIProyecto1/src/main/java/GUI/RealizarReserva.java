@@ -1,36 +1,43 @@
 package GUI;
 
+import Modelo.Cliente;
+import Modelo.TEstilo;
+import Modelo.Vehiculo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.toedter.calendar.JDateChooser;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
  
 
-public class RealizarReserva extends JFrame implements ActionListener {
+public final class RealizarReserva extends JFrame implements ActionListener {
     
-    String[] ClientesTotales = {"", "Abiel", "Chuculun"};
     
-    String [] SedesTotales = {"","Zapote","Cartago"};
     Container container = getContentPane();
     
+    ArrayList<String> ServiciosOpcionales = new ArrayList<String>();
+        
+    static Vehiculo AutoSeleccionado;
     
-    JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(SedesTotales);
-    JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(SedesTotales);
+    Cliente [] ListaClientes = {};
+    
+    JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(Inicio.listaSedes);
+    JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(Inicio.listaSedes);
     com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
     com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
-    JComboBox<String> comboBoxCliente = new JComboBox<>(ClientesTotales);
+    JComboBox<Cliente> comboBoxCliente = new JComboBox<>();
+    
     JButton botonSeleccionarvehiculo= new JButton("Seleccionar");
-   JCheckBox SO1= new JCheckBox();
-   JCheckBox SO2= new JCheckBox();
-   JCheckBox SO3= new JCheckBox();
-   JCheckBox SO4= new JCheckBox();
-   JCheckBox SO5= new JCheckBox();
     
-    
+    JCheckBox SO1= new JCheckBox();
+    JCheckBox SO2= new JCheckBox();
+    JCheckBox SO3= new JCheckBox();
+    JCheckBox SO4= new JCheckBox();
+    JCheckBox SO5= new JCheckBox();
     
     JLabel TextoNombreCompleto = new JLabel("Sede Recogida");
     JLabel TextoCédula = new JLabel("Sede Entrega");
@@ -51,19 +58,19 @@ public class RealizarReserva extends JFrame implements ActionListener {
     JLabel TextoPlacaSeleccionada=new JLabel("No se ha seleccionado el vehículo");
     JLabel TextoClienteSeleccionar = new JLabel("Cliente seleccionado:");
     
-    
-    
-    
-    
-    
     JLabel TextoTL=new JLabel("No se ha seleccionado Cliente");
-    
+
     JButton botonAtras = new JButton("Atrás");
     JButton botonAgregarOperador = new JButton("Agregar");
  
  
  
     RealizarReserva() {
+        
+        DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getListaClientes().toArray());
+        comboBoxCliente.setModel(mod);
+        comboBoxCliente.insertItemAt(null, 0);
+        comboBoxCliente.setSelectedIndex(0);
         
         setLayoutManager();
         setLocationAndSize();
@@ -190,20 +197,13 @@ public class RealizarReserva extends JFrame implements ActionListener {
           
         }
         if (e.getSource()==botonAgregarOperador){
-            String NombreTemporal;
-            
-            String cédulaTemporal;
+
             String direccionTemporal;
             String correoTemporal;
-            String telefonoTemporal;
-            String numerolicenciaTemporal;
-            String fechaemisionlicenciaTemporal;
-            String tipolicenciaTemporal;
-            String fechaexpiracionlicenciaTemporal;
+
             
             
-            NombreTemporal = TextoSedeRecogida.getText();
-            cédulaTemporal = TextoSedeEntrega.getText();
+            
             if(TextFieldFechaInicio.getCalendar()!=null){
                int año = TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
                int mes = TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
@@ -216,47 +216,59 @@ public class RealizarReserva extends JFrame implements ActionListener {
                int dia = TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
                 correoTemporal=dia+"/"+mes+"/"+año;
             }
-            
-            
-            
-            tipolicenciaTemporal= TextoTL.getText();
-            numerolicenciaTemporal=TextoPlacaSeleccionada.getText();
-            
-            
-            
-            if (NombreTemporal.equals("") || cédulaTemporal.equals("") ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null ||numerolicenciaTemporal.equals("No se ha seleccionado el vehículo") ||TextoTL.getText().equals("No se ha seleccionado Cliente") || TextoTL.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
+       
+
+            if (TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextoTL.getText().equals("No se ha seleccionado Cliente") || TextoTL.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else {
-            JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
-            TextFieldSedeRecogida.setSelectedIndex(0);
-            TextFieldSedeEntrega.setSelectedIndex(0);
-            TextFieldFechaInicio.setDate(null);
-            TextFieldFechaFinalizacion.setDate(null);
-            
-            comboBoxCliente.setSelectedIndex(0);
-            SO1.setSelected(false);
-            SO2.setSelected(false);
-            SO3.setSelected(false);
-            SO4.setSelected(false);
-            SO5.setSelected(false);
-            TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
-            TextoTL.setText("No se ha seleccionado Cliente");
-            
-         
-            Inicio.VentanaMenuPrincipal(true);
-            Inicio.VentanaRealizarReserva(false);    
+                if(SO1.isSelected()){
+                    ServiciosOpcionales.add("WiFi limitado");
+                }if(SO2.isSelected()){
+                    ServiciosOpcionales.add("Asistencia en carretera");
+                }if(SO3.isSelected()){
+                    ServiciosOpcionales.add("GPS");
+                }if(SO4.isSelected()){
+                    ServiciosOpcionales.add("Asiento para niño");
+                }if (SO5.isSelected()){
+                    ServiciosOpcionales.add("Cobertura por daños a terceros");
+                }
+                
+                HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
+                
+                Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), (Cliente) comboBoxCliente.getSelectedItem(), diccionario, false);
+
+                JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
+                TextFieldSedeRecogida.setSelectedIndex(0);
+                TextFieldSedeEntrega.setSelectedIndex(0);
+                TextFieldFechaInicio.setDate(null);
+                TextFieldFechaFinalizacion.setDate(null);
+
+                comboBoxCliente.setSelectedIndex(0);
+
+                SO1.setSelected(false);
+                SO2.setSelected(false);
+                SO3.setSelected(false);
+                SO4.setSelected(false);
+                SO5.setSelected(false);
+
+                TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
+                TextoTL.setText("No se ha seleccionado Cliente");
+
+                Inicio.VentanaMenuPrincipal(true);
+                Inicio.VentanaRealizarReserva(false);    
                 
             }
 
         }
         
         if(e.getSource()==comboBoxCliente){
-            JComboBox cb=(JComboBox)e.getSource();
-            TextoTL.setText((String)cb.getSelectedItem());
-            if("".equals((String)cb.getSelectedItem())){
+            if (comboBoxCliente.getSelectedItem() instanceof Cliente ){
+                TextoTL.setText(comboBoxCliente.getSelectedItem().toString());
+            }else{
                 TextoTL.setText("No se ha seleccionado Cliente");
-            } 
+            }
+             
             
         }
         if(e.getSource()==TextFieldSedeRecogida){

@@ -1,12 +1,12 @@
 package GUI;
 
+import Modelo.TEstado;
+import Modelo.TEstilo;
+import Modelo.Vehiculo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.toedter.calendar.JDateChooser;
-import java.util.Calendar;
-import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
@@ -28,7 +28,9 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
     final JFileChooser explorer = new JFileChooser();
     
     JComboBox<String> ComboBoxTipoCarroSeleccionado = new JComboBox<>(TiposCarros);
-    JComboBox<String> ComboBoxVehículoSeleccionado = new JComboBox<>();
+    JComboBox<Vehiculo> ComboBoxVehículoSeleccionado = new JComboBox<>();
+    DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getListaVehiculos().toArray());
+   
     
     JLabel TextoPlacaSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     JLabel TextoAñoSeleccionado = new JLabel("No se ha seleccionado Vehículo");
@@ -111,8 +113,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         TextoKCapacidadSeleccionado.setBounds(200, 340, 200, 30); 
         TextoKilometrajeSeleccionado.setBounds(200, 380, 200, 30); 
         TextoPuertasSeleccionado.setBounds(200, 420, 200, 30); 
-        TextoVinSeleccionado.setBounds(200, 460, 200, 30);
-        
+        TextoVinSeleccionado.setBounds(200, 460, 200, 30);   
         botonAgregarOperador.setBounds(410, 140, 150, 30);
         TextoSede.setBounds(410, 180, 150, 30);
         TextoCostoDiario.setBounds(410, 220, 150, 30);
@@ -120,9 +121,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         TextoTipodeTransmisión.setBounds(410, 300, 150, 30);
         TextoEstado.setBounds(410, 340, 150, 30);
         TextoListadeServicios.setBounds(410, 380, 150, 30);
-        TextoImagen.setBounds(410, 420, 150, 30);
-        
-        
+        TextoImagen.setBounds(410, 420, 150, 30);       
         TextoMPGSeleccionado.setBounds(200, 500, 200, 30);
         TextoSedeSeleccionado.setBounds(570, 180, 200, 30);
         TextoCostoeleccionado.setBounds(570, 220, 200, 30);
@@ -131,16 +130,13 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         TextoEstadoSeleccionado.setBounds(570, 340, 200, 30);
         TextoListaServicioseleccionado.setBounds(570, 380, 200, 30);
         TextoImagenSeleccionado.setBounds(530, 410, 250, 200);
-        
         botonAgregarOperador.setBounds((200-150/2), 550, 150, 30);
         botonAtras.setBounds(200,30, 150, 30);
- 
- 
+
     }
  
     public void addComponentsToContainer() {
         
-
         container.add(TextoMPGSeleccionado);
         container.add(TextoSedeSeleccionado);
         container.add(TextoCostoeleccionado);
@@ -189,8 +185,6 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
 
         botonAtras.addActionListener(this);
         botonAgregarOperador.addActionListener(this);
-        
-        
         ComboBoxTipoCarroSeleccionado.addActionListener( this);
         ComboBoxVehículoSeleccionado.addActionListener(this);
         TextoListaServicioseleccionado.addActionListener(this);
@@ -209,45 +203,20 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
           
         }
         if (e.getSource()==botonAgregarOperador){
-            String NombreTemporal;
-            String cédulaTemporal;
-            String direccionTemporal;
-            String correoTemporal;
-            String telefonoTemporal;
-            String numerolicenciaTemporal;
-            String fechaemisionlicenciaTemporal;
-            String tipolicenciaTemporal;
-            String fechaexpiracionlicenciaTemporal;
-            String imagenTemporal;
-            String EstadoVehículoTemporal=TextoEstadoSeleccionado.getText();
-            NombreTemporal = TextoTipoVehículoSeleccionado.getText();
-            cédulaTemporal = TextoVehiculoSeleccionado.getText();
-            direccionTemporal= TextoPlacaSeleccionado.getText();
-            correoTemporal= TextoAñoSeleccionado.getText();
-            telefonoTemporal= TextoColorSeleccionado.getText();
-            numerolicenciaTemporal= TextoMarcaSeleccionado.getText();
+            Vehiculo Auto = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
             
-
-            fechaemisionlicenciaTemporal=TextoKCapacidadSeleccionado.getText();
+            if (ComboBoxTipoCarroSeleccionado.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione un vehículo");
             
-            
-            tipolicenciaTemporal= TextoTL.getText();
-
-            fechaexpiracionlicenciaTemporal=TextoPuertasSeleccionado.getText();
-            
-            
-            imagenTemporal= TextoURL.getText();
-            
-            if (NombreTemporal.equals("") || cédulaTemporal.equals("") || EstadoVehículoTemporal.equals("Inactivo") ) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido,  incompleto de elementos o Estado Inactivo");
-            
-            } else {
-            JOptionPane.showMessageDialog(this, "Se ha seleccionado un vehículo");
-            
-            Inicio.frameRealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
-            ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
-            Inicio.frameRealizarReserva.setEnabled(true);
-            Inicio.VentanaSeleccionadoVehículo(false);   
+            } else if(Auto.getEstado().equals(TEstado.Inactivo)){
+                JOptionPane.showMessageDialog(this, "Este vehículo se encuentra inactivo");
+            }else {
+                JOptionPane.showMessageDialog(this, "Se ha seleccionado un vehículo");
+                RealizarReserva.AutoSeleccionado = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
+                Inicio.frameRealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
+                ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
+                Inicio.frameRealizarReserva.setEnabled(true);
+                Inicio.VentanaSeleccionadoVehículo(false);   
                 
             }
 
@@ -258,163 +227,141 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
             TextoTL.setText((String)cb.getSelectedItem());
         }
         if(e.getSource()==ComboBoxTipoCarroSeleccionado){
+            Vehiculo Auto = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
             JComboBox cb=(JComboBox)e.getSource();
             TextoTipoVehículoSeleccionado.setText((String)cb.getSelectedItem());
             if("".equals((String)cb.getSelectedItem())){
-                TextoPlacaSeleccionado.setText("No se ha seleccionado Vehículo");
                 
-                        
-            TextoAñoSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoColorSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoMarcaSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoKilometrajeSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoKCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoPuertasSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoMPGSeleccionado.setText("No se ha seleccionado Vehículo"); 
-             TextoSedeSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoCostoeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoTipoTransimisionSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoEstadoSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoImagenSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoVinSeleccionado.setText("No se ha seleccionado Vehículo");
-             TablaServiciosAsociados.LimpiarTabla();
-             TextoImagenSeleccionado.setIcon(null);
+                TextoPlacaSeleccionado.setText("No se ha seleccionado Vehículo");   
+                TextoAñoSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoColorSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoMarcaSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoKilometrajeSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoKCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoPuertasSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoMPGSeleccionado.setText("No se ha seleccionado Vehículo"); 
+                TextoSedeSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoCostoeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoTipoTransimisionSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoEstadoSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoImagenSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoVinSeleccionado.setText("No se ha seleccionado Vehículo");
+                TablaServiciosAsociados.LimpiarTabla();
+                TextoImagenSeleccionado.setIcon(null);
                 ComboBoxVehículoSeleccionado.removeAllItems();
                 ComboBoxVehículoSeleccionado.setEnabled(false);
+                
             }
+            
             if(!"".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.setEnabled(true);
                 TextoTipoVehículoSeleccionado.setVisible(false);
+                
+                
             }
             if("Compacto".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosCompacto);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.Compacto).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("Pickup".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosPickup);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.PickUp).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("Intermedio".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosIntermedio);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.Intermedio).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("SUV".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosSUV);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.SUV).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("Mini-van".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosMinivan);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.MiniVan).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("Convertible".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosConvertible);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.Convertible).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             if("Económico".equals((String)cb.getSelectedItem())){
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(VehículosEconómico);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo(TEstilo.Económico).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             
         }
         if(e.getSource()==ComboBoxVehículoSeleccionado){
             JComboBox cb=(JComboBox)e.getSource();
-            TextoVehiculoSeleccionado.setText((String)cb.getSelectedItem());
             TextoVehiculoSeleccionado.setVisible(false);
-            if(ComboBoxVehículoSeleccionado.getSelectedIndex()==0){
-            TextoPlacaSeleccionado.setText("No se ha seleccionado Vehículo");
-                        
-            TextoAñoSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoColorSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoMarcaSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoKilometrajeSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoKCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
-            TextoPuertasSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoMPGSeleccionado.setText("No se ha seleccionado Vehículo"); 
-             TextoSedeSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoCostoeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoTipoTransimisionSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoEstadoSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoImagenSeleccionado.setText("No se ha seleccionado Vehículo");
-             TextoVinSeleccionado.setText("No se ha seleccionado Vehículo");
-             TablaServiciosAsociados.LimpiarTabla();
-             TextoImagenSeleccionado.setIcon(null);
-            }
-            if(ComboBoxVehículoSeleccionado.getSelectedIndex()==1){
-            TextoPlacaSeleccionado.setText("AAA-123");
-            TextoAñoSeleccionado.setText("2010");
-            TextoColorSeleccionado.setText("Azul");
-            TextoMarcaSeleccionado.setText("Honda");
-            TextoKilometrajeSeleccionado.setText("20000");
-            TextoKCapacidadSeleccionado.setText("4");
-            TextoPuertasSeleccionado.setText("4");
-             TextoMPGSeleccionado.setText("119"); 
-             TextoSedeSeleccionado.setText("Zapote");
-             TextoCostoeleccionado.setText("26$/d");
-             TextoCapacidadSeleccionado.setText("2 Maletas");
-             TextoTipoTransimisionSeleccionado.setText("Automatica");
-             TextoEstadoSeleccionado.setText("Activo");
-             
+            Vehiculo Auto = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
+            if(cb.getSelectedItem() instanceof Vehiculo){
+                
+                TextoPlacaSeleccionado.setText(Auto.getPlaca());
+                TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
+                TextoColorSeleccionado.setText(Auto.getColor());
+                TextoMarcaSeleccionado.setText(Auto.getMarca());
+                TextoKilometrajeSeleccionado.setText(String.valueOf(Auto.getKilometraje()));
+                TextoKCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+                TextoPuertasSeleccionado.setText(String.valueOf(Auto.getNumeroPuertas()));
+                TextoMPGSeleccionado.setText(String.valueOf(Auto.getMpg())); 
+                TextoSedeSeleccionado.setText(Auto.getSede());
+                TextoCostoeleccionado.setText(String.valueOf(Auto.getCostoDiario())+"/d");
+                TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+                TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
+                TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
+                TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+                ImageIcon img= new ImageIcon(Auto.getImagen());
+                TextoImagenSeleccionado.setIcon(img);
+                TextoImagenSeleccionado.setText("Sin fotografía");
+                Object[] filas= {};
+                filas = Auto.getListaServiciosRelacionados().toArray();
+                TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
+                
+            }else{
+                
+                TextoPlacaSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoAñoSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoColorSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoMarcaSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoKilometrajeSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoKCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoPuertasSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoMPGSeleccionado.setText("No se ha seleccionado Vehículo"); 
+                TextoSedeSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoCostoeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoCapacidadSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoTipoTransimisionSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoEstadoSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoImagenSeleccionado.setText("No se ha seleccionado Vehículo");
+                TextoVinSeleccionado.setText("No se ha seleccionado Vehículo");
+                TablaServiciosAsociados.LimpiarTabla();
+                TextoImagenSeleccionado.setIcon(null);
 
-             TextoVinSeleccionado.setText("12323");
-             ImageIcon img= new ImageIcon("src\\main\\java\\img\\carro1.jpg");
-             TextoImagenSeleccionado.setIcon(img);
-             TextoImagenSeleccionado.setText("f");
-             String[] filas= {"Sí", "No", "Sí", "sss", "No"};
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
-             
             }
-            if(ComboBoxVehículoSeleccionado.getSelectedIndex()==2){
-            TextoPlacaSeleccionado.setText("BBB-456");
-            TextoAñoSeleccionado.setText("2004");
-            TextoColorSeleccionado.setText("Café");
-            TextoMarcaSeleccionado.setText("Suzuki");
-            TextoKilometrajeSeleccionado.setText("50000");
-            TextoKCapacidadSeleccionado.setText("5");
-            TextoPuertasSeleccionado.setText("2");
-             TextoMPGSeleccionado.setText("131"); 
-             TextoSedeSeleccionado.setText("Cartago");
-             TextoCostoeleccionado.setText("50$/d");
-             TextoCapacidadSeleccionado.setText("4 Maletas");
-             TextoTipoTransimisionSeleccionado.setText("Manual");
-             TextoEstadoSeleccionado.setText("Inactivo");
-             ImageIcon img= new ImageIcon("src\\main\\java\\img\\carro2.jpg");
-             TextoImagenSeleccionado.setIcon(img);
-             TextoImagenSeleccionado.setText("h");
-             String[] filas= {"Sí", "No", "Sí", "Sí", "No"};
-             TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
-
-
-             TextoVinSeleccionado.setText("45453");
-            }
-            
-            
-            
+  
         }
+        
         if(e.getSource()==TextoListaServicioseleccionado){
             
             Inicio.frameSeleccionadoVehículo.setEnabled(false);
             TablaServiciosAsociados.correrVentanilla();
         }
-        
-        
-       //Coding Part of showPassword JCheckBox
+
     }
  
 }

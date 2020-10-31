@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import Controlador.AdministradorAplicacion;
 import Modelo.Operador;
+import Modelo.Vehiculo;
 import java.util.ArrayList;
 
 
@@ -16,28 +17,31 @@ public class Inicio {
         
     public static AdministradorAplicacion adminApp = new AdministradorAplicacion();
     static ArrayList<Operador> listaOperadores= Inicio.adminApp.getListaOperadores();
+    static ArrayList<Vehiculo> listaVehiculos= Inicio.adminApp.getListaVehiculos();
+    static String [] listaSedes = {"", "Zapote", "Cartago", "Heredia", "Uruca"};
     
-    
-        static ImageIcon img;
-        static LoginFrame frameLogin;
-        static MenuPrincipal frameMenuPrincipal;
-        static RegistrarOperador frameRegistrarOperador;
-        static RegistrarCliente frameRegistrarCliente;
-        static RealizarReserva frameRealizarReserva;
-        static ConsultarReserva frameConsultarReserva;
-        static MenuAdministrador frameMenuAdministrador;
-        static AgregarVehiculo frameAgregarVehiculo;
-        static AgregarServicio frameAgregarServicio;
-        static AgregarEmpresa frameAgregarEmpresa;
-        static Reservas frameRes;
-        static EditarVehiculo frameEditarVehiculo;
-        static SeleccionadoVehículo frameSeleccionadoVehículo;
-        static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        
-        public static void center(JFrame J){
-            J.setLocation(dim.width/2-J.getSize().width/2, dim.height/2-J.getSize().height/2);
-        }
+    static ImageIcon img;
+    static LoginFrame frameLogin;
+    static MenuPrincipal frameMenuPrincipal;
+    static RegistrarOperador frameRegistrarOperador;
+    static RegistrarCliente frameRegistrarCliente;
+    static RealizarReserva frameRealizarReserva;
+    static ConsultarReserva frameConsultarReserva;
+    static MenuAdministrador frameMenuAdministrador;
+    static AgregarVehiculo frameAgregarVehiculo;
+    static AgregarServicio frameAgregarServicio;
+    static AgregarEmpresa frameAgregarEmpresa;
+    static Reservas frameRes;
+    static EditarVehiculo frameEditarVehiculo;
+    static SeleccionadoVehículo frameSeleccionadoVehículo;
+    static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+    public static void center(JFrame J){
+        J.setLocation(dim.width/2-J.getSize().width/2, dim.height/2-J.getSize().height/2);
+    }
     public static void main(String[] a) {
+        
+        
         FlatDarculaLaf.install();
         adminApp.cargarInformacionJSON("empresas.json", "Empresa");
         adminApp.cargarInformacionJSON("servicios.json", "Servicio");
@@ -47,21 +51,21 @@ public class Inicio {
         adminApp.cargarInformacionJSON("reservas.json", "Reserva");
         adminApp.inicializarServiciosEspeciales();
         
-       img = new ImageIcon( "src\\main\\java\\img\\A.png");
-       frameLogin = new LoginFrame();
+        img = new ImageIcon( "src\\main\\java\\img\\A.png");
+        frameLogin = new LoginFrame();
         frameMenuPrincipal = new MenuPrincipal();
         frameRegistrarOperador = new RegistrarOperador();
-       frameRegistrarCliente = new RegistrarCliente();
+        frameRegistrarCliente = new RegistrarCliente();
         frameRealizarReserva = new RealizarReserva();
-         frameConsultarReserva = new ConsultarReserva();
-         frameMenuAdministrador = new MenuAdministrador();
+        frameConsultarReserva = new ConsultarReserva();
+        frameMenuAdministrador = new MenuAdministrador();
         frameAgregarVehiculo = new AgregarVehiculo();
-         frameAgregarServicio = new AgregarServicio();
-         frameAgregarEmpresa = new AgregarEmpresa();
-         frameRes = new Reservas();
-         frameEditarVehiculo = new EditarVehiculo();
-         frameSeleccionadoVehículo = new SeleccionadoVehículo();
-         VentanaLogin(true);
+        frameAgregarServicio = new AgregarServicio();
+        frameAgregarEmpresa = new AgregarEmpresa();
+        frameRes = new Reservas();
+        frameEditarVehiculo = new EditarVehiculo();
+        frameSeleccionadoVehículo = new SeleccionadoVehículo();
+        VentanaLogin(true);
         
         
         

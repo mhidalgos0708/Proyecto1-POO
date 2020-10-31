@@ -99,7 +99,7 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
      static public void correrVentanilla(){
       frameVentanillaObjeto.setVisible(true);
     }
-     static public void ModificarTablaServiciosAsociados(String[] Servicios){
+     static public void ModificarTablaServiciosAsociados(Object[] Servicios){
          javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
          model.addColumn("Servicios Asociados");
          model.setRowCount(0);

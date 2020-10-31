@@ -147,6 +147,7 @@ public class AdministradorAplicacion {
         Reserva nuevaReserva = new Reserva(sedeRecogida, sedeEntrega, fechaInicio, fechaFinalizacion, fechaSolicitud, operador,
                                            vehiculoSeleccionado, clienteRelacionado, serviciosOpcionales, numeroFactura);
         listaReservas.add(nuevaReserva);
+        System.out.println(nuevaReserva);
         if(!lectura) {
             agregarInformacionJSON("reservas.json","Reserva");
         }
@@ -995,6 +996,37 @@ public class AdministradorAplicacion {
     public ArrayList<Operador> getListaOperadores() {
         return listaOperadores;
     }
+
+    public ArrayList<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
+    }
+    
+    public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo) {
+        ArrayList<Vehiculo> temp = new ArrayList<Vehiculo>();
+        temp.add(null);
+        for (Vehiculo V: listaVehiculos) {
+            if (V.getEstilo().equals(tipo)) {
+                temp.add(V);
+            }
+        }
+        return temp;
+    }
+
+    public ArrayList<Cliente> getListaClientes() {
+        return listaClientes;
+    }
+    
+    public Operador getOperadorActivo(){
+        for (Operador O: listaOperadores) {
+            if (O.isEstado()) {
+                return O;
+            }
+        }
+        return null;
+        
+    }
+    
+    
     
     
 }
