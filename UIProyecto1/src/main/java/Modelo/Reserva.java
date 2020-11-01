@@ -9,6 +9,7 @@ import Controlador.Utilitaria;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
@@ -157,13 +158,15 @@ public class Reserva {
     {
         return getCostoSO() + getCostoRenta();
     }
+    
+    public Object[][] getArrayServicios(){
+        Set keys = serviciosOpcionales.keySet();
+        Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},{"GPS", keys.contains("GPS") ? "Sí" : "No"},{"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},{"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},{"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
+        return O;
+    }
     @Override
     public String toString() {
-        return "Reserva{" + "sedeRecogida=" + sedeRecogida + ", sedeEntrega=" + sedeEntrega + 
-                ", fechaInicio=" + Utilitaria.formatoFecha(fechaInicio) + ", fechaFinalizacion=" +
-                Utilitaria.formatoFecha(fechaFinalizacion) + ", fechaSolicitud=" + Utilitaria.formatoFecha(fechaSolicitud) + 
-                ", operador=" + operador + ", vehiculoSeleccionado=" + vehiculoSeleccionado + ", clienteRelacionado=" + 
-                clienteRelacionado + ", serviciosOpcionales=" + serviciosOpcionales + ", numeroFactura=" + numeroFactura + '}';
+        return "Reserva número "+ numeroFactura + " (" + Utilitaria.formatoFecha(fechaInicio) + " - " + Utilitaria.formatoFecha(fechaFinalizacion) + ')';
     }
     
     

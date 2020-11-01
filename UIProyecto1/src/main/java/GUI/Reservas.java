@@ -36,14 +36,9 @@ public final class Reservas extends JFrame implements ActionListener {
     JLabel ContenidoTextoOperador = new JLabel();
     JLabel ContenidoTextoVehiculo = new JLabel();
     JLabel ContenidoTextoCliente = new JLabel();
-    JButton ContenidoTextoServicio = new JButton("Ver");
-    
-    
-    
-    
+    JButton ContenidoTextoServicio = new JButton("Ver");  
     JLabel TextoID = new JLabel("Factura");
-    JLabel ContenidoTextoID = new JLabel();
-    
+    JLabel ContenidoTextoID = new JLabel(); 
     JLabel TextoSedeRecogida = new JLabel("Sede de Recogida");
     JLabel TextoSedeEntrega = new JLabel("Sede de Entrega");
     JLabel TextoInicio = new JLabel("Fecha de Inicio");
@@ -83,15 +78,15 @@ public final class Reservas extends JFrame implements ActionListener {
         TextoServicio.setBounds(40, 420-k, 150, 30);  
         
         
-        ContenidoTextoID.setBounds(270, 50-k, 150, 30);
+        ContenidoTextoID.setBounds(200, 50-k, 150, 30);
         ContenidoTextoRecogida.setBounds(200, 100-k, 150, 30);
         ContenidoTextoEntrega.setBounds(200, 140-k, 150, 30);
         ContenidoTextoInicio.setBounds(200, 180-k, 150, 30);
         ContenidoTextoFinal.setBounds(200, 220-k, 150, 30); 
         ContenidoTextoSolicitud.setBounds(200, 260-k, 150, 30); 
-        ContenidoTextoOperador.setBounds(200, 300-k, 150, 30);
-        ContenidoTextoVehiculo.setBounds(200, 340-k, 150, 30);
-        ContenidoTextoCliente.setBounds(200, 380-k, 150, 30);
+        ContenidoTextoOperador.setBounds(200, 300-k, 300, 30);
+        ContenidoTextoVehiculo.setBounds(200, 340-k, 300, 30);
+        ContenidoTextoCliente.setBounds(200, 380-k, 300, 30);
         ContenidoTextoServicio.setBounds(200, 420-k, 150, 30);
         
         botonOk.setBounds(220, 550-k, 150, 30);

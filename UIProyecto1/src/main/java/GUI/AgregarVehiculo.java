@@ -5,10 +5,15 @@
  */
 package GUI;
 
+import Modelo.Servicio;
+import Modelo.TEstado;
+import Modelo.TEstilo;
+import Modelo.TTransmision;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,11 +27,11 @@ import javax.swing.JTextField;
  *
  * @author fabri
  */
-public class AgregarVehiculo extends JFrame implements ActionListener {
+public final class AgregarVehiculo extends JFrame implements ActionListener {
     String filename;
-    String[] TiposEstilos = {"", "Compacto", "Pick-Up", "Intermedio", "SUV", "Mini-Van", "Convertible", "Económico"};
-    String[] TiposTransmision = {"", "Automática", "Manual"};
-    String[] TiposSedes = {"", "Cartago", "Zapote"};
+    TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
+    TTransmision[] TiposTransmision = {null, TTransmision.Automática, TTransmision.Manual};
+    String[] TiposSedes = Inicio.listaSedes;
     
     Container container = getContentPane();
     final JFileChooser explorer = new JFileChooser();
@@ -38,15 +43,18 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     JTextField TextFieldKilometraje = new JTextField();
     JTextField TextFieldCostoDiario = new JTextField();
     JTextField TextFieldCapacidadMaletas = new JTextField();
+    JTextField TextFieldAño = new JTextField();
     
     JTextField TextFieldNumeroPuertas = new JTextField();
     JTextField TextFieldVin = new JTextField();
     JTextField TextFieldMPG = new JTextField();
     
+    static ArrayList <Servicio> serviciosAsociados =  new ArrayList <Servicio> ();
+    
     
     JComboBox<String> TextFieldSede = new JComboBox<>(TiposSedes);
-    JComboBox<String> TextFieldEstilo = new JComboBox<>(TiposEstilos);
-    JComboBox<String> TextFieldTransmision = new JComboBox<>(TiposTransmision);
+    JComboBox<TEstilo> TextFieldEstilo = new JComboBox<>(TiposEstilos);
+    JComboBox<TTransmision> TextFieldTransmision = new JComboBox<>(TiposTransmision);
     JButton TextFieldServicio = new JButton("Seleccionar");
    
     JLabel TextoPlaca = new JLabel("Placa");
@@ -62,6 +70,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     JLabel TextoCostoDiario =new JLabel("Costo Diario");
     JLabel TextoCapacidadMaletas =new JLabel("Capacidad de Maletas");
     JLabel TextoTipoTransmision =new JLabel("Tipo de Transmision");
+    JLabel TextoAño =new JLabel("Año de Fabricación");
     JLabel TextoServicioAsociado =new JLabel("Servicio");
     JLabel TextoImagen =new JLabel("Imagen");
     JLabel ruta =new JLabel("ruta");
@@ -75,7 +84,9 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     
     ImageIcon img = new ImageIcon("");
     JLabel img2 = new JLabel(img);
- 
+    Image yourImage = img.getImage();
+    Image newImage = yourImage.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+          
  
  
     AgregarVehiculo() {
@@ -84,6 +95,8 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        img = new ImageIcon(newImage);
+        img2.setIcon(img);
  
     }
  
@@ -92,7 +105,8 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
-        img2.setBounds(550, 350, 150, 150);
+        
+        img2.setText("Sin Fotografía");
         TextoPlaca.setBounds(40, 100, 150, 30);
         TextoEstilo.setBounds(40, 140, 150, 30);
         TextoColor.setBounds(40, 180, 150, 30);
@@ -107,8 +121,10 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
         TextoTL.setBounds(120, 380, 150, 30);
         TextoCapacidadMaletas.setBounds(400, 180, 150, 30);
         TextoTipoTransmision.setBounds(400, 220, 150, 30);
-        TextoServicioAsociado.setBounds(400, 260, 150, 30);
-        TextoImagen.setBounds(400, 300, 150, 30);
+        TextoAño.setBounds(400, 260, 150, 30);
+        TextoServicioAsociado.setBounds(400, 300, 150, 30);
+        TextoImagen.setBounds(400, 340, 150, 30);
+        
            
         TextFieldPlaca.setBounds(200, 100, 150, 30);
         TextFieldEstilo.setBounds(200, 140, 150, 30);
@@ -119,23 +135,27 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
         TextFieldNumeroPuertas.setBounds(200, 340, 150, 30); 
         TextFieldVin.setBounds(200, 380, 150, 30); 
         TextFieldMPG.setBounds(200, 420, 150, 30); 
-        TextFieldImágen.setBounds(550, 300, 150, 30);
         TextFieldSede.setBounds(550, 100, 150, 30);
-        
         TextFieldCostoDiario.setBounds(550, 140, 150, 30);
         TextFieldCapacidadMaletas.setBounds(550, 180, 150, 30);
         TextFieldTransmision.setBounds(550, 220, 150, 30);
-        TextFieldServicio.setBounds(550, 260, 150, 30);
+        TextFieldAño.setBounds(550, 260, 150, 30);
+        TextFieldServicio.setBounds(550, 300, 150, 30);
+        TextFieldImágen.setBounds(550, 340, 150, 30);
+        img2.setBounds(425, 410, 256, 144);
         
-        botonAgregar.setBounds(300, 500, 150, 30);
-        botonAtras.setBounds(550,30, 150, 30);
+        botonAgregar.setBounds(200, 510, 150, 30);
+        botonAtras.setBounds(495,30, 205, 30);
  
  
     }
  
     public void addComponentsToContainer() {
-        container.add(botonAgregar);
         
+        container.add(TextoAño);
+        container.add(TextFieldAño);
+        container.add(botonAgregar);
+        container.add(img2);
         container.add(TextoPlaca);
         container.add(TextoEstilo);
         container.add(TextoColor);
@@ -190,6 +210,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonAtras){
+            img2.setText("Sin Fotografía");
             TextFieldPlaca.setText("");
             TextFieldVin.setText("");
             TextFieldColor.setText("");
@@ -200,10 +221,11 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             TextFieldEstilo.setSelectedIndex(0);
             TextFieldTransmision.setSelectedIndex(0);
             TextFieldSede.setSelectedIndex(0);
-            
             TextFieldMPG.setText("");
             TextFieldCostoDiario.setText("");
             TextFieldCapacidadMaletas.setText("");
+            TextFieldAño.setText("");
+            img2.setText("Sin Fotografía");
             TablaAgregarServiciosAsociados.LimpiarTabla();   
             
             Inicio.VentanaMenuAdministrador(true);
@@ -212,10 +234,24 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
           
         }
         if (e.getSource()==botonAgregar){
-            if (TextFieldTransmision.getSelectedItem().equals("") || TextFieldEstilo.getSelectedItem().equals("") || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
-            
-            } else {
+            try{
+                Integer.parseInt(TextFieldAño.getText());
+                Integer.parseInt(TextFieldCapacidadMaletas.getText());
+                Integer.parseInt(TextFieldCapacidad.getText());
+                Double.parseDouble(TextFieldKilometraje.getText());
+                Integer.parseInt(TextFieldNumeroPuertas.getText());
+                Integer.parseInt(TextFieldVin.getText());
+            }catch(NumberFormatException error){
+                JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
+            }
+            if (filename.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || TextFieldEstilo.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
+
+            }else if(!Inicio.adminApp.verificarPlaca(TextFieldPlaca.getText())){
+                JOptionPane.showMessageDialog(this, "La placa ingresada no es válida");
+            }else{
+                Inicio.adminApp.registrarVehiculo(TextFieldPlaca.getText(), Integer.parseInt(TextFieldAño.getText()), (TEstilo) TextFieldEstilo.getSelectedItem(), TextFieldColor.getText(), TextFieldMarca.getText(), Integer.parseInt(TextFieldCapacidad.getText()), Double.parseDouble(TextFieldKilometraje.getText()), Integer.parseInt(TextFieldNumeroPuertas.getText()), TextFieldVin.getText(), Double.parseDouble(TextFieldMPG.getText()), (String) TextFieldSede.getSelectedItem(), Double.parseDouble(TextFieldCostoDiario.getText()), Integer.parseInt(TextFieldCapacidadMaletas.getText()), (TTransmision) TextFieldTransmision.getSelectedItem(), TEstado.Activo, serviciosAsociados, filename, false);
+                Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo vehículo");
                 TextFieldPlaca.setText("");
                 TextFieldVin.setText("");
@@ -224,6 +260,7 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
                 TextFieldCapacidad.setText("");
                 TextFieldKilometraje.setText("");
                 TextFieldNumeroPuertas.setText("");
+                TextFieldAño.setText("");
                 TextFieldEstilo.setSelectedIndex(0);
                 TextFieldTransmision.setSelectedIndex(0);
                 TextFieldSede.setSelectedIndex(0);
@@ -242,23 +279,13 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             int accion = explorer.showOpenDialog(Inicio.frameRegistrarCliente);
             if (accion == JFileChooser.APPROVE_OPTION){  
                 
-                JLabel images = new JLabel();
                 filename = explorer.getSelectedFile().toString();
-                container.remove(img2);
-                ruta.setText(filename);
-                ImageIcon icon = new ImageIcon(ruta.getText());
-                JLabel K = new JLabel(icon);
-                Image imagenSinResize = icon.getImage();
-                Image ImagenFinal = imagenSinResize.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-                icon = new ImageIcon(ImagenFinal);
-                K.setBounds(550, 350, 150, 150);
-                K.setIcon(icon);
-                img2=K;
-                container.add(img2);
-                container.revalidate();
-                container.repaint();
-                
-                
+                ImageIcon imagenSeleccionada = new ImageIcon(filename);
+                img2.setIcon(imagenSeleccionada);
+                Image imagenSinEscala = imagenSeleccionada.getImage();
+                Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+                imagenSeleccionada.setImage(imagenEscalada);
+                img2.setIcon(imagenSeleccionada);
                 
             }else{
                 filename = "Error, no se encuentra el archivo";
@@ -272,9 +299,5 @@ public class AgregarVehiculo extends JFrame implements ActionListener {
             Inicio.frameAgregarServicio.setEnabled(false);
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
         }
-        
-            
-        
-       //Coding Part of showPassword JCheckBox
     }
 }

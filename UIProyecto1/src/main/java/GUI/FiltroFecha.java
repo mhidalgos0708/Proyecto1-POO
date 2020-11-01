@@ -5,7 +5,11 @@
  */
 package GUI;
 
+import static GUI.Inicio.dim;
+import Modelo.Reserva;
+import Modelo.TEstilo;
 import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -16,13 +20,15 @@ import javax.swing.JOptionPane;
 public class FiltroFecha extends javax.swing.JFrame {
         static FiltroFecha frameRegistrarOperador = new FiltroFecha();
         static String PlacaTexto="";
-        static String ReservaSeleccionada;
+        static Reserva ReservaSeleccionada;
     /**
      * Creates new form FiltroPuntoRecogida
      */
     public FiltroFecha() {
         initComponents();
-        SedesDisponibles.setEnabled(false);
+        ReservasPorFecha.setEnabled(false);
+        
+        
     }
 
     /**
@@ -36,23 +42,23 @@ public class FiltroFecha extends javax.swing.JFrame {
 
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
-        BotónBuscar = new javax.swing.JButton();
+        BotónConfirmar = new javax.swing.JButton();
         BotónAtrás = new javax.swing.JButton();
-        SedesDisponibles = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        ReservasPorFecha = new javax.swing.JComboBox<>();
+        botonBuscarFecha = new javax.swing.JButton();
+        CalendarField = new com.toedter.calendar.JDateChooser();
 
         jToggleButton2.setText("jToggleButton2");
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(400, 250));
+        setTitle(" Filtrar Reserva por Fecha");
+        setLocation(new java.awt.Point(0, 0));
 
-        BotónBuscar.setText("Buscar");
-        BotónBuscar.addActionListener(new java.awt.event.ActionListener() {
+        BotónConfirmar.setText("Consultar");
+        BotónConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotónBuscarActionPerformed(evt);
+                BotónConfirmarActionPerformed(evt);
             }
         });
 
@@ -63,17 +69,16 @@ public class FiltroFecha extends javax.swing.JFrame {
             }
         });
 
-        SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "",PlacaTexto+"1", PlacaTexto+"2" }));
-        SedesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        ReservasPorFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SedesDisponiblesActionPerformed(evt);
+                ReservasPorFechaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("añadir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscarFecha.setText("Buscar");
+        botonBuscarFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonBuscarFechaActionPerformed(evt);
             }
         });
 
@@ -82,38 +87,34 @@ public class FiltroFecha extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(BotónAtrás)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BotónConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservasPorFecha, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BotónBuscar)
-                        .addGap(162, 162, 162))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addGap(76, 76, 76))))
+                        .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                .addGap(76, 76, 76))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(33, 33, 33)
                 .addComponent(BotónAtrás)
-                .addGap(71, 71, 71)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
-                .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(BotónBuscar)
-                .addContainerGap())
+                .addComponent(ReservasPorFecha)
+                .addGap(31, 31, 31)
+                .addComponent(BotónConfirmar)
+                .addGap(56, 56, 56))
         );
 
         pack();
@@ -121,51 +122,49 @@ public class FiltroFecha extends javax.swing.JFrame {
 
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
         frameRegistrarOperador.setVisible(false); 
-        jDateChooser1.setDate(null);
-        SedesDisponibles.setEnabled(false);
-        SedesDisponibles.setSelectedIndex(0);// TODO add your handling code here:
+        CalendarField.setDate(null);
+        ReservasPorFecha.setEnabled(false);
     }//GEN-LAST:event_BotónAtrásActionPerformed
 
-    private void BotónBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónBuscarActionPerformed
-        if(PlacaTexto.equals("")){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
-        } else if(SedesDisponibles.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
+    private void BotónConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónConfirmarActionPerformed
+        if(ReservasPorFecha.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this, "No hay una reserva seleccionada");
         } else{
+            ReservaSeleccionada = (Reserva) ReservasPorFecha.getSelectedItem();
+            Inicio.frameRes.ContenidoTextoID.setText(Integer.toString(ReservaSeleccionada.getNumeroFactura()));
+            Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
+            Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
+            Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
+            Inicio.frameRes.ContenidoTextoVehiculo.setText(ReservaSeleccionada.getVehiculoSeleccionado().toString());
+            Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
+            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Inicio.frameRes.ContenidoTextoID.setText(ReservaSeleccionada);
-            jDateChooser1.setDate(null);
-            SedesDisponibles.setEnabled(false);
-                SedesDisponibles.setSelectedIndex(0);
+            CalendarField.setDate(null);
+            ReservasPorFecha.setEnabled(false);
+            ReservasPorFecha.setSelectedIndex(0);
         
         
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotónBuscarActionPerformed
+    }//GEN-LAST:event_BotónConfirmarActionPerformed
 
-    private void SedesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDisponiblesActionPerformed
-        JComboBox cb=(JComboBox)evt.getSource();
-            ReservaSeleccionada=((String)cb.getSelectedItem());
-            // TODO add your handling code here:
-    }//GEN-LAST:event_SedesDisponiblesActionPerformed
+    private void ReservasPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasPorFechaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            if(jDateChooser1.getCalendar()!=null){
-                int año = jDateChooser1.getCalendar().get(Calendar.YEAR);
-                int mes = jDateChooser1.getCalendar().get(Calendar.MONTH) + 1;
-                int dia = jDateChooser1.getCalendar().get(Calendar.DAY_OF_MONTH);
-                PlacaTexto=dia+"/"+mes+"/"+año;
-                if(!PlacaTexto.equals("")){
-                SedesDisponibles.setEnabled(true);
-                SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "",PlacaTexto+"1", PlacaTexto+"2" }));
-            }else if(PlacaTexto.equals("")){
-                SedesDisponibles.setEnabled(false);
-                SedesDisponibles.setSelectedIndex(0);
-            }
+        ReservaSeleccionada=(Reserva)ReservasPorFecha.getSelectedItem();
+    }//GEN-LAST:event_ReservasPorFechaActionPerformed
+
+    private void botonBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarFechaActionPerformed
+            if(CalendarField.getCalendar()!=null){
+                ReservasPorFecha.setEnabled(true);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaInicio(CalendarField.getCalendar()).toArray());
+                ReservasPorFecha.setModel(mod);
+                
             }else{
-                SedesDisponibles.setEnabled(false);
-                SedesDisponibles.setSelectedIndex(0);
+                ReservasPorFecha.setEnabled(false);
+                ReservasPorFecha.setSelectedIndex(0);
             }
         
         
@@ -174,7 +173,7 @@ public class FiltroFecha extends javax.swing.JFrame {
            
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonBuscarFechaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,10 +182,10 @@ public class FiltroFecha extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotónAtrás;
-    private javax.swing.JButton BotónBuscar;
-    private javax.swing.JComboBox<String> SedesDisponibles;
-    private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JButton BotónConfirmar;
+    private com.toedter.calendar.JDateChooser CalendarField;
+    private javax.swing.JComboBox<Reserva> ReservasPorFecha;
+    private javax.swing.JButton botonBuscarFecha;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables

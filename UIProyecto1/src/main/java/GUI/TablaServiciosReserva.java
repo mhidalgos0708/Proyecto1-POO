@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import static GUI.Inicio.dim;
+import java.util.HashMap;
+import javax.swing.JFrame;
+
 /**
  *
  * @author JoJo
@@ -16,8 +20,10 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
      */
     public TablaServiciosReserva() {
         initComponents();
+        
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +37,7 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Servicios Asociados a la Reserva");
         setLocation(new java.awt.Point(400, 250));
 
         BotónAtrás.setText("Atrás");
@@ -41,18 +47,6 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"WiFi", null},
-                {"GPS", null},
-                {"Seguro", null},
-                {"Asistente", null},
-                {"Asiento Niños", null}
-            },
-            new String [] {
-                "Servicio Asociado", "Activo"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -65,16 +59,17 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(BotónAtrás)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(164, 164, 164)
+                        .addComponent(BotónAtrás, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                        .addGap(161, 161, 161)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(BotónAtrás)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(BotónAtrás, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -82,20 +77,13 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void agregarServicios(Object [][] O){
+        frameTablaServiciosPorReserva.setLocation(dim.width/2-frameTablaServiciosPorReserva.getSize().width/2, dim.height/2-frameTablaServiciosPorReserva.getSize().height/2);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(O, new String [] {"Servicio Asociado", "Activo"}));
+    };
+    
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
         TablaServiciosReserva.frameTablaServiciosPorReserva.setVisible(false);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"WiFi", null},
-                {"GPS", null},
-                {"Seguro", null},
-                {"Asistente", null},
-                {"Asiento Niños", null}
-            },
-            new String [] {
-                "Servicio Asociado", "Activo"
-            }
-        ));// TODO add your handling code here:
     }//GEN-LAST:event_BotónAtrásActionPerformed
 
     /**

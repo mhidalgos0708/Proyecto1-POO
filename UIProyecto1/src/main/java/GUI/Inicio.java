@@ -8,9 +8,13 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import Controlador.AdministradorAplicacion;
+import Modelo.EmpresaMantenimiento;
 import Modelo.Operador;
+import Modelo.Reserva;
+import Modelo.Servicio;
 import Modelo.Vehiculo;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Inicio {
@@ -19,6 +23,9 @@ public class Inicio {
     static ArrayList<Operador> listaOperadores= Inicio.adminApp.getListaOperadores();
     static ArrayList<Vehiculo> listaVehiculos= Inicio.adminApp.getListaVehiculos();
     static String [] listaSedes = {"", "Zapote", "Cartago", "Heredia", "Uruca"};
+    public static ArrayList<Reserva> listaReservas= Inicio.adminApp.getListaReservas();
+    static ArrayList<Servicio> listaServicios = Inicio.adminApp.getListaServicios();
+    static ArrayList<EmpresaMantenimiento> listaEmpresas = Inicio.adminApp.getListaEmpresasMantenimiento();
     
     static ImageIcon img;
     static LoginFrame frameLogin;
@@ -65,7 +72,7 @@ public class Inicio {
         frameRes = new Reservas();
         frameEditarVehiculo = new EditarVehiculo();
         frameSeleccionadoVehículo = new SeleccionadoVehículo();
-        VentanaLogin(true);
+        VentanaAgregarVehiculo(true);
         
         
         
@@ -142,7 +149,7 @@ public class Inicio {
     public static void VentanaAgregarVehiculo(boolean visibilidad){
         frameAgregarVehiculo.setTitle("Rent a Car - Menú Administrador - Agregar Vehículo");
         frameAgregarVehiculo.setVisible(visibilidad);
-        frameAgregarVehiculo.setBounds(400, 100, 750, 600);
+        frameAgregarVehiculo.setBounds(400, 100, 750, 650);
         center(frameAgregarVehiculo);
         frameAgregarVehiculo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameAgregarVehiculo.setResizable(false);

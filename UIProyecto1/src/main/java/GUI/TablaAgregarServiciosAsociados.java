@@ -5,15 +5,20 @@
  */
 package GUI;
 
+import Modelo.Servicio;
+import Modelo.TEstilo;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author JoJo
  */
 public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
-    static String ServicioSeleccionado="";
+    static Servicio ServicioSeleccionado;
     static javax.swing.table.DefaultTableModel model;
     static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo= new TablaAgregarServiciosAsociados();
     /**
@@ -26,7 +31,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
         model.addColumn("Servicios de Mantenimiento");
         
     }
-    static  boolean ValidarRepetitivo(ArrayList<String> lista){
+    static  boolean ValidarRepetitivo(ArrayList<Servicio> lista){
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).equals(ServicioSeleccionado)) {
                 return true;
@@ -49,7 +54,6 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
         TablaEditarServiciosAsociados = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        String[] ServiciosTotales={"", "Limpieza de Llantas", "Revisión de Luces"};
         ServiciosAsociadosDisponibles = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
@@ -78,8 +82,8 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        ServiciosAsociadosDisponibles.setModel(new javax.swing.DefaultComboBoxModel<String>(ServiciosTotales));
+        DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
+        ServiciosAsociadosDisponibles.setModel(mod);
         ServiciosAsociadosDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ServiciosAsociadosDisponiblesActionPerformed(evt);
@@ -134,35 +138,37 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            ArrayList<Servicio> listafinal= new ArrayList<Servicio>();
+            for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
+                listafinal.add((Servicio) TablaEditarServiciosAsociados.getValueAt(i, 0));   
+            }  
+            System.out.println(listafinal);
+            AgregarVehiculo.serviciosAsociados = listafinal;
             Inicio.frameEditarVehiculo.setEnabled(true);
             Inicio.frameAgregarVehiculo.setEnabled(true);
-        frameTablaEditarServiciosVehiculo.setVisible(false);
-            // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+            frameTablaEditarServiciosVehiculo.setVisible(false);
+    }
 
     private void ServiciosAsociadosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServiciosAsociadosDisponiblesActionPerformed
         JComboBox cb=(JComboBox)evt.getSource();
             
-            ServicioSeleccionado=((String)cb.getSelectedItem());        // TODO add your handling code here:
+            ServicioSeleccionado=((Servicio)cb.getSelectedItem());        // TODO add your handling code here:
     }//GEN-LAST:event_ServiciosAsociadosDisponiblesActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<String> lista= new ArrayList<>();
+        ArrayList<Servicio> lista= new ArrayList<Servicio>();
         for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
-            lista.add(TablaEditarServiciosAsociados.getValueAt(i, 0).toString());
-            
+            lista.add((Servicio) TablaEditarServiciosAsociados.getValueAt(i, 0));   
         }
         
         if(!ValidarRepetitivo(lista)){
             
-                if(ServicioSeleccionado.equals("")){
+           if(ServicioSeleccionado==null){
                 System.out.println("Seleccione un servicio");
 
            }else {
-
-                model.addRow(new Object[]{
-                    ServicioSeleccionado
-                            });      
+                cantServicios++;
+                model.addRow(new Object[]{ServicioSeleccionado});      
             }
         
         }
@@ -178,8 +184,19 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        model.removeRow(TablaEditarServiciosAsociados.getSelectedRow());        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        try{
+            if (cantServicios!=0) {
+                model.removeRow(TablaEditarServiciosAsociados.getSelectedRow());
+                cantServicios--;
+            }else{
+                JOptionPane.showMessageDialog(this, "No quedan servicios para eliminar");
+            }
+        }catch(Exception error){
+            JOptionPane.showMessageDialog(this, "Seleccione un servicio antes de eliminar");
+        }
+        
+    }
+    
     static void LimpiarTabla(){
         model.setRowCount(0);
         ServiciosAsociadosDisponibles.setSelectedIndex(0);
@@ -190,11 +207,12 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static javax.swing.JComboBox<String> ServiciosAsociadosDisponibles;
+    private static javax.swing.JComboBox<Servicio> ServiciosAsociadosDisponibles;
     public static javax.swing.JTable TablaEditarServiciosAsociados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
+    private int cantServicios = 0;
     // End of variables declaration//GEN-END:variables
 }

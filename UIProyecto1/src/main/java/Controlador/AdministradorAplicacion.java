@@ -350,14 +350,12 @@ public class AdministradorAplicacion {
     }
     public ArrayList<Reserva> filtrarReservaInicio(Calendar pFInicio)
     {
-        ArrayList reservasSegunInicio = new ArrayList();
-        Reserva laReserva;
-        for(int i = 0; i < listaReservas.size(); i++)
+        ArrayList<Reserva> reservasSegunInicio = new ArrayList<Reserva>();
+        for(Reserva R: listaReservas)
         {
-            laReserva = listaReservas.get(i);
-            if(laReserva.getFechaInicio() == pFInicio)
+            if(R.getFechaInicio().get(Calendar.DAY_OF_YEAR)==pFInicio.get(Calendar.DAY_OF_YEAR) && R.getFechaInicio().get(Calendar.YEAR)==pFInicio.get(Calendar.YEAR))
             {
-                reservasSegunInicio.add(laReserva);
+                reservasSegunInicio.add(R);
             }
         }
         return reservasSegunInicio;
@@ -1005,7 +1003,7 @@ public class AdministradorAplicacion {
         ArrayList<Vehiculo> temp = new ArrayList<Vehiculo>();
         temp.add(null);
         for (Vehiculo V: listaVehiculos) {
-            if (V.getEstilo().equals(tipo)) {
+            if (V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar())) {
                 temp.add(V);
             }
         }
@@ -1025,6 +1023,28 @@ public class AdministradorAplicacion {
         return null;
         
     }
+
+
+    public ArrayList<Reserva> getListaReservas() {
+        return listaReservas;
+    }
+    
+    public Reserva filtrarReservaPorNumeroDeFactura(int NFactura){
+        for (Reserva R:listaReservas) {
+            if (R.getNumeroFactura()==NFactura){
+                return R;
+            }
+        }return null;
+    }
+
+    public ArrayList<Servicio> getListaServicios() {
+        return listaServicios;
+    }
+
+    public ArrayList<EmpresaMantenimiento> getListaEmpresasMantenimiento() {
+        return listaEmpresasMantenimiento;
+    }
+    
     
     
     

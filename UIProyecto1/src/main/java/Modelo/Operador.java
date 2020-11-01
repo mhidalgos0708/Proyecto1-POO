@@ -64,8 +64,7 @@ public class Operador {
 
     @Override
     public String toString() {
-        return "Operador{" + "correoElectronico=" + correoElectronico + ", contrase\u00f1a=" 
-                + contraseña + ", nombreCompleto=" + nombreCompleto + ", estado=" + estado + '}';
+        return nombreCompleto + " (" + correoElectronico +")";
     }
     
     

@@ -11,4 +11,5 @@ package Modelo;
  */
 public enum TEstilo {
     Compacto, PickUp, Intermedio, SUV, MiniVan, Convertible, Económico;
+    
 }

@@ -5,10 +5,14 @@
  */
 package GUI;
 
+import Modelo.EmpresaMantenimiento;
+import Modelo.Servicio;
+import Modelo.TServicio;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -21,11 +25,11 @@ import javax.swing.JTextField;
  *
  * @author fabri
  */
-public class AgregarServicio extends JFrame implements ActionListener {
-    String filename;
-    String[] ListaEmpresas = {"", "Empresa1", "Empresa2"};
-    String[] TiposDeServicios = {"", "Preventivo", "Correctivo"};
+public final class AgregarServicio extends JFrame implements ActionListener {
+
     Container container = getContentPane();
+    
+    TServicio [] ArrayServicios = {null, TServicio.Correctivo, TServicio.Preventivo};
     
     final JFileChooser explorer = new JFileChooser();
     
@@ -34,8 +38,8 @@ public class AgregarServicio extends JFrame implements ActionListener {
     com.toedter.calendar.JDateChooser TextFieldFechaFinal= new com.toedter.calendar.JDateChooser();
     JTextField TextFieldMontoPagado = new JTextField();
     JTextField TextFieldDetalles = new JTextField();
-    JComboBox<String> TextFieldTipoServicio = new JComboBox<>(TiposDeServicios);
-    JComboBox<String> TextFieldEmpresaServicio = new JComboBox<>(ListaEmpresas);
+    JComboBox<Servicio> TextFieldTipoServicio = new JComboBox<>();
+    JComboBox<EmpresaMantenimiento> TextFieldEmpresaServicio = new JComboBox<>();
     
    
     JLabel TextoIdentificador = new JLabel("Identificador");
@@ -57,6 +61,10 @@ public class AgregarServicio extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        DefaultComboBoxModel mod = new DefaultComboBoxModel(ArrayServicios);
+        TextFieldTipoServicio.setModel(mod);
+        mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
+        TextFieldEmpresaServicio.setModel(mod);
  
     }
  
@@ -65,6 +73,7 @@ public class AgregarServicio extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
+        
         TextoIdentificador.setBounds(40, 100, 150, 30);
         TextoFechaI.setBounds(40, 140, 150, 30);
         TextoFechaF.setBounds(40, 180, 150, 30);
@@ -72,27 +81,21 @@ public class AgregarServicio extends JFrame implements ActionListener {
         TextoDetalles.setBounds(40, 260, 150, 30);
         TextoTipoDeServicio.setBounds(40, 300, 150, 30);
         TextoEmpresaRelacionada.setBounds(40, 340, 150, 30);
-        
         TextFieldIdentificador.setBounds(200, 100, 150, 30);
-        
         TextFieldFechaInicio.setBounds(200, 140, 150, 30);
         TextFieldFechaFinal.setBounds(200, 180, 150, 30);
-           
-        
         TextFieldMontoPagado.setBounds(200, 220, 150, 30); 
         TextFieldDetalles.setBounds(200, 260, 150, 30); 
-        
         TextFieldTipoServicio.setBounds(200, 300, 150, 30);
         TextFieldEmpresaServicio.setBounds(200, 340, 150, 30);
         botonAgregarServicio.setBounds(150, 475, 150, 30);
         botonAtras.setBounds(200,30, 150, 30);
  
- 
     }
  
     public void addComponentsToContainer() {
-        container.add(botonAgregarServicio);
         
+        container.add(botonAgregarServicio);
         container.add(TextoIdentificador);
         container.add(TextoFechaI);
         container.add(TextoFechaF);
@@ -100,18 +103,13 @@ public class AgregarServicio extends JFrame implements ActionListener {
         container.add(TextoDetalles);
         container.add(TextoTipoDeServicio);
         container.add(TextoEmpresaRelacionada);
-        
-       
         container.add(TextFieldIdentificador);
         container.add(TextFieldMontoPagado);
         container.add(TextFieldDetalles);
         container.add(TextFieldEmpresaServicio);
-        
         container.add(TextFieldTipoServicio);
         container.add(TextFieldFechaInicio);
         container.add(TextFieldFechaFinal);
-        
-        
         container.add(botonAtras);
     }
  
@@ -125,8 +123,9 @@ public class AgregarServicio extends JFrame implements ActionListener {
  
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Coding Part of LOGIN button
+
         if (e.getSource()==botonAtras){
+            
             TextFieldIdentificador.setText("");
             TextFieldMontoPagado.setText("");
             TextFieldDetalles.setText("");
@@ -156,17 +155,26 @@ public class AgregarServicio extends JFrame implements ActionListener {
                 int dia = TextFieldFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
                 fiTemp=dia+"/"+mes+"/"+año;
             }
-           
-            if (TextFieldTipoServicio.getSelectedItem() == "" || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem().equals("") || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
+            try{
+                Double.parseDouble(TextFieldMontoPagado.getText());
+            }catch(Exception error){
+                JOptionPane.showMessageDialog(this, "El monto pagado ingresado no es válido");
+            }
+            if (TextFieldTipoServicio.getSelectedItem() == null || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem()==null || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             
             } else {
+                Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
+                Inicio.adminApp.cargarInformacionJSON("servicios.json", "Servicio");
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
+                
                 TextFieldIdentificador.setText("");
                 TextFieldMontoPagado.setText("");
                 TextFieldDetalles.setText("");
-
                 TextFieldEmpresaServicio.setSelectedIndex(0);
+                TextFieldTipoServicio.setSelectedIndex(0);
+                TextFieldFechaInicio.setDate(null);
+                TextFieldFechaFinal.setDate(null);
 
                 Inicio.VentanaMenuAdministrador(true);
                 Inicio.VentanaAgregarServicio(false);    

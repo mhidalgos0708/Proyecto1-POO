@@ -4,14 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
-
 public final class LoginFrame extends JFrame implements ActionListener {
-    
-    
+
     Container container = getContentPane();
     JLabel userLabel = new JLabel("Nombre de Usuario");
     JLabel passwordLabel = new JLabel("Contraseña");
@@ -24,19 +21,17 @@ public final class LoginFrame extends JFrame implements ActionListener {
     ImageIcon icon = new ImageIcon("src\\main\\java\\img\\loginP.jpg");
     JLabel Picture = new JLabel(icon);
     Image imagenSinResize = icon.getImage();
-    Image ImagenFinal = imagenSinResize.getScaledInstance(250, 450, Image.SCALE_DEFAULT);
+    Image ImagenFinal = imagenSinResize.getScaledInstance(250, 450, Image.SCALE_SMOOTH);
     
  
  
     LoginFrame() {
-        
-        
+
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
-        
-        
+
         icon = new ImageIcon(ImagenFinal);
         Picture.setIcon(icon);
  
@@ -47,6 +42,7 @@ public final class LoginFrame extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
+        
         userLabel.setBounds(50, 150, 150, 30);
         passwordLabel.setBounds(50, 220, 150, 30);
         userTextField.setBounds(210, 150, 150, 30);
@@ -60,9 +56,7 @@ public final class LoginFrame extends JFrame implements ActionListener {
  
     public void addComponentsToContainer() {
         
-
         container.add(Picture);
-        
         container.add(userLabel);
         container.add(passwordLabel);
         container.add(userTextField);
@@ -78,17 +72,13 @@ public final class LoginFrame extends JFrame implements ActionListener {
         showPassword.addActionListener(this);
     }
  
- 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Coding Part of LOGIN button
         if (e.getSource() == loginButton) {
-            String userText;
             String pwdText;
             
             boolean passcheck = false;
             
-            userText = userTextField.getText();
             pwdText = passwordField.getText();
             for (int i = 0; i < Inicio.listaOperadores.size(); i++) {
                     if(pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
@@ -100,8 +90,6 @@ public final class LoginFrame extends JFrame implements ActionListener {
                         Inicio.VentanaLogin(false);
                         Inicio.listaOperadores.get(i).setEstado(true);
                         MenuPrincipal.NombreUsuario.setText(Inicio.listaOperadores.get(i).getNombreCompleto());
-                
-            
                     }
                 }
             if (!passcheck){
@@ -109,21 +97,17 @@ public final class LoginFrame extends JFrame implements ActionListener {
             }
         }
 
-        //Coding Part of RESET button
         if (e.getSource() == resetButton) {
             userTextField.setText("");
             passwordField.setText("");
         }
-       //Coding Part of showPassword JCheckBox
+
         if (e.getSource() == showPassword) {
             if (showPassword.isSelected()) {
                 passwordField.setEchoChar((char) 0);
             } else {
                 passwordField.setEchoChar('*');
             }
- 
- 
         }
     }
- 
 }

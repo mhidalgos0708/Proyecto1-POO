@@ -24,13 +24,13 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
     
     final JFileChooser explorer = new JFileChooser();
     
-    JTextField TextFieldIdentificador = new JTextField();
-    JTextField TextFieldFechaInicio= new JTextField();
-    JTextField TextFieldFechaFinal= new JTextField();
-    JTextField TextFieldMontoPagado = new JTextField();
-    JTextField TextFieldDetalles = new JTextField();
-    JTextField TextFieldTipoServicio = new JTextField();
-    JTextField TextFieldEmpresaServicio = new JTextField();
+    JTextField TextFieldRazonSocial = new JTextField();
+    JTextField TextFieldNumeroCedula= new JTextField();
+    JTextField TextFieldTelefono= new JTextField();
+    JTextField TextFieldProvincia = new JTextField();
+    JTextField TextFieldCanton = new JTextField();
+    JTextField TextFieldDistrito = new JTextField();
+    JTextField TextFieldSeñas = new JTextField();
     
    
     JLabel TextoRazonSocial = new JLabel("Razón Social");
@@ -63,13 +63,13 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         TextoDetalles.setBounds(40, 260, 150, 30);
         TextoTipoDeServicio.setBounds(40, 300, 150, 30);
         TextoEmpresaRelacionada.setBounds(40, 340, 150, 30);     
-        TextFieldIdentificador.setBounds(200, 100, 150, 30);
-        TextFieldFechaInicio.setBounds(200, 140, 150, 30);
-        TextFieldFechaFinal.setBounds(200, 180, 150, 30);
-        TextFieldMontoPagado.setBounds(200, 220, 150, 30); 
-        TextFieldDetalles.setBounds(200, 260, 150, 30); 
-        TextFieldTipoServicio.setBounds(200, 300, 150, 30);
-        TextFieldEmpresaServicio.setBounds(200, 340, 150, 30);
+        TextFieldRazonSocial.setBounds(200, 100, 150, 30);
+        TextFieldNumeroCedula.setBounds(200, 140, 150, 30);
+        TextFieldTelefono.setBounds(200, 180, 150, 30);
+        TextFieldProvincia.setBounds(200, 220, 150, 30); 
+        TextFieldCanton.setBounds(200, 260, 150, 30); 
+        TextFieldDistrito.setBounds(200, 300, 150, 30);
+        TextFieldSeñas.setBounds(200, 340, 150, 30);
         botonAgregarEmpresa.setBounds(140, 475, 150, 30);
         botonAtras.setBounds(200,30, 150, 30);
     }
@@ -83,13 +83,13 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         container.add(TextoDetalles);
         container.add(TextoTipoDeServicio);
         container.add(TextoEmpresaRelacionada);
-        container.add(TextFieldIdentificador);
-        container.add(TextFieldMontoPagado);
-        container.add(TextFieldDetalles);
-        container.add(TextFieldEmpresaServicio);
-        container.add(TextFieldTipoServicio);
-        container.add(TextFieldFechaInicio);
-        container.add(TextFieldFechaFinal);
+        container.add(TextFieldRazonSocial);
+        container.add(TextFieldProvincia);
+        container.add(TextFieldCanton);
+        container.add(TextFieldSeñas);
+        container.add(TextFieldDistrito);
+        container.add(TextFieldNumeroCedula);
+        container.add(TextFieldTelefono);
         container.add(botonAtras);
     }
  
@@ -103,13 +103,13 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonAtras){
-            TextFieldIdentificador.setText("");
-            TextFieldMontoPagado.setText("");
-            TextFieldDetalles.setText("");
-            TextFieldEmpresaServicio.setText("");
-            TextFieldTipoServicio.setText("");
-            TextFieldFechaInicio.setText("");
-            TextFieldFechaFinal.setText("");
+            TextFieldRazonSocial.setText("");
+            TextFieldProvincia.setText("");
+            TextFieldCanton.setText("");
+            TextFieldSeñas.setText("");
+            TextFieldDistrito.setText("");
+            TextFieldNumeroCedula.setText("");
+            TextFieldTelefono.setText("");
 
             Inicio.VentanaMenuAdministrador(true);
             Inicio.VentanaAgregarEmpresa(false); 
@@ -120,23 +120,23 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         
         if (e.getSource()==botonAgregarEmpresa){
            
-            if (TextFieldTipoServicio.getText().equals("") || TextFieldEmpresaServicio.getText().equals("") || TextFieldFechaFinal.getText().equals("") || TextFieldFechaInicio.getText().equals("") || TextFieldEmpresaServicio.getText().equals("") || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
+            if (TextFieldDistrito.getText().equals("") || TextFieldSeñas.getText().equals("") || TextFieldTelefono.getText().equals("") || TextFieldNumeroCedula.getText().equals("") || TextFieldSeñas.getText().equals("") || TextFieldCanton.getText().equals("") || TextFieldRazonSocial.getText().equals("") || TextFieldProvincia.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
-            } else {
+            } else if(!Inicio.adminApp.verificarTelefono(TextFieldTelefono.getText())){
+                JOptionPane.showMessageDialog(this, "Teléfono inválido ingrsado");
+            }else {
+                Inicio.adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
+                Inicio.adminApp.cargarInformacionJSON("empresas.json", "Empresa");
                 JOptionPane.showMessageDialog(this, "Se ha agregado una nueva empresa de mantenimiento");
-                TextFieldIdentificador.setText("");
-                TextFieldMontoPagado.setText("");
-                TextFieldDetalles.setText("");
-                TextFieldEmpresaServicio.setText("");
+                TextFieldRazonSocial.setText("");
+                TextFieldProvincia.setText("");
+                TextFieldCanton.setText("");
+                TextFieldSeñas.setText("");
                 Inicio.VentanaMenuAdministrador(true);
                 Inicio.VentanaAgregarServicio(false);    
                 
             }
-
         }
-            
-        
-       //Coding Part of showPassword JCheckBox
     }
 }

@@ -92,9 +92,7 @@ public class EmpresaMantenimiento {
 
     @Override
     public String toString() {
-        return "EmpresaMantenimiento{" + "razonSocial=" + razonSocial + ", numeroCedula=" + numeroCedula + 
-                ", telefono=" + telefono + ", provincia=" + provincia + ", canton=" + canton + ", distrito=" 
-                + distrito + ", se\u00f1as=" + señas + '}';
+        return razonSocial + " cédula " + numeroCedula + ", " + provincia;
     }
     
     

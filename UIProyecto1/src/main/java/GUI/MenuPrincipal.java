@@ -25,7 +25,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     ImageIcon icon = new ImageIcon("src\\main\\java\\img\\profile.png");
     JLabel Picture = new JLabel(icon);
     Image imagenSinResize = icon.getImage();
-    Image ImagenFinal = imagenSinResize.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+    Image ImagenFinal = imagenSinResize.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     
     ImageIcon icon2 = new ImageIcon("src\\main\\java\\img\\RR.jpg");
     JLabel Picture2 = new JLabel(icon2);

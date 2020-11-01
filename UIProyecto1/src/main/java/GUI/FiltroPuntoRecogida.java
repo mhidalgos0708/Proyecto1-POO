@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import static GUI.FiltroFecha.ReservaSeleccionada;
+import static GUI.FiltroFecha.frameRegistrarOperador;
+import Modelo.Reserva;
+import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -20,6 +25,7 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
      */
     public FiltroPuntoRecogida() {
         initComponents();
+        ReservasDisponibles.setEnabled(false);
     }
 
     /**
@@ -33,22 +39,25 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
 
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
-        BotónBuscar = new javax.swing.JButton();
+        botonConsultar = new javax.swing.JButton();
         BotónAtrás = new javax.swing.JButton();
         SedesDeRecogida = new javax.swing.JComboBox<>();
-        SedesDisponibles = new javax.swing.JComboBox<>();
+        ReservasDisponibles = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        botonBuscar = new javax.swing.JButton();
 
         jToggleButton2.setText("jToggleButton2");
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(400, 250));
+        setResizable(false);
 
-        BotónBuscar.setText("Buscar");
-        BotónBuscar.addActionListener(new java.awt.event.ActionListener() {
+        botonConsultar.setText("Consulltar");
+        botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotónBuscarActionPerformed(evt);
+                botonConsultarActionPerformed(evt);
             }
         });
 
@@ -59,17 +68,28 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             }
         });
 
-        SedesDeRecogida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Zapote", "Cartago" }));
+        DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaSedes);
+        SedesDeRecogida.setModel(mod);
         SedesDeRecogida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SedesDeRecogidaActionPerformed(evt);
             }
         });
 
-        SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Item 1", "Item 2", "Item 3", "Item 4" }));
-        SedesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        ReservasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SedesDisponiblesActionPerformed(evt);
+                ReservasDisponiblesActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Sede");
+
+        jLabel2.setText("Reserva");
+
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
             }
         });
 
@@ -78,79 +98,96 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(BotónAtrás)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                    .addComponent(botonConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservasDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BotónBuscar)
-                        .addGap(162, 162, 162))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(126, 126, 126))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(39, 39, 39)
                 .addComponent(BotónAtrás)
-                .addGap(55, 55, 55)
-                .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(BotónBuscar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReservasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(botonConsultar)
+                .addGap(37, 37, 37))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
-        frameRegistrarOperador.setVisible(false); 
-        SedesDeRecogida.setSelectedIndex(0);// TODO add your handling code here:
+        frameRegistrarOperador.setVisible(false);
+        ReservasDisponibles.setEnabled(false);
     }//GEN-LAST:event_BotónAtrásActionPerformed
 
     private void SedesDeRecogidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDeRecogidaActionPerformed
-        
-        if(SedesDeRecogida.getSelectedIndex()==0){
-            SedesDisponibles.setSelectedIndex(0);
-            SedesDisponibles.setEnabled(false);
-        }else if(SedesDeRecogida.getSelectedIndex()==1){
-            SedesDisponibles.setEnabled(true);
-            SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Zapote1", "Zapote2" }));
-            
-        }else if(SedesDeRecogida.getSelectedIndex()==2){
-            SedesDisponibles.setEnabled(true);
-            SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","cartago1", "cartago2" }));
 
-        };        // TODO add your handling code here:
     }//GEN-LAST:event_SedesDeRecogidaActionPerformed
 
-    private void BotónBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónBuscarActionPerformed
-        if(SedesDeRecogida.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
-        } else if(SedesDisponibles.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
+    private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
+        if(ReservasDisponibles.getSelectedItem() == null || SedesDeRecogida.getSelectedItem() == ""){
+            JOptionPane.showMessageDialog(this, "No hay una sede seleccionada");
         } else{
+            ReservaSeleccionada = (Reserva) ReservasDisponibles.getSelectedItem();
+            Inicio.frameRes.ContenidoTextoID.setText(Integer.toString(ReservaSeleccionada.getNumeroFactura()));
+            Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
+            Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
+            Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
+            Inicio.frameRes.ContenidoTextoVehiculo.setText(ReservaSeleccionada.getVehiculoSeleccionado().toString());
+            Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
+            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Inicio.frameRes.ContenidoTextoID.setText(SedeSeleccionada);
             SedesDeRecogida.setSelectedIndex(0);
+            ReservasDisponibles.setEnabled(false);
         
         
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotónBuscarActionPerformed
 
-    private void SedesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDisponiblesActionPerformed
-        JComboBox cb=(JComboBox)evt.getSource();
-            SedeSeleccionada=((String)cb.getSelectedItem());        // TODO add your handling code here:
-    }//GEN-LAST:event_SedesDisponiblesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonConsultarActionPerformed
+
+    private void ReservasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasDisponiblesActionPerformed
+
+        SedeSeleccionada=((String)SedesDeRecogida.getSelectedItem());        // TODO add your handling code here:
+    }//GEN-LAST:event_ReservasDisponiblesActionPerformed
+
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        if(SedesDeRecogida.getSelectedItem() != ""){
+                ReservasDisponibles.setEnabled(true);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaRecogida(SedesDeRecogida.getSelectedItem().toString()).toArray());
+                ReservasDisponibles.setModel(mod);
+                
+            }else{
+                ReservasDisponibles.setEnabled(false);
+            }
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,9 +196,12 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotónAtrás;
-    private javax.swing.JButton BotónBuscar;
+    private javax.swing.JComboBox<String> ReservasDisponibles;
     private javax.swing.JComboBox<String> SedesDeRecogida;
-    private javax.swing.JComboBox<String> SedesDisponibles;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonConsultar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables

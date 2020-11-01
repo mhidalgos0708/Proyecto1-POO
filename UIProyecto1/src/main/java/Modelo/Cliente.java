@@ -126,7 +126,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return nombreCompleto + ", cédula " + cedula;
+        return nombreCompleto + ", Cédula: " + cedula + ", Licencia tipo: "+ tipoLicencia;
     }
     
     

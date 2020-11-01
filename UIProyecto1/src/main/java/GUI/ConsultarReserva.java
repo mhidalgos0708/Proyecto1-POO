@@ -5,12 +5,15 @@ package GUI;
  * @author fabri
  */
 
+import static GUI.Inicio.dim;
 import static GUI.Inicio.frameAgregarEmpresa;
 import static GUI.Inicio.img;
+import Modelo.Reserva;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import javax.swing.JFrame;
  
 
@@ -112,17 +115,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
  
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-            
-            
-        
-        //Coding Part of LOGIN button
+
         if (e.getSource()==botonAtras){
-           
-            
 
             TextoOperadorSeleccionado.setText("No se ha seleccionado Cliente");
-
             Inicio.VentanaMenuPrincipal(true);
             Inicio.VentanaConsultarReserva(false);
          
@@ -138,40 +134,49 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextFieldInicioReserva){
             FiltroFecha.frameRegistrarOperador.setVisible(true);
+            FiltroFecha.frameRegistrarOperador.setLocation(dim.width/2-FiltroFecha.frameRegistrarOperador.getSize().width/2, dim.height/2-FiltroFecha.frameRegistrarOperador.getSize().height/2);
+        
         }
         
         if (e.getSource()==botonConsultarReserva){
-            
-            
-            
-            
-            
-            System.out.println(TextFieldIDReserva.getText());
-            
-            String textoID =TextFieldIDReserva.getText(); 
-            String textoDeSedeRecogida;
-            textoDeSedeRecogida = TextoSedeRecogida.getText();
-            
-            String textoDePlaca;
-            textoDePlaca = TextFieldVehiculo.getText();
-            
-            String textoDeOperador;
-            textoDeOperador = TextoOperadorSeleccionado.getText();
-            
-            
-            String textoDeFechaDeRecogida;
-            
-            
+            try{
+                Reserva Resultado = Inicio.adminApp.obtenerReserva(Integer.parseInt(TextFieldIDReserva.getText()));
 
-            if (textoID.equals("")) {
-            JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
-            
-            } else {
-            Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
-            Inicio.VentanaReserva(true);
-            Inicio.VentanaConsultarReserva(false);   
-                
-            } 
+                if (Resultado!=null){
+                    try{
+                        Inicio.frameRes.ContenidoTextoID.setText(Integer.toString(Resultado.getNumeroFactura()));
+                    }catch(Exception error){
+                        JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar caracteres alfabéticos");
+                    }
+
+                    Inicio.frameRes.ContenidoTextoRecogida.setText(Resultado.getSedeRecogida());
+                    Inicio.frameRes.ContenidoTextoEntrega.setText(Resultado.getSedeEntrega());
+                    Inicio.frameRes.ContenidoTextoInicio.setText(Resultado.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaInicio().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaInicio().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoFinal.setText(Resultado.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaFinalizacion().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoSolicitud.setText(Resultado.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaSolicitud().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoOperador.setText(Resultado.getOperador().toString());
+                    Inicio.frameRes.ContenidoTextoVehiculo.setText(Resultado.getVehiculoSeleccionado().toString());
+                    Inicio.frameRes.ContenidoTextoCliente.setText(Resultado.getClienteRelacionado().toString());
+                    TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(Resultado.getArrayServicios());
+                }else{
+                    JOptionPane.showMessageDialog(this, "No existe una reserva cone sa factura");
+                    TextFieldIDReserva.setText("");
+                }
+
+
+
+                if (TextFieldIDReserva.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
+
+                } else {
+                Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
+                Inicio.VentanaReserva(true);
+                Inicio.VentanaConsultarReserva(false);   
+
+                } 
+            } catch (Exception error){
+                JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar caracteres alfabéticos");
+            }
         }
         
         

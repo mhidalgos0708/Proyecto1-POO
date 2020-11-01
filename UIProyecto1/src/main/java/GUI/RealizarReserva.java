@@ -27,8 +27,8 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     
     JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(Inicio.listaSedes);
     JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(Inicio.listaSedes);
-    com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
-    com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
+    static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
+    static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
     JComboBox<Cliente> comboBoxCliente = new JComboBox<>();
     
     JButton botonSeleccionarvehiculo= new JButton("Seleccionar");
@@ -218,10 +218,16 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             }
        
 
-            if (TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextoTL.getText().equals("No se ha seleccionado Cliente") || TextoTL.getText().equals("")) {
+            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || comboBoxCliente.getSelectedItem().equals(null) || TextoTL.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
-            } else {
+            } else if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
+                JOptionPane.showMessageDialog(this, "Ingrese fechas de inicio y finalización");
+                
+            }else if (TextFieldFechaInicio.getCalendar().compareTo(TextFieldFechaFinalizacion.getCalendar())==1){
+                JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior o igual a la de finalización");
+            
+            }else {
                 if(SO1.isSelected()){
                     ServiciosOpcionales.add("WiFi limitado");
                 }if(SO2.isSelected()){
@@ -283,8 +289,14 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             TextoSedeEntrega.setText((String)cb.getSelectedItem());
         }
         if(e.getSource()==botonSeleccionarvehiculo){
-            Inicio.frameRealizarReserva.setEnabled(false);
-            Inicio.VentanaSeleccionadoVehículo(true);
+            if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
+                JOptionPane.showMessageDialog(this, "Ingrese fechas de inicio y finalización para seleccionar un vehículo");
+            }else if (TextFieldFechaInicio.getCalendar().compareTo(TextFieldFechaFinalizacion.getCalendar())==1){
+                JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior o igual a la de finalización");
+            }else{
+                Inicio.frameRealizarReserva.setEnabled(false);
+                Inicio.VentanaSeleccionadoVehículo(true);
+            }
         }
 
         

@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import GUI.Inicio;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -192,10 +193,23 @@ public class Vehiculo {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    public boolean isRentadoEnElRango(Calendar Desde, Calendar Hasta){
+        ArrayList<Reserva> listaReservasAutoActual;
+        listaReservasAutoActual = Inicio.adminApp.filtrarReservaVehiculo(placa);
+        if (listaReservasAutoActual.isEmpty()) {
+            return false;
+        }
+        for (Reserva R: listaReservasAutoActual){
+            if (R.getFechaInicio().compareTo(Hasta)>0 || 0>R.getFechaFinalizacion().compareTo(Desde)) {
+                return false;
+            }
+        }return true;
+    }
 
     @Override
     public String toString() {
-        return "Vehículo " + marca + " placa " + placa;
+        return "Vehículo " + marca + ", Placa: " + placa;
     }
     
     
