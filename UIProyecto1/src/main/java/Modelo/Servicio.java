@@ -96,6 +96,8 @@ public class Servicio {
     public String toString() {
         return "Servicio " + tipo + " número " + identificador + " (" + fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + (fechaInicio.get(Calendar.MONTH)+1) + "/" + fechaInicio.get(Calendar.YEAR) +" - " + fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + (fechaFinalizacion.get(Calendar.MONTH)+1) + "/" + fechaFinalizacion.get(Calendar.YEAR)+")";
     }
+
+
     
     
     

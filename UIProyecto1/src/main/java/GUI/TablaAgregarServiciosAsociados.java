@@ -195,13 +195,12 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     static void LimpiarTabla(){
         cantServicios=0;
         model.setRowCount(0);
-        ServiciosAsociadosDisponibles.setSelectedIndex(0);
     }
     /**
      * @param args the command line arguments
      */
    
-    private static javax.swing.JComboBox<Servicio> ServiciosAsociadosDisponibles;
+    public static javax.swing.JComboBox<Servicio> ServiciosAsociadosDisponibles;
     public static javax.swing.JTable TablaEditarServiciosAsociados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

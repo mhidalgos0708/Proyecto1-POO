@@ -28,7 +28,7 @@ import javax.swing.JTextField;
  * @author fabri
  */
 public final class AgregarVehiculo extends JFrame implements ActionListener {
-    String filename;
+    String filename = "Sin Fotografía";
     TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
     TTransmision[] TiposTransmision = {null, TTransmision.Automática, TTransmision.Manual};
     String[] TiposSedes = Inicio.listaSedes;
@@ -296,7 +296,6 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextFieldServicio){
             Inicio.frameAgregarServicio.setEnabled(false);
-            TablaAgregarServiciosAsociados.LimpiarTabla();
             TablaAgregarServiciosAsociados.editando = false;
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
         }

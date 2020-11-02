@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import static GUI.Inicio.adminApp;
+import static GUI.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles;
 import Modelo.EmpresaMantenimiento;
 import Modelo.Servicio;
 import Modelo.TServicio;
@@ -39,7 +41,7 @@ public final class AgregarServicio extends JFrame implements ActionListener {
     JTextField TextFieldMontoPagado = new JTextField();
     JTextField TextFieldDetalles = new JTextField();
     JComboBox<Servicio> TextFieldTipoServicio = new JComboBox<>();
-    JComboBox<EmpresaMantenimiento> TextFieldEmpresaServicio = new JComboBox<>();
+    static JComboBox<EmpresaMantenimiento> TextFieldEmpresaServicio = new JComboBox<>();
     
    
     JLabel TextoIdentificador = new JLabel("Identificador");
@@ -61,10 +63,7 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
-        DefaultComboBoxModel mod = new DefaultComboBoxModel(ArrayServicios);
-        TextFieldTipoServicio.setModel(mod);
-        mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
-        TextFieldEmpresaServicio.setModel(mod);
+        
  
     }
  
@@ -73,6 +72,11 @@ public final class AgregarServicio extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
+        
+        DefaultComboBoxModel mod = new DefaultComboBoxModel(ArrayServicios);
+        TextFieldTipoServicio.setModel(mod);
+        mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
+        TextFieldEmpresaServicio.setModel(mod);
         
         TextoIdentificador.setBounds(40, 100, 150, 30);
         TextoFechaI.setBounds(40, 140, 150, 30);
@@ -117,13 +121,20 @@ public final class AgregarServicio extends JFrame implements ActionListener {
 
         botonAtras.addActionListener(this);
         botonAgregarServicio.addActionListener(this);
-        
+        TextFieldEmpresaServicio.addActionListener(this);
+        TextFieldTipoServicio.addActionListener(this);
     }
  
  
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource()==TextFieldTipoServicio){
+            DefaultComboBoxModel mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
+            TextFieldEmpresaServicio.setModel(mod);
+        }
+        if (e.getSource()==TextFieldEmpresaServicio){
+            System.out.println("TE");
+        }
         if (e.getSource()==botonAtras){
             
             TextFieldIdentificador.setText("");
@@ -160,10 +171,13 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             
                 } else {
-                    Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), true);
+                    Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
                     Inicio.adminApp.cargarInformacionJSON("servicios.json", "Servicio");
                     JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
-
+                    
+                    DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
+                    ServiciosAsociadosDisponibles.setModel(mod);
+                    
                     TextFieldIdentificador.setText("");
                     TextFieldMontoPagado.setText("");
                     TextFieldDetalles.setText("");

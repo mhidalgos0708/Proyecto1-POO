@@ -15,7 +15,7 @@ import java.util.Map;
  
 
 public final class RealizarReserva extends JFrame implements ActionListener {
-    
+    Cliente clienteRelacionado;
     
     Container container = getContentPane();
     
@@ -29,7 +29,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(Inicio.listaSedes);
     static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
     static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
-    JComboBox<Cliente> comboBoxCliente = new JComboBox<>();
+    JTextField TextFieldBuscarCliente = new JTextField();
     
     JButton botonSeleccionarvehiculo= new JButton("Seleccionar");
     
@@ -62,15 +62,11 @@ public final class RealizarReserva extends JFrame implements ActionListener {
 
     JButton botonAtras = new JButton("Atrás");
     JButton botonAgregarOperador = new JButton("Agregar");
+    JButton botonBuscarCliente = new JButton("Buscar");
  
  
  
     RealizarReserva() {
-        
-        DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getListaClientes().toArray());
-        comboBoxCliente.setModel(mod);
-        comboBoxCliente.insertItemAt(null, 0);
-        comboBoxCliente.setSelectedIndex(0);
         
         setLayoutManager();
         setLocationAndSize();
@@ -84,29 +80,32 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
-        TextoNombreCompleto.setBounds(40, 100, 150, 30);
-        TextoCédula.setBounds(40, 140, 150, 30);
-        TextoDirección.setBounds(40, 180, 150, 30);
-        TextoCorreo.setBounds(40, 220, 150, 30);
-        TextoFechaEmisionLicencia.setBounds(40, 260, 150, 30);
-        TextoPlaca.setBounds(40, 300, 200, 30);
-        TextoTipoLicencia.setBounds(40, 340, 150, 30);
-        TextoFechaExpiracionLicencia.setBounds(40, 420, 150, 30);
+        int k= 40;
+        TextoNombreCompleto.setBounds(40, 100+k, 150, 30);
+        TextoCédula.setBounds(40, 140+k, 150, 30);
+        TextoDirección.setBounds(40, 180+k, 150, 30);
+        TextoCorreo.setBounds(40, 220+k, 150, 30);
+        TextoFechaEmisionLicencia.setBounds(40, 260+k, 150, 30);
+        TextoPlaca.setBounds(40, 300+k, 200, 30);
+        
+        TextoFechaExpiracionLicencia.setBounds(40, 420+k, 150, 30);
         TextoSedeRecogida.setBounds(370, 100, 150, 30);
-        TextoTL.setBounds((325-150/2), 380, 200, 30);
-        TextoClienteSeleccionar.setBounds(40, 380, 200, 30);
+
         
-        TextoSedeEntrega.setBounds(370, 140, 150, 30);
+        TextoTipoLicencia.setBounds(40, 100, 150, 30);
         
-        TextFieldSedeRecogida.setBounds((325-150/2), 100, 150, 30);
-        TextFieldSedeEntrega.setBounds((325-150/2), 140, 150, 30);
-        TextFieldFechaInicio.setBounds((325-150/2), 180, 150, 30); 
-        TextFieldFechaFinalizacion.setBounds((325-150/2), 220, 150, 30); 
-        botonSeleccionarvehiculo.setBounds((325-150/2), 260, 150, 30); 
-        TextoPlacaSeleccionada.setBounds((325-150/2), 300, 250, 30);
+        TextoSedeEntrega.setBounds(370, 140+k, 150, 30);
+        
+        TextFieldSedeRecogida.setBounds((325-150/2), 100+k, 150, 30);
+        TextFieldSedeEntrega.setBounds((325-150/2), 140+k, 150, 30);
+        TextFieldFechaInicio.setBounds((325-150/2), 180+k, 150, 30); 
+        TextFieldFechaFinalizacion.setBounds((325-150/2), 220+k, 150, 30); 
+        botonSeleccionarvehiculo.setBounds((325-150/2), 260+k, 150, 30); 
+        TextoPlacaSeleccionada.setBounds((325-150/2), 300+k, 250, 30);
         
         
-        comboBoxCliente.setBounds((325-150/2), 340, 150, 30); 
+        TextFieldBuscarCliente.setBounds((325-150/2), 100, 150, 30); 
+        botonBuscarCliente.setBounds((325-150/2)+170, 100, 100, 30); 
         SO1.setBounds(370, 420, 20, 30);
         SO2.setBounds(370, 460, 20, 30);
         SO3.setBounds(370, 500, 20, 30);
@@ -129,6 +128,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
  
     public void addComponentsToContainer() {
         container.add(botonAgregarOperador);
+        container.add(botonBuscarCliente);
         container.add(TextoSO1);
         container.add(TextoSO2);
         container.add(TextoSO3);
@@ -148,7 +148,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         container.add(TextFieldFechaInicio);
         container.add(TextFieldFechaFinalizacion);
         container.add(botonSeleccionarvehiculo);
-        container.add(comboBoxCliente);
+        container.add(TextFieldBuscarCliente);
         container.add(SO1);
         container.add(SO2);
         container.add(SO3);
@@ -163,11 +163,11 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     }
  
     public void addActionEvent() {
-
+        botonBuscarCliente.addActionListener(this);
         botonAtras.addActionListener(this);
         botonAgregarOperador.addActionListener(this);
         TextFieldSedeRecogida.addActionListener(this);
-        comboBoxCliente.addActionListener(this);
+        TextFieldBuscarCliente.addActionListener(this);
         TextFieldSedeEntrega.addActionListener(this);
         botonSeleccionarvehiculo.addActionListener(this);
     }
@@ -176,13 +176,28 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
+        if (e.getSource()==botonBuscarCliente){
+            if (!"".equals(TextFieldBuscarCliente.getText())) {
+                if (Inicio.adminApp.obtenerCliente(TextFieldBuscarCliente.getText())!=null) {
+                    clienteRelacionado = Inicio.adminApp.obtenerCliente(TextFieldBuscarCliente.getText());
+                    System.out.println(clienteRelacionado);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se encontró el cliente solicitado");
+                }
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "Ingrese una identificación para buscar un cliente");
+            }
+            
+          
+        }
         if (e.getSource()==botonAtras){
             TextFieldSedeRecogida.setSelectedIndex(0);
             TextFieldSedeEntrega.setSelectedIndex(0);
             TextFieldFechaInicio.setDate(null);
             TextFieldFechaFinalizacion.setDate(null);
             
-            comboBoxCliente.setSelectedIndex(0);
+            TextFieldBuscarCliente.setText("");
             SO1.setSelected(false);
             SO2.setSelected(false);
             SO3.setSelected(false);
@@ -218,7 +233,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             }
        
 
-            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || comboBoxCliente.getSelectedItem().equals(null) || TextoTL.getText().equals("")) {
+            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") || clienteRelacionado == null ||TextoTL.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
@@ -242,7 +257,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                 
                 HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
                 
-                Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), (Cliente) comboBoxCliente.getSelectedItem(), diccionario, false);
+                Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), clienteRelacionado, diccionario, false);
 
                 JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
                 TextFieldSedeRecogida.setSelectedIndex(0);
@@ -250,7 +265,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                 TextFieldFechaInicio.setDate(null);
                 TextFieldFechaFinalizacion.setDate(null);
 
-                comboBoxCliente.setSelectedIndex(0);
+                TextFieldBuscarCliente.setText("");
 
                 SO1.setSelected(false);
                 SO2.setSelected(false);
@@ -268,15 +283,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
 
         }
         
-        if(e.getSource()==comboBoxCliente){
-            if (comboBoxCliente.getSelectedItem() instanceof Cliente ){
-                TextoTL.setText(comboBoxCliente.getSelectedItem().toString());
-            }else{
-                TextoTL.setText("No se ha seleccionado Cliente");
-            }
-             
-            
-        }
         if(e.getSource()==TextFieldSedeRecogida){
             JComboBox cb=(JComboBox)e.getSource();
             TextoSedeRecogida.setVisible(false);
@@ -294,8 +300,9 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             }else if (TextFieldFechaInicio.getCalendar().compareTo(TextFieldFechaFinalizacion.getCalendar())==1){
                 JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior o igual a la de finalización");
             }else{
-                Inicio.frameRealizarReserva.setEnabled(false);
                 Inicio.VentanaSeleccionadoVehículo(true);
+                Inicio.frameRealizarReserva.setEnabled(false);
+                
             }
         }
 

@@ -126,7 +126,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return nombreCompleto + ", Cédula: " + cedula + ", Licencia tipo: "+ tipoLicencia;
+        return nombreCompleto + "\nCédula: " + cedula + "\nLicencia " + numeroLicencia + " ("+tipoLicencia +") " + "("+ Utilitaria.formatoFecha(fechaEmisionLicencia) + " - " + Utilitaria.formatoFecha(fechaExpiracionLicencia) +")" + "\nCorreo: " + correoElectronico +"\nDirección: "+direccionExacta;
     }
     
     

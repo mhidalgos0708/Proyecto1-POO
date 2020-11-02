@@ -5,9 +5,11 @@
  */
 package GUI;
 
+import static GUI.Inicio.adminApp;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -126,15 +128,20 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
             } else if(!Inicio.adminApp.verificarTelefono(TextFieldTelefono.getText())){
                 JOptionPane.showMessageDialog(this, "Teléfono inválido ingrsado");
             }else {
-                Inicio.adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
-                Inicio.adminApp.cargarInformacionJSON("empresas.json", "Empresa");
+                adminApp.registrarEmpresaServicios("Taller", "3", "+50687895654", "San José", "Escazú", "San Antonio", "50 metros norte de Mas x menos", false);
+                adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
+                adminApp.cargarInformacionJSON("empresas.json", "Empresa");
+                
+                DefaultComboBoxModel mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
+                AgregarServicio.TextFieldEmpresaServicio.setModel(mod);
+                
                 JOptionPane.showMessageDialog(this, "Se ha agregado una nueva empresa de mantenimiento");
                 TextFieldRazonSocial.setText("");
                 TextFieldProvincia.setText("");
                 TextFieldCanton.setText("");
                 TextFieldSeñas.setText("");
                 Inicio.VentanaMenuAdministrador(true);
-                Inicio.VentanaAgregarServicio(false);    
+                Inicio.VentanaAgregarEmpresa(false);    
                 
             }
         }

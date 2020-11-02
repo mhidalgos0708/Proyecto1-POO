@@ -296,7 +296,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
             {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido, estado incompleto de elementos");
             } else {
-                diccionario.put("Transmision", TextFieldTransmision.getSelectedItem().toString());
+                diccionario.put("Transmision", String.valueOf(TextFieldTransmision.getSelectedItem()));
                 diccionario.put("Mpg", TextFieldMPG.getText());
                 diccionario.put("Numero vin", TextFieldVin.getText());
                 diccionario.put("Color", TextFieldColorSeleccionado.getText());
@@ -304,16 +304,17 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
                 diccionario.put("Capacidad maletas", TextFieldCapacidadMaletas.getText());
                 diccionario.put("Imagen", filename);
                 diccionario.put("Capacidad", TextFieldCapacidadPersonas.getText());
-                diccionario.put("Estilo", ComboBoxEstilos.getSelectedItem().toString());
+                diccionario.put("Estilo", String.valueOf(ComboBoxEstilos.getSelectedItem()));
                 diccionario.put("Numero puertas", TextFieldNumeroPuertas.getText());
-                diccionario.put("Estado", TextFieldEstado.getSelectedItem().toString());
+                diccionario.put("Estado", String.valueOf(TextFieldEstado.getSelectedItem()));
                 diccionario.put("Costo diario", TextFieldCostoDiario.getText());
-                diccionario.put("Sede", TextFieldSede.getSelectedItem().toString());
+                diccionario.put("Sede", String.valueOf(TextFieldSede.getSelectedItem()));
                 diccionario.put("Marca", TextFieldMarcaSeleccionada.getText());
                 diccionario.put("Kilometraje", TextFieldKilometraje.getText());
-                diccionario.put("Lista servicios relacionados", serviciosAsociadosEditar.toString());
-                
+
+
                 Inicio.adminApp.editarVehiculoJSON(Placa, diccionario);
+                Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
                 
                 JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
                 ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);

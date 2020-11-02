@@ -43,6 +43,7 @@ public class Inicio {
     static Reservas frameRes;
     static EditarVehiculo frameEditarVehiculo;
     static SeleccionadoVehículo frameSeleccionadoVehículo;
+    static Detalles frameDetallesVehículo;
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
     public static void center(JFrame J){
@@ -59,6 +60,7 @@ public class Inicio {
         adminApp.cargarInformacionJSON("clientes.json", "Cliente");
         adminApp.cargarInformacionJSON("reservas.json", "Reserva");
         adminApp.inicializarServiciosEspeciales();
+        System.out.println(listaEmpresas);
         
         img = new ImageIcon( "src\\main\\java\\img\\A.png");
         frameLogin = new LoginFrame();
@@ -74,7 +76,8 @@ public class Inicio {
         frameRes = new Reservas();
         frameEditarVehiculo = new EditarVehiculo();
         frameSeleccionadoVehículo = new SeleccionadoVehículo();
-        VentanaAgregarVehiculo(true);
+        frameDetallesVehículo = new Detalles();
+        VentanaRealizarReserva(true);
         
         
         
@@ -121,7 +124,7 @@ public class Inicio {
     public static void VentanaRealizarReserva(boolean visibilidad){
         frameRealizarReserva.setTitle("Rent a Car - Realizar Reserva");
         frameRealizarReserva.setVisible(visibilidad);
-        frameRealizarReserva.setBounds(500, 30, 650, 650);
+        frameRealizarReserva.setBounds(500, 30, 750, 650);
         center(frameRealizarReserva);
         frameRealizarReserva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRealizarReserva.setResizable(false);
@@ -203,11 +206,22 @@ public class Inicio {
         
         frameSeleccionadoVehículo.setTitle("Rent a Car - Seleccionando Vehículo");
         frameSeleccionadoVehículo.setVisible(visibilidad);
-        frameSeleccionadoVehículo.setBounds(200, 30, 850, 650);
+        frameSeleccionadoVehículo.setBounds(200, 30, 850, 450);
         center(frameSeleccionadoVehículo);
         frameSeleccionadoVehículo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameSeleccionadoVehículo.setResizable(false);
         frameSeleccionadoVehículo.setIconImage(img.getImage()); 
+        
+    }
+    public static void VentanaDetallesVehículo(boolean visibilidad){
+        
+        frameDetallesVehículo.setTitle("Rent a Car - Detalles del Vehículo");
+        frameDetallesVehículo.setVisible(visibilidad);
+        frameDetallesVehículo.setBounds(200, 30, 850, 650);
+        center(frameDetallesVehículo);
+        frameDetallesVehículo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameDetallesVehículo.setResizable(false);
+        frameDetallesVehículo.setIconImage(img.getImage()); 
         
     }
 
