@@ -10,5 +10,5 @@ package Modelo;
  * @author fabri
  */
 public enum TEstado {
-    Activo, Inactivo, En_Mantenimiento;
+    Activo, Inactivo, Mantenimiento;
 }

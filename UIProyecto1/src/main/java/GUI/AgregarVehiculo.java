@@ -191,8 +191,7 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
         container.add(TextFieldServicio);
         
         container.add(botonAtras);
-        
-        container.add(img2);
+
     }
  
     public void addActionEvent() {
@@ -225,7 +224,7 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
             TextFieldCostoDiario.setText("");
             TextFieldCapacidadMaletas.setText("");
             TextFieldAño.setText("");
-            img2.setText("Sin Fotografía");
+            serviciosAsociados.clear();
             TablaAgregarServiciosAsociados.LimpiarTabla();   
             
             Inicio.VentanaMenuAdministrador(true);
@@ -264,7 +263,7 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
                 TextFieldEstilo.setSelectedIndex(0);
                 TextFieldTransmision.setSelectedIndex(0);
                 TextFieldSede.setSelectedIndex(0);
-                
+                serviciosAsociados.clear();
                 TextFieldMPG.setText("");
                 TextoCostoDiario.setText("");
                 TextoTL.setText("");
@@ -297,6 +296,8 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextFieldServicio){
             Inicio.frameAgregarServicio.setEnabled(false);
+            TablaAgregarServiciosAsociados.LimpiarTabla();
+            TablaAgregarServiciosAsociados.editando = false;
             TablaAgregarServiciosAsociados.frameTablaEditarServiciosVehiculo.setVisible(true);
         }
     }

@@ -999,16 +999,28 @@ public class AdministradorAplicacion {
         return listaVehiculos;
     }
     
-    public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo) {
+    public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo, Calendar Desde, Calendar Hasta, boolean ConSede) {
         ArrayList<Vehiculo> temp = new ArrayList<Vehiculo>();
         temp.add(null);
-        for (Vehiculo V: listaVehiculos) {
-            if (V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar())) {
-                temp.add(V);
+        if (ConSede) {
+            for (Vehiculo V: listaVehiculos) {
+                if (V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(Desde, Hasta) && V.getSede().equals(GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem())) {
+                    temp.add(V);
+                }
             }
+            return temp;
+        }else{
+            for (Vehiculo V: listaVehiculos) {
+                if (V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(Desde, Hasta)) {
+                    temp.add(V);
+                }
+            }
+            return temp;
         }
-        return temp;
+ 
+        
     }
+    
 
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;

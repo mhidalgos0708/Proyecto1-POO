@@ -25,7 +25,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     
     Cliente [] ListaClientes = {};
     
-    JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(Inicio.listaSedes);
+    static public JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(Inicio.listaSedes);
     JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(Inicio.listaSedes);
     static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
     static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();

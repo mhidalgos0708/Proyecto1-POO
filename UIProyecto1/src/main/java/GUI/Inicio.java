@@ -12,6 +12,7 @@ import Modelo.EmpresaMantenimiento;
 import Modelo.Operador;
 import Modelo.Reserva;
 import Modelo.Servicio;
+import Modelo.TEstilo;
 import Modelo.Vehiculo;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class Inicio {
     public static ArrayList<Reserva> listaReservas= Inicio.adminApp.getListaReservas();
     static ArrayList<Servicio> listaServicios = Inicio.adminApp.getListaServicios();
     static ArrayList<EmpresaMantenimiento> listaEmpresas = Inicio.adminApp.getListaEmpresasMantenimiento();
+    static TEstilo [] listaEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
     
     static ImageIcon img;
     static LoginFrame frameLogin;

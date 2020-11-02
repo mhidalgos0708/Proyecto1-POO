@@ -6,24 +6,22 @@
 package GUI;
 
 import Modelo.Servicio;
-import Modelo.TEstilo;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author JoJo
  */
 public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
+    
     static Servicio ServicioSeleccionado;
     static javax.swing.table.DefaultTableModel model;
     static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo= new TablaAgregarServiciosAsociados();
-    /**
-     * Creates new form TablaAgregarServiciosAsociados
-     */
+
     public TablaAgregarServiciosAsociados() {
         initComponents();
         model= new javax.swing.table.DefaultTableModel();
@@ -36,10 +34,9 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
             if (lista.get(i).equals(ServicioSeleccionado)) {
                 return true;
             }
-    
         }
         return false;
-        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,52 +133,50 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    //Boton Aceptar
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            ArrayList<Servicio> listafinal= new ArrayList<Servicio>();
+            ArrayList<Servicio> listafinal= new ArrayList<>();
             for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
                 listafinal.add((Servicio) TablaEditarServiciosAsociados.getValueAt(i, 0));   
-            }  
-            System.out.println(listafinal);
-            AgregarVehiculo.serviciosAsociados = listafinal;
-            Inicio.frameEditarVehiculo.setEnabled(true);
-            Inicio.frameAgregarVehiculo.setEnabled(true);
+            }
+            if (editando){
+                System.out.println("Editando");
+                EditarVehiculo.serviciosAsociadosEditar = listafinal;
+                Inicio.frameEditarVehiculo.setEnabled(true);
+                System.out.println(EditarVehiculo.serviciosAsociadosEditar);
+            }else{
+                AgregarVehiculo.serviciosAsociados = listafinal;
+                Inicio.frameAgregarVehiculo.setEnabled(true);
+                System.out.println(AgregarVehiculo.serviciosAsociados);
+            }
             frameTablaEditarServiciosVehiculo.setVisible(false);
     }
 
-    private void ServiciosAsociadosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServiciosAsociadosDisponiblesActionPerformed
+    private void ServiciosAsociadosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {
         JComboBox cb=(JComboBox)evt.getSource();
-            
-            ServicioSeleccionado=((Servicio)cb.getSelectedItem());        // TODO add your handling code here:
-    }//GEN-LAST:event_ServiciosAsociadosDisponiblesActionPerformed
-
+        ServicioSeleccionado=((Servicio)cb.getSelectedItem());
+    }
+    
+    //Boton agregar
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<Servicio> lista= new ArrayList<Servicio>();
+        ArrayList<Servicio> lista= new ArrayList<>();
+        
         for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
             lista.add((Servicio) TablaEditarServiciosAsociados.getValueAt(i, 0));   
         }
         
         if(!ValidarRepetitivo(lista)){
-            
            if(ServicioSeleccionado==null){
                 System.out.println("Seleccione un servicio");
 
            }else {
                 cantServicios++;
                 model.addRow(new Object[]{ServicioSeleccionado});      
-            }
-        
+           }
         }
-        
-            
-        
-        
-        
-        
-        
-        
-               // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
+    
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try{
@@ -198,6 +193,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }
     
     static void LimpiarTabla(){
+        cantServicios=0;
         model.setRowCount(0);
         ServiciosAsociadosDisponibles.setSelectedIndex(0);
     }
@@ -205,14 +201,12 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
      * @param args the command line arguments
      */
    
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JComboBox<Servicio> ServiciosAsociadosDisponibles;
     public static javax.swing.JTable TablaEditarServiciosAsociados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private int cantServicios = 0;
-    // End of variables declaration//GEN-END:variables
+    static public int cantServicios = 0;
+    static public boolean editando = false;
 }

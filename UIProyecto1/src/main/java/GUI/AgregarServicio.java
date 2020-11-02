@@ -156,30 +156,30 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                 fiTemp=dia+"/"+mes+"/"+año;
             }
             try{
-                Double.parseDouble(TextFieldMontoPagado.getText());
+                if (TextFieldTipoServicio.getSelectedItem() == null || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem()==null || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
+            
+                } else {
+                    Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), true);
+                    Inicio.adminApp.cargarInformacionJSON("servicios.json", "Servicio");
+                    JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
+
+                    TextFieldIdentificador.setText("");
+                    TextFieldMontoPagado.setText("");
+                    TextFieldDetalles.setText("");
+                    TextFieldEmpresaServicio.setSelectedIndex(0);
+                    TextFieldTipoServicio.setSelectedIndex(0);
+                    TextFieldFechaInicio.setDate(null);
+                    TextFieldFechaFinal.setDate(null);
+
+                    Inicio.VentanaMenuAdministrador(true);
+                    Inicio.VentanaAgregarServicio(false);    
+
+                }
             }catch(Exception error){
                 JOptionPane.showMessageDialog(this, "El monto pagado ingresado no es válido");
             }
-            if (TextFieldTipoServicio.getSelectedItem() == null || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem()==null || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             
-            } else {
-                Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
-                Inicio.adminApp.cargarInformacionJSON("servicios.json", "Servicio");
-                JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
-                
-                TextFieldIdentificador.setText("");
-                TextFieldMontoPagado.setText("");
-                TextFieldDetalles.setText("");
-                TextFieldEmpresaServicio.setSelectedIndex(0);
-                TextFieldTipoServicio.setSelectedIndex(0);
-                TextFieldFechaInicio.setDate(null);
-                TextFieldFechaFinal.setDate(null);
-
-                Inicio.VentanaMenuAdministrador(true);
-                Inicio.VentanaAgregarServicio(false);    
-                
-            }
 
         }
             
