@@ -192,6 +192,20 @@ public class Vehiculo {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    public boolean agregarServicio(Servicio servicioActual) {
+        boolean servicio = false;
+        for(int i = 0; i < listaServiciosRelacionados.size(); i++) {
+            if(servicioActual.getIdentificador() == listaServiciosRelacionados.get(i).getIdentificador()) {
+                servicio = true;
+            }
+        }
+        if(!servicio) {
+            listaServiciosRelacionados.add(servicioActual);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
