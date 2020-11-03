@@ -5,10 +5,11 @@ package GUI;
  * @author fabri
  */
 
+import Controlador.Utilitaria;
 import static GUI.Inicio.dim;
-import static GUI.Inicio.frameAgregarEmpresa;
-import static GUI.Inicio.img;
+import Modelo.Cliente;
 import Modelo.Reserva;
+import Modelo.Vehiculo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -115,7 +116,7 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
  
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         if (e.getSource()==botonAtras){
 
             TextoOperadorSeleccionado.setText("No se ha seleccionado Cliente");
@@ -139,6 +140,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         }
         
         if (e.getSource()==botonConsultarReserva){
+            if (TextFieldIDReserva.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
+
+                }
             try{
                 Reserva Resultado = Inicio.adminApp.obtenerReserva(Integer.parseInt(TextFieldIDReserva.getText()));
 
@@ -148,6 +153,15 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     }catch(Exception error){
                         JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar caracteres alfabéticos");
                     }
+                    
+                    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+                    DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+
+                    Inicio.VentanaConsultarReserva(false); 
+                    Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
+                    Inicio.VentanaReserva(true);
+                    
 
                     Inicio.frameRes.ContenidoTextoRecogida.setText(Resultado.getSedeRecogida());
                     Inicio.frameRes.ContenidoTextoEntrega.setText(Resultado.getSedeEntrega());
@@ -155,25 +169,58 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     Inicio.frameRes.ContenidoTextoFinal.setText(Resultado.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaFinalizacion().get(Calendar.YEAR));
                     Inicio.frameRes.ContenidoTextoSolicitud.setText(Resultado.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaSolicitud().get(Calendar.YEAR));
                     Inicio.frameRes.ContenidoTextoOperador.setText(Resultado.getOperador().toString());
-                    Inicio.frameRes.ContenidoTextoVehiculo.setText(Resultado.getVehiculoSeleccionado().toString());
+                    Vehiculo Auto = Resultado.getVehiculoSeleccionado();
+                    Cliente Persona = Resultado.getClienteRelacionado();
                     Inicio.frameRes.ContenidoTextoCliente.setText(Resultado.getClienteRelacionado().toString());
                     TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(Resultado.getArrayServicios());
+                    Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
+                    Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
+                    Detalles.TextoColorSeleccionado.setText(Auto.getColor());
+                    Detalles.TextoMarcaSeleccionado.setText(Auto.getMarca());
+                    Detalles.TextoKilometrajeSeleccionado.setText(String.valueOf(Auto.getKilometraje()));
+                    Detalles.TextoKCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+                    Detalles.TextoPuertasSeleccionado.setText(String.valueOf(Auto.getNumeroPuertas()));
+                    Detalles.TextoMPGSeleccionado.setText(String.valueOf(Auto.getMpg())); 
+                    Detalles.TextoSedeSeleccionado.setText(Auto.getSede());
+                    Detalles.TextoCostoeleccionado.setText(String.valueOf(Auto.getCostoDiario())+"/d");
+                    Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+                    Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
+                    Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
+                    Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+
+                    ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
+                    Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+                    Image imagenSinEscala = imagenSeleccionada.getImage();
+                    Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+                    imagenSeleccionada.setImage(imagenEscalada);
+                    Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+                    Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
+
+                    Object[] filas= {};
+                    filas = Auto.getListaServiciosRelacionados().toArray();
+                    System.out.println(Auto.getListaServiciosRelacionados());
+                    TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
+                    
+                    DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+                    DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+                    DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+                    DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+                    DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+                    
+                    imagenSeleccionada = new ImageIcon(Persona.getImagen());
+                    DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+                    imagenSinEscala = imagenSeleccionada.getImage();
+                    imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
+                    imagenSeleccionada.setImage(imagenEscalada);
+                    DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+                    DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
+
+                    
                 }else{
-                    JOptionPane.showMessageDialog(this, "No existe una reserva cone sa factura");
+                    JOptionPane.showMessageDialog(this, "No existe una reserva con esa factura");
                     TextFieldIDReserva.setText("");
                 }
 
-
-
-                if (TextFieldIDReserva.getText().equals("")) {
-                    JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
-
-                } else {
-                Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
-                Inicio.VentanaReserva(true);
-                Inicio.VentanaConsultarReserva(false);   
-
-                } 
             } catch (Exception error){
                 JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar caracteres alfabéticos");
             }

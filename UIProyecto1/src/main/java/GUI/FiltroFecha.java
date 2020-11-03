@@ -5,11 +5,18 @@
  */
 package GUI;
 
+import Controlador.Utilitaria;
 import static GUI.Inicio.dim;
+import Modelo.Cliente;
 import Modelo.Reserva;
 import Modelo.TEstilo;
+import Modelo.Vehiculo;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -92,21 +99,21 @@ public class FiltroFecha extends javax.swing.JFrame {
                     .addComponent(BotónConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ReservasPorFecha, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                        .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
                 .addGap(76, 76, 76))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(34, 34, 34)
                 .addComponent(BotónAtrás)
-                .addGap(44, 44, 44)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
@@ -131,16 +138,65 @@ public class FiltroFecha extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay una reserva seleccionada");
         } else{
             ReservaSeleccionada = (Reserva) ReservasPorFecha.getSelectedItem();
-            Inicio.frameRes.ContenidoTextoID.setText(Integer.toString(ReservaSeleccionada.getNumeroFactura()));
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+            DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+
+            Inicio.VentanaConsultarReserva(false); 
+            Inicio.VentanaReserva(true);
+
+
             Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
             Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
             Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
             Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
             Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
             Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
-            Inicio.frameRes.ContenidoTextoVehiculo.setText(ReservaSeleccionada.getVehiculoSeleccionado().toString());
+            Vehiculo Auto = ReservaSeleccionada.getVehiculoSeleccionado();
+            Cliente Persona = ReservaSeleccionada.getClienteRelacionado();
             Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
             TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
+            Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
+            Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
+            Detalles.TextoColorSeleccionado.setText(Auto.getColor());
+            Detalles.TextoMarcaSeleccionado.setText(Auto.getMarca());
+            Detalles.TextoKilometrajeSeleccionado.setText(String.valueOf(Auto.getKilometraje()));
+            Detalles.TextoKCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoPuertasSeleccionado.setText(String.valueOf(Auto.getNumeroPuertas()));
+            Detalles.TextoMPGSeleccionado.setText(String.valueOf(Auto.getMpg())); 
+            Detalles.TextoSedeSeleccionado.setText(Auto.getSede());
+            Detalles.TextoCostoeleccionado.setText(String.valueOf(Auto.getCostoDiario())+"/d");
+            Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
+            Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+
+            ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Image imagenSinEscala = imagenSeleccionada.getImage();
+            Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
+
+            Object[] filas= {};
+            filas = Auto.getListaServiciosRelacionados().toArray();
+            System.out.println(Auto.getListaServiciosRelacionados());
+            TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
+
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+
+            imagenSeleccionada = new ImageIcon(Persona.getImagen());
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            imagenSinEscala = imagenSeleccionada.getImage();
+            imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
             CalendarField.setDate(null);

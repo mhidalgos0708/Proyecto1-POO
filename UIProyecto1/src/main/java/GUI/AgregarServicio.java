@@ -36,6 +36,7 @@ public final class AgregarServicio extends JFrame implements ActionListener {
     final JFileChooser explorer = new JFileChooser();
     
     JTextField TextFieldIdentificador = new JTextField();
+    JTextField TextFieldVehiculoRelacionado = new JTextField();
     com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
     com.toedter.calendar.JDateChooser TextFieldFechaFinal= new com.toedter.calendar.JDateChooser();
     JTextField TextFieldMontoPagado = new JTextField();
@@ -51,6 +52,7 @@ public final class AgregarServicio extends JFrame implements ActionListener {
     JLabel TextoDetalles = new JLabel("Detalles");
     JLabel TextoTipoDeServicio = new JLabel("Tipo de Servicio");
     JLabel TextoEmpresaRelacionada = new JLabel("Empresa Relacionada");
+    JLabel VehículoRelacionado = new JLabel("Placa del vehículo");
 
     JButton botonAtras = new JButton("Atrás");
     JButton botonAgregarServicio = new JButton("Agregar");
@@ -85,6 +87,8 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         TextoDetalles.setBounds(40, 260, 150, 30);
         TextoTipoDeServicio.setBounds(40, 300, 150, 30);
         TextoEmpresaRelacionada.setBounds(40, 340, 150, 30);
+        VehículoRelacionado.setBounds(40, 380, 150, 30);
+        
         TextFieldIdentificador.setBounds(200, 100, 150, 30);
         TextFieldFechaInicio.setBounds(200, 140, 150, 30);
         TextFieldFechaFinal.setBounds(200, 180, 150, 30);
@@ -92,6 +96,8 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         TextFieldDetalles.setBounds(200, 260, 150, 30); 
         TextFieldTipoServicio.setBounds(200, 300, 150, 30);
         TextFieldEmpresaServicio.setBounds(200, 340, 150, 30);
+        TextFieldVehiculoRelacionado.setBounds(200, 380, 150, 30);
+                
         botonAgregarServicio.setBounds(150, 475, 150, 30);
         botonAtras.setBounds(200,30, 150, 30);
  
@@ -99,6 +105,8 @@ public final class AgregarServicio extends JFrame implements ActionListener {
  
     public void addComponentsToContainer() {
         
+        container.add(TextFieldVehiculoRelacionado);
+        container.add(VehículoRelacionado);
         container.add(botonAgregarServicio);
         container.add(TextoIdentificador);
         container.add(TextoFechaI);
@@ -123,27 +131,38 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         botonAgregarServicio.addActionListener(this);
         TextFieldEmpresaServicio.addActionListener(this);
         TextFieldTipoServicio.addActionListener(this);
+        TextFieldVehiculoRelacionado.addActionListener(this);
+        
     }
  
- 
+    public void limpiarCampos(){
+        TextFieldVehiculoRelacionado.setText("");
+        TextFieldIdentificador.setText("");
+        TextFieldMontoPagado.setText("");
+        TextFieldDetalles.setText("");
+        TextFieldEmpresaServicio.setSelectedIndex(0);
+        TextFieldTipoServicio.setSelectedIndex(0);
+        TextFieldFechaInicio.setDate(null);
+        TextFieldFechaFinal.setDate(null);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==TextFieldTipoServicio){
             DefaultComboBoxModel mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
             TextFieldEmpresaServicio.setModel(mod);
         }
-        if (e.getSource()==TextFieldEmpresaServicio){
-            System.out.println("TE");
+
+        if (e.getSource()==TextFieldVehiculoRelacionado){
+            if (rootPaneCheckingEnabled) {
+                
+            }else{
+                
+            }
         }
+        
         if (e.getSource()==botonAtras){
             
-            TextFieldIdentificador.setText("");
-            TextFieldMontoPagado.setText("");
-            TextFieldDetalles.setText("");
-            TextFieldEmpresaServicio.setSelectedIndex(0);
-            TextFieldTipoServicio.setSelectedIndex(0);
-            TextFieldFechaInicio.setDate(null);
-            TextFieldFechaFinal.setDate(null);
+            limpiarCampos();
 
             Inicio.VentanaMenuAdministrador(true);
             Inicio.VentanaAgregarServicio(false); 
@@ -168,30 +187,28 @@ public final class AgregarServicio extends JFrame implements ActionListener {
             }
             try{
                 if (TextFieldTipoServicio.getSelectedItem() == null || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem()==null || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
+                    JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             
-                } else {
+                } else if(Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText())==null){
+                    JOptionPane.showMessageDialog(this, "No se encontró el vehículo con placa "+TextFieldVehiculoRelacionado.getText());
+                }else {
                     Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
-                    Inicio.adminApp.cargarInformacionJSON("servicios.json", "Servicio");
+                    
                     JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
                     
                     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
                     ServiciosAsociadosDisponibles.setModel(mod);
                     
-                    TextFieldIdentificador.setText("");
-                    TextFieldMontoPagado.setText("");
-                    TextFieldDetalles.setText("");
-                    TextFieldEmpresaServicio.setSelectedIndex(0);
-                    TextFieldTipoServicio.setSelectedIndex(0);
-                    TextFieldFechaInicio.setDate(null);
-                    TextFieldFechaFinal.setDate(null);
+                    Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText()).agregarNuevoServicio(Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
+                    Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
+                    limpiarCampos();
 
                     Inicio.VentanaMenuAdministrador(true);
                     Inicio.VentanaAgregarServicio(false);    
 
                 }
             }catch(Exception error){
-                JOptionPane.showMessageDialog(this, "El monto pagado ingresado no es válido");
+                JOptionPane.showMessageDialog(this, "El monto pagado ingrseado no es válido");
             }
             
 

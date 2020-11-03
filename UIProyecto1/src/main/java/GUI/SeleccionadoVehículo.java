@@ -1,5 +1,6 @@
 package GUI;
 
+import static GUI.Inicio.adminApp;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;
@@ -170,7 +171,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonDetallesVehiculo || e.getSource()==botonImagen){
-            
+            adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");         
             Inicio.frameSeleccionadoVehículo.setEnabled(false);
             Inicio.VentanaDetallesVehículo(true);
         }
@@ -242,6 +243,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
                 imagenSeleccionada.setImage(imagenEscalada);
                 TextoImagenSeleccionado.setIcon(imagenSeleccionada);
                 TextoImagenSeleccionado.setText("Sin fotografía");
+                
                 Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
                 Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
                 Detalles.TextoColorSeleccionado.setText(Auto.getColor());
@@ -267,7 +269,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
                 
                 Object[] filas= {};
                 filas = Auto.getListaServiciosRelacionados().toArray();
-                System.out.println(filas);
+                System.out.println(Auto.getListaServiciosRelacionados());
                 TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
                 
             }else{       

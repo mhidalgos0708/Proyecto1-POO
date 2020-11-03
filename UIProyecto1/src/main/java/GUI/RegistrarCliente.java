@@ -176,6 +176,8 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Correo inválido");
             }else if (!Inicio.adminApp.verificarTelefono(TextFieldTeléfono.getText())){
                 JOptionPane.showMessageDialog(this, "Número telefónico inválido");
+            }else if(Inicio.adminApp.obtenerCliente(TextFieldCédula.getText())!=null){
+                JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese número de identificación");
             }else {   
                 Inicio.adminApp.registrarCliente(TextFieldNombreCompleto.getText(), TextFieldCédula.getText(), TextFieldDirección.getText(), TextFieldCorreo.getText(), TextFieldTeléfono.getText(), TextFieldNumeroLicencia.getText(), TextFieldFechaEmisionLicencia.getCalendar(), (TLicencia) TextFieldTipoLicencia.getSelectedItem(), TextFieldFechaExpiracionLicencia.getCalendar(), filename, false);
                 Inicio.adminApp.cargarInformacionJSON("clientes.json", "Cliente");

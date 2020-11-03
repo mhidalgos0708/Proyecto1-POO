@@ -206,6 +206,10 @@ public class Vehiculo {
             }
         }return true;
     }
+    
+    public void agregarNuevoServicio(Servicio S){
+        listaServiciosRelacionados.add(S);
+    }
 
     @Override
     public String toString() {

@@ -5,11 +5,27 @@
  */
 package GUI;
 
+import static GUI.Detalles.TextoTL;
+import static GUI.RealizarReserva.SO1;
+import static GUI.RealizarReserva.SO2;
+import static GUI.RealizarReserva.SO3;
+import static GUI.RealizarReserva.SO4;
+import static GUI.RealizarReserva.SO5;
+import static GUI.RealizarReserva.ServiciosOpcionales;
+import static GUI.RealizarReserva.TextFieldBuscarCliente;
+import static GUI.RealizarReserva.TextFieldFechaFinalizacion;
+import static GUI.RealizarReserva.TextFieldFechaInicio;
+import static GUI.RealizarReserva.TextFieldSedeEntrega;
+import static GUI.RealizarReserva.TextFieldSedeRecogida;
+import static GUI.RealizarReserva.TextoPlacaSeleccionada;
+import static GUI.RealizarReserva.clienteRelacionado;
 import Modelo.Vehiculo;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,7 +39,7 @@ import javax.swing.JTextField;
  *
  * @author fabri
  */
-public final class Reservas extends JFrame implements ActionListener {
+public final class ConfirmarReserva extends JFrame implements ActionListener {
     JScrollPane scroll = new JScrollPane();
     JLabel label = new JLabel();
     Container container = getContentPane();
@@ -57,9 +73,9 @@ public final class Reservas extends JFrame implements ActionListener {
     
 
     JButton botonAtras = new JButton("Atrás");
-    JButton botonOk = new JButton("Ok");
+    JButton botonOk = new JButton("Realizar Reserva");
  
-    Reservas() {
+    ConfirmarReserva() {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -143,36 +159,72 @@ public final class Reservas extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource()==DetallesVehiculo){
-            
+        if (e.getSource()==DetallesVehiculo){       
             Inicio.VentanaDetallesVehículo(true);
-
         }
-        if (e.getSource()==DetallesCliente){
-            
+        
+        if (e.getSource()==DetallesCliente){   
             DatosCliente.frameDatosCliente.setVisible(true);
-            
-
         }
         
         if (e.getSource()==botonOk){
-            ContenidoTextoRecogida.setText("");
-            ContenidoTextoFinal.setText("");
-            ContenidoTextoSolicitud.setText("");
-            ContenidoTextoVehiculo.setText("");
-            ContenidoTextoOperador.setText("");
-            ContenidoTextoEntrega.setText("");
-            ContenidoTextoInicio.setText("");
+            if(TextFieldFechaInicio.getCalendar()!=null){
+               int año = TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
+               int mes = TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
+                String direccionTemporal=dia+"/"+mes+"/"+año;
+            }
+            if(TextFieldFechaFinalizacion.getCalendar()!=null){
+               int año = TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
+               int mes = TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
+                String correoTemporal=dia+"/"+mes+"/"+año;
+            }
+       
 
-            Inicio.VentanaConsultarReserva(true);
-            Inicio.VentanaReserva(false); 
+            
+            if(SO1.isSelected()){
+                ServiciosOpcionales.add("WiFi limitado");
+            }if(SO2.isSelected()){
+                ServiciosOpcionales.add("Asistencia en carretera");
+            }if(SO3.isSelected()){
+                ServiciosOpcionales.add("GPS");
+            }if(SO4.isSelected()){
+                ServiciosOpcionales.add("Asiento para niño");
+            }if (SO5.isSelected()){
+                ServiciosOpcionales.add("Cobertura por daños a terceros");
+            }
+
+            HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
+
+            Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), clienteRelacionado, diccionario, false);
+
+            JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
+            TextFieldSedeRecogida.setSelectedIndex(0);
+            TextFieldSedeEntrega.setSelectedIndex(0);
+            TextFieldFechaInicio.setDate(null);
+            TextFieldFechaFinalizacion.setDate(null);
+
+            TextFieldBuscarCliente.setText("");
+
+            SO1.setSelected(false);
+            SO2.setSelected(false);
+            SO3.setSelected(false);
+            SO4.setSelected(false);
+            SO5.setSelected(false);
+
+            TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
+            TextoTL.setText("No se ha seleccionado Cliente");
+
+            Inicio.VentanaMenuPrincipal(true);
+            Inicio.VentanaRealizarReserva(false); 
+            Inicio.VentanaConfirmarReserva(false);
+                
+            
           
         }
         if(e.getSource()==ContenidoTextoServicio){
             TablaServiciosReserva.frameTablaServiciosPorReserva.setVisible(true);
         }
-            
-        
-       //Coding Part of showPassword JCheckBox
     }
 }

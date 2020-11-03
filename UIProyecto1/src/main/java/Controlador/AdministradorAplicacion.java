@@ -977,7 +977,7 @@ public class AdministradorAplicacion {
     {
         String password = generarContraseña();
         String nombre = "Credenciales" + elOperador.getNombreCompleto()+ ".pdf";
-        String ruta = "C:\\Users\\Wendy\\OneDrive\\Escritorio\\" + nombre;
+        String ruta = "src\\main\\java\\img\\" + nombre;
         Document documento = new Document();        
         FileOutputStream ficheroPDF = new FileOutputStream(ruta);        
         PdfWriter.getInstance(documento, ficheroPDF);      

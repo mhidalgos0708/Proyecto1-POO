@@ -5,6 +5,18 @@
  */
 package GUI;
 
+import Controlador.Utilitaria;
+import static GUI.FiltroFecha.ReservaSeleccionada;
+import Modelo.Cliente;
+import Modelo.Operador;
+import Modelo.Reserva;
+import Modelo.Vehiculo;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -15,13 +27,13 @@ import javax.swing.JOptionPane;
 public class FiltroPlaca extends javax.swing.JFrame {
         static FiltroPlaca frameRegistrarOperador = new FiltroPlaca();
         static String PlacaTexto="";
-        static String ReservaSeleccionada;
+        static Reserva ReservaSeleccionada;
     /**
      * Creates new form FiltroPuntoRecogida
      */
     public FiltroPlaca() {
         initComponents();
-        SedesDisponibles.setEnabled(false);
+        ReservasDisponibles.setEnabled(false);
     }
 
     /**
@@ -35,11 +47,11 @@ public class FiltroPlaca extends javax.swing.JFrame {
 
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
-        BotónBuscar = new javax.swing.JButton();
+        botonConsultar = new javax.swing.JButton();
         BotónAtrás = new javax.swing.JButton();
-        SedesDisponibles = new javax.swing.JComboBox<>();
-        PlacaSeleccionada = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        ReservasDisponibles = new javax.swing.JComboBox<>();
+        TextFieldPlaca = new javax.swing.JTextField();
+        botonBuscar = new javax.swing.JButton();
 
         jToggleButton2.setText("jToggleButton2");
 
@@ -48,10 +60,10 @@ public class FiltroPlaca extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(400, 250));
 
-        BotónBuscar.setText("Buscar");
-        BotónBuscar.addActionListener(new java.awt.event.ActionListener() {
+        botonConsultar.setText("Consultar");
+        botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotónBuscarActionPerformed(evt);
+                botonConsultarActionPerformed(evt);
             }
         });
 
@@ -62,23 +74,22 @@ public class FiltroPlaca extends javax.swing.JFrame {
             }
         });
 
-        SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "",PlacaTexto+"1", PlacaTexto+"2" }));
-        SedesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        ReservasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SedesDisponiblesActionPerformed(evt);
+                ReservasDisponiblesActionPerformed(evt);
             }
         });
 
-        PlacaSeleccionada.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PlacaSeleccionadaActionPerformed(evt);
+                TextFieldPlacaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("añadir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonBuscarActionPerformed(evt);
             }
         });
 
@@ -86,39 +97,35 @@ public class FiltroPlaca extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(BotónAtrás)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BotónBuscar)
-                        .addGap(162, 162, 162))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(SedesDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(PlacaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addGap(76, 76, 76))))
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservasDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TextFieldPlaca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonBuscar)))
+                .addGap(76, 76, 76))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(161, Short.MAX_VALUE)
+                .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(48, 48, 48)
                 .addComponent(BotónAtrás)
-                .addGap(71, 71, 71)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PlacaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(BotónBuscar)
-                .addContainerGap())
+                .addComponent(ReservasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(botonConsultar)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,52 +133,114 @@ public class FiltroPlaca extends javax.swing.JFrame {
 
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
         frameRegistrarOperador.setVisible(false); 
-        PlacaSeleccionada.setText("");
-        SedesDisponibles.setEnabled(false);
-        SedesDisponibles.setSelectedIndex(0);// TODO add your handling code here:
+        TextFieldPlaca.setText("");
+        ReservasDisponibles.setEnabled(false);
+        ReservasDisponibles.setSelectedIndex(0);// TODO add your handling code here:
     }//GEN-LAST:event_BotónAtrásActionPerformed
 
-    private void BotónBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónBuscarActionPerformed
+    private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
+        PlacaTexto = TextFieldPlaca.getText();
         if(PlacaTexto.equals("")){
             JOptionPane.showMessageDialog(this, "Elementos incompletos");
-        } else if(SedesDisponibles.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
-        } else{
+        }else{
+            ReservaSeleccionada = (Reserva) ReservasDisponibles.getSelectedItem();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+            DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+
+            Inicio.VentanaConsultarReserva(false); 
+            Inicio.VentanaReserva(true);
+
+
+            Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
+            Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
+            Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
+            Vehiculo Auto = ReservaSeleccionada.getVehiculoSeleccionado();
+            Cliente Persona = ReservaSeleccionada.getClienteRelacionado();
+            Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
+            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
+            Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
+            Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
+            Detalles.TextoColorSeleccionado.setText(Auto.getColor());
+            Detalles.TextoMarcaSeleccionado.setText(Auto.getMarca());
+            Detalles.TextoKilometrajeSeleccionado.setText(String.valueOf(Auto.getKilometraje()));
+            Detalles.TextoKCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoPuertasSeleccionado.setText(String.valueOf(Auto.getNumeroPuertas()));
+            Detalles.TextoMPGSeleccionado.setText(String.valueOf(Auto.getMpg())); 
+            Detalles.TextoSedeSeleccionado.setText(Auto.getSede());
+            Detalles.TextoCostoeleccionado.setText(String.valueOf(Auto.getCostoDiario())+"/d");
+            Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
+            Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+
+            ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Image imagenSinEscala = imagenSeleccionada.getImage();
+            Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
+
+            Object[] filas= {};
+            filas = Auto.getListaServiciosRelacionados().toArray();
+            System.out.println(Auto.getListaServiciosRelacionados());
+            TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
+
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+
+            imagenSeleccionada = new ImageIcon(Persona.getImagen());
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            imagenSinEscala = imagenSeleccionada.getImage();
+            imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Inicio.frameRes.ContenidoTextoID.setText(ReservaSeleccionada);
-            PlacaSeleccionada.setText("");
-            SedesDisponibles.setEnabled(false);
-                SedesDisponibles.setSelectedIndex(0);
+            TextFieldPlaca.setText("");
+            ReservasDisponibles.setEnabled(false);
+            ReservasDisponibles.setSelectedIndex(0);
         
         
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_BotónBuscarActionPerformed
+    }//GEN-LAST:event_botonConsultarActionPerformed
 
-    private void SedesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDisponiblesActionPerformed
-        JComboBox cb=(JComboBox)evt.getSource();
-            ReservaSeleccionada=((String)cb.getSelectedItem());
+    private void ReservasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasDisponiblesActionPerformed
+
+        ReservaSeleccionada=((Reserva)ReservasDisponibles.getSelectedItem());
             // TODO add your handling code here:
-    }//GEN-LAST:event_SedesDisponiblesActionPerformed
+    }//GEN-LAST:event_ReservasDisponiblesActionPerformed
 
-    private void PlacaSeleccionadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlacaSeleccionadaActionPerformed
+    private void TextFieldPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaActionPerformed
             // TODO add your handling code here:
-    }//GEN-LAST:event_PlacaSeleccionadaActionPerformed
+    }//GEN-LAST:event_TextFieldPlacaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            PlacaTexto=PlacaSeleccionada.getText();
-            if(!PlacaTexto.equals("")){
-                SedesDisponibles.setEnabled(true);
-                SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "",PlacaTexto+"1", PlacaTexto+"2" }));
-            }else if(PlacaTexto.equals("")){
-                SedesDisponibles.setEnabled(false);
-                SedesDisponibles.setSelectedIndex(0);
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        if(TextFieldPlaca.getText() != ""){
+            if (!Inicio.adminApp.filtrarReservaVehiculo(TextFieldPlaca.getText()).isEmpty()) {
+                ReservasDisponibles.setEnabled(true);
+                DefaultComboBoxModel mod;
+                mod = new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaVehiculo(TextFieldPlaca.getText()).toArray());
+                ReservasDisponibles.setModel(mod);
+            }else{
+                JOptionPane.showMessageDialog(this, "No se encuentra un vehículo con esa placa");
             }
+        }else{
+            ReservasDisponibles.setEnabled(false);
+        }    
            
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,10 +249,10 @@ public class FiltroPlaca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotónAtrás;
-    private javax.swing.JButton BotónBuscar;
-    private javax.swing.JTextField PlacaSeleccionada;
-    private javax.swing.JComboBox<String> SedesDisponibles;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<Reserva> ReservasDisponibles;
+    private javax.swing.JTextField TextFieldPlaca;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonConsultar;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables

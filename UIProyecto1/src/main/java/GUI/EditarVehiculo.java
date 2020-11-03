@@ -1,5 +1,6 @@
 package GUI;
 
+import static GUI.Inicio.adminApp;
 import Modelo.Servicio;
 import Modelo.TEstado;
 import Modelo.TEstilo;
@@ -38,7 +39,6 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     JComboBox<TTransmision> TextFieldTransmision = new JComboBox<>(TiposTransmision);
     JComboBox<String> TextFieldSede = new JComboBox<>(TiposSedes);
     
-    static ArrayList <Servicio> serviciosAsociadosEditar =  new ArrayList <Servicio> ();
     JTextField TextFieldAñoFabricacion = new JTextField("");
     JTextField TextFieldColorSeleccionado = new JTextField("");
     JTextField TextFieldMarcaSeleccionada = new JTextField("");
@@ -97,12 +97,12 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     }
  
     public void setLocationAndSize() {
-        int a=40;
+        int a=80;
         int b;
         
         img2.setText("Sin Fotografía");
         TextoNombreCompleto.setBounds(40, 30, 150, 30);
-        TextoCédula.setBounds(40, 140-a, 150, 30);
+        TextoCédula.setBounds(40, 100, 150, 30);
         TextoServiciosRelacionados.setBounds(40, 180-a, 150, 30);
         TextoCorreo.setBounds(40, 220-a, 150, 30);
         TextoTeléfono.setBounds(40, 260-a, 150, 30);
@@ -115,8 +115,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         TextoEstilo.setBounds(40, 540-a, 300, 30);
         TextoTL.setBounds(120, 380-a, 150, 30);
         ComboBoxTipoCarroSeleccionado.setBounds(200, 30, 200, 30);
-        ComboBoxVehículoSeleccionado.setBounds(200, 140-a, 200, 30);
-        botonModificarServicios.setBounds(200, 180-a, 200, 30); 
+        ComboBoxVehículoSeleccionado.setBounds(200, 100, 200, 30);
         TextFieldAñoFabricacion.setBounds(200, 220-a, 200, 30); 
         TextFieldColorSeleccionado.setBounds(200, 260-a, 200, 30); 
         TextFieldMarcaSeleccionada.setBounds(200, 300-a, 200, 30); 
@@ -170,7 +169,6 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         container.add(TextoImagen);
         container.add(TextoNombreCompleto);
         container.add(TextoCédula);
-        container.add(TextoServiciosRelacionados);
         container.add(TextoCorreo);
         container.add(TextoTeléfono);
         container.add(TextoNumeroLicencia);
@@ -245,10 +243,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         TextFieldCapacidadMaletas.setText("");
         TextFieldTransmision.setSelectedIndex(0);
         TextFieldEstado.setSelectedIndex(0);
-        serviciosAsociadosEditar.clear();
         img2.setText("Sin Fotografía");
         TextFieldVin.setText("");
-        TablaAgregarServiciosAsociados.LimpiarTabla(); 
         img2.setIcon(null);
         setFields(false);
     }
@@ -269,8 +265,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource()==botonModificarServicios){
-            TablaAgregarServiciosAsociados.LimpiarTabla();
-            serviciosAsociadosEditar.forEach(S -> {
+            Vehiculo Auto = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
+            Auto.getListaServiciosRelacionados().forEach(S -> {
                 TablaAgregarServiciosAsociados.model.addRow(new Object[]{S});
                 TablaAgregarServiciosAsociados.cantServicios ++;
             });
@@ -314,7 +310,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
 
 
                 Inicio.adminApp.editarVehiculoJSON(Placa, diccionario);
-                Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
+                adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
                 
                 JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
                 ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
@@ -376,7 +372,6 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
                 Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
                 imagenSeleccionada.setImage(imagenEscalada);
                 img2.setIcon(imagenSeleccionada);
-                serviciosAsociadosEditar = Auto.getListaServiciosRelacionados();
                 
             }else{       
                 resetearCampos();
