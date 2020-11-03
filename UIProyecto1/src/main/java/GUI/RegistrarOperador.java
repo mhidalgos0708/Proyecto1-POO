@@ -89,10 +89,11 @@ public class RegistrarOperador extends JFrame implements ActionListener {
             }else if(TextFieldCorreo.getText().equals("") || TextFieldNombreCompleto.getText().equals("")){
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de datos");
             }else {
-                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), AdministradorAplicacion.generarContraseña(), TextFieldNombreCompleto.getText(), false, false);
+                String password = AdministradorAplicacion.generarContraseña();
+                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), password, TextFieldNombreCompleto.getText(), false, false);
                 Inicio.adminApp.cargarInformacionJSON("operadores.json", "Operador");
                 try {
-                    Inicio.adminApp.mandarCorreoCredenciales(Inicio.adminApp.obtenerOperador(TextFieldCorreo.getText()));
+                    Inicio.adminApp.mandarCorreoCredenciales(Inicio.adminApp.obtenerOperador(TextFieldCorreo.getText()), password);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(RegistrarOperador.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (DocumentException ex) {
