@@ -75,13 +75,14 @@ public final class LoginFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
-            String pwdText;
-            
+
             boolean passcheck = false;
             
-            pwdText = passwordField.getText();
+            String usrText = userTextField.getText();
+            String pwdText = passwordField.getText();
+            
             for (int i = 0; i < Inicio.listaOperadores.size(); i++) {
-                    if(pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
+                    if(usrText.equals(Inicio.listaOperadores.get(i).getUsername()) && pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
                         passcheck=true;
                         JOptionPane.showMessageDialog(this, "Inicio de Sesión Aceptado");
                         passwordField.setText("");

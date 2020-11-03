@@ -5,6 +5,19 @@
  */
 package GUI;
 
+import Controlador.Utilitaria;
+import static GUI.FiltroFecha.ReservaSeleccionada;
+import static GUI.FiltroPuntoRecogida.frameRegistrarOperador;
+import Modelo.Cliente;
+import Modelo.Operador;
+import Modelo.Reserva;
+import Modelo.Vehiculo;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.util.Calendar;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -14,12 +27,15 @@ import javax.swing.JOptionPane;
  */
 public class FiltroOperador extends javax.swing.JFrame {
         static FiltroOperador frameRegistrarOperador = new FiltroOperador();
-        static String SedeSeleccionada;
+        static Operador OperadorSeleccionado;
     /**
      * Creates new form FiltroPuntoRecogida
      */
     public FiltroOperador() {
         initComponents();
+        ReservasDisponibles.setEnabled(false);
+        DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaOperadores.toArray());
+        OperadoresComboBox.setModel(mod);
     }
 
     /**
@@ -34,9 +50,10 @@ public class FiltroOperador extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         BotónBuscar = new javax.swing.JButton();
-        BotónAtrás = new javax.swing.JButton();
-        SedesDeRecogida = new javax.swing.JComboBox<>();
-        SedesDisponibles = new javax.swing.JComboBox<>();
+        BotonConsultar = new javax.swing.JButton();
+        OperadoresComboBox = new javax.swing.JComboBox<>();
+        ReservasDisponibles = new javax.swing.JComboBox<>();
+        BotónAtrás1 = new javax.swing.JButton();
 
         jToggleButton2.setText("jToggleButton2");
 
@@ -52,24 +69,31 @@ public class FiltroOperador extends javax.swing.JFrame {
             }
         });
 
-        BotónAtrás.setText("Atrás");
-        BotónAtrás.addActionListener(new java.awt.event.ActionListener() {
+        BotonConsultar.setText("Consultar");
+        BotonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotónAtrásActionPerformed(evt);
+                BotonConsultarActionPerformed(evt);
             }
         });
 
-        SedesDeRecogida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Operador1", "Operador2" }));
-        SedesDeRecogida.addActionListener(new java.awt.event.ActionListener() {
+        OperadoresComboBox.setModel(new javax.swing.DefaultComboBoxModel<>());
+        OperadoresComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SedesDeRecogidaActionPerformed(evt);
+                OperadoresComboBoxActionPerformed(evt);
             }
         });
 
-        SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Item 1", "Item 2", "Item 3", "Item 4" }));
-        SedesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+        ReservasDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Item 1", "Item 2", "Item 3", "Item 4" }));
+        ReservasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SedesDisponiblesActionPerformed(evt);
+                ReservasDisponiblesActionPerformed(evt);
+            }
+        });
+
+        BotónAtrás1.setText("Atrás");
+        BotónAtrás1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotónAtrás1ActionPerformed(evt);
             }
         });
 
@@ -77,80 +101,139 @@ public class FiltroOperador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(BotónAtrás)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(140, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BotónBuscar)
-                        .addGap(162, 162, 162))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(126, 126, 126))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BotónAtrás1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BotonConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservasDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(OperadoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotónBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BotónAtrás)
-                .addGap(55, 55, 55)
-                .addComponent(SedesDeRecogida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(SedesDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(BotónBuscar)
-                .addContainerGap())
+                .addGap(51, 51, 51)
+                .addComponent(BotónAtrás1)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OperadoresComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotónBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(ReservasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BotonConsultar)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
-        frameRegistrarOperador.setVisible(false); 
-        SedesDeRecogida.setSelectedIndex(0);// TODO add your handling code here:
-    }//GEN-LAST:event_BotónAtrásActionPerformed
-
-    private void SedesDeRecogidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDeRecogidaActionPerformed
-        
-        if(SedesDeRecogida.getSelectedIndex()==0){
-            SedesDisponibles.setSelectedIndex(0);
-            SedesDisponibles.setEnabled(false);
-        }else if(SedesDeRecogida.getSelectedIndex()==1){
-            SedesDisponibles.setEnabled(true);
-            SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Operador1_1", "Operador1_2" }));
-            
-        }else if(SedesDeRecogida.getSelectedIndex()==2){
-            SedesDisponibles.setEnabled(true);
-            SedesDisponibles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Operador2_1", "Operador2_2" }));
-
-        };        // TODO add your handling code here:
-    }//GEN-LAST:event_SedesDeRecogidaActionPerformed
-
-    private void BotónBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónBuscarActionPerformed
-        if(SedesDeRecogida.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
-        } else if(SedesDisponibles.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(this, "Elementos incompletos");
+    private void BotonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConsultarActionPerformed
+        if(OperadoresComboBox.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this, "No hay un operador seleccionado");
         } else{
+            ReservaSeleccionada = (Reserva) ReservasDisponibles.getSelectedItem();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+            DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+
+            Inicio.VentanaConsultarReserva(false); 
+            Inicio.VentanaReserva(true);
+
+
+            Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
+            Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
+            Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
+            Vehiculo Auto = ReservaSeleccionada.getVehiculoSeleccionado();
+            Cliente Persona = ReservaSeleccionada.getClienteRelacionado();
+            Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
+            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
+            Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
+            Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
+            Detalles.TextoColorSeleccionado.setText(Auto.getColor());
+            Detalles.TextoMarcaSeleccionado.setText(Auto.getMarca());
+            Detalles.TextoKilometrajeSeleccionado.setText(String.valueOf(Auto.getKilometraje()));
+            Detalles.TextoKCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoPuertasSeleccionado.setText(String.valueOf(Auto.getNumeroPuertas()));
+            Detalles.TextoMPGSeleccionado.setText(String.valueOf(Auto.getMpg())); 
+            Detalles.TextoSedeSeleccionado.setText(Auto.getSede());
+            Detalles.TextoCostoeleccionado.setText(String.valueOf(Auto.getCostoDiario())+"/d");
+            Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
+            Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
+            Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+
+            ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Image imagenSinEscala = imagenSeleccionada.getImage();
+            Image imagenEscalada = imagenSinEscala.getScaledInstance(256, 144, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
+            Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
+
+            Object[] filas= {};
+            filas = Auto.getListaServiciosRelacionados().toArray();
+            System.out.println(Auto.getListaServiciosRelacionados());
+            TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
+
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+
+            imagenSeleccionada = new ImageIcon(Persona.getImagen());
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            imagenSinEscala = imagenSeleccionada.getImage();
+            imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
+            imagenSeleccionada.setImage(imagenEscalada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            Inicio.frameRes.ContenidoTextoID.setText(SedeSeleccionada);
-            SedesDeRecogida.setSelectedIndex(0);
+            OperadoresComboBox.setSelectedIndex(0);
+            ReservasDisponibles.setEnabled(false);
         
         
+        }
+    }//GEN-LAST:event_BotonConsultarActionPerformed
+
+    private void OperadoresComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OperadoresComboBoxActionPerformed
+
+    }//GEN-LAST:event_OperadoresComboBoxActionPerformed
+
+    private void BotónBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónBuscarActionPerformed
+        if(OperadoresComboBox.getSelectedItem() != ""){
+            ReservasDisponibles.setEnabled(true);
+            Operador O = (Operador)OperadoresComboBox.getSelectedItem();
+            DefaultComboBoxModel mod;
+            mod = new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaOperador(O.getNombreCompleto()).toArray());
+            ReservasDisponibles.setModel(mod);
+        }else{
+            ReservasDisponibles.setEnabled(false);
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_BotónBuscarActionPerformed
 
-    private void SedesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SedesDisponiblesActionPerformed
-        JComboBox cb=(JComboBox)evt.getSource();
-            SedeSeleccionada=((String)cb.getSelectedItem());        // TODO add your handling code here:
-    }//GEN-LAST:event_SedesDisponiblesActionPerformed
+    private void ReservasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasDisponiblesActionPerformed
+
+            OperadorSeleccionado=((Operador)OperadoresComboBox.getSelectedItem());        // TODO add your handling code here:
+    }//GEN-LAST:event_ReservasDisponiblesActionPerformed
+
+    private void BotónAtrás1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrás1ActionPerformed
+        frameRegistrarOperador.setVisible(false);
+        ReservasDisponibles.setEnabled(false);
+    }//GEN-LAST:event_BotónAtrás1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,10 +241,11 @@ public class FiltroOperador extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotónAtrás;
+    private javax.swing.JButton BotonConsultar;
+    private javax.swing.JButton BotónAtrás1;
     private javax.swing.JButton BotónBuscar;
-    private javax.swing.JComboBox<String> SedesDeRecogida;
-    private javax.swing.JComboBox<String> SedesDisponibles;
+    private javax.swing.JComboBox<Operador> OperadoresComboBox;
+    private javax.swing.JComboBox<String> ReservasDisponibles;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables

@@ -26,7 +26,6 @@ GUI\FiltroFecha$1.class
 GUI\FiltroPlaca$2.class
 GUI\FiltroOperador$4.class
 GUI\FiltroPuntoRecogida$2.class
-GUI\Login.class
 Modelo\Vehiculo.class
 GUI\FiltroOperador$1.class
 GUI\FiltroPlaca.class

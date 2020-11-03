@@ -973,11 +973,11 @@ public class AdministradorAplicacion {
         return false;
     }
     
-    public boolean mandarCorreoCredenciales(Operador elOperador) throws FileNotFoundException, DocumentException
+    public boolean mandarCorreoCredenciales(Operador elOperador, String pass) throws FileNotFoundException, DocumentException
     {
-        String password = generarContraseña();
+        String password = pass;
         String nombre = "Credenciales" + elOperador.getNombreCompleto()+ ".pdf";
-        String ruta = "C:\\Users\\Wendy\\OneDrive\\Escritorio\\" + nombre;
+        String ruta = "src\\main\\java\\img\\" + nombre;
         Document documento = new Document();        
         FileOutputStream ficheroPDF = new FileOutputStream(ruta);        
         PdfWriter.getInstance(documento, ficheroPDF);      

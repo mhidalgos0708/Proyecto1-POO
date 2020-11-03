@@ -3,10 +3,14 @@ package GUI;
 import Controlador.AdministradorAplicacion;
 import Modelo.Operador;
 import static Vista.yanoMAin.adminApp;
+import com.itextpdf.text.DocumentException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 
 public class RegistrarOperador extends JFrame implements ActionListener {
@@ -85,8 +89,16 @@ public class RegistrarOperador extends JFrame implements ActionListener {
             }else if(TextFieldCorreo.getText().equals("") || TextFieldNombreCompleto.getText().equals("")){
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de datos");
             }else {
-                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), AdministradorAplicacion.generarContraseña(), TextFieldNombreCompleto.getText(), false, false);
+                String password = AdministradorAplicacion.generarContraseña();
+                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), password, TextFieldNombreCompleto.getText(), false, false);
                 Inicio.adminApp.cargarInformacionJSON("operadores.json", "Operador");
+                try {
+                    Inicio.adminApp.mandarCorreoCredenciales(Inicio.adminApp.obtenerOperador(TextFieldCorreo.getText()), password);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(RegistrarOperador.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DocumentException ex) {
+                    Logger.getLogger(RegistrarOperador.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo usuario para Soporte al Cliente!");
                 TextFieldNombreCompleto.setText("");
                 TextFieldCorreo.setText("");

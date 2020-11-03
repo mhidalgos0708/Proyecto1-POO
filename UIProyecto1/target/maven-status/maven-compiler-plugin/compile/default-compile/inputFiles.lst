@@ -1,4 +1,4 @@
-C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Login.java
+C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Detalles.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\SeleccionadoVehículo.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Servicio.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Vehiculo.java
@@ -6,6 +6,7 @@ C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Realizar
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\EmpresaMantenimiento.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TLicencia.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TEstado.java
+C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\DatosCliente.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Reserva.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TEstilo.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\MenuAdministrador.java
@@ -27,6 +28,7 @@ C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TServ
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Controlador\TipoCambioBCCR.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\FiltroPuntoRecogida.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Operador.java
+C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\ConfirmarReserva.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\TablaServiciosReserva.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Vista\pruebaPDF.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\FiltroFecha.java

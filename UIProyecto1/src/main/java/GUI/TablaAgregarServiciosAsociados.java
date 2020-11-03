@@ -142,9 +142,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
             }
             if (editando){
                 System.out.println("Editando");
-                EditarVehiculo.serviciosAsociadosEditar = listafinal;
                 Inicio.frameEditarVehiculo.setEnabled(true);
-                System.out.println(EditarVehiculo.serviciosAsociadosEditar);
             }else{
                 AgregarVehiculo.serviciosAsociados = listafinal;
                 Inicio.frameAgregarVehiculo.setEnabled(true);

@@ -15,7 +15,6 @@ import Modelo.Servicio;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class Inicio {
@@ -44,6 +43,7 @@ public class Inicio {
     static EditarVehiculo frameEditarVehiculo;
     static SeleccionadoVehículo frameSeleccionadoVehículo;
     static Detalles frameDetallesVehículo;
+    static ConfirmarReserva frameConfirmarReserva;
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
     public static void center(JFrame J){
@@ -74,10 +74,16 @@ public class Inicio {
         frameAgregarServicio = new AgregarServicio();
         frameAgregarEmpresa = new AgregarEmpresa();
         frameRes = new Reservas();
+        frameConfirmarReserva = new ConfirmarReserva();
         frameEditarVehiculo = new EditarVehiculo();
         frameSeleccionadoVehículo = new SeleccionadoVehículo();
         frameDetallesVehículo = new Detalles();
-        VentanaRealizarReserva(true);
+        
+        listaVehiculos.forEach(V -> {
+            System.out.println(V.getListaServiciosRelacionados());
+        });
+            
+        VentanaLogin(true);
         
         
         
@@ -124,7 +130,7 @@ public class Inicio {
     public static void VentanaRealizarReserva(boolean visibilidad){
         frameRealizarReserva.setTitle("Rent a Car - Realizar Reserva");
         frameRealizarReserva.setVisible(visibilidad);
-        frameRealizarReserva.setBounds(500, 30, 750, 650);
+        frameRealizarReserva.setBounds(500, 30, 950, 650);
         center(frameRealizarReserva);
         frameRealizarReserva.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRealizarReserva.setResizable(false);
@@ -190,6 +196,18 @@ public class Inicio {
         frameRes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frameRes.setResizable(true);
         frameRes.setIconImage(img.getImage());
+        
+    }
+    
+    public static void VentanaConfirmarReserva(boolean visibilidad){
+        
+        frameConfirmarReserva.setTitle("Rent a Car - Consultar");
+        frameConfirmarReserva.setVisible(visibilidad);
+        frameConfirmarReserva.setBounds(500, 50, 600, 700);
+        center(frameConfirmarReserva);
+        frameConfirmarReserva.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frameConfirmarReserva.setResizable(true);
+        frameConfirmarReserva.setIconImage(img.getImage());
         
     }
     
