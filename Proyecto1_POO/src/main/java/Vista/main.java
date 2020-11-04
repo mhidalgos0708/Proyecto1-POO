@@ -8,7 +8,14 @@ import Controlador.AdministradorAplicacion;
 import java.util.HashMap;
 import java.util.Calendar;
 import Modelo.TEstilo;
+import Modelo.TLicencia;
 import Modelo.TServicio;
+import Modelo.EmpresaMantenimiento;
+import Modelo.TEstado;
+import Modelo.TTransmision;
+import java.util.ArrayList;
+import Modelo.Servicio;
+import Modelo.Vehiculo;
 /**
  *
  * @author mhidalgos0708
@@ -28,28 +35,31 @@ public class main {
         adminApp.cargarInformacionJSON("reservas.json", "Reserva");
         adminApp.inicializarServiciosEspeciales();
         
-        HashMap diccionario = new HashMap();
-        diccionario.put("Año fabricación", Integer.toString(1990));
-        diccionario.put("Estilo", String.valueOf(TEstilo.MiniVan));
-        diccionario.put("Sede", "Cartago");
-        diccionario.put("Color", "Blanco");
-        diccionario.put("Imagen", "Foto");
-        
-        HashMap diccionario2 = new HashMap();
-        diccionario2.put("Año fabricación", Integer.toString(1970));
-        diccionario2.put("Estilo", String.valueOf(TEstilo.Económico));
-        diccionario2.put("Sede", "Cartago");
-        diccionario2.put("Color", "Azul");
-        diccionario2.put("Imagen", "Fotografía");
-        
         Calendar fechaActual = Calendar.getInstance();
         
-        //adminApp.registrarNuevoServicio(423, fechaActual, fechaActual, 350.7, "Detalles", TServicio.Correctivo, adminApp.obtenerEmpresa("1"), false);
-        //System.out.println(adminApp.obtenerServicio(123));
-        adminApp.agregarServicioAVehiculo("6128374", adminApp.obtenerServicio(123));
-        System.out.println(adminApp.obtenerVehiculo("6128374"));
-        //adminApp.obtenerVehiculo("28642891");
-        //System.out.println(adminApp.obtenerVehiculo("6128374"));
-        //System.out.println(adminApp.obtenerVehiculo("28642891"));
+        EmpresaMantenimiento empresaActual = adminApp.obtenerEmpresa("25");
+        
+        System.out.println(adminApp.obtenerCliente("10"));
+        System.out.println(adminApp.obtenerEmpresa("25"));
+        System.out.println(adminApp.obtenerServicio(12));
+        System.out.println(adminApp.obtenerServicio(13));
+        
+        ArrayList<Servicio> listaServicios = new ArrayList<>();
+        listaServicios.add(adminApp.obtenerServicio(12));
+        
+        //adminApp.registrarVehiculo("1234567", 2010, TEstilo.SUV, "Plateado", "BMW", 5, 110.87, 4, "1209", 20, "San José", 12000.0, 6, TTransmision.Automática, TEstado.Activo, listaServicios, "Imagen", false);
+        
+        ArrayList<String> nombresServicios = new ArrayList<>();
+        nombresServicios.add("Asistencia en carretera");
+        HashMap<String, Double> serviciosOp = adminApp.generarServiciosEspeciales(nombresServicios);
+        
+        //adminApp.realizarReserva("Guanacaste", "Guanacaste", fechaActual, fechaActual, fechaActual, adminApp.obtenerOperador("mhidalgos0708@gmail.com"), adminApp.obtenerVehiculo("1234567"), adminApp.obtenerCliente("10"), serviciosOp, false);
+        
+        //adminApp.agregarServicioAVehiculo("1234567", adminApp.obtenerServicio(13));
+        
+        System.out.println(adminApp.obtenerReserva(0));
+        System.out.println(adminApp.obtenerReserva(1));
+        System.out.println(adminApp.obtenerReserva(2));
+        
     }
 }
