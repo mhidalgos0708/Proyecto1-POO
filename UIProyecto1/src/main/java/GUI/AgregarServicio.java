@@ -201,7 +201,7 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
                     ServiciosAsociadosDisponibles.setModel(mod);
                     
-                    Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
+                    //Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
                     limpiarCampos();
 
                     Inicio.VentanaMenuAdministrador(true);
