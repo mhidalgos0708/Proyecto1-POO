@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
 
+import Controlador.TipoCambioBCCR;
 /**
  *
  * @author fabri
@@ -127,12 +128,17 @@ public class Reserva {
 
     public int getDuracion()
     {
+        Calendar copia = Calendar.getInstance();
+        copia.set(Calendar.YEAR, fechaInicio.get(Calendar.YEAR));
+        copia.set(Calendar.MONTH, fechaInicio.get(Calendar.MONTH));
+        copia.set(Calendar.DAY_OF_MONTH, fechaInicio.get(Calendar.DAY_OF_MONTH));
         int days = 0;
-        while (fechaInicio.compareTo(fechaFinalizacion) < 0) 
+        while (copia.compareTo(fechaFinalizacion) < 0) 
         {
-            fechaInicio.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
+            copia.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
             days++;
         }
+        
         if (days == 0)
             days++;
         return days;
@@ -143,14 +149,26 @@ public class Reserva {
         double costo = getDuracion() * vehiculoSeleccionado.getCostoDiario();
         return costo;
     }
-    public double getCostoSO()
+    public double getCostoSODolares()
     {
         double se = 0;
         for(int i = 0; i < serviciosOpcionales.keySet().size(); i++)
         {            
             String key = serviciosOpcionales.keySet().toArray()[i].toString();
             serviciosOpcionales.get(key).toString();
-            se += (Double)serviciosOpcionales.get(key);
+            se += (Double)(serviciosOpcionales.get(key));
+        }        
+        return se * getDuracion();
+    }
+    public double getCostoSO()
+    {
+        TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
+        double se = 0;
+        for(int i = 0; i < serviciosOpcionales.keySet().size(); i++)
+        {            
+            String key = serviciosOpcionales.keySet().toArray()[i].toString();
+            serviciosOpcionales.get(key).toString();
+            se += ((Double)serviciosOpcionales.get(key) * servicioTipoCambio.getVenta());
         }        
         return se * getDuracion();
     }

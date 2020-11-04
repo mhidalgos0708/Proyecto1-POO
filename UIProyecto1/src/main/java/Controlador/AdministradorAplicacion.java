@@ -979,7 +979,7 @@ public class AdministradorAplicacion {
         {            
             String key = servicios.keySet().toArray()[i].toString();
             Paragraph se = new Paragraph(key);
-            Paragraph costo = new Paragraph(servicios.get(key).toString());
+            Paragraph costo = new Paragraph("USD " + servicios.get(key).toString());
             costo.setAlignment(Paragraph.ALIGN_RIGHT);
             documento.add(se);
             documento.add(costo);
@@ -990,10 +990,13 @@ public class AdministradorAplicacion {
         documento.add(p18);
         documento.add(p19);
         Paragraph p20 = new Paragraph("\nTotal de servicios especiales: ");
+        Paragraph pD = new Paragraph("USD " + laReserva.getCostoSODolares());
         Paragraph p21 = new Paragraph("CRC " + laReserva.getCostoSO());
         p21.setAlignment(Paragraph.ALIGN_RIGHT);
+        pD.setAlignment(Paragraph.ALIGN_RIGHT);
         documento.add(p20);   
         documento.add(p21);
+        documento.add(pD);
         Paragraph p22 = new Paragraph("\nMonto Total: ");
         Paragraph p23 = new Paragraph("CRC " + laReserva.getCostoTotal());
         Paragraph p24 = new Paragraph("USD " + laReserva.getCostoTotal()/servicioTipoCambio.getVenta());

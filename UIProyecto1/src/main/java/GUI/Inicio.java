@@ -78,7 +78,7 @@ public class Inicio {
         frameSeleccionadoVehículo = new SeleccionadoVehículo();
         frameDetallesVehículo = new Detalles();
        
-        VentanaMenuPrincipal(true);
+        VentanaLogin(true);
  
     }
     
