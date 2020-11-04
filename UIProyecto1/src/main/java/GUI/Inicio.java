@@ -83,7 +83,7 @@ public class Inicio {
             System.out.println(V.getListaServiciosRelacionados());
         });
             
-        VentanaLogin(true);
+        VentanaMenuPrincipal(true);
         
         
         

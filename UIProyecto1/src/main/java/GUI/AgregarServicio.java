@@ -200,7 +200,6 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                     ServiciosAsociadosDisponibles.setModel(mod);
                     
                     Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText()).agregarNuevoServicio(Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
-                    Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
                     limpiarCampos();
 
                     Inicio.VentanaMenuAdministrador(true);
