@@ -1,6 +1,8 @@
 package GUI;
 
 import static GUI.Inicio.adminApp;
+import static GUI.RealizarReserva.TextFieldFechaFinalizacion;
+import static GUI.RealizarReserva.TextFieldFechaInicio;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;

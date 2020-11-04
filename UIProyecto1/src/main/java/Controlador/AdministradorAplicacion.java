@@ -787,7 +787,60 @@ public class AdministradorAplicacion {
         }
         return true;
     }
-    
+    public boolean agregarServicioAVehiculo(String placa, Servicio servicioActual) {
+        Vehiculo vehiculoActual = obtenerVehiculo(placa);
+        boolean servicioAgregado = vehiculoActual.agregarServicio(servicioActual);
+        JSONParser jsonParser = new JSONParser();
+        
+        try (FileReader reader = new FileReader("vehiculos.json")) {
+            Object objetos = jsonParser.parse(reader);
+            JSONArray listaVehiculosJSON = (JSONArray) objetos;
+            for(int i = 0; i < listaVehiculosJSON.size(); i++) {
+                JSONObject vehiculoActualJSON = (JSONObject) listaVehiculosJSON.get(i);
+                JSONObject vehiculo = (JSONObject) vehiculoActualJSON.get("Vehiculo");
+                if((vehiculo.get("Placa")).toString().equals(placa)) {
+                    EmpresaMantenimiento empresaActual = servicioActual.getEmpresaRelacionada();
+                    JSONObject objetoEmpresa = new JSONObject();
+                    JSONArray empresasRelacionadas = new JSONArray();
+                    
+                    objetoEmpresa.put("Razon social", empresaActual.getRazonSocial());
+                    objetoEmpresa.put("Cedula", empresaActual.getNumeroCedula());
+                    objetoEmpresa.put("Telefono", empresaActual.getTelefono());
+                    objetoEmpresa.put("Provincia", empresaActual.getProvincia());
+                    objetoEmpresa.put("Canton", empresaActual.getCanton());
+                    objetoEmpresa.put("Distrito", empresaActual.getDistrito());
+                    objetoEmpresa.put("Señas", empresaActual.getSeñas());
+                    
+                    empresasRelacionadas.add(objetoEmpresa);
+                    
+                    JSONArray serviciosRelacionados = (JSONArray) vehiculo.get("Lista servicios relacionados");
+                    
+                    if(servicioAgregado) {
+                        JSONObject servicioNuevo = new JSONObject();
+                        servicioNuevo.put("Identificador", Integer.toString(servicioActual.getIdentificador()));
+                        servicioNuevo.put("Fecha inicio", Utilitaria.formatoFechaJSON(servicioActual.getFechaInicio()));
+                        servicioNuevo.put("Fecha final", Utilitaria.formatoFechaJSON(servicioActual.getFechaFinalizacion()));
+                        servicioNuevo.put("Monto pagado", Double.toString(servicioActual.getMontoPagado()));
+                        servicioNuevo.put("Detalles", servicioActual.getDetalles());
+                        servicioNuevo.put("Tipo", (servicioActual.getTipo()).toString());
+                        servicioNuevo.put("Empresa relacionada", empresasRelacionadas);
+                        serviciosRelacionados.add(servicioNuevo);
+                    }
+                }
+            }
+        try (FileWriter archivo = new FileWriter("vehiculos.json")) {
+                archivo.write(listaVehiculosJSON.toJSONString());
+                archivo.flush();
+            } catch (IOException e) {
+                return false;
+            }
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException | ParseException e) {
+            return false;
+        }
+        return true;
+    }
     //Método de prueba para actualizar la lista de vehículos del administrador
     public void setDatoEdicion(Vehiculo vehiculoActual, String nombreDato, String datoActualizado) {
         switch(nombreDato) {

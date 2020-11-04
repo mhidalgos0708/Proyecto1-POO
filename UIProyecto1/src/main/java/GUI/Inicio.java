@@ -60,7 +60,6 @@ public class Inicio {
         adminApp.cargarInformacionJSON("clientes.json", "Cliente");
         adminApp.cargarInformacionJSON("reservas.json", "Reserva");
         adminApp.inicializarServiciosEspeciales();
-        System.out.println(listaEmpresas);
         
         img = new ImageIcon( "src\\main\\java\\img\\A.png");
         frameLogin = new LoginFrame();
@@ -78,15 +77,9 @@ public class Inicio {
         frameEditarVehiculo = new EditarVehiculo();
         frameSeleccionadoVehículo = new SeleccionadoVehículo();
         frameDetallesVehículo = new Detalles();
-        
-        listaVehiculos.forEach(V -> {
-            System.out.println(V.getListaServiciosRelacionados());
-        });
-            
-        VentanaLogin(true);
-        
-        
-        
+       
+        VentanaMenuPrincipal(true);
+ 
     }
     
     public static void VentanaLogin(boolean visibilidad){

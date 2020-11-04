@@ -29,7 +29,7 @@ public class EnviarEmail {
 	final String username = "pruebaproyecto1poo@gmail.com";
 	final String password = "PruebaPOO";
 	String fromEmail = "pruebaproyecto1poo@gmail.com";
-	String toEmail = correo;
+	String toEmail = "pruebaproyecto1poo@gmail.com";
 		
 	Properties properties = new Properties();
 	properties.put("mail.smtp.auth", "true");

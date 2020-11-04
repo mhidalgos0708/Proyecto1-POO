@@ -196,10 +196,11 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                     
                     JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
                     
+                    Inicio.adminApp.agregarServicioAVehiculo(TextFieldVehiculoRelacionado.getText(), Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
+                    
                     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
                     ServiciosAsociadosDisponibles.setModel(mod);
                     
-                    Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText()).agregarNuevoServicio(Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
                     Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
                     limpiarCampos();
 

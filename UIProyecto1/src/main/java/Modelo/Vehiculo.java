@@ -197,14 +197,17 @@ public class Vehiculo {
     public boolean isRentadoEnElRango(Calendar Desde, Calendar Hasta){
         ArrayList<Reserva> listaReservasAutoActual;
         listaReservasAutoActual = Inicio.adminApp.filtrarReservaVehiculo(placa);
+        System.out.println(listaReservasAutoActual);
         if (listaReservasAutoActual.isEmpty()) {
             return false;
         }
         for (Reserva R: listaReservasAutoActual){
-            if (R.getFechaInicio().compareTo(Hasta)>0 || 0>R.getFechaFinalizacion().compareTo(Desde)) {
-                return false;
+            if ((0<=Hasta.compareTo(R.getFechaInicio()) && Desde.compareTo(R.getFechaFinalizacion())<=0) || (0<=Hasta.compareTo(R.getFechaInicio()) && Hasta.compareTo(R.getFechaFinalizacion())<=0) || (0<=Desde.compareTo(R.getFechaInicio()) && Desde.compareTo(R.getFechaFinalizacion())<=0)) {
+                System.out.println("Esta Reservado");
+                return true;
             }
-        }return true;
+        }System.out.println("No Esta Reservado");
+        return false;
     }
     
     public void agregarNuevoServicio(Servicio S){
@@ -216,5 +219,18 @@ public class Vehiculo {
         return "Vehículo " + marca + ", Placa: " + placa;
     }
     
+     public boolean agregarServicio(Servicio servicioActual) {
+        boolean servicio = false;
+        for(int i = 0; i < listaServiciosRelacionados.size(); i++) {
+            if(servicioActual.getIdentificador() == listaServiciosRelacionados.get(i).getIdentificador()) {
+                servicio = true;
+            }
+        }
+        if(!servicio) {
+            listaServiciosRelacionados.add(servicioActual);
+            return true;
+        }
+        return false;
+    }
     
 }

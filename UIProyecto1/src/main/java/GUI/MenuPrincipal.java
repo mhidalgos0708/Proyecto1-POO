@@ -56,7 +56,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         int ancho = 25;
         int alto =10;
         int SV =-5;
-        NombreUsuario.setBounds(80, 15, 150, 30);
+        NombreUsuario.setBounds(80, 15, 300, 35);
         botonReserva.setBounds((200-150/2)+k, 100+SV, 150+ancho, 30+alto);
         botonConsultarReserva.setBounds((200-150/2)+k, 160+SV, 150+ancho, 30+alto);
         botonAdministracion.setBounds((200-150/2)+k, 220+SV, 150+ancho, 30+alto);

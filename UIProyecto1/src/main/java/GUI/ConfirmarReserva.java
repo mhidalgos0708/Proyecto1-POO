@@ -20,12 +20,16 @@ import static GUI.RealizarReserva.TextFieldSedeRecogida;
 import static GUI.RealizarReserva.TextoPlacaSeleccionada;
 import static GUI.RealizarReserva.clienteRelacionado;
 import Modelo.Vehiculo;
+import com.itextpdf.text.DocumentException;
 import java.awt.Container;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -198,7 +202,15 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
             HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
 
             Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), clienteRelacionado, diccionario, false);
-
+            
+            try {
+                String archivo = Inicio.adminApp.crearPDF(Inicio.adminApp.obtenerReserva(Inicio.listaReservas.size()-1));
+                Controlador.EnviarEmail.enviarCorreo("pruebaproyecto1poo@gmail.com", "ReservaPrueba", "Buenas", archivo);
+            } catch (DocumentException ex) {
+                Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
             TextFieldSedeRecogida.setSelectedIndex(0);
             TextFieldSedeEntrega.setSelectedIndex(0);
