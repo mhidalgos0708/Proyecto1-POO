@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Calendar;
 import Modelo.TEstilo;
 import Modelo.TServicio;
+import Modelo.Reserva;
 /**
  *
  * @author mhidalgos0708
@@ -42,14 +43,13 @@ public class main {
         diccionario2.put("Color", "Azul");
         diccionario2.put("Imagen", "Fotografía");
         
-        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaInicio = Calendar.getInstance();
+        Calendar fechaFinalizacion = Calendar.getInstance();
+        //fechaFinalizacion.add(Calendar.DAY_OF_MONTH, 20);
         
-        //adminApp.registrarNuevoServicio(423, fechaActual, fechaActual, 350.7, "Detalles", TServicio.Correctivo, adminApp.obtenerEmpresa("1"), false);
-        //System.out.println(adminApp.obtenerServicio(123));
-        adminApp.agregarServicioAVehiculo("6128374", adminApp.obtenerServicio(123));
-        System.out.println(adminApp.obtenerVehiculo("6128374"));
-        //adminApp.obtenerVehiculo("28642891");
-        //System.out.println(adminApp.obtenerVehiculo("6128374"));
-        //System.out.println(adminApp.obtenerVehiculo("28642891"));
+        Reserva laReserva = adminApp.obtenerReserva(0);
+        
+        System.out.println(laReserva.getCostoRenta());
+        
     }
 }

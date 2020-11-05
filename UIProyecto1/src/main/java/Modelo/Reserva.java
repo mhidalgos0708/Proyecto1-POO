@@ -128,9 +128,13 @@ public class Reserva {
     public int getDuracion()
     {
         int days = 0;
-        while (fechaInicio.compareTo(fechaFinalizacion) < 0) 
+        Calendar fechaComienzo = Calendar.getInstance();
+        fechaComienzo.set(Calendar.DAY_OF_MONTH, fechaInicio.get(Calendar.DAY_OF_MONTH));
+        fechaComienzo.set(Calendar.MONTH, fechaInicio.get(Calendar.MONTH));
+        fechaComienzo.set(Calendar.YEAR, fechaInicio.get(Calendar.YEAR));
+        while (fechaComienzo.compareTo(fechaFinalizacion) < 0) 
         {
-            fechaInicio.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
+            fechaComienzo.add(Calendar.DAY_OF_MONTH, 1); // suma un día al calendario 1
             days++;
         }
         if (days == 0)
