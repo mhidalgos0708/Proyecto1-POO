@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package GUI;
 
 import Controlador.Utilitaria;
-import static Vista.FiltroFecha.ReservaSeleccionada;
+import static GUI.FiltroFecha.ReservaSeleccionada;
 import Modelo.Cliente;
 import Modelo.Reserva;
 import Modelo.Vehiculo;
@@ -192,7 +192,7 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
             Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
             Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
-            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
 
             ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
             Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
@@ -202,21 +202,24 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
             Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
 
-            TablaServiciosAsociados.ModificarTablaServiciosAsociados(Auto.getListaServiciosRelacionados().toArray());
+            Object[] filas= {};
+            filas = Auto.getListaServiciosRelacionados().toArray();
+            System.out.println(Auto.getListaServiciosRelacionados());
+            TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
 
-            DatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
-            DatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
-            DatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
-            DatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-            DatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
 
             imagenSeleccionada = new ImageIcon(Persona.getImagen());
-            DatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
             imagenSinEscala = imagenSeleccionada.getImage();
             imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
             imagenSeleccionada.setImage(imagenEscalada);
-            DatosCliente.img2.setIcon(imagenSeleccionada);
-            DatosCliente.img2.setText("Sin fotografía");
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
             SedesDeRecogida.setSelectedIndex(0);

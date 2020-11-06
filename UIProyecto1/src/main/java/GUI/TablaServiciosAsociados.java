@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package GUI;
 
 /**
  * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a un vehículo

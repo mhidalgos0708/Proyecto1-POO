@@ -1,4 +1,4 @@
-package Vista;
+package GUI;
 
 import Modelo.TLicencia;
 import javax.swing.*;

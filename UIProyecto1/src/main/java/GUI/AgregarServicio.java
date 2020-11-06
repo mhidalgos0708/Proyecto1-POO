@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package GUI;
 
-import static Vista.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles;
+import static GUI.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles;
 import Modelo.EmpresaMantenimiento;
 import Modelo.Servicio;
 import Modelo.TServicio;

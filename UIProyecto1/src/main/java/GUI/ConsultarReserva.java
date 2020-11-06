@@ -1,8 +1,12 @@
-package Vista;
+package GUI;
 
+/**
+ *
+ * @author fabri
+ */
 
 import Controlador.Utilitaria;
-import static Vista.Inicio.dim;
+import static GUI.Inicio.dim;
 import Modelo.Cliente;
 import Modelo.Reserva;
 import Modelo.Vehiculo;
@@ -199,7 +203,7 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
                     Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
                     Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
-                    Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin());
+                    Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
 
                     ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
                     Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
@@ -209,22 +213,26 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
                     Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
 
-                    TablaServiciosAsociados.ModificarTablaServiciosAsociados(Auto.getListaServiciosRelacionados().toArray());
+                    Object[] filas= {};
+                    filas = Auto.getListaServiciosRelacionados().toArray();
+                    System.out.println(Auto.getListaServiciosRelacionados());
+                    TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
                     
-                    DatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
-                    DatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
-                    DatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
-                    DatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-                    DatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+                    DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+                    DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+                    DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+                    DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+                    DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
                     
                     imagenSeleccionada = new ImageIcon(Persona.getImagen());
-                    DatosCliente.img2.setIcon(imagenSeleccionada);
+                    DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
                     imagenSinEscala = imagenSeleccionada.getImage();
                     imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
                     imagenSeleccionada.setImage(imagenEscalada);
-                    DatosCliente.img2.setIcon(imagenSeleccionada);
-                    DatosCliente.img2.setText("Sin fotografía");
-  
+                    DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+                    DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
+
+                    
                 }else{
                     JOptionPane.showMessageDialog(this, "No existe una reserva con esa factura");
                     TextFieldIDReserva.setText("");

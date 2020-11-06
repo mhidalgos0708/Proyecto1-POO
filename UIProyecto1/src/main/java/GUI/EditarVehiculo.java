@@ -1,6 +1,6 @@
-package Vista;
+package GUI;
 
-import static Vista.Inicio.adminApp;
+import static GUI.Inicio.adminApp;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.TTransmision;
@@ -36,7 +36,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     HashMap diccionario = new HashMap();
     
     JComboBox<TEstilo> ComboBoxTipoCarroSeleccionado = new JComboBox<>(Inicio.listaEstilos);
-    JComboBox<TEstilo> ComboBoxEstilos = new JComboBox<>(Inicio.listaEstilos);
+    JComboBox<TEstilo> ComboBoxEstilos = new JComboBox<TEstilo>(Inicio.listaEstilos);
     JComboBox<Vehiculo> ComboBoxVehículoSeleccionado = new JComboBox<>();
     JComboBox<TEstado> TextFieldEstado = new JComboBox<>(Estados);
     JComboBox<TTransmision> TextFieldTransmision = new JComboBox<>(TiposTransmision);
@@ -292,13 +292,15 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
      */
     public boolean camposNumericosCorrectos(){
         try{
-            Integer.parseInt(TextFieldAñoFabricacion.getText());
-            Integer.parseInt(TextFieldCapacidadMaletas.getText());
-            Double.parseDouble(TextFieldKilometraje.getText());
-            Integer.parseInt(TextFieldNumeroPuertas.getText());
-            Integer.parseInt(TextFieldCapacidadPersonas.getText());
-            Double.parseDouble(TextFieldCostoDiario.getText());
-            Double.parseDouble(TextFieldMPG.getText());
+            int a;
+            double b;
+            a=Integer.parseInt(TextFieldAñoFabricacion.getText());
+            a=Integer.parseInt(TextFieldCapacidadMaletas.getText());
+            b=Double.parseDouble(TextFieldKilometraje.getText());
+            a=Integer.parseInt(TextFieldNumeroPuertas.getText());
+            a=Integer.parseInt(TextFieldCapacidadPersonas.getText());
+            b=Double.parseDouble(TextFieldCostoDiario.getText());
+            b=Double.parseDouble(TextFieldMPG.getText());
             return true;
         }catch(Exception error){
             return false;
@@ -333,11 +335,12 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         if (e.getSource()==botonConfirmar){
             
             
-            if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0 || TextFieldAñoFabricacion.getText().equals("") || img2.getIcon() == null || TextFieldTransmision.getSelectedItem()==null || TextFieldEstado.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidadPersonas.getText().equals("") || TextFieldMarcaSeleccionada.getText().equals("") || TextFieldColorSeleccionado.getText().equals("")){
+            if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0 || TextFieldAñoFabricacion.equals("") || img2.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || TextFieldEstado.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidadPersonas.getText().equals("") || TextFieldMarcaSeleccionada.getText().equals("") || TextFieldColorSeleccionado.getText().equals(""))
+            {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido, estado incompleto de elementos");
             } else if(!camposNumericosCorrectos()){
                 JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
-            } else {
+            }else {
                 diccionario.put("Transmision", String.valueOf(TextFieldTransmision.getSelectedItem()));
                 diccionario.put("Mpg", TextFieldMPG.getText());
                 diccionario.put("Numero vin", TextFieldVin.getText());

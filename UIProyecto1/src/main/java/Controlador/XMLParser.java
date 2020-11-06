@@ -19,17 +19,14 @@ import java.io.IOException;
 import java.io.StringReader;
 
 /**
- * Esta clase retorna el valor que contiene una etiqueta de XML
- * @since 24/10/2020
- * @version 1.0
- * @author Hans Araya Tutorial
+ *
+ * @author mhidalgos0708
  */
-
 public class XMLParser {
     
     private final String xml;
     private final Element rootElement;
-    
+  
     public XMLParser(String data) throws SAXException, IOException, ParserConfigurationException{
         data =  replaceChars(data);
         this.xml = data;
@@ -39,13 +36,9 @@ public class XMLParser {
         this.rootElement = document.getDocumentElement();
     }
   
-    /**
-     * @param tag
-     * Este método retorna el valor contenido en la etiqueta del tipo de cambio
-     * @SuppressWarnings("UseSpecificCatch")
-     * @return String
-     */
+    //Retorna el valor contenido en la etiqueta del tipo de cambio
     
+    @SuppressWarnings("UseSpecificCatch")
     public String getValue(String tag){
         try {
             NodeList list = this.rootElement.getElementsByTagName(tag);

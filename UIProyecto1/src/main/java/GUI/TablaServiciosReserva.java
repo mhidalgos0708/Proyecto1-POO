@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package GUI;
 
-import static Vista.Inicio.dim;
+import static GUI.Inicio.dim;
 
 /**
  * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a una reserva.

@@ -1,4 +1,4 @@
-package Vista;
+package GUI;
 
 
 import com.formdev.flatlaf.FlatDarculaLaf;

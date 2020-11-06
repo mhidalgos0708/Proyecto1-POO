@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package GUI;
 
 import Controlador.Utilitaria;
 import Modelo.Cliente;
@@ -18,25 +18,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
- * Esta clase (Java Form) hereda de JFrame, esta ventana permite al usuario filtrar las reservas por fecha de inicio
+ * Esta clase (Java Form) hereda de JFrame, esta ventana permite al usuario filtrar las reservas por placa del vehículo en ña reserva
  * @since 30/10/2020
  * @version 1.0
  * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  * 
  */
-
-public class FiltroFecha extends javax.swing.JFrame {
-        static FiltroFecha frameRegistrarOperador = new FiltroFecha();
+public class FiltroPlaca extends javax.swing.JFrame {
+        static FiltroPlaca frameRegistrarOperador = new FiltroPlaca();
         static String PlacaTexto="";
         static Reserva ReservaSeleccionada;
     /**
      * Creates new form FiltroPuntoRecogida
      */
-    public FiltroFecha() {
+    public FiltroPlaca() {
         initComponents();
-        ReservasPorFecha.setEnabled(false);
-        
-        
+        ReservasDisponibles.setEnabled(false);
     }
 
     /**
@@ -50,23 +47,23 @@ public class FiltroFecha extends javax.swing.JFrame {
 
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton1 = new javax.swing.JToggleButton();
-        BotónConfirmar = new javax.swing.JButton();
+        botonConsultar = new javax.swing.JButton();
         BotónAtrás = new javax.swing.JButton();
-        ReservasPorFecha = new javax.swing.JComboBox<>();
-        botonBuscarFecha = new javax.swing.JButton();
-        CalendarField = new com.toedter.calendar.JDateChooser();
+        ReservasDisponibles = new javax.swing.JComboBox<>();
+        TextFieldPlaca = new javax.swing.JTextField();
+        botonBuscar = new javax.swing.JButton();
 
         jToggleButton2.setText("jToggleButton2");
 
         jToggleButton1.setText("jToggleButton1");
 
-        setTitle(" Filtrar Reserva por Fecha");
-        setLocation(new java.awt.Point(0, 0));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 250));
 
-        BotónConfirmar.setText("Consultar");
-        BotónConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        botonConsultar.setText("Consultar");
+        botonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotónConfirmarActionPerformed(evt);
+                botonConsultarActionPerformed(evt);
             }
         });
 
@@ -77,16 +74,22 @@ public class FiltroFecha extends javax.swing.JFrame {
             }
         });
 
-        ReservasPorFecha.addActionListener(new java.awt.event.ActionListener() {
+        ReservasDisponibles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReservasPorFechaActionPerformed(evt);
+                ReservasDisponiblesActionPerformed(evt);
             }
         });
 
-        botonBuscarFecha.setText("Buscar");
-        botonBuscarFecha.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarFechaActionPerformed(evt);
+                TextFieldPlacaActionPerformed(evt);
+            }
+        });
+
+        botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
             }
         });
 
@@ -94,35 +97,35 @@ public class FiltroFecha extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotónConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ReservasPorFecha, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReservasDisponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TextFieldPlaca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                        .addComponent(botonBuscar)))
                 .addGap(76, 76, 76))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(197, 197, 197))
+                .addContainerGap(161, Short.MAX_VALUE)
+                .addComponent(BotónAtrás, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(48, 48, 48)
                 .addComponent(BotónAtrás)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CalendarField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonBuscarFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(ReservasPorFecha)
-                .addGap(31, 31, 31)
-                .addComponent(BotónConfirmar)
-                .addGap(56, 56, 56))
+                .addComponent(ReservasDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(botonConsultar)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,15 +133,17 @@ public class FiltroFecha extends javax.swing.JFrame {
 
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
         frameRegistrarOperador.setVisible(false); 
-        CalendarField.setDate(null);
-        ReservasPorFecha.setEnabled(false);
+        TextFieldPlaca.setText("");
+        ReservasDisponibles.setEnabled(false);
+        
     }//GEN-LAST:event_BotónAtrásActionPerformed
 
-    private void BotónConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónConfirmarActionPerformed
-        if(ReservasPorFecha.getSelectedItem() == null){
-            JOptionPane.showMessageDialog(this, "No hay una reserva seleccionada");
-        } else{
-            ReservaSeleccionada = (Reserva) ReservasPorFecha.getSelectedItem();
+    private void botonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultarActionPerformed
+        PlacaTexto = TextFieldPlaca.getText();
+        if(PlacaTexto.equals("")){
+            JOptionPane.showMessageDialog(this, "Elementos incompletos");
+        }else{
+            ReservaSeleccionada = (Reserva) ReservasDisponibles.getSelectedItem();
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
             DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
@@ -170,7 +175,7 @@ public class FiltroFecha extends javax.swing.JFrame {
             Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
             Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
             Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
-            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
 
             ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
             Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
@@ -180,54 +185,62 @@ public class FiltroFecha extends javax.swing.JFrame {
             Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
             Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
 
-            TablaServiciosAsociados.ModificarTablaServiciosAsociados(Auto.getListaServiciosRelacionados().toArray());
+            Object[] filas= {};
+            filas = Auto.getListaServiciosRelacionados().toArray();
+            System.out.println(Auto.getListaServiciosRelacionados());
+            TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
 
-            DatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
-            DatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
-            DatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
-            DatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-            DatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
 
             imagenSeleccionada = new ImageIcon(Persona.getImagen());
-            DatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
             imagenSinEscala = imagenSeleccionada.getImage();
             imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
             imagenSeleccionada.setImage(imagenEscalada);
-            DatosCliente.img2.setIcon(imagenSeleccionada);
-            DatosCliente.img2.setText("Sin fotografía");
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             Inicio.VentanaReserva(true);
             frameRegistrarOperador.setVisible(false);
-            CalendarField.setDate(null);
-            ReservasPorFecha.setEnabled(false);
-            ReservasPorFecha.setSelectedIndex(0);
+            TextFieldPlaca.setText("");
+            ReservasDisponibles.setEnabled(false);
+            ReservasDisponibles.setSelectedIndex(0);
         
         
         }
-    }//GEN-LAST:event_BotónConfirmarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonConsultarActionPerformed
 
-    private void ReservasPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasPorFechaActionPerformed
+    private void ReservasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasDisponiblesActionPerformed
 
-        ReservaSeleccionada=(Reserva)ReservasPorFecha.getSelectedItem();
-    }//GEN-LAST:event_ReservasPorFechaActionPerformed
-  
-    private void botonBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarFechaActionPerformed
-            if(CalendarField.getCalendar()!=null){
-                ReservasPorFecha.setEnabled(true);
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaInicio(CalendarField.getCalendar()).toArray());
-                ReservasPorFecha.setModel(mod);
-                
+        ReservaSeleccionada=((Reserva)ReservasDisponibles.getSelectedItem());
+            // TODO add your handling code here:
+    }//GEN-LAST:event_ReservasDisponiblesActionPerformed
+
+    private void TextFieldPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPlacaActionPerformed
+            // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldPlacaActionPerformed
+
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        if(TextFieldPlaca.getText() != ""){
+            if (!Inicio.adminApp.filtrarReservaVehiculo(TextFieldPlaca.getText()).isEmpty()) {
+                ReservasDisponibles.setEnabled(true);
+                DefaultComboBoxModel mod;
+                mod = new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaVehiculo(TextFieldPlaca.getText()).toArray());
+                ReservasDisponibles.setModel(mod);
             }else{
-                ReservasPorFecha.setEnabled(false);
-                ReservasPorFecha.setSelectedIndex(0);
+                JOptionPane.showMessageDialog(this, "No se encuentra un vehículo con esa placa");
             }
-        
-        
-           
-            
+        }else{
+            ReservasDisponibles.setEnabled(false);
+        }    
            
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_botonBuscarFechaActionPerformed
+    }//GEN-LAST:event_botonBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,10 +249,10 @@ public class FiltroFecha extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotónAtrás;
-    private javax.swing.JButton BotónConfirmar;
-    private com.toedter.calendar.JDateChooser CalendarField;
-    private javax.swing.JComboBox<Reserva> ReservasPorFecha;
-    private javax.swing.JButton botonBuscarFecha;
+    private javax.swing.JComboBox<Reserva> ReservasDisponibles;
+    private javax.swing.JTextField TextFieldPlaca;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonConsultar;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables

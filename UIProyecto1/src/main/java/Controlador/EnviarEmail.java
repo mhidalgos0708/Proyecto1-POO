@@ -19,29 +19,17 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 /**
- * Esta clase envía correos electrónicos con un archivo adjunto.
- * @since 29/10/2020
- * @version 1.0
- * @author Johan Alonso Calvo Vargas
+ *
+ * @author johan
  */
-
 public class EnviarEmail {
-    
-    /**
-     * @param correo Es la dirección de correo electrónico del receptor.
-     * @param asunto
-     * @param texto
-     * @param archivo Es la dirección del archivo adjunto.
-     * Construye y envía un correo electrónico con los datos recibidos como parámetros.
-     * @return true si el correo se envía correctamente, false en caso contrario.
-     */
     
     public static boolean enviarCorreo(String correo, String asunto, String texto, String archivo) {
 	//Autenticar información
 	final String username = "pruebaproyecto1poo@gmail.com";
 	final String password = "PruebaPOO";
 	String fromEmail = "pruebaproyecto1poo@gmail.com";
-	String toEmail = correo;
+	String toEmail = "pruebaproyecto1poo@gmail.com";
 		
 	Properties properties = new Properties();
 	properties.put("mail.smtp.auth", "true");

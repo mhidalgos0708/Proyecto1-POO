@@ -1,4 +1,4 @@
-package Vista;
+package GUI;
 
 import Controlador.Utilitaria;
 import Modelo.Cliente;
@@ -353,7 +353,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                 correoTemporal=dia+"/"+mes+"/"+año;
             }
        
-            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem() == null || TextFieldSedeEntrega.getSelectedItem() == null ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") || clienteRelacionado == null ||TextoTL.getText().equals("")) {
+            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") || clienteRelacionado == null ||TextoTL.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
@@ -407,7 +407,7 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
             Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
             Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
-            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin());
+            Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
 
             ImageIcon imagenSeleccionada = new ImageIcon(Auto.getImagen());
             Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
@@ -422,19 +422,19 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             System.out.println(Auto.getListaServiciosRelacionados());
             TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
 
-            DatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
-            DatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
-            DatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
-            DatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-            DatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+            DatosCliente.frameDatosCliente.textNombreCliente.setText("Nombre: "+Persona.getNombreCompleto());
+            DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
+            DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
+            DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
 
             imagenSeleccionada = new ImageIcon(Persona.getImagen());
-            DatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
             imagenSinEscala = imagenSeleccionada.getImage();
             imagenEscalada = imagenSinEscala.getScaledInstance(160, 90, Image.SCALE_SMOOTH);
             imagenSeleccionada.setImage(imagenEscalada);
-            DatosCliente.img2.setIcon(imagenSeleccionada);
-            DatosCliente.img2.setText("Sin fotografía");
+            DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
+            DatosCliente.frameDatosCliente.img2.setText("Sin fotografía");
             
             Inicio.VentanaConfirmarReserva(true);
             Inicio.VentanaRealizarReserva(false);

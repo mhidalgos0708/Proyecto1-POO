@@ -1,6 +1,6 @@
-package Vista;
+package GUI;
 
-import static Vista.Inicio.adminApp;
+import static GUI.Inicio.adminApp;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;
@@ -231,15 +231,15 @@ public final class SeleccionarVehículo extends JFrame implements ActionListener
             if((TEstilo)cb.getSelectedItem()==null){       
                 vaciarCampos();
                 ComboBoxVehículoSeleccionado.setEnabled(false); 
-                DefaultComboBoxModel modelo= new DefaultComboBoxModel();
-                ComboBoxVehículoSeleccionado.setModel(modelo);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel();
+                ComboBoxVehículoSeleccionado.setModel(mod);
             }else{
                 ComboBoxVehículoSeleccionado.setEnabled(true);
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
                 System.out.println(ComboBoxTipoCarroSeleccionado.getSelectedItem());
-                DefaultComboBoxModel modelo= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), Vista.RealizarReserva.TextFieldFechaInicio.getCalendar(), Vista.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), true).toArray());
-                ComboBoxVehículoSeleccionado.setModel(modelo);
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), true).toArray());
+                ComboBoxVehículoSeleccionado.setModel(mod);
             }
             
             
@@ -288,7 +288,10 @@ public final class SeleccionarVehículo extends JFrame implements ActionListener
                 Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
                 Detalles.TextoImagenSeleccionado.setText("Sin fotografía");
                 
-                TablaServiciosAsociados.ModificarTablaServiciosAsociados(Auto.getListaServiciosRelacionados().toArray());
+                Object[] filas= {};
+                filas = Auto.getListaServiciosRelacionados().toArray();
+                System.out.println(Auto.getListaServiciosRelacionados());
+                TablaServiciosAsociados.ModificarTablaServiciosAsociados(filas);
                 
             }else{       
                 vaciarCampos();
