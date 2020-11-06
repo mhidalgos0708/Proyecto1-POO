@@ -14,17 +14,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Font;
 import java.io.FileOutputStream;
-import Modelo.Servicio;
-import Modelo.Cliente;
-import Modelo.Operador;
-import Modelo.Vehiculo;
-import Modelo.EmpresaMantenimiento;
-import Modelo.Reserva;
-import Modelo.TEstado;
-import Modelo.TEstilo;
-import Modelo.TLicencia;
-import Modelo.TServicio;
-import Modelo.TTransmision;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -39,6 +28,18 @@ import java.io.FileReader;
 import java.util.HashMap;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import Modelo.Servicio;
+import Modelo.Cliente;
+import Modelo.Operador;
+import Modelo.Vehiculo;
+import Modelo.EmpresaMantenimiento;
+import Modelo.Reserva;
+import Modelo.TEstado;
+import Modelo.TEstilo;
+import Modelo.TLicencia;
+import Modelo.TServicio;
+import Modelo.TTransmision;
 
 /**
  * Esta clase permite la comunicación entre la interfaz gráfica, las clases de la capa Modelo y los archivos JSON.
@@ -1378,7 +1379,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de operadores contenida en el administrador
+     * @return ArrayList con los operadores del sistema
      */
 
     public ArrayList<Operador> getListaOperadores() {
@@ -1386,7 +1388,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de vehículos contenida en el administrador
+     * @return ArrayList con los vehículos del sistema
      */
 
     public ArrayList<Vehiculo> getListaVehiculos() {
@@ -1394,15 +1397,22 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método se encarga de obtener todos los vehículos de cierto tipo, tomando en cuenta si se encuentra reservados
+     * los vehículos dentro de estas o si se encuentran en una sede específica
      * 
+     * @param tipo TEstilo que indica el tipo de vehículo a buscar
+     * @param ConSede Valor booleano que indica si se busca tomando en cuenta la sede actual o no
+     * @param Desde Calendar con la fecha desde donde se realiza la reserva
+     * @param Hasta Calendar con la fecha hasta donde se realiza la reserva
+     * @return ArrayList con todos los vehículos que cumplen las condiciones de entrada
      */
     
     public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo, Calendar Desde, Calendar Hasta, boolean ConSede) {
-        ArrayList<Vehiculo> temp = new ArrayList<Vehiculo>();
+        ArrayList<Vehiculo> temp = new ArrayList<>();
         temp.add(null);
         if (ConSede) {
             for (Vehiculo V: listaVehiculos) {
-                if (V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(Desde, Hasta) && V.getSede().equals(GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem())) {
+                if (V.getEstado().equals(TEstado.Activo) && V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(Desde, Hasta) && V.getSede().equals(GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem())) {
                     temp.add(V);
                 }
             }
@@ -1420,7 +1430,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de clientes contenida en el administrador
+     * @return ArrayList con los clientes del sistema
      */
 
     public ArrayList<Cliente> getListaClientes() {
@@ -1428,7 +1439,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método obtiene el operador activo actualmente en la sesión
+     * @return Objeto Operador si se encuentra alguno activo, null si no existe
      */
     
     public Operador getOperadorActivo(){
@@ -1442,7 +1454,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de reservas contenida en el administrador
+     * @return ArrayList con las reservas del sistema
      */
 
     public ArrayList<Reserva> getListaReservas() {
@@ -1450,7 +1463,9 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método filtra las reservas disponibles según su número de factura
+     * @param NFactura Entero que representa el número de reserva a buscar
+     * @return Reserva indicada si existe, null si no.
      */
     
     public Reserva filtrarReservaPorNumeroDeFactura(int NFactura){
@@ -1462,7 +1477,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de servicios contenida en el administrador
+     * @return ArrayList con los servicios del sistema
      */
 
     public ArrayList<Servicio> getListaServicios() {
@@ -1470,7 +1486,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método devuelve la lista de empresas contenida en el administrador
+     * @return ArrayList con las empresas del sistema
      */
 
     public ArrayList<EmpresaMantenimiento> getListaEmpresasMantenimiento() {

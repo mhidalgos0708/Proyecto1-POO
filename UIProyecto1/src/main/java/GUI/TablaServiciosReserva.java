@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import static GUI.Inicio.dim;
 
 /**
  * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a una reserva.
@@ -83,10 +82,10 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
      * @param O
      */
     public void agregarServicios(Object [][] O){
-        frameTablaServiciosPorReserva.setLocation(dim.width/2-frameTablaServiciosPorReserva.getSize().width/2, dim.height/2-frameTablaServiciosPorReserva.getSize().height/2);
+        frameTablaServiciosPorReserva.setLocation(Inicio.dim.width/2-frameTablaServiciosPorReserva.getSize().width/2, Inicio.dim.height/2-frameTablaServiciosPorReserva.getSize().height/2);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(O, new String [] {"Servicio Asociado", "Activo"}));
     };
-    
+        
     private void BotónAtrásActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotónAtrásActionPerformed
         TablaServiciosReserva.frameTablaServiciosPorReserva.setVisible(false);
     }//GEN-LAST:event_BotónAtrásActionPerformed
