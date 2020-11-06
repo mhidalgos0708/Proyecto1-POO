@@ -8,18 +8,13 @@ package Controlador;
 import java.util.Calendar;
 
 /**
- *
- * @author mhidalgos0708
+ * Esta clase retorna el tipo de cambio de compra y de venta.
+ * @since 24/10/2020
+ * @version 1.0
+ * @author Mariana Hidalgo Sandoval
  */
+
 public class TipoCambioBCCR {
-    
-    //El url HOST requiere los datos de una suscripción para solicitar los servicios del BCCR
-    //El token es enviado por correo una vez realizada la suscripción
-    //El indicador 317 es compra
-    //El indicador 316 es venta
-    //La etiqueta NUM_VALOR contiene el tipo de cambio
-    //Las fechas de inicio y final deben ser la misma
-    //Si se desea el tipo de cambio del día siguiente, se puede solicitar a partir de las 5:30 p.m
     
     private int indicador = 0;
     private String fechaInicio;
@@ -36,17 +31,29 @@ public class TipoCambioBCCR {
         setFecha();
     }
  
+    /**
+     * @return double con el valor del tipo de cambio de compra
+     */
+    
     public double getCompra(){
         setCompra();
         double valor = Double.parseDouble(getValue());
         return valor;
     }
+    
+    /**
+     * @return double con el valor del tipo de cambio de venta
+     */
   
     public double getVenta(){
         setVenta();
         double valor = Double.parseDouble(getValue());
         return valor;
     }
+    
+    /**
+     * 
+     */
   
     private String getValue(){
         try {
@@ -59,11 +66,19 @@ public class TipoCambioBCCR {
             return "0";
         }
     }
+    
+    /**
+     * 
+     */
   
     private void setUrl(){
         String params = "Indicador="+indicador+"&FechaInicio="+fechaInicio+"&FechaFinal="+fechaFinal+"&Nombre="+nombre+"&SubNiveles="+subNiveles+"&CorreoElectronico="+correo+"&Token="+token;
         this.url = HOST+"?"+params;
     }
+    
+    /**
+     * 
+     */
   
     private void setFecha(){
         Calendar fecha = Calendar.getInstance();
@@ -71,10 +86,18 @@ public class TipoCambioBCCR {
         this.fechaInicio = formatoFecha;
         this.fechaFinal = formatoFecha;
     }
+    
+    /**
+     * 
+     */
   
     private void setCompra(){
         this.indicador = 317;
     }
+    
+    /**
+     * 
+     */
   
     private void setVenta(){
         this.indicador = 318;

@@ -2,7 +2,6 @@ Modelo\Servicio.class
 GUI\AgregarEmpresa.class
 GUI\FiltroPlaca$5.class
 GUI\FiltroFecha$3.class
-GUI\SeleccionadoVehículo.class
 GUI\Inicio.class
 Modelo\TLicencia.class
 Controlador\MetodoGET.class
@@ -17,10 +16,10 @@ GUI\ConsultarReserva.class
 GUI\TablaAgregarServiciosAsociados$2.class
 Modelo\TEstado.class
 GUI\AgregarServicio.class
-Vista\pruebaPDF.class
 GUI\TablaServiciosAsociados.class
 Modelo\EmpresaMantenimiento.class
 Modelo\TTransmision.class
+GUI\SeleccionarVehículo.class
 GUI\Reservas.class
 GUI\FiltroFecha$1.class
 GUI\FiltroPlaca$2.class
@@ -30,7 +29,6 @@ Modelo\Vehiculo.class
 GUI\FiltroOperador$1.class
 GUI\FiltroPlaca.class
 GUI\FiltroFecha$4.class
-GUI\Rectangles.class
 Controlador\EnviarEmail.class
 GUI\FiltroOperador$2.class
 GUI\FiltroFecha.class
@@ -52,7 +50,6 @@ GUI\TablaAgregarServiciosAsociados$4.class
 Modelo\TServicio.class
 GUI\FiltroPuntoRecogida$4.class
 GUI\FiltroPlaca$4.class
-Vista\yanoMAin.class
 GUI\TablaServiciosReserva$1.class
 GUI\TablaServiciosReserva.class
 GUI\AgregarVehiculo.class
