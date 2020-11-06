@@ -1218,7 +1218,11 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * @param laReserva
+     * En este método se hace uso de la librería ItectPDF para generar un formato para una factura.
+     * Para ello se definen párrafos con datos fijos que describen el valor que correspode, 
+     * y esos valores se toman del parámetro ingresado, que hace referencia a una reserva hecha.
+     * @return String que contiene el nombre del archivo generado
      */
 
     public String crearPDF(Reserva laReserva) throws FileNotFoundException, DocumentException, IOException
@@ -1227,26 +1231,18 @@ public class AdministradorAplicacion {
         String nombre= "Reserva" + laReserva.getNumeroFactura() + ".pdf";
         Document documento = new Document();
         
-        // El OutPutStream para el fichero donde crearemos el PDF
-        /*******************cambiar ruta*********************/
         FileOutputStream ficheroPDF = new FileOutputStream(nombre);
-        
-        // Se asocia el documento de OutPutStream
+
         PdfWriter.getInstance(documento, ficheroPDF);
         
-        // Se abre el documento
         documento.open();
-        
-        // Fuente
-        //PdfFont font = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
-        
-        // Parrafo}
+       
         Paragraph titulo = new Paragraph("Rent A Car",
                 FontFactory.getFont("arial",
                 22,
                 Font.BOLD,
                 BaseColor.BLUE));
-        // Añadimos el titulo al documento    
+   
         titulo.setAlignment(Paragraph.ALIGN_CENTER);
         documento.add(titulo);
         
@@ -1332,8 +1328,7 @@ public class AdministradorAplicacion {
         documento.add(p22);   
         documento.add(p23); 
         documento.add(p24); 
-              
-        // Se cierra el documento
+
         documento.close();
         
         return nombre;
