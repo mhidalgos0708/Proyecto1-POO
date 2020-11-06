@@ -5,14 +5,18 @@
  */
 package Modelo;
 
-import GUI.Inicio;
+import Vista.Inicio;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- *
- * @author fabri
+ * Esta clase de modela los vehhículos de la flotilla del sistema
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class Vehiculo {
     private String placa;
     private int añoFabricacion;
@@ -194,6 +198,13 @@ public class Vehiculo {
         this.imagen = imagen;
     }
     
+    /**
+     * Este método verifica si un automóvil está rentado en el período de tiempo indicado.
+     * 
+     * @param Desde Calendario indicando la fecha desde donde se pretende reservar.
+     * @param Hasta Calendario indicando la fecha hasta donde se pretende reservar.
+     * @return Valor booleano true si se encuentra reservado, false si no lo está.
+     */
     public boolean isRentadoEnElRango(Calendar Desde, Calendar Hasta){
         ArrayList<Reserva> listaReservasAutoActual;
         listaReservasAutoActual = Inicio.adminApp.filtrarReservaVehiculo(placa);
@@ -210,16 +221,18 @@ public class Vehiculo {
         return false;
     }
     
-    public void agregarNuevoServicio(Servicio S){
-        listaServiciosRelacionados.add(S);
-    }
 
     @Override
     public String toString() {
         return "Vehículo " + marca + ", Placa: " + placa;
     }
     
-     public boolean agregarServicio(Servicio servicioActual) {
+    /**
+     * Este método permite añadir un nuevo servicio de mantenimiento al vehículo.
+     * @param servicioActual Servicio que se desea agregar.
+     * @return Valor booleano true si se logra agregar satisfactoriamente el servicio, false si no.
+     */
+    public boolean agregarServicio(Servicio servicioActual) {
         boolean servicio = false;
         for(int i = 0; i < listaServiciosRelacionados.size(); i++) {
             if(servicioActual.getIdentificador() == listaServiciosRelacionados.get(i).getIdentificador()) {

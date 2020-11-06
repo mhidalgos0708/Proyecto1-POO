@@ -1,4 +1,4 @@
-package GUI;
+package Vista;
 
 import Controlador.AdministradorAplicacion;
 import com.itextpdf.text.DocumentException;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  * 
  */
-public class RegistrarOperador extends JFrame implements ActionListener {
+public final class RegistrarOperador extends JFrame implements ActionListener {
  
     Container container = getContentPane();
     

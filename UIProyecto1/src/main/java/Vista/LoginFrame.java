@@ -1,4 +1,4 @@
-package GUI;
+package Vista;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,10 +58,10 @@ public final class LoginFrame extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         
         userLabel.setBounds(50, 150, 150, 30);
-        passwordLabel.setBounds(50, 220, 150, 30);
+        passwordLabel.setBounds(50, 200, 150, 30);
         userTextField.setBounds(210, 150, 150, 30);
-        passwordField.setBounds(210, 220, 150, 30);
-        showPassword.setBounds(150, 250, 150, 30);
+        passwordField.setBounds(210, 200, 150, 30);
+        showPassword.setBounds(150, 240, 150, 30);
         loginButton.setBounds((200-150/2), 300, 150, 30);
         resetButton.setBounds((200-150/2), 340, 150, 30);
         Picture.setBounds(450, 0, 250, 450);

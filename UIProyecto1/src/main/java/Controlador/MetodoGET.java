@@ -11,12 +11,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- *
- * @author mhidalgos0708
+ * Esta clase se conecta a una url y retorna el contenido del sitio.
+ * @since 24/10/2020
+ * @version 1.0
+ * @author Hans Araya Tutorial
  */
+
 public class MetodoGET {
     
-    @SuppressWarnings("ConvertToTryWithResources")
+    /**
+     * @param leerURL
+     * @SuppressWarnings("ConvertToTryWithResources")
+     * @return String con el contenido del sitio
+     */
+    
     protected static String getHTML(String leerURL) throws Exception {
         
         //Conexión

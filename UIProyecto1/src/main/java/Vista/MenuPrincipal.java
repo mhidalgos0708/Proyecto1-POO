@@ -1,4 +1,4 @@
-package GUI;
+package Vista;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  * 
  */
-public class MenuPrincipal extends JFrame implements ActionListener {
+public final class MenuPrincipal extends JFrame implements ActionListener {
  
     Container container = getContentPane();
     
@@ -50,7 +50,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         icon = new ImageIcon(ImagenFinal);
         Picture.setIcon(icon);
         
- 
     }
  
     /**

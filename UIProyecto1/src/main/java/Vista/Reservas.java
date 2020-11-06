@@ -3,47 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package Vista;
 
-import static GUI.Detalles.TextoTL;
-import static GUI.RealizarReserva.SO1;
-import static GUI.RealizarReserva.SO2;
-import static GUI.RealizarReserva.SO3;
-import static GUI.RealizarReserva.SO4;
-import static GUI.RealizarReserva.SO5;
-import static GUI.RealizarReserva.ServiciosOpcionales;
-import static GUI.RealizarReserva.TextFieldBuscarCliente;
-import static GUI.RealizarReserva.TextFieldFechaFinalizacion;
-import static GUI.RealizarReserva.TextFieldFechaInicio;
-import static GUI.RealizarReserva.TextFieldSedeEntrega;
-import static GUI.RealizarReserva.TextFieldSedeRecogida;
-import static GUI.RealizarReserva.TextoPlacaSeleccionada;
-import static GUI.RealizarReserva.clienteRelacionado;
 import Modelo.Vehiculo;
-import com.itextpdf.text.DocumentException;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 /**
- * Esta clase hereda de JFrame, despliega los datos de la reserva y permite al usuario confirmarla en una ventana
- * @since 28/10/2020
+ * Esta clase hereda de JFrame, esta ventana permite al usuario ver detalles de una reserva solo para verificar, no confirmar una reserva
+ * @since 30/10/2020
  * @version 1.0
  * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
-
-public final class ConfirmarReserva extends JFrame implements ActionListener {
+public final class Reservas extends JFrame implements ActionListener {
     JScrollPane scroll = new JScrollPane();
     JLabel label = new JLabel();
     Container container = getContentPane();
@@ -77,9 +56,9 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
     
 
     JButton botonAtras = new JButton("Atrás");
-    JButton botonOk = new JButton("Realizar Reserva");
+    JButton botonOk = new JButton("Ok");
  
-    ConfirmarReserva() {
+    Reservas() {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -175,80 +154,37 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource()==DetallesVehiculo){       
+        if (e.getSource()==DetallesVehiculo){
+            
             Inicio.VentanaDetallesVehículo(true);
+
         }
-        
-        if (e.getSource()==DetallesCliente){   
+        if (e.getSource()==DetallesCliente){
+            
             DatosCliente.frameDatosCliente.setVisible(true);
+            
+
         }
         
         if (e.getSource()==botonOk){
-            if(TextFieldFechaInicio.getCalendar()!=null){
-               int año = TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
-                String direccionTemporal=dia+"/"+mes+"/"+año;
-            }
-            if(TextFieldFechaFinalizacion.getCalendar()!=null){
-               int año = TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
-                String correoTemporal=dia+"/"+mes+"/"+año;
-            }
-       
+            ContenidoTextoID.setText("");
+            ContenidoTextoRecogida.setText("");
+            ContenidoTextoFinal.setText("");
+            ContenidoTextoSolicitud.setText("");
+            ContenidoTextoVehiculo.setText("");
+            ContenidoTextoOperador.setText("");
+            ContenidoTextoEntrega.setText("");
+            ContenidoTextoInicio.setText("");
 
-            
-            if(SO1.isSelected()){
-                ServiciosOpcionales.add("WiFi limitado");
-            }if(SO2.isSelected()){
-                ServiciosOpcionales.add("Asistencia en carretera");
-            }if(SO3.isSelected()){
-                ServiciosOpcionales.add("GPS");
-            }if(SO4.isSelected()){
-                ServiciosOpcionales.add("Asiento para niño");
-            }if (SO5.isSelected()){
-                ServiciosOpcionales.add("Cobertura por daños a terceros");
-            }
-
-            HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
-
-            Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), clienteRelacionado, diccionario, false);
-            
-            try {
-                String archivo = Inicio.adminApp.crearPDF(Inicio.adminApp.obtenerReserva(Inicio.listaReservas.size()-1));
-                Controlador.EnviarEmail.enviarCorreo("pruebaproyecto1poo@gmail.com", "ReservaPrueba", "Buenas", archivo);
-            } catch (DocumentException ex) {
-                Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
-            TextFieldSedeRecogida.setSelectedIndex(0);
-            TextFieldSedeEntrega.setSelectedIndex(0);
-            TextFieldFechaInicio.setDate(null);
-            TextFieldFechaFinalizacion.setDate(null);
-
-            TextFieldBuscarCliente.setText("");
-
-            SO1.setSelected(false);
-            SO2.setSelected(false);
-            SO3.setSelected(false);
-            SO4.setSelected(false);
-            SO5.setSelected(false);
-
-            TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
-            TextoTL.setText("No se ha seleccionado Cliente");
-
-            Inicio.VentanaMenuPrincipal(true);
-            Inicio.VentanaRealizarReserva(false); 
-            Inicio.VentanaConfirmarReserva(false);
-                
-            
+            Inicio.VentanaConsultarReserva(true);
+            Inicio.VentanaReserva(false); 
           
         }
         if(e.getSource()==ContenidoTextoServicio){
             TablaServiciosReserva.frameTablaServiciosPorReserva.setVisible(true);
         }
+            
+        
+       //Coding Part of showPassword JCheckBox
     }
 }
