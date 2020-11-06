@@ -1,8 +1,6 @@
 package GUI;
 
 import Controlador.AdministradorAplicacion;
-import Modelo.Operador;
-import static Vista.yanoMAin.adminApp;
 import com.itextpdf.text.DocumentException;
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +10,13 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
-
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario realizar acciones de administrador
+ * @since 26/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 public class RegistrarOperador extends JFrame implements ActionListener {
  
     Container container = getContentPane();
@@ -36,10 +40,16 @@ public class RegistrarOperador extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         TextoNombreCompleto.setBounds(70, 100, 150, 30);
         TextoCorreoElectronico.setBounds(70, 140, 150, 30);
@@ -47,25 +57,26 @@ public class RegistrarOperador extends JFrame implements ActionListener {
         TextFieldNombreCompleto.setBounds(200, 100, 150, 30);
         TextFieldCorreo.setBounds(200, 140, 150, 30);
         
-       botonAgregarOperador.setBounds((200-150/2), 300, 150, 30);
+        botonAgregarOperador.setBounds((200-150/2), 300, 150, 30);
         botonAtras.setBounds(200,30, 150, 30);
- 
- 
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(botonAgregarOperador);
         container.add(TextoNombreCompleto);
         container.add(TextoCorreoElectronico);
-       
         container.add(TextFieldNombreCompleto);
         container.add(TextFieldCorreo);
- 
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
-
         botonAtras.addActionListener(this);
         botonAgregarOperador.addActionListener(this);
     }
@@ -106,10 +117,6 @@ public class RegistrarOperador extends JFrame implements ActionListener {
                 Inicio.VentanaRegistrarOperador(false);    
                 
             }
-
         }
-        
-       //Coding Part of showPassword JCheckBox
     }
- 
 }

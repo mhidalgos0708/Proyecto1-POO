@@ -1,7 +1,6 @@
 package GUI;
 
 import static GUI.Inicio.adminApp;
-import Modelo.Servicio;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.TTransmision;
@@ -10,14 +9,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileFilter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.filechooser.FileNameExtensionFilter;
  
+/**
+ * Esta clase hereda de JFrame, permite al usuario editar los datos de un vehículo en una ventana
+ * @since 21/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 
 public final class EditarVehiculo extends JFrame implements ActionListener {
     String Placa;
@@ -92,10 +95,16 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         img2.setIcon(img);
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int a=80;
         int b;
@@ -148,6 +157,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(TextoEstilo);
         container.add(ComboBoxEstilos);
@@ -194,6 +206,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         ComboBoxVehículoSeleccionado.setEnabled(false);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
@@ -205,6 +220,10 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         
     }
     
+    /**
+     * Este método permite que se pueda escribir en los campos para editar los datos del vehículo o no
+     * @param cond Cond debe ser un valor booleano true o false
+     */
     public void setFields(boolean cond){
         
         TextFieldEstado.setEnabled(cond);
@@ -226,6 +245,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         ComboBoxEstilos.setEnabled(cond);
     }
     
+    /**
+     * Este método limpia los campos para editar los datos del vehículo, los limpia
+     */
     public void resetearCampos(){
         
         DefaultComboBoxModel mod= new DefaultComboBoxModel();
@@ -249,6 +271,11 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         setFields(false);
     }
     
+    /**
+     * Este método permite obtener el índice en el que la ComboBox del índice debe estar a la hora de cargar la información de la sede de un vehículo
+     * @param V Parámetro de tipo vehículo
+     * @return Número entero
+     */
     public int obtenerIndiceSedes(Vehiculo V){
         int index=0;
         for (String S: TiposSedes) {
@@ -259,7 +286,26 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         }return 0;
     }
 
-
+    /**
+     * Este método verifica si los campos numéricos tienen datos válidos
+     * @return true si los campos numéricos tienen un formato correcto, false si no
+     */
+    public boolean camposNumericosCorrectos(){
+        try{
+            int a;
+            double b;
+            a=Integer.parseInt(TextFieldAñoFabricacion.getText());
+            a=Integer.parseInt(TextFieldCapacidadMaletas.getText());
+            b=Double.parseDouble(TextFieldKilometraje.getText());
+            a=Integer.parseInt(TextFieldNumeroPuertas.getText());
+            a=Integer.parseInt(TextFieldCapacidadPersonas.getText());
+            b=Double.parseDouble(TextFieldCostoDiario.getText());
+            b=Double.parseDouble(TextFieldMPG.getText());
+            return true;
+        }catch(Exception error){
+            return false;
+        }
+    }
  
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -288,10 +334,13 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         
         if (e.getSource()==botonConfirmar){
             
+            
             if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0 || TextFieldAñoFabricacion.equals("") || img2.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || TextFieldEstado.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidadPersonas.getText().equals("") || TextFieldMarcaSeleccionada.getText().equals("") || TextFieldColorSeleccionado.getText().equals(""))
             {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido, estado incompleto de elementos");
-            } else {
+            } else if(!camposNumericosCorrectos()){
+                JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
+            }else {
                 diccionario.put("Transmision", String.valueOf(TextFieldTransmision.getSelectedItem()));
                 diccionario.put("Mpg", TextFieldMPG.getText());
                 diccionario.put("Numero vin", TextFieldVin.getText());
@@ -399,7 +448,6 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
             }else{
                 filename = "Error, no se encuentra el archivo";
             }
-            
         }
     }
 }

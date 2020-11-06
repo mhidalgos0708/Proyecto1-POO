@@ -22,9 +22,13 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author JoJo
+ * Esta clase (Java Form) hereda de JFrame, esta ventana permite al usuario filtrar las reservas por operador realizador.
+ * @since 30/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class FiltroOperador extends javax.swing.JFrame {
         static FiltroOperador frameRegistrarOperador = new FiltroOperador();
         static Operador OperadorSeleccionado;
@@ -147,7 +151,7 @@ public class FiltroOperador extends javax.swing.JFrame {
             Inicio.VentanaConsultarReserva(false); 
             Inicio.VentanaReserva(true);
 
-
+            Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(ReservaSeleccionada.getNumeroFactura()));
             Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
             Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
             Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));

@@ -9,8 +9,11 @@ import Controlador.Utilitaria;
 import java.util.Calendar;
 
 /**
- *
- * @author fabri
+ * Esta clase representa a los clientes que se van a registrar en el sistema.
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class Cliente {
     private String nombreCompleto;
@@ -128,9 +131,6 @@ public class Cliente {
     public String toString() {
         return nombreCompleto + "\nCédula: " + cedula + "\nLicencia " + numeroLicencia + " ("+tipoLicencia +") " + "("+ Utilitaria.formatoFecha(fechaEmisionLicencia) + " - " + Utilitaria.formatoFecha(fechaExpiracionLicencia) +")" + "\nCorreo: " + correoElectronico +"\nDirección: "+direccionExacta;
     }
-    
-    
-    
     
 }
 

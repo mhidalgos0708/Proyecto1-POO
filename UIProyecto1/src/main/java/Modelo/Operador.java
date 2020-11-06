@@ -6,8 +6,11 @@
 package Modelo;
 
 /**
- *
- * @author fabri
+ * Esta clase modela a los operadores de servicio al cliente del sistema
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class Operador {
     private String correoElectronico;
@@ -56,8 +59,11 @@ public class Operador {
         this.estado = estado;
     }
     
-    public String getUsername()
-    {
+    /**
+     * Este método permite crear un nombre de usuario a partir del correo electrónico contenido en un objeto Operador
+     * @return String con el nombre de usuario que tendrá el operador
+     */
+    public String getUsername(){
         String[] username = correoElectronico.split("@", 2); 
         return username[0];
     }
@@ -66,7 +72,5 @@ public class Operador {
     public String toString() {
         return nombreCompleto + " (" + correoElectronico +")";
     }
-    
-    
     
 }

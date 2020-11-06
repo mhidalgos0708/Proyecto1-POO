@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import static GUI.Inicio.adminApp;
 import static GUI.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles;
 import Modelo.EmpresaMantenimiento;
 import Modelo.Servicio;
@@ -24,9 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- *
- * @author fabri
+ * Esta clase hereda de JFrame, permite al usuario agregar un nuevo servicio a un vehículo determinado desplegando una ventana
+ * @since 22/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
+
 public final class AgregarServicio extends JFrame implements ActionListener {
 
     Container container = getContentPane();
@@ -66,13 +68,18 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         addComponentsToContainer();
         addActionEvent();
         
- 
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         
         DefaultComboBoxModel mod = new DefaultComboBoxModel(ArrayServicios);
@@ -103,6 +110,9 @@ public final class AgregarServicio extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         
         container.add(TextFieldVehiculoRelacionado);
@@ -125,6 +135,9 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
@@ -134,17 +147,38 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         TextFieldVehiculoRelacionado.addActionListener(this);
         
     }
+    
+    /**
+     * Este método verifica la correctitud en formato de los campos numéricos
+     * @return true si los campos numéricos son correctos, false si no lo son
+     */
+    public boolean numerosCorrectos(){
+        try{
+            Integer.parseInt(TextFieldIdentificador.getText());
+            Double.parseDouble(TextFieldMontoPagado.getText());
+            return true;
+        }catch(Exception Error){
+            return false;
+        }
+        
+    }
+    
+   
  
+    /**
+     * Este método limpia todos los campos de texto de la ventana
+     */
     public void limpiarCampos(){
+        
         TextFieldVehiculoRelacionado.setText("");
         TextFieldIdentificador.setText("");
         TextFieldMontoPagado.setText("");
         TextFieldDetalles.setText("");
-        TextFieldEmpresaServicio.setSelectedIndex(0);
         TextFieldTipoServicio.setSelectedIndex(0);
         TextFieldFechaInicio.setDate(null);
         TextFieldFechaFinal.setDate(null);
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==TextFieldTipoServicio){
@@ -152,20 +186,14 @@ public final class AgregarServicio extends JFrame implements ActionListener {
             TextFieldEmpresaServicio.setModel(mod);
         }
 
-        if (e.getSource()==TextFieldVehiculoRelacionado){
-            if (rootPaneCheckingEnabled) {
-                
-            }else{
-                
-            }
-        }
-        
         if (e.getSource()==botonAtras){
             
-            limpiarCampos();
+            
 
             Inicio.VentanaMenuAdministrador(true);
             Inicio.VentanaAgregarServicio(false); 
+            
+            limpiarCampos();
           
         }
         String fiTemp;
@@ -191,6 +219,9 @@ public final class AgregarServicio extends JFrame implements ActionListener {
             
                 } else if(Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText())==null){
                     JOptionPane.showMessageDialog(this, "No se encontró el vehículo con placa "+TextFieldVehiculoRelacionado.getText());
+                    TextFieldVehiculoRelacionado.setText("");
+                }else if(!numerosCorrectos()){
+                    JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
                 }else {
                     Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
                     
@@ -201,7 +232,6 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
                     ServiciosAsociadosDisponibles.setModel(mod);
                     
-                    Inicio.adminApp.agregarInformacionJSON("vehiculos.json", "Vehiculo");
                     limpiarCampos();
 
                     Inicio.VentanaMenuAdministrador(true);
@@ -214,8 +244,5 @@ public final class AgregarServicio extends JFrame implements ActionListener {
             
 
         }
-            
-        
-       //Coding Part of showPassword JCheckBox
     }
 }

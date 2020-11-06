@@ -1,8 +1,6 @@
 package GUI;
 
 import static GUI.Inicio.adminApp;
-import static GUI.RealizarReserva.TextFieldFechaFinalizacion;
-import static GUI.RealizarReserva.TextFieldFechaInicio;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;
@@ -13,8 +11,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
-
-public class SeleccionadoVehículo extends JFrame implements ActionListener {
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario seleccionar un automóvil para reservarlo
+ * @since 26/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
+public final class SeleccionarVehículo extends JFrame implements ActionListener {
     String filename;
     String[] TiposLicencias = {"", "A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","D1","D2","D3","E1","E2"};
     String[] TiposCarros = {"", "Compacto", "Pickup", "Intermedio", "SUV", "Mini-van", "Convertible", "Económico"};
@@ -67,7 +71,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
  
  
  
-    SeleccionadoVehículo() {
+    SeleccionarVehículo() {
         
         setLayoutManager();
         setLocationAndSize();
@@ -76,10 +80,16 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         
         TextoNombreCompleto.setBounds(40, 100, 150, 30);
@@ -103,6 +113,9 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
 
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         TextoMarcaSeleccionado.setFont(new java.awt.Font("Dialog", 1, 25));
         TextoAñoSeleccionado.setFont(new java.awt.Font("Dialog", 1, 25));
@@ -140,6 +153,9 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         ComboBoxVehículoSeleccionado.setEnabled(false);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
@@ -151,6 +167,9 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
         
     }
     
+    /**
+     *
+     */
     public void vaciarCampos(){
         botonDetallesVehiculo.setVisible(false);
         botonAgregarOperador.setVisible(false);
@@ -195,7 +214,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
             }else {
                 JOptionPane.showMessageDialog(this, "Se ha seleccionado un vehículo");
                 RealizarReserva.AutoSeleccionado = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
-                Inicio.frameRealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
+                RealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
                 ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
                 Inicio.frameRealizarReserva.setEnabled(true);
                 Inicio.VentanaSeleccionadoVehículo(false);   
@@ -259,7 +278,7 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
                 Detalles.TextoCapacidadSeleccionado.setText(String.valueOf(Auto.getCapacidad()));
                 Detalles.TextoTipoTransimisionSeleccionado.setText(Auto.getTipoTransmision().toString());
                 Detalles.TextoEstadoSeleccionado.setText(Auto.getEstado().toString());
-                Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin().toString());
+                Detalles.TextoVinSeleccionado.setText(Auto.getNumeroVin());
                 
                 imagenSeleccionada = new ImageIcon(Auto.getImagen());
                 Detalles.TextoImagenSeleccionado.setIcon(imagenSeleccionada);
@@ -279,7 +298,6 @@ public class SeleccionadoVehículo extends JFrame implements ActionListener {
             }
         }
         
-
     }
  
 }

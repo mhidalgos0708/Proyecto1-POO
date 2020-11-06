@@ -6,8 +6,11 @@
 package GUI;
 
 /**
- *
- * @author JoJo
+ * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a un vehículo
+ * @since 03/11/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class TablaServiciosAsociados extends javax.swing.JFrame {
     static TablaServiciosAsociados frameVentanillaObjeto = new TablaServiciosAsociados();
@@ -93,13 +96,18 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Este método muestra la ventanilla actual
      */
  
-     static public void correrVentanilla(){
+    static public void correrVentanilla(){
       frameVentanillaObjeto.setVisible(true);
     }
-     static public void ModificarTablaServiciosAsociados(Object[] Servicios){
+
+    /**
+     * Este método carga a la lista de los servicios asociados en un vehículo
+     * @param Servicios
+     */
+    static public void ModificarTablaServiciosAsociados(Object[] Servicios){
          javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
          model.addColumn("Servicios Asociados");
          model.setRowCount(0);
@@ -114,6 +122,9 @@ public class TablaServiciosAsociados extends javax.swing.JFrame {
      TextoListaServicioseleccionado.setModel(model);
      
      }
+    /**
+     * Este método limpia la tabla de servicios
+     */
      static void LimpiarTabla(){
         javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
         model.addColumn("Servicios Asociados");

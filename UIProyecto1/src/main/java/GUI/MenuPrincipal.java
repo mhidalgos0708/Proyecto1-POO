@@ -5,7 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
-
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario acceder a las funciones del programa con botones
+ * @since 22/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 public class MenuPrincipal extends JFrame implements ActionListener {
  
     Container container = getContentPane();
@@ -47,10 +53,16 @@ public class MenuPrincipal extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = -30;
         int ancho = 25;
@@ -72,6 +84,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         
         NombreUsuario.setFont(new java.awt.Font("Dialog", 1, 19));
@@ -88,6 +103,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         botonReserva.addActionListener(this);
         botonConsultarReserva.addActionListener(this);
@@ -132,10 +150,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
                     Inicio.listaOperadores.get(i).setEstado(false);
                 }
             }
-
         }
-        
-       //Coding Part of showPassword JCheckBox
     }
- 
 }

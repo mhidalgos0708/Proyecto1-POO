@@ -22,7 +22,6 @@ import static GUI.RealizarReserva.clienteRelacionado;
 import Modelo.Vehiculo;
 import com.itextpdf.text.DocumentException;
 import java.awt.Container;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -30,19 +29,20 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 /**
- *
- * @author fabri
+ * Esta clase hereda de JFrame, despliega los datos de la reserva y permite al usuario confirmarla en una ventana
+ * @since 28/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
+
 public final class ConfirmarReserva extends JFrame implements ActionListener {
     JScrollPane scroll = new JScrollPane();
     JLabel label = new JLabel();
@@ -86,10 +86,16 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
         addActionEvent();
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);      
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = 10;
         TextoID.setBounds(40, 50-k, 250, 30);
@@ -121,6 +127,9 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
         botonOk.setBounds(220, 550-k, 150, 30);
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         TextoID.setFont(new java.awt.Font("Dialog", 1, 25));
         ContenidoTextoID.setFont(new java.awt.Font("Dialog", 1, 25));
@@ -151,6 +160,9 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
         
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         botonAtras.addActionListener(this);
         botonOk.addActionListener(this);   

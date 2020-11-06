@@ -5,6 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario realizar acciones de administrador
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 
 public final class MenuAdministrador extends JFrame implements ActionListener {
  
@@ -21,13 +28,18 @@ public final class MenuAdministrador extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
- 
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = -5;
         botonAgregarVehiculo.setBounds((200-150/2)+k, 100, 150, 70);
@@ -38,6 +50,9 @@ public final class MenuAdministrador extends JFrame implements ActionListener {
         
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(botonAgregarVehiculo);
         container.add(botonRegistrarEmpresaServicios);
@@ -46,6 +61,9 @@ public final class MenuAdministrador extends JFrame implements ActionListener {
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         botonAgregarVehiculo.addActionListener(this);
         botonRegistrarEmpresaServicios.addActionListener(this);

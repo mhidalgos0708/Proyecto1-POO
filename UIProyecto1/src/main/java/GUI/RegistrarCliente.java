@@ -7,7 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
  
-
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario registrar clientes
+ * @since 25/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 public final class RegistrarCliente extends JFrame implements ActionListener {
     
     String filename;
@@ -44,21 +50,23 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
     JButton botonAtras = new JButton("Atrás");
     JButton botonAgregarOperador = new JButton("Agregar");
  
- 
- 
     RegistrarCliente() {
-        
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
- 
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         TextoNombreCompleto.setBounds(40, 100, 150, 30);
         TextoCédula.setBounds(40, 140, 150, 30);
@@ -91,6 +99,9 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(botonAgregarOperador);
         
@@ -121,6 +132,9 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);

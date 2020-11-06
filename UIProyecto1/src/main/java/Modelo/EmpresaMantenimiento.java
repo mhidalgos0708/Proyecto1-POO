@@ -7,8 +7,11 @@ package Modelo;
  */
 
 /**
- *
- * @author fabri
+ * Esta clase representa a las empresas que se van a registrar en el sistema.
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class EmpresaMantenimiento {
     private String razonSocial;
@@ -21,8 +24,7 @@ public class EmpresaMantenimiento {
 
     public EmpresaMantenimiento() {}
 
-    public EmpresaMantenimiento(String razonSocial, String numeroCedula, String telefono, String provincia, 
-                                String canton, String distrito, String señas) {
+    public EmpresaMantenimiento(String razonSocial, String numeroCedula, String telefono, String provincia, String canton, String distrito, String señas) {
         this.razonSocial = razonSocial;
         this.numeroCedula = numeroCedula;
         this.telefono = telefono;
@@ -33,7 +35,6 @@ public class EmpresaMantenimiento {
     }
     
     
-
     public String getRazonSocial() {
         return razonSocial;
     }

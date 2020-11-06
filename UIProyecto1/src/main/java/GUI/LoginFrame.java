@@ -7,6 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario ingresar al sistema con sus credenciales
+ * @since 22/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
+
 public final class LoginFrame extends JFrame implements ActionListener {
 
     Container container = getContentPane();
@@ -37,10 +45,16 @@ public final class LoginFrame extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         
         userLabel.setBounds(50, 150, 150, 30);
@@ -54,6 +68,9 @@ public final class LoginFrame extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         
         container.add(Picture);
@@ -66,6 +83,9 @@ public final class LoginFrame extends JFrame implements ActionListener {
         container.add(resetButton);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         loginButton.addActionListener(this);
         resetButton.addActionListener(this);

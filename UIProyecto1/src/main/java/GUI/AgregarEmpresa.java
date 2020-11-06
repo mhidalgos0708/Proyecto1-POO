@@ -18,9 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- *
- * @author fabri
+ * Esta clase hereda de JFrame, permite al usuario agregar una nueva empresa desplegando una ventana
+ * @since 22/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
+
 public final class AgregarEmpresa extends JFrame implements ActionListener {
     Container container = getContentPane();
     
@@ -53,10 +56,16 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         addActionEvent();
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         TextoRazonSocial.setBounds(40, 100, 150, 30);
         TextoNumeroCedula.setBounds(40, 140, 150, 30);
@@ -76,6 +85,9 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         botonAtras.setBounds(200,30, 150, 30);
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(botonAgregarEmpresa);
         container.add(TextoRazonSocial);
@@ -95,6 +107,9 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         botonAtras.addActionListener(this);
         botonAgregarEmpresa.addActionListener(this);   
@@ -126,9 +141,8 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else if(!Inicio.adminApp.verificarTelefono(TextFieldTelefono.getText())){
-                JOptionPane.showMessageDialog(this, "Teléfono inválido ingrsado");
+                JOptionPane.showMessageDialog(this, "Teléfono inválido ingresado");
             }else {
-                adminApp.registrarEmpresaServicios("Taller", "3", "+50687895654", "San José", "Escazú", "San Antonio", "50 metros norte de Mas x menos", false);
                 adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
                 adminApp.cargarInformacionJSON("empresas.json", "Empresa");
                 

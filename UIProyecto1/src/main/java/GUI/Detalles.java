@@ -1,25 +1,27 @@
 package GUI;
 
-import static GUI.Inicio.frameSeleccionadoVehículo;
-import Modelo.TEstado;
-import Modelo.TEstilo;
-import Modelo.Vehiculo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
+/**
+ * Esta clase hereda de JFrame, despliega los datos de un cliente en una ventana
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 
-public class Detalles extends JFrame implements ActionListener {
+public final class Detalles extends JFrame implements ActionListener {
     String filename;
     Container container = getContentPane();
     final JFileChooser explorer = new JFileChooser();
     
     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getListaVehiculos().toArray());
    
-    
+
     public static JLabel TextoPlacaSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoAñoSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoColorSeleccionado = new JLabel("No se ha seleccionado Vehículo");
@@ -46,7 +48,6 @@ public class Detalles extends JFrame implements ActionListener {
     public static JLabel TextoTL=new JLabel("");
     public static JLabel TextoTipoVehículoSeleccionado = new JLabel("");
     public static JLabel TextoVehiculoSeleccionado= new JLabel("");
-    
     public static JLabel TextoMPGSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoSedeSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoCostoeleccionado = new JLabel("No se ha seleccionado Vehículo");
@@ -55,7 +56,6 @@ public class Detalles extends JFrame implements ActionListener {
     public static JLabel TextoEstadoSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JButton botonVerServicios = new JButton("Ver");
     public static JLabel TextoImagenSeleccionado = new JLabel("No se ha seleccionado Vehículo");
-     
     public static JLabel TextoVinSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JButton botonAtras = new JButton("Atrás");
  
@@ -70,10 +70,16 @@ public class Detalles extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = -50;
         TextoDirección.setBounds(40, 180+k, 150, 30);
@@ -113,6 +119,9 @@ public class Detalles extends JFrame implements ActionListener {
 
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         
         container.add(TextoMPGSeleccionado);
@@ -154,6 +163,9 @@ public class Detalles extends JFrame implements ActionListener {
         container.add(botonAtras);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
@@ -161,6 +173,9 @@ public class Detalles extends JFrame implements ActionListener {
         
     }
     
+    /**
+     *
+     */
     public void vaciarCampos(){
         TextoPlacaSeleccionado.setText("No se ha seleccionado Vehículo");
         TextoAñoSeleccionado.setText("No se ha seleccionado Vehículo");

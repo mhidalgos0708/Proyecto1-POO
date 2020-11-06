@@ -6,16 +6,19 @@
 package Modelo;
 
 import Controlador.Utilitaria;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
-
 import Controlador.TipoCambioBCCR;
+
 /**
- *
- * @author fabri
+ * Esta clase modela las reservas que se van a almacenar y crear en el sistema
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class Reserva {
     private String sedeRecogida;
     private String sedeEntrega;
@@ -126,6 +129,10 @@ public class Reserva {
         this.fechaSolicitud = fechaSolicitud;
     }
 
+    /**
+     *  Este método se utiliza para obtener la duración de una reserva y colocarla en el pdf de la reserva
+     * @return Entero con la duración de días de la reserva
+     */
     public int getDuracion()
     {
         Calendar copia = Calendar.getInstance();
@@ -144,11 +151,21 @@ public class Reserva {
         return days;
     }
     
+    /**
+     * Este método calcula el costo de la reserva tomando en cuenta solo el vehículo para ser colocado posteriormente en el pdf de la reserva
+     * @return Double con el costo de la reserva sin servicios opcionales
+     */
     public double getCostoRenta()
     {
         double costo = getDuracion() * vehiculoSeleccionado.getCostoDiario();
         return costo;
     }
+
+    /**
+     * Este método calcula el total del precio de los servicios opcionales seleccionados en una reserva en dólares según el HashMap de servicios
+     * del objeto
+     * @return Double del precio total en dólares de los sevicios opcionales seleccionados en una reserva
+     */
     public double getCostoSODolares()
     {
         double se = 0;
@@ -160,6 +177,12 @@ public class Reserva {
         }        
         return se * getDuracion();
     }
+
+    /**
+     * Este método calcula el total del precio de los servicios opcionales seleccionados en una reserva en colones según el HashMap de servicios
+     * del objeto
+     * @return Double con el costo en colones de los servicios opcionales seleccionados en la reserva actual
+     */
     public double getCostoSO()
     {
         TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
@@ -172,16 +195,27 @@ public class Reserva {
         }        
         return se * getDuracion();
     }
+
+    /**
+     * Este método obtiene el costo total de toda la reserva actual incluyendo servicios especiales y costo de renta del vehículo
+     * @return Double con el costo total de la reserva
+     */
     public double getCostoTotal()
     {
         return getCostoSO() + getCostoRenta();
     }
     
+    /**
+     * En este método se obtienen los servicios opcionales contenidos en la reserva y si están, se indican como un sí en la tabla,
+     * si no, se coloca un no.
+     * @return Array conteniendo llaves con los servicios opcionales y si están contenidos como su valor
+     */
     public Object[][] getArrayServicios(){
         Set keys = serviciosOpcionales.keySet();
         Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},{"GPS", keys.contains("GPS") ? "Sí" : "No"},{"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},{"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},{"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
         return O;
     }
+    
     @Override
     public String toString() {
         return "Reserva número "+ numeroFactura + " (" + Utilitaria.formatoFecha(fechaInicio) + " - " + Utilitaria.formatoFecha(fechaFinalizacion) + ')';

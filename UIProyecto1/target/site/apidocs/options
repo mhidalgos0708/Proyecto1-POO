@@ -1,0 +1,22 @@
+-classpath
+'C:/Users/fabri/.m2/repository/com/toedter/jcalendar/1.4/jcalendar-1.4.jar;C:/Users/fabri/.m2/repository/org/netbeans/external/AbsoluteLayout/RELEASE121/AbsoluteLayout-RELEASE121.jar;C:/Users/fabri/.m2/repository/com/formdev/flatlaf/0.43/flatlaf-0.43.jar;C:/Users/fabri/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar;C:/Users/fabri/.m2/repository/junit/junit/4.10/junit-4.10.jar;C:/Users/fabri/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar;C:/Users/fabri/.m2/repository/com/itextpdf/itextpdf/5.5.9/itextpdf-5.5.9.jar;C:/Users/fabri/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar;C:/Users/fabri/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/fabri/Downloads/UI/Proyecto1-POO/UIProyecto1/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2020. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/fabri/Downloads/UI/Proyecto1-POO/UIProyecto1/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'UIProyecto1 2.5-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'UIProyecto1 2.5-SNAPSHOT API'

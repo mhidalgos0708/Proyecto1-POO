@@ -12,30 +12,81 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
  
-
+/**
+ * Esta clase hereda de JFrame, esta ventana permite al usuario realizar reservas
+ * @since 25/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
+ */
 public final class RealizarReserva extends JFrame implements ActionListener {
+
+    /**
+     *
+     */
     static public Cliente clienteRelacionado;
     
     Container container = getContentPane();
     
+    /**
+     *
+     */
     static public ArrayList<String> ServiciosOpcionales = new ArrayList<String>();
         
     static Vehiculo AutoSeleccionado;
     
     Cliente [] ListaClientes = {};
     
+    /**
+     *
+     */
     static public JComboBox<String> TextFieldSedeRecogida = new JComboBox<>(Inicio.listaSedes);
+
+    /**
+     *
+     */
     static public JComboBox<String> TextFieldSedeEntrega = new JComboBox<>(Inicio.listaSedes);
+
+    /**
+     *
+     */
     static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
+
+    /**
+     *
+     */
     static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
+
+    /**
+     *
+     */
     static public JTextField TextFieldBuscarCliente = new JTextField();
     
     JButton botonSeleccionarvehiculo= new JButton("Seleccionar");
     
+    /**
+     *
+     */
     static public JCheckBox SO1= new JCheckBox();
+
+    /**
+     *
+     */
     static public JCheckBox SO2= new JCheckBox();
+
+    /**
+     *
+     */
     static public JCheckBox SO3= new JCheckBox();
+
+    /**
+     *
+     */
     static public JCheckBox SO4= new JCheckBox();
+
+    /**
+     *
+     */
     static public JCheckBox SO5= new JCheckBox();
     
     JLabel TextoNombreCompleto = new JLabel("Sede Recogida");
@@ -53,8 +104,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     static public JLabel TextoLicencia = new JLabel("Datos de la licencia del cliente");
     static public JLabel TextoCorreoCliente = new JLabel("Correo del cliente");
     static public JLabel TextoDireccionCliente = new JLabel("Dirección del cliente");
-    
-   
     static public JLabel TextoSO1=new JLabel("Wifi Ilimitado");
     static public JLabel TextoSO2=new JLabel("Asistencia carretera");
     static public JLabel TextoSO3=new JLabel("GPS");
@@ -63,7 +112,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     static public JLabel TextoPlaca=new JLabel("Placa Vehículo Seleccionado:");
     static public JLabel TextoPlacaSeleccionada=new JLabel("No se ha seleccionado el vehículo");
     static public JLabel TextoClienteSeleccionar = new JLabel("Cliente seleccionado:");
-    
     static public JLabel TextoTL=new JLabel("No se ha seleccionado Cliente");
 
     JButton botonAtras = new JButton("Atrás");
@@ -79,8 +127,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     Image yourImage = img.getImage();
     Image newImage = yourImage.getScaledInstance(190, 120, Image.SCALE_SMOOTH);
  
- 
- 
     RealizarReserva() {
         
         setLayoutManager();
@@ -91,11 +137,17 @@ public final class RealizarReserva extends JFrame implements ActionListener {
  
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
         rectangle.setBackground(color);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k= 40;
         TextoNombreCompleto.setBounds(40, 100+k, 150, 30);
@@ -148,12 +200,12 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         
         botonAgregarOperador.setBounds(700, 460, 210, 30);
         botonAtras.setBounds(700, 30, 210, 30);
-        
-        
- 
- 
+
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         
         container.add(TextoNombreCliente);
@@ -163,9 +215,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         container.add(TextoDireccionCliente);
         container.add(img2);
         container.add(rectangle);
-        
-         
-        
         container.add(botonAgregarOperador);
         container.add(botonBuscarCliente);
         container.add(TextoSO1);
@@ -194,13 +243,15 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         container.add(SO4);
         container.add(SO5);
         container.add(TextoTL);
-        
         container.add(botonAtras);
         container.add(TextoPlaca);
         container.add(TextoPlacaSeleccionada);
         container.add(TextoClienteSeleccionar);
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         
         botonBuscarCliente.addActionListener(this);
@@ -213,6 +264,9 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         
     }
  
+    /**
+     * Este método limpia los campos de texto para un nuevo uso
+     */
     public void limpiarDatosCliente(){
         ImageIcon imagenSeleccionada = new ImageIcon("");
         img2.setIcon(imagenSeleccionada);
@@ -299,7 +353,6 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                 correoTemporal=dia+"/"+mes+"/"+año;
             }
        
-
             if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") || clienteRelacionado == null ||TextoTL.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             

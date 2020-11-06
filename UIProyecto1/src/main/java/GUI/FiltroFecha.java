@@ -6,10 +6,8 @@
 package GUI;
 
 import Controlador.Utilitaria;
-import static GUI.Inicio.dim;
 import Modelo.Cliente;
 import Modelo.Reserva;
-import Modelo.TEstilo;
 import Modelo.Vehiculo;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -17,13 +15,16 @@ import java.awt.Toolkit;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author JoJo
+ * Esta clase (Java Form) hereda de JFrame, esta ventana permite al usuario filtrar las reservas por fecha de inicio
+ * @since 30/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class FiltroFecha extends javax.swing.JFrame {
         static FiltroFecha frameRegistrarOperador = new FiltroFecha();
         static String PlacaTexto="";
@@ -145,7 +146,7 @@ public class FiltroFecha extends javax.swing.JFrame {
             Inicio.VentanaConsultarReserva(false); 
             Inicio.VentanaReserva(true);
 
-
+            Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(ReservaSeleccionada.getNumeroFactura()));
             Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
             Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
             Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
@@ -211,7 +212,7 @@ public class FiltroFecha extends javax.swing.JFrame {
 
         ReservaSeleccionada=(Reserva)ReservasPorFecha.getSelectedItem();
     }//GEN-LAST:event_ReservasPorFechaActionPerformed
-
+  
     private void botonBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarFechaActionPerformed
             if(CalendarField.getCalendar()!=null){
                 ReservasPorFecha.setEnabled(true);

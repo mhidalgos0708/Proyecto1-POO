@@ -7,7 +7,6 @@ package GUI;
 
 import Controlador.Utilitaria;
 import static GUI.FiltroFecha.ReservaSeleccionada;
-import static GUI.FiltroFecha.frameRegistrarOperador;
 import Modelo.Cliente;
 import Modelo.Reserva;
 import Modelo.Vehiculo;
@@ -17,13 +16,16 @@ import java.awt.Toolkit;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author JoJo
+ * Esta clase (Java Form) hereda de JFrame, esta ventana permite al usuario filtrar las reservas por punto de recogida
+ * @since 30/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class FiltroPuntoRecogida extends javax.swing.JFrame {
         static FiltroPuntoRecogida frameRegistrarOperador = new FiltroPuntoRecogida();
         static String SedeSeleccionada;
@@ -166,7 +168,7 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             Inicio.VentanaConsultarReserva(false); 
             Inicio.VentanaReserva(true);
 
-
+            Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(ReservaSeleccionada.getNumeroFactura()));
             Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
             Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
             Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));

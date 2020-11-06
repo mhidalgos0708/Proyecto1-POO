@@ -17,6 +17,12 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.JFrame;
  
+/**
+ * Esta clase hereda de JFrame, despliega los datos de la reserva desplegando una ventana
+ * @since 27/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ */
 
 public final class ConsultarReserva extends JFrame implements ActionListener {
     String[] Operadores = {"", "Operador1", "Operador2"};
@@ -55,10 +61,16 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         addActionEvent();
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = 90;
         int t = 50;
@@ -80,6 +92,9 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         botonAtras.setBounds((325-150/2)+k, 30, 150, 30);
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         container.add(TextoFiltro);
         container.add(TextoIDReserva);
@@ -100,7 +115,9 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
 
     }
     
- 
+    /**
+     *
+     */
     public void addActionEvent() {
 
         botonAtras.addActionListener(this);
@@ -159,10 +176,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
 
                     Inicio.VentanaConsultarReserva(false); 
-                    Inicio.frameRes.ContenidoTextoID.setText(TextFieldIDReserva.getText());
+                    
                     Inicio.VentanaReserva(true);
                     
-
+                    Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(Resultado.getNumeroFactura()));
                     Inicio.frameRes.ContenidoTextoRecogida.setText(Resultado.getSedeRecogida());
                     Inicio.frameRes.ContenidoTextoEntrega.setText(Resultado.getSedeEntrega());
                     Inicio.frameRes.ContenidoTextoInicio.setText(Resultado.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaInicio().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaInicio().get(Calendar.YEAR));

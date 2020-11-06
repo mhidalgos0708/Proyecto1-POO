@@ -6,12 +6,13 @@
 package GUI;
 
 import static GUI.Inicio.dim;
-import java.util.HashMap;
-import javax.swing.JFrame;
 
 /**
- *
- * @author JoJo
+ * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a una reserva.
+ * @since 02/11/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class TablaServiciosReserva extends javax.swing.JFrame {
     static TablaServiciosReserva frameTablaServiciosPorReserva= new TablaServiciosReserva();
@@ -77,6 +78,10 @@ public class TablaServiciosReserva extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este método permite definir el estado de los servicios opcionales escogidos en una reserva
+     * @param O
+     */
     public void agregarServicios(Object [][] O){
         frameTablaServiciosPorReserva.setLocation(dim.width/2-frameTablaServiciosPorReserva.getSize().width/2, dim.height/2-frameTablaServiciosPorReserva.getSize().height/2);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(O, new String [] {"Servicio Asociado", "Activo"}));

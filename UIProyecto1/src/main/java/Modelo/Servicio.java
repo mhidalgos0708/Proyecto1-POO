@@ -6,11 +6,13 @@
 package Modelo;
 
 import java.util.Calendar;
-import Controlador.Utilitaria;
 
 /**
- *
- * @author fabri
+ * Esta clase modela los servicios que se van a almacenar y crear en el sistema
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class Servicio {
     private int identificador;

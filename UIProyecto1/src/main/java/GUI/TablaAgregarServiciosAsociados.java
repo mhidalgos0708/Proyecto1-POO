@@ -6,15 +6,17 @@
 package GUI;
 
 import Modelo.Servicio;
-import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author JoJo
+ * Esta clase hereda de JFrame, esta ventana permite agregar servicios asociados
+ * @since 02/11/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     
@@ -22,6 +24,9 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     static javax.swing.table.DefaultTableModel model;
     static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo= new TablaAgregarServiciosAsociados();
 
+    /**
+     *
+     */
     public TablaAgregarServiciosAsociados() {
         initComponents();
         model= new javax.swing.table.DefaultTableModel();
@@ -144,9 +149,9 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
                 System.out.println("Editando");
                 Inicio.frameEditarVehiculo.setEnabled(true);
             }else{
-                AgregarVehiculo.serviciosAsociados = listafinal;
+                
                 Inicio.frameAgregarVehiculo.setEnabled(true);
-                System.out.println(AgregarVehiculo.serviciosAsociados);
+                
             }
             frameTablaEditarServiciosVehiculo.setVisible(false);
     }
@@ -195,15 +200,26 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
         model.setRowCount(0);
     }
     /**
-     * @param args the command line arguments
      */
    
     public static javax.swing.JComboBox<Servicio> ServiciosAsociadosDisponibles;
+
+    /**
+     *
+     */
     public static javax.swing.JTable TablaEditarServiciosAsociados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
+
+    /**
+     *
+     */
     static public int cantServicios = 0;
+
+    /**
+     *
+     */
     static public boolean editando = false;
 }

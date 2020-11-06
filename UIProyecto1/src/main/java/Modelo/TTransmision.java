@@ -6,9 +6,13 @@
 package Modelo;
 
 /**
- *
- * @author fabri
+ * Esta clase de enumeración contiene los posibles tipos de transmisión que puede tener un vehículo
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public enum TTransmision {
     Automática, Manual;
 }

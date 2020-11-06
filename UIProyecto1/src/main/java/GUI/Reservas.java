@@ -7,21 +7,20 @@ package GUI;
 
 import Modelo.Vehiculo;
 import java.awt.Container;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 /**
- *
- * @author fabri
+ * Esta clase hereda de JFrame, esta ventana permite al usuario ver detalles de una reserva solo para verificar, no confirmar una reserva
+ * @since 30/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
 public final class Reservas extends JFrame implements ActionListener {
     JScrollPane scroll = new JScrollPane();
@@ -66,10 +65,16 @@ public final class Reservas extends JFrame implements ActionListener {
         addActionEvent();
     }
  
+    /**
+     *
+     */
     public void setLayoutManager() {
         container.setLayout(null);      
     }
  
+    /**
+     *
+     */
     public void setLocationAndSize() {
         int k = 10;
         TextoID.setBounds(40, 50-k, 250, 30);
@@ -101,6 +106,9 @@ public final class Reservas extends JFrame implements ActionListener {
         botonOk.setBounds(220, 550-k, 150, 30);
     }
  
+    /**
+     *
+     */
     public void addComponentsToContainer() {
         TextoID.setFont(new java.awt.Font("Dialog", 1, 25));
         ContenidoTextoID.setFont(new java.awt.Font("Dialog", 1, 25));
@@ -131,6 +139,9 @@ public final class Reservas extends JFrame implements ActionListener {
         
     }
  
+    /**
+     *
+     */
     public void addActionEvent() {
         botonAtras.addActionListener(this);
         botonOk.addActionListener(this);   
@@ -156,6 +167,7 @@ public final class Reservas extends JFrame implements ActionListener {
         }
         
         if (e.getSource()==botonOk){
+            ContenidoTextoID.setText("");
             ContenidoTextoRecogida.setText("");
             ContenidoTextoFinal.setText("");
             ContenidoTextoSolicitud.setText("");
