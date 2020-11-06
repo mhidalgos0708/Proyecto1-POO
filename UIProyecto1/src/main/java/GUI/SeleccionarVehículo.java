@@ -1,6 +1,6 @@
 package GUI;
 
-import static GUI.Inicio.adminApp;
+
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.Vehiculo;
@@ -192,7 +192,7 @@ public final class SeleccionarVehículo extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
         //Coding Part of LOGIN button
         if (e.getSource()==botonDetallesVehiculo || e.getSource()==botonImagen){
-            adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");         
+            Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");         
             Inicio.frameSeleccionadoVehículo.setEnabled(false);
             Inicio.VentanaDetallesVehículo(true);
         }

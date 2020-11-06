@@ -8,10 +8,10 @@ package Controlador;
 import java.util.Calendar;
 
 /**
- * Esta clase maneja formatos de fechas.
+ * Esta clase utilitaria contiene métodos para darle formato a diferentes datos
  * @since 25/10/2020
  * @version 1.0
- * @author Mariana Hidalgo Sandoval
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public class Utilitaria {

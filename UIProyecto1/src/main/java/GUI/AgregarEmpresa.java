@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import static GUI.Inicio.adminApp;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -118,7 +117,7 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
  
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Coding Part of LOGIN button
+        
         if (e.getSource()==botonAtras){
             TextFieldRazonSocial.setText("");
             TextFieldProvincia.setText("");
@@ -143,8 +142,8 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
             } else if(!Inicio.adminApp.verificarTelefono(TextFieldTelefono.getText())){
                 JOptionPane.showMessageDialog(this, "Teléfono inválido ingresado");
             }else {
-                adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
-                adminApp.cargarInformacionJSON("empresas.json", "Empresa");
+                Inicio.adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
+                Inicio.adminApp.cargarInformacionJSON("empresas.json", "Empresa");
                 
                 DefaultComboBoxModel mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
                 AgregarServicio.TextFieldEmpresaServicio.setModel(mod);

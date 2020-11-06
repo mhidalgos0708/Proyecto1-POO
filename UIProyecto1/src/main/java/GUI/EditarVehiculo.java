@@ -1,6 +1,5 @@
 package GUI;
 
-import static GUI.Inicio.adminApp;
 import Modelo.TEstado;
 import Modelo.TEstilo;
 import Modelo.TTransmision;
@@ -359,7 +358,7 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
 
 
                 Inicio.adminApp.editarVehiculoJSON(Placa, diccionario);
-                adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
+                Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
                 
                 JOptionPane.showMessageDialog(this, "Se han guardado los cambios");
                 ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);

@@ -5,21 +5,8 @@
  */
 package GUI;
 
-import static GUI.Detalles.TextoTL;
-import static GUI.RealizarReserva.SO1;
-import static GUI.RealizarReserva.SO2;
-import static GUI.RealizarReserva.SO3;
-import static GUI.RealizarReserva.SO4;
-import static GUI.RealizarReserva.SO5;
-import static GUI.RealizarReserva.ServiciosOpcionales;
-import static GUI.RealizarReserva.TextFieldBuscarCliente;
-import static GUI.RealizarReserva.TextFieldFechaFinalizacion;
-import static GUI.RealizarReserva.TextFieldFechaInicio;
-import static GUI.RealizarReserva.TextFieldSedeEntrega;
-import static GUI.RealizarReserva.TextFieldSedeRecogida;
-import static GUI.RealizarReserva.TextoPlacaSeleccionada;
-import static GUI.RealizarReserva.clienteRelacionado;
 import Modelo.Vehiculo;
+
 import com.itextpdf.text.DocumentException;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -99,6 +86,7 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         int k = 10;
         TextoID.setBounds(40, 50-k, 250, 30);
+        botonAtras.setBounds(450, 50-k, 100, 30);
         TextoSedeRecogida.setBounds(40, 100-k, 150, 30);
         TextoSedeEntrega.setBounds(40, 140-k, 150, 30);
         TextoInicio.setBounds(40, 180-k, 150, 30);
@@ -111,7 +99,6 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
         
         DetallesVehiculo.setBounds(200, 340-k, 150, 30);
         DetallesCliente.setBounds(200, 380-k, 150, 30);
-        
         
         ContenidoTextoID.setBounds(200, 50-k, 150, 30);
         ContenidoTextoRecogida.setBounds(200, 100-k, 150, 30);
@@ -179,66 +166,72 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
             Inicio.VentanaDetallesVehículo(true);
         }
         
+        if (e.getSource()==botonAtras){    
+            Inicio.VentanaConfirmarReserva(false);
+            Inicio.VentanaRealizarReserva(true);
+              
+        }
+        
         if (e.getSource()==DetallesCliente){   
             DatosCliente.frameDatosCliente.setVisible(true);
         }
         
         if (e.getSource()==botonOk){
-            if(TextFieldFechaInicio.getCalendar()!=null){
-               int año = TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
+            if(GUI.RealizarReserva.TextFieldFechaInicio.getCalendar()!=null){
+               int año = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
+               int mes = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
                 String direccionTemporal=dia+"/"+mes+"/"+año;
             }
-            if(TextFieldFechaFinalizacion.getCalendar()!=null){
-               int año = TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
-               int mes = TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
+            if(GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar()!=null){
+               int año = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
+               int mes = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
+               int dia = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
                 String correoTemporal=dia+"/"+mes+"/"+año;
             }
        
 
             
-            if(SO1.isSelected()){
-                ServiciosOpcionales.add("WiFi limitado");
-            }if(SO2.isSelected()){
-                ServiciosOpcionales.add("Asistencia en carretera");
-            }if(SO3.isSelected()){
-                ServiciosOpcionales.add("GPS");
-            }if(SO4.isSelected()){
-                ServiciosOpcionales.add("Asiento para niño");
-            }if (SO5.isSelected()){
-                ServiciosOpcionales.add("Cobertura por daños a terceros");
+            if(GUI.RealizarReserva.SO1.isSelected()){
+                GUI.RealizarReserva.ServiciosOpcionales.add("WiFi limitado");
+            }if(GUI.RealizarReserva.SO2.isSelected()){
+                GUI.RealizarReserva.ServiciosOpcionales.add("Asistencia en carretera");
+            }if(GUI.RealizarReserva.SO3.isSelected()){
+                GUI.RealizarReserva.ServiciosOpcionales.add("GPS");
+            }if(GUI.RealizarReserva.SO4.isSelected()){
+                GUI.RealizarReserva.ServiciosOpcionales.add("Asiento para niño");
+            }if (GUI.RealizarReserva.SO5.isSelected()){
+                GUI.RealizarReserva.ServiciosOpcionales.add("Cobertura por daños a terceros");
             }
 
-            HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
+            HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(GUI.RealizarReserva.ServiciosOpcionales);
 
-            Inicio.adminApp.realizarReserva((String) TextFieldSedeRecogida.getSelectedItem(), (String) TextFieldSedeEntrega.getSelectedItem(), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText()), clienteRelacionado, diccionario, false);
+            Inicio.adminApp.realizarReserva((String) GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem(), (String) GUI.RealizarReserva.TextFieldSedeEntrega.getSelectedItem(), GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(GUI.RealizarReserva.TextoPlacaSeleccionada.getText()), GUI.RealizarReserva.clienteRelacionado, diccionario, false);
             
             try {
                 String archivo = Inicio.adminApp.crearPDF(Inicio.adminApp.obtenerReserva(Inicio.listaReservas.size()-1));
-                Controlador.EnviarEmail.enviarCorreo("pruebaproyecto1poo@gmail.com", "ReservaPrueba", "Buenas", archivo);
+                Controlador.EnviarEmail.enviarCorreo(Inicio.adminApp.obtenerCliente(GUI.RealizarReserva.TextFieldBuscarCliente.getText()).getCorreoElectronico(), "Comprobante de Reserva - Rent A Car", "Gracias por reservar con nosotros!", archivo);
             } catch (DocumentException ex) {
                 Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(this, "Se ha agregado una nueva Reserva");
-            TextFieldSedeRecogida.setSelectedIndex(0);
-            TextFieldSedeEntrega.setSelectedIndex(0);
-            TextFieldFechaInicio.setDate(null);
-            TextFieldFechaFinalizacion.setDate(null);
+            GUI.RealizarReserva.TextFieldSedeRecogida.setSelectedIndex(0);
+            GUI.RealizarReserva.TextFieldSedeEntrega.setSelectedIndex(0);
+            GUI.RealizarReserva.TextFieldFechaInicio.setDate(null);
+            GUI.RealizarReserva.TextFieldFechaFinalizacion.setDate(null);
 
-            TextFieldBuscarCliente.setText("");
+            GUI.RealizarReserva.TextFieldBuscarCliente.setText("");
 
-            SO1.setSelected(false);
-            SO2.setSelected(false);
-            SO3.setSelected(false);
-            SO4.setSelected(false);
-            SO5.setSelected(false);
+            GUI.RealizarReserva.SO1.setSelected(false);
+            GUI.RealizarReserva.SO2.setSelected(false);
+            GUI.RealizarReserva.SO3.setSelected(false);
+            GUI.RealizarReserva.SO4.setSelected(false);
+            GUI.RealizarReserva.SO5.setSelected(false);
 
-            TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
-            TextoTL.setText("No se ha seleccionado Cliente");
+            GUI.RealizarReserva.TextoPlacaSeleccionada.setText("No se ha seleccionado el vehículo");
+            GUI.RealizarReserva.TextoTL.setText("No se ha seleccionado Cliente");
 
             Inicio.VentanaMenuPrincipal(true);
             Inicio.VentanaRealizarReserva(false); 

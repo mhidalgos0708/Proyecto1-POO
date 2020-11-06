@@ -1,12 +1,13 @@
 package GUI;
-
+ 
 /**
- *
- * @author fabri
+ * Esta clase hereda de JFrame, despliega los datos de la reserva desplegando una ventana
+ * @since 27/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 import Controlador.Utilitaria;
-import static GUI.Inicio.dim;
 import Modelo.Cliente;
 import Modelo.Reserva;
 import Modelo.Vehiculo;
@@ -16,13 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.JFrame;
- 
-/**
- * Esta clase hereda de JFrame, despliega los datos de la reserva desplegando una ventana
- * @since 27/10/2020
- * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
- */
+
 
 public final class ConsultarReserva extends JFrame implements ActionListener {
     String[] Operadores = {"", "Operador1", "Operador2"};
@@ -152,7 +147,7 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextFieldInicioReserva){
             FiltroFecha.frameRegistrarOperador.setVisible(true);
-            FiltroFecha.frameRegistrarOperador.setLocation(dim.width/2-FiltroFecha.frameRegistrarOperador.getSize().width/2, dim.height/2-FiltroFecha.frameRegistrarOperador.getSize().height/2);
+            FiltroFecha.frameRegistrarOperador.setLocation(GUI.Inicio.dim.width/2-FiltroFecha.frameRegistrarOperador.getSize().width/2, GUI.Inicio.dim.height/2-FiltroFecha.frameRegistrarOperador.getSize().height/2);
         
         }
         

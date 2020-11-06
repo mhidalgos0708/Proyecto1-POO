@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- *
- * @author fabri
+ * Esta clase modela los vehículos que son registrables en la flotilla
+ * @since 23/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * 
  */
+
 public class Vehiculo {
     private String placa;
     private int añoFabricacion;
@@ -194,6 +198,12 @@ public class Vehiculo {
         this.imagen = imagen;
     }
     
+    /**
+     * Este método permite verificar si un vehículo se encuentra rentado en un lapso específico de tiempo
+     * @param Desde Calendar con la fecha de inicio desde donde se pretende consultar si el vehículo se encuentra rentado
+     * @param Hasta Calendar con la fecha de finalización desde donde se pretende consultar si el vehículo se encuentra rentado
+     * @return Valor true si se encuentra rentado en el rango proveído, false si no.
+     */
     public boolean isRentadoEnElRango(Calendar Desde, Calendar Hasta){
         ArrayList<Reserva> listaReservasAutoActual;
         listaReservasAutoActual = Inicio.adminApp.filtrarReservaVehiculo(placa);
@@ -209,17 +219,18 @@ public class Vehiculo {
         }System.out.println("No Esta Reservado");
         return false;
     }
-    
-    public void agregarNuevoServicio(Servicio S){
-        listaServiciosRelacionados.add(S);
-    }
 
     @Override
     public String toString() {
         return "Vehículo " + marca + ", Placa: " + placa;
     }
     
-     public boolean agregarServicio(Servicio servicioActual) {
+    /**
+     * Este método permite agregar un nuevo servicio de mantenimiento a un vehículo específico.
+     * @param servicioActual Objeto de tipo Servicio que se deseé asociar al vehículo.
+     * @return true si se agrea el servicio satisfactoriamente, false si no.
+     */
+    public boolean agregarServicio(Servicio servicioActual) {
         boolean servicio = false;
         for(int i = 0; i < listaServiciosRelacionados.size(); i++) {
             if(servicioActual.getIdentificador() == listaServiciosRelacionados.get(i).getIdentificador()) {
