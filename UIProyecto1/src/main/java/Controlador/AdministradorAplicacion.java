@@ -41,10 +41,14 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- *
- * @author Silvia Rodriguez
+ * Esta clase permite la comunicación entre la interfaz gráfica, las clases de la capa Modelo y los archivos JSON.
+ * @since 24/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
  */
+
 public class AdministradorAplicacion {
+    
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     private ArrayList<Operador> listaOperadores = new ArrayList<Operador>();
     private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
@@ -53,6 +57,23 @@ public class AdministradorAplicacion {
     private ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
     private HashMap<String, Double> serviciosEspeciales = new HashMap<String, Double>();
     private int numeroFactura;
+    
+    /**
+     * @param nombreCompleto 
+     * @param cedula Es el identificador del cliente.
+     * @param direccionExacta
+     * @param correoElectronico
+     * @param telefono
+     * @param numeroLicencia
+     * @param fechaEmisionLicencia
+     * @param tipoLicencia
+     * @param fechaExpiracionLicencia
+     * @param imagen
+     * @param lectura Indica si el registro de cliente debe omitir la escritura en el archivo JSON.
+     * Este método verifica que la cédula del cliente es única, llama al constructor de la clase Cliente y agrega
+     * la instancia a la lista de clientes del administrador.
+     * @return true si la cédula es única, false en caso contrario.
+     */
     
     public boolean registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
                    String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
@@ -70,6 +91,31 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * @param placa Es el identificador del vehículo.
+     * @param añoFabricacion
+     * @param estilo
+     * @param color
+     * @param marca
+     * @param capacidad
+     * @param kilometraje
+     * @param numeroPuertas
+     * @param numeroVin
+     * @param mpg
+     * @param sede
+     * @param costoDiario
+     * @param capacidadMaletas
+     * @param tipoTransmision
+     * @param estado
+     * @param listaServiciosRelacionados
+     * @param imagen
+     * @param lectura Indica si el registro de vehículo debe omitir la escritura en el archivo JSON.
+     * Este método verifica que la placa del vehículo es única, llama al constructor de la clase Vehículo y agrega
+     * la instancia a la lista de vehículos del administrador.
+     * @return true si la placa es única, false en caso contrario.
+     */
+    
     public boolean registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
                     int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
                     String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
@@ -87,6 +133,21 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * @param razonSocial
+     * @param numeroCedula Es el identificador de la empresa de mantenimiento.
+     * @param telefono
+     * @param provincia
+     * @param canton
+     * @param distrito
+     * @param señas
+     * @param lectura Indica si el registro de empresa debe omitir la escritura en el archivo JSON.
+     * Este método verifica que la cédula jurídica de la empresa es única, llama al constructor de la clase 
+     * EmpresaMantenimiento y agrega la instancia a la lista de empresas del administrador.
+     * @return true si la cédula jurídica es única, false en caso contrario.
+     */
+    
     public boolean registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
                                           String canton, String distrito, String señas, boolean lectura)
     {
@@ -101,6 +162,21 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * @param identificador
+     * @param fechaInicio
+     * @param fechaFinalizacion
+     * @param montoPagado
+     * @param detalles
+     * @param tipo
+     * @param empresaRelacionada
+     * @param lectura Indica si el registro de servicio debe omitir la escritura en el archivo JSON.
+     * Este método verifica que el identificador del servicio es único, llama al constructor de la clase Servicio y
+     * agrega la instancia a la lista de servicios del administrador.
+     * @return true si el identificador es único, false en caso contrario.
+     */
+    
     public boolean registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
                                        String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada, boolean lectura)
     {
@@ -115,6 +191,18 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * @param correoElectronico Es el identificador de operador.
+     * @param contraseña
+     * @param nombreCompleto
+     * @param estado
+     * @param lectura Indica si el registro de operador debe omitir la escritura en el archivo JSON.
+     * Este método verifica que el correo electrónico del operador es único, llama al constructor de la clase 
+     * Operador y agrega la instancia a la lista de operadores del administrador.
+     * @return true si el correo es único, false en caso contrario.
+     */
+    
     public boolean registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
     {
         if(obtenerOperador(correoElectronico) == null) {
@@ -127,6 +215,23 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * @param sedeRecogida
+     * @param sedeEntrega
+     * @param fechaInicio
+     * @param fechaFinalizacion
+     * @param fechaSolicitud
+     * @param operador
+     * @param vehiculoSeleccionado
+     * @param clienteRelacionado
+     * @param serviciosOpcionales
+     * @param lectura Indica si el registro de reserva debe omitir la escritura en el archivo JSON.
+     * Este método llama al constructor de la clase Reserva, agrega la instancia a la lista de reservas del 
+     * administrador e incrementa el número de factura consecutivo.
+     * @return true una vez completada la reserva.
+     */
+    
     public boolean realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
                    Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
                    HashMap serviciosOpcionales, boolean lectura)
@@ -141,6 +246,13 @@ public class AdministradorAplicacion {
         numeroFactura++;
         return true;
     }
+    
+    /**
+     * @param pId Es la placa de un vehículo.
+     * Este método busca el vehículo registrado con la placa en la lista de vehículos del administrador.
+     * @return Vehiculo si la placa está en la lista de vehículos del administrador, null en caso contrario.
+     */
+    
     public Vehiculo obtenerVehiculo(String pID)
     {
         Vehiculo elVehiculo;
@@ -154,6 +266,13 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * @param pCorreo Es el correo de un operador.
+     * Este método busca el correo en la lista de operadores del administrador.
+     * @return Operador si el correo está en la lista de operadores del administrador, null en caso contrario.
+     */
+    
     public Operador obtenerOperador(String pCorreo)
     {
         Operador elOperador;
@@ -167,6 +286,13 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * @param pId Es la cédula de un cliente.
+     * Este método busca la cédula en la lista de clientes del administrador.
+     * @return Cliente si la cédula está en la lista de clientes del administrador, null en caso contrario.
+     */
+    
     public Cliente obtenerCliente(String pId)
     {
         Cliente elCliente;
@@ -180,6 +306,13 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * @param pId Es el identificador de un servicio.
+     * Este método busca el identificador en la lista de servicios del administrador.
+     * @return Servicio si el identificador está en la lista de servicios del administrador, null en caso contrario.
+     */
+    
     public Servicio obtenerServicio(int pId)
     {
         Servicio elServicio;
@@ -193,6 +326,13 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * @param pId Es el número de factura de una reserva.
+     * Este método busca el número de factura en la lista de reservas del administrador.
+     * @return Reserva si el número está en la lista de reservas del administrador, null en caso contrario.
+     */
+    
     public Reserva obtenerReserva(int pId)
     {
         Reserva laReserva;
@@ -206,6 +346,13 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * @param pId Es la cédula jurídica de una empresa de mantenimiento.
+     * Este método busca la cédula jurídica en la lista de empresas del administrador.
+     * @return EmpresaMantenimiento si la cédula está en la lista de empresas del administrador, null en caso contrario.
+     */
+    
     public EmpresaMantenimiento obtenerEmpresa(String pId)
     {
         EmpresaMantenimiento laEmpresa;
@@ -219,12 +366,30 @@ public class AdministradorAplicacion {
         }
         return null;
     }
+    
+    /**
+     * Este método retorna el número de factura actual.
+     * @return int con el atributo numeroFactura.
+     */
+    
     public int getNumeroFactura() {
         return numeroFactura;
     }
+    
+    /**
+     * Este método retorna el diccionario de servicios especiales.
+     * @return HashMap con el atributo serviciosEspeciales.
+     */
+    
     public HashMap getServiciosEspeciales() {
         return serviciosEspeciales;
     }
+    
+    /**
+     * Este método agrega los nombres y precios de los servicios especiales en el diccionario del atributo
+     * serviciosEspeciales.
+     */
+    
     public void inicializarServiciosEspeciales() {
         serviciosEspeciales.put("WiFi limitado", 15.0);
         serviciosEspeciales.put("Asistencia en carretera", 3.99);
@@ -232,6 +397,14 @@ public class AdministradorAplicacion {
         serviciosEspeciales.put("Asiento para niño", 6.99);
         serviciosEspeciales.put("Cobertura por daños a terceros", 12.99);
     }
+    
+    /**
+     * @param serviciosSeleccionados Es un ArrayList con los nombres de los servicios especiales seleccionados.
+     * Este método coloca los nombres de los servicios especiales y sus respectivos precios, obtenidos del atributo
+     * serviciosEspeciales, en un nuevo diccionario.
+     * @return HashMap de servicios especiales seleccionados durante la realización de una reserva.
+     */
+    
     public HashMap generarServiciosEspeciales(ArrayList<String> serviciosSeleccionados) {
         HashMap<String, Double> servicios = new HashMap<>();
         for(int i = 0; i < serviciosSeleccionados.size(); i++) {
@@ -240,6 +413,17 @@ public class AdministradorAplicacion {
         }
         return servicios;
     }
+    
+    /**
+     * @param fInicio Es la fecha inicio de una reserva.
+     * @param fFinal Es la fecha final de una reserva.
+     * Este método recorre la lista de vehículos del administrador. Si el estado del vehículo actual es activo y
+     * la lista de servicios relacionados está vacía, agrega el vehículo al ArrayList. Si el estado del vehículo
+     * actual es activo y ningún lapso de tiempo de los servicios relacionados coincide con el comprendido en los
+     * parámetros, entonces agrega el vehículo al ArrayList.
+     * @return ArrayList de los vehículos cuyos servicios no coinciden con las fechas de la reserva.
+     */
+    
     public ArrayList<Vehiculo> filtrarTipoVehiculoSegunFecha(Calendar fInicio, Calendar fFinal)
     {
         ArrayList<Vehiculo> vehiculosSegunTipo = new ArrayList();
@@ -277,6 +461,15 @@ public class AdministradorAplicacion {
         }
         return vehiculosSegunTipo;
     }
+    
+    /**
+     * @param estilo
+     * @param listaActVehiculos Lista de vehículos retornada por el método filtrarTipoVehiculoSegúnFecha.
+     * Este método recorre la lista de vehículos y agrega a un nuevo ArrayList aquellos vehículos que poseen el
+     * mismo estilo indicado.
+     * @return ArrayList de los vehículos que poseen el estilo recibido.
+     */
+    
     public ArrayList<Vehiculo> filtrarTipoVehiculoSegunEstilo(TEstilo estilo, ArrayList<Vehiculo> listaActVehiculos)
     {
         ArrayList<Vehiculo> vehiculosSegunEstilo = new ArrayList();
@@ -291,6 +484,14 @@ public class AdministradorAplicacion {
         }
         return vehiculosSegunEstilo;
     }
+    
+    /**
+     * @param pNombreCompleto
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen el mismo
+     * operador indicado.
+     * @return ArrayList de las reservas realizadas por el operador recibido.
+     */
+    
     public ArrayList<Reserva> filtrarReservaOperador(String pNombreCompleto)
     {
         ArrayList<Reserva> reservasSegunOperador = new ArrayList();
@@ -306,6 +507,14 @@ public class AdministradorAplicacion {
         }
         return reservasSegunOperador;
     }
+    
+    /**
+     * @param pSedeRecogida
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen la misma
+     * sede de recogida indicada.
+     * @return ArrayList de las reservas que poseen la sede de recogida recibida.
+     */
+    
     public ArrayList<Reserva> filtrarReservaRecogida(String pSedeRecogida)
     {
         ArrayList<Reserva> reservasSegunRecogida = new ArrayList();
@@ -320,6 +529,14 @@ public class AdministradorAplicacion {
         }
         return reservasSegunRecogida;
     }
+    
+    /**
+     * @param pPlaca
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen el mismo
+     * vehículo indicado.
+     * @return ArrayList de las reservas que poseen el vehículo recibido.
+     */
+    
     public ArrayList<Reserva> filtrarReservaVehiculo(String pPlaca)
     {
         ArrayList<Reserva> reservasSegunVehiculo = new ArrayList();
@@ -335,6 +552,14 @@ public class AdministradorAplicacion {
         }
         return reservasSegunVehiculo;
     }
+    
+    /**
+     * @param pFInicio
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen la misma
+     * fecha de inicio indicada.
+     * @return ArrayList de las reservas que poseen la misma fecha de inicio recibida.
+     */
+    
     public ArrayList<Reserva> filtrarReservaInicio(Calendar pFInicio)
     {
         ArrayList<Reserva> reservasSegunInicio = new ArrayList<Reserva>();
@@ -348,6 +573,12 @@ public class AdministradorAplicacion {
         return reservasSegunInicio;
     }
    
+    /**
+     * Este método genera una contraseña colocando un caracter especial al inicio, números aleatorios hasta la mitad
+     * de la longitud de la contraseña, letras minúsculas y mayúsculas alternadas en los caracteres restantes.
+     * @return String con una contraseña única.
+     */
+    
     public static String generarContraseña()
     {
         Random random = new Random();
@@ -402,6 +633,15 @@ public class AdministradorAplicacion {
         }
         return contraseña;
     }
+    
+    /**
+     * @param placa
+     * Este método verifica que la placa tenga la longitud, estructura y contenido adecuados. Si la longitud es de 
+     * 6 caracteres, entonces la placa debe contener únicamente números. Si la longitud es de 7 caracteres, entonces
+     * la placa debe tener tres letras, un guión y tres números.
+     * @return true si la placa cumple con los requisitos, false en caso contrario.
+     */
+    
     public boolean verificarPlaca(String placa)
     {
         if(placa.length() != 6 && placa.length() != 7)
@@ -428,6 +668,13 @@ public class AdministradorAplicacion {
             }
         }
     }
+    
+    /**
+     * @param correo
+     * Este método verifica que la estructura del correo electrónico es válida.
+     * @return true si el correo cumple con los requisitos, false en caso contrario.
+     */
+    
     public boolean verificarCorreo(String correo)
     {
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -435,6 +682,15 @@ public class AdministradorAplicacion {
         Matcher comparador = patron.matcher(correo);
         return comparador.find();
     }
+    
+    /**
+     * @param Telefono
+     * Este método verifica que la estructura del número telefónico es válida. Debe tener una longitud de 12 caracteres,
+     * los primeros cuatro deben ser el código telefónico de Costa Rica +506, el siguiente caracter debe ser 2, 6, 7
+     * u 8, y los caracteres restantes deben ser numéricos.
+     * @return true si el número telefónico cumple con los requisitos, false en caso contrario.
+     */
+    
     public boolean verificarTelefono(String Telefono)
     {
         if (Telefono.length() != 12)
@@ -465,8 +721,14 @@ public class AdministradorAplicacion {
         return true;       
     }
     
-    //Archivos clientes.json, operadores.json, vehiculos.json, empresas.json, servicios.json, reservas.json
-    //NombresObjeto Cliente, Operador, Vehiculo, Empresa, Servicio, Reserva
+    /**
+     * @param archivo Es el nombre del archivo JSON.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * Este método lee el archivo y llama al método registrarDato para agregar los elementos del objeto indicado
+     * en la lista del administrador que corresponde.
+     * @return true si la lectura del archivo JSON finalizó correctamente, false en caso contrario.
+     */
+    
     public boolean cargarInformacionJSON(String archivo, String nombreObjeto) {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader(archivo)) {
@@ -484,6 +746,14 @@ public class AdministradorAplicacion {
         }
         return true;
     }
+    
+    /**
+     * @param dato Es el objeto de JSON leído del archivo.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * Este método llama al método Registrar del objeto indicado. Los parámetros de dicho método se obtienen de dato,
+     * los atributos son convertidos de strings JSON a los tipos de datos que solían tener previamente a la escritura
+     * del archivo JSON.
+     */
     
     public void registrarDato(JSONObject dato, String nombreObjeto) {
         switch(nombreObjeto) {
@@ -549,7 +819,15 @@ public class AdministradorAplicacion {
         }
     }
     
-    //NombresObjeto Cliente, Operador, Vehiculo, Empresa, Servicio, Reserva
+    /**
+     * @param nombreArchivo
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * Este método lee el archivo JSON y almacena su contenido en un arreglo de objetos JSON. Si el archivo está vacío,
+     * crea un nuevo arreglo. Se llama al método agregarDato para construir el objeto JSON con los datos del registro
+     * más reciente. Este objeto es empacado, agregado al arreglo y escrito en el archivo JSON.
+     * @return true si la escritura del archivo JSON finalizó correctamente.
+     */
+    
     public boolean agregarInformacionJSON(String nombreArchivo, String nombreObjeto) {
         JSONParser jsonParser = new JSONParser();
         JSONArray listaDatosJSON;
@@ -579,6 +857,16 @@ public class AdministradorAplicacion {
         return true;
     }
    
+    /**
+     * @param dato Es el objeto de JSON leído del archivo.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * @param ultimo Indica si se debe revisar el último elemento registrado de una lista.
+     * @param indice Es utilizado para registrar la lista de servicios relacionados.
+     * Este método emplea los métodos accesores de las clases de la capa modelo para construir un objeto JSON con
+     * los datos del objeto indicado.
+     * @return JSONObject del último registro indicado.
+     */
+    
     public JSONObject agregarDato(JSONObject dato, String nombreObjeto, boolean ultimo, int indice) {
         switch(nombreObjeto) {
             case "Cliente":
@@ -707,6 +995,12 @@ public class AdministradorAplicacion {
         return dato;
     }
     
+    /**
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * Este método verifica que el tamaño de las listas es mayor que uno.
+     * @return true si la lista indicada tiene más de un elemento.
+     */
+    
     public boolean listaTieneDatos(String nombreObjeto) {
         switch(nombreObjeto) {
             case "Operador":
@@ -725,12 +1019,28 @@ public class AdministradorAplicacion {
         return false;
     }
     
+    /**
+     * @param dato Es el objeto de JSON leído del archivo.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * @param id Indica el nombre del identificador.
+     * Este método llama al método registrarDato para registrar las partes de un todo. También busca el valor del 
+     * identificador de la parte para colocarla en el registro del todo.
+     * @return String identificador de la parte indicada.
+     */
+    
     public String buscarObjeto(JSONObject dato, String nombreObjeto, String id) {
         JSONArray listaObjetos = (JSONArray) dato.get(nombreObjeto);
         JSONObject objetoJSON = (JSONObject) listaObjetos.get(0);
         registrarDato(objetoJSON, nombreObjeto);
         return (objetoJSON.get(id)).toString();
     }
+    
+    /**
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
+     * Este método coloca partes de un todo en el archivo JSON que le corresponde y lo agrega a un arreglo de 
+     * objetos JSON para que el todo también puede agregarlo en su archivo JSON.
+     * @return JSONArray de un objeto indicado.
+     */
     
     public JSONArray prepararArrayObjetos(String nombreObjeto) {
         JSONObject objetoJSON = new JSONObject();
@@ -739,6 +1049,14 @@ public class AdministradorAplicacion {
         arrayObjeto.add(objetoJSON);
         return arrayObjeto;
     }
+    
+    /**
+     * @param placa
+     * @param edicion Es el diccionario que contiene todas las modificaciones.
+     * Recorre los vehículos del archivo hasta encontrar la placa indicada. Recorre todos los pares del diccionario
+     * agregando sus llaves y valores en el objeto Vehiculo seleccionado. Llama al método setDatoEdicion.
+     * @return true si la edición del vehículo finaliza correctamente, false en caso contrario.
+     */
     
     public boolean editarVehiculoJSON(String placa, HashMap edicion) {
         JSONParser jsonParser = new JSONParser();
@@ -774,6 +1092,17 @@ public class AdministradorAplicacion {
         }
         return true;
     }
+    
+    /**
+     * @param placa
+     * @param servicioActual
+     * Este método recorre el arreglo de vehículos que posee el archivo JSON hasta encontrar el vehículo con la
+     * placa indicada. Construye un arreglo de objetos JSON con la empresa relacionada al servicioActual para agregarlo 
+     * junto con los datos atómicos del servicioActual a un objeto JSON. El servicio es agregado al arreglo de servicios
+     * relacionados del vehículo actual.
+     * @return true si se agrega el servicio al vehículo correctamente, false en caso contrario.
+     */
+    
     public boolean agregarServicioAVehiculo(String placa, Servicio servicioActual) {
         Vehiculo vehiculoActual = obtenerVehiculo(placa);
         boolean servicioAgregado = vehiculoActual.agregarServicio(servicioActual);
@@ -828,7 +1157,14 @@ public class AdministradorAplicacion {
         }
         return true;
     }
-    //Método de prueba para actualizar la lista de vehículos del administrador
+    
+    /**
+     * @param vehiculoActual
+     * @param nombreDato
+     * @param datoActualizado
+     * Este método llama al método accesor set del atributo indicado.
+     */
+    
     public void setDatoEdicion(Vehiculo vehiculoActual, String nombreDato, String datoActualizado) {
         switch(nombreDato) {
             case "Año fabricación":
@@ -880,6 +1216,10 @@ public class AdministradorAplicacion {
                 break;
         }
     }
+    
+    /**
+     * 
+     */
 
     public String crearPDF(Reserva laReserva) throws FileNotFoundException, DocumentException, IOException
     {
@@ -999,6 +1339,10 @@ public class AdministradorAplicacion {
         return nombre;
     }
     
+    /**
+     * 
+     */
+    
     public boolean verificarCredenciales(String username, String password)
     {
         Operador elOperador;
@@ -1015,6 +1359,10 @@ public class AdministradorAplicacion {
         }
         return false;
     }
+    
+    /**
+     * 
+     */
     
     public boolean mandarCorreoCredenciales(Operador elOperador, String pass) throws FileNotFoundException, DocumentException
     {
@@ -1033,14 +1381,26 @@ public class AdministradorAplicacion {
         return EnviarEmail.enviarCorreo(elOperador.getCorreoElectronico(),"Envio de credenciales", 
                 "Se adjunta un pdf con los credenciales", ruta);        
     }
+    
+    /**
+     * 
+     */
 
     public ArrayList<Operador> getListaOperadores() {
         return listaOperadores;
     }
+    
+    /**
+     * 
+     */
 
     public ArrayList<Vehiculo> getListaVehiculos() {
         return listaVehiculos;
     }
+    
+    /**
+     * 
+     */
     
     public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo, Calendar Desde, Calendar Hasta, boolean ConSede) {
         ArrayList<Vehiculo> temp = new ArrayList<Vehiculo>();
@@ -1064,10 +1424,17 @@ public class AdministradorAplicacion {
         
     }
     
+    /**
+     * 
+     */
 
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
+    
+    /**
+     * 
+     */
     
     public Operador getOperadorActivo(){
         for (Operador O: listaOperadores) {
@@ -1078,11 +1445,18 @@ public class AdministradorAplicacion {
         return null;
         
     }
-
+    
+    /**
+     * 
+     */
 
     public ArrayList<Reserva> getListaReservas() {
         return listaReservas;
     }
+    
+    /**
+     * 
+     */
     
     public Reserva filtrarReservaPorNumeroDeFactura(int NFactura){
         for (Reserva R:listaReservas) {
@@ -1091,17 +1465,21 @@ public class AdministradorAplicacion {
             }
         }return null;
     }
+    
+    /**
+     * 
+     */
 
     public ArrayList<Servicio> getListaServicios() {
         return listaServicios;
     }
+    
+    /**
+     * 
+     */
 
     public ArrayList<EmpresaMantenimiento> getListaEmpresasMantenimiento() {
         return listaEmpresasMantenimiento;
     }
-    
-    
-    
-    
     
 }
