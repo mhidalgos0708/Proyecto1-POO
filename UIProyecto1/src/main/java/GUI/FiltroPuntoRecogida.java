@@ -163,7 +163,9 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             ReservaSeleccionada = (Reserva) ReservasDisponibles.getSelectedItem();
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-            DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+            DatosCliente.frameDatosCliente.setLocation(dim.width/2-
+                    DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-
+                            DatosCliente.frameDatosCliente.getSize().height/2);
 
             Inicio.VentanaConsultarReserva(false); 
             Inicio.VentanaReserva(true);
@@ -171,14 +173,19 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(ReservaSeleccionada.getNumeroFactura()));
             Inicio.frameRes.ContenidoTextoRecogida.setText(ReservaSeleccionada.getSedeRecogida());
             Inicio.frameRes.ContenidoTextoEntrega.setText(ReservaSeleccionada.getSedeEntrega());
-            Inicio.frameRes.ContenidoTextoInicio.setText(ReservaSeleccionada.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaInicio().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaInicio().get(Calendar.YEAR));
-            Inicio.frameRes.ContenidoTextoFinal.setText(ReservaSeleccionada.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaFinalizacion().get(Calendar.YEAR));
-            Inicio.frameRes.ContenidoTextoSolicitud.setText(ReservaSeleccionada.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (ReservaSeleccionada.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + ReservaSeleccionada.getFechaSolicitud().get(Calendar.YEAR));
+            Inicio.frameRes.ContenidoTextoInicio.setText(
+                    Utilitaria.formatoFecha(ReservaSeleccionada.getFechaInicio()));
+            Inicio.frameRes.ContenidoTextoFinal.setText(
+                    Utilitaria.formatoFecha(ReservaSeleccionada.getFechaFinalizacion()));
+            Inicio.frameRes.ContenidoTextoSolicitud.setText(
+                    Utilitaria.formatoFecha(ReservaSeleccionada.getFechaSolicitud()));
             Inicio.frameRes.ContenidoTextoOperador.setText(ReservaSeleccionada.getOperador().toString());
             Vehiculo Auto = ReservaSeleccionada.getVehiculoSeleccionado();
             Cliente Persona = ReservaSeleccionada.getClienteRelacionado();
-            Inicio.frameRes.ContenidoTextoCliente.setText(ReservaSeleccionada.getClienteRelacionado().toString());
-            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(ReservaSeleccionada.getArrayServicios());
+            Inicio.frameRes.ContenidoTextoCliente.setText(
+                    ReservaSeleccionada.getClienteRelacionado().toString());
+            TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios
+                (ReservaSeleccionada.getArrayServicios());
             Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
             Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
             Detalles.TextoColorSeleccionado.setText(Auto.getColor());
@@ -211,7 +218,10 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
             DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
             DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
             DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + 
+                    " ("+Persona.getTipoLicencia() +") " + "("+ 
+                        Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + 
+                            Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
 
             imagenSeleccionada = new ImageIcon(Persona.getImagen());
             DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
@@ -233,13 +243,15 @@ public class FiltroPuntoRecogida extends javax.swing.JFrame {
 
     private void ReservasDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservasDisponiblesActionPerformed
 
-        SedeSeleccionada=((String)SedesDeRecogida.getSelectedItem());        // TODO add your handling code here:
+        SedeSeleccionada=((String)SedesDeRecogida.getSelectedItem());
     }//GEN-LAST:event_ReservasDisponiblesActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         if(SedesDeRecogida.getSelectedItem() != ""){
                 ReservasDisponibles.setEnabled(true);
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.filtrarReservaRecogida(SedesDeRecogida.getSelectedItem().toString()).toArray());
+                DefaultComboBoxModel mod= new DefaultComboBoxModel(
+                        Inicio.adminApp.filtrarReservaRecogida(
+                                SedesDeRecogida.getSelectedItem().toString()).toArray());
                 ReservasDisponibles.setModel(mod);
                 
             }else{

@@ -11,7 +11,8 @@ import java.util.Calendar;
  * Esta clase retorna el tipo de cambio de compra y de venta.
  * @since 24/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public class TipoCambioBCCR {
@@ -72,7 +73,9 @@ public class TipoCambioBCCR {
      */
   
     private void setUrl(){
-        String params = "Indicador="+indicador+"&FechaInicio="+fechaInicio+"&FechaFinal="+fechaFinal+"&Nombre="+nombre+"&SubNiveles="+subNiveles+"&CorreoElectronico="+correo+"&Token="+token;
+        String params = "Indicador="+indicador+"&FechaInicio="+fechaInicio+
+                "&FechaFinal="+fechaFinal+"&Nombre="+nombre+"&SubNiveles="+
+                    subNiveles+"&CorreoElectronico="+correo+"&Token="+token;
         this.url = HOST+"?"+params;
     }
     
@@ -82,7 +85,8 @@ public class TipoCambioBCCR {
   
     private void setFecha(){
         Calendar fecha = Calendar.getInstance();
-        String formatoFecha = fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
+        String formatoFecha = fecha.get(Calendar.DATE)+"/"+
+                (fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR);
         this.fechaInicio = formatoFecha;
         this.fechaFinal = formatoFecha;
     }

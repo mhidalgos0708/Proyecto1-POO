@@ -11,47 +11,62 @@ import java.util.Calendar;
  * Esta clase utilitaria contiene métodos para darle formato a diferentes datos
  * @since 25/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public class Utilitaria {
     
     /**
+     * Este método convierte un string de forma día/mes/año a 
+     * un tipo de dato Calendar
+     * 
      * @param fechaString
-     * Este método convierte un string de forma día/mes/año a un tipo de dato Calendar
+     * 
      * @return Calendar
      */
     
     public static Calendar obtenerFecha(String fechaString) {
         String[] datos = fechaString.split(" ");
         Calendar fechaCalendar = Calendar.getInstance();
-        fechaCalendar.set(Integer.parseInt(datos[2]), (Integer.parseInt(datos[1]))-1, Integer.parseInt(datos[0]));
+        fechaCalendar.set(Integer.parseInt(datos[2]), 
+                (Integer.parseInt(datos[1]))-1, Integer.parseInt(datos[0]));
         return fechaCalendar;
     }
     
     /**
+     * Este método convierte un tipo de dato Calendar a una fecha 
+     * en formato string "día/mes/año"
+     * 
      * @param fechaCalendar
-     * Este método convierte un tipo de dato Calendar a una fecha en formato string "día/mes/año"
+     * 
      * @return String 
      */
     
     public static String formatoFecha(Calendar fechaCalendar) {
-        return fechaCalendar.get(Calendar.DATE)+"/"+(fechaCalendar.get(Calendar.MONTH)+1)+"/"+fechaCalendar.get(Calendar.YEAR);
+        return fechaCalendar.get(Calendar.DATE)+"/"+
+                (fechaCalendar.get(Calendar.MONTH)+1)+"/"+fechaCalendar.get(Calendar.YEAR);
     }
     
     /**
+     * Este método convierte un tipo de dato Calendar a una fecha 
+     * en formato string "día mes año"
+     * 
      * @param fechaCalendar
-     * Este método convierte un tipo de dato Calendar a una fecha en formato string "día mes año"
+     * 
      * @return String 
      */
     
     public static String formatoFechaJSON(Calendar fechaCalendar) {
-        return fechaCalendar.get(Calendar.DATE)+" "+(fechaCalendar.get(Calendar.MONTH)+1)+" "+fechaCalendar.get(Calendar.YEAR);
+        return fechaCalendar.get(Calendar.DATE)+" "+(fechaCalendar.get(Calendar.MONTH)+1)+
+                " "+fechaCalendar.get(Calendar.YEAR);
     }
     
     /**
-     * @param estadoMetodo
      * Este método retorna un mensaje indicando si el estado de un método es exitoso o no
+     * 
+     * @param estadoMetodo
+     *
      * @return String 
      */
     

@@ -1,5 +1,4 @@
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Detalles.java
-C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\SeleccionadoVehículo.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Servicio.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Vehiculo.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\RealizarReserva.java
@@ -11,10 +10,8 @@ C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Reser
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TEstilo.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\MenuAdministrador.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\RegistrarOperador.java
-C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Rectangles.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Controlador\Utilitaria.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Reservas.java
-C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Vista\yanoMAin.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\RegistrarCliente.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Cliente.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Controlador\XMLParser.java
@@ -30,7 +27,6 @@ C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\FiltroPu
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\Operador.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\ConfirmarReserva.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\TablaServiciosReserva.java
-C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Vista\pruebaPDF.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\FiltroFecha.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\LoginFrame.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\Inicio.java
@@ -42,3 +38,4 @@ C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Controlador\
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\Modelo\TTransmision.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\TablaAgregarServiciosAsociados.java
 C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\TablaServiciosAsociados.java
+C:\Users\fabri\Downloads\UI\Proyecto1-POO\UIProyecto1\src\main\java\GUI\SeleccionarVehículo.java

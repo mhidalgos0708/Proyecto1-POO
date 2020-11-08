@@ -13,7 +13,8 @@ import java.util.Calendar;
  * Esta clase modela los vehículos que son registrables en la flotilla
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 

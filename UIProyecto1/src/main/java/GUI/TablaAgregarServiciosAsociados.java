@@ -15,14 +15,16 @@ import javax.swing.JOptionPane;
  * Esta clase hereda de JFrame, esta ventana permite agregar servicios asociados
  * @since 02/11/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     
     static Servicio ServicioSeleccionado;
     static javax.swing.table.DefaultTableModel model;
-    static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo= new TablaAgregarServiciosAsociados();
+    static TablaAgregarServiciosAsociados frameTablaEditarServiciosVehiculo = 
+            new TablaAgregarServiciosAsociados();
 
     /**
      *
@@ -140,7 +142,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     //Boton Aceptar
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
             ArrayList<Servicio> listafinal= new ArrayList<>();
             for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
                 listafinal.add((Servicio) TablaEditarServiciosAsociados.getValueAt(i, 0));   
@@ -162,7 +164,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }
     
     //Boton agregar
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         ArrayList<Servicio> lista= new ArrayList<>();
         
         for (int i = 0; i < TablaEditarServiciosAsociados.getRowCount(); i++) {
@@ -181,7 +183,7 @@ public class TablaAgregarServiciosAsociados extends javax.swing.JFrame {
     }
     
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         try{
             if (cantServicios!=0) {
                 model.removeRow(TablaEditarServiciosAsociados.getSelectedRow());

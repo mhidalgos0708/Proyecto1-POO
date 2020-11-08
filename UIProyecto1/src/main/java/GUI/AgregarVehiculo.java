@@ -28,7 +28,8 @@ import javax.swing.JTextField;
 
 public final class AgregarVehiculo extends JFrame implements ActionListener {
     String filename = "Sin Fotografía";
-    TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
+    TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, 
+        TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
     TTransmision[] TiposTransmision = {null, TTransmision.Automática, TTransmision.Manual};
     String[] TiposSedes = Inicio.listaSedes;
     
@@ -269,7 +270,13 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
         
         if (e.getSource()==botonAgregar){
             
-            if (filename.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || TextFieldEstilo.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
+            if (filename.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || 
+                    TextFieldEstilo.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || 
+                        TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || 
+                            TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || 
+                                TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || 
+                                       TextFieldCapacidad.getText().equals("") || TextFieldMarca.getText().equals("") || 
+                                            TextFieldPlaca.getText().equals("") || TextFieldColor.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
 
             }else if(!Inicio.adminApp.verificarPlaca(TextFieldPlaca.getText())){
@@ -277,7 +284,15 @@ public final class AgregarVehiculo extends JFrame implements ActionListener {
             }else if(!camposNumericosCorrectos()){
                 JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
             }else{
-                Inicio.adminApp.registrarVehiculo(TextFieldPlaca.getText(), Integer.parseInt(TextFieldAño.getText()), (TEstilo) TextFieldEstilo.getSelectedItem(), TextFieldColor.getText(), TextFieldMarca.getText(), Integer.parseInt(TextFieldCapacidad.getText()), Double.parseDouble(TextFieldKilometraje.getText()), Integer.parseInt(TextFieldNumeroPuertas.getText()), TextFieldVin.getText(), Double.parseDouble(TextFieldMPG.getText()), (String) TextFieldSede.getSelectedItem(), Double.parseDouble(TextFieldCostoDiario.getText()), Integer.parseInt(TextFieldCapacidadMaletas.getText()), (TTransmision) TextFieldTransmision.getSelectedItem(), TEstado.Activo, new ArrayList<Servicio>(), filename, false);
+                Inicio.adminApp.registrarVehiculo(TextFieldPlaca.getText(), 
+                        Integer.parseInt(TextFieldAño.getText()), (TEstilo) TextFieldEstilo.getSelectedItem(), 
+                            TextFieldColor.getText(), TextFieldMarca.getText(), Integer.parseInt(TextFieldCapacidad.getText()),
+                                Double.parseDouble(TextFieldKilometraje.getText()), Integer.parseInt(TextFieldNumeroPuertas.getText()), 
+                                    TextFieldVin.getText(), Double.parseDouble(TextFieldMPG.getText()), 
+                                        (String) TextFieldSede.getSelectedItem(), Double.parseDouble(TextFieldCostoDiario.getText()), 
+                                            Integer.parseInt(TextFieldCapacidadMaletas.getText()), 
+                                                (TTransmision)TextFieldTransmision.getSelectedItem(), TEstado.Activo, new ArrayList<Servicio>(),
+                                                    filename, false);
                 Inicio.adminApp.cargarInformacionJSON("vehiculos.json", "Vehiculo");
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo vehículo");
                 limpiarCampos();   

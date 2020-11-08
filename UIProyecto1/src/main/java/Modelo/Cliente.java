@@ -12,7 +12,8 @@ import java.util.Calendar;
  * Esta clase representa a los clientes que se van a registrar en el sistema.
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public class Cliente {
@@ -29,9 +30,10 @@ public class Cliente {
     
     public void Cliente(){};
 
-    public Cliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
-                   String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
-                   Calendar fechaExpiracionLicencia, String imagen) {
+    public Cliente(String nombreCompleto, String cedula, String direccionExacta, 
+            String correoElectronico, String telefono, String numeroLicencia, 
+                Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
+                    Calendar fechaExpiracionLicencia, String imagen){
         
         this.nombreCompleto = nombreCompleto;
         this.cedula = cedula;
@@ -129,7 +131,10 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return nombreCompleto + "\nCédula: " + cedula + "\nLicencia " + numeroLicencia + " ("+tipoLicencia +") " + "("+ Utilitaria.formatoFecha(fechaEmisionLicencia) + " - " + Utilitaria.formatoFecha(fechaExpiracionLicencia) +")" + "\nCorreo: " + correoElectronico +"\nDirección: "+direccionExacta;
+        return nombreCompleto + "\nCédula: " + cedula + "\nLicencia " + numeroLicencia + 
+                " ("+tipoLicencia +") " + "("+ Utilitaria.formatoFecha(fechaEmisionLicencia) + 
+                    " - " + Utilitaria.formatoFecha(fechaExpiracionLicencia) +")" + "\nCorreo: " + 
+                        correoElectronico +"\nDirección: "+direccionExacta;
     }
     
 }

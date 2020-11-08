@@ -11,7 +11,8 @@ import java.util.Calendar;
  * Esta clase modela los servicios que se van a almacenar y crear en el sistema
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public class Servicio {
@@ -25,8 +26,8 @@ public class Servicio {
 
     public Servicio() {}
 
-    public Servicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
-                    String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada) {
+    public Servicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, 
+            double montoPagado, String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada){
         this.identificador = identificador;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
@@ -96,7 +97,12 @@ public class Servicio {
 
     @Override
     public String toString() {
-        return "Servicio " + tipo + " número " + identificador + " (" + fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + (fechaInicio.get(Calendar.MONTH)+1) + "/" + fechaInicio.get(Calendar.YEAR) +" - " + fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + (fechaFinalizacion.get(Calendar.MONTH)+1) + "/" + fechaFinalizacion.get(Calendar.YEAR)+")";
+        return "Servicio " + tipo + " número " + identificador + " (" + 
+                fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + (fechaInicio.get(Calendar.MONTH)+1) +
+                    "/" + fechaInicio.get(Calendar.YEAR) +" - " + 
+                        fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + 
+                            (fechaFinalizacion.get(Calendar.MONTH)+1) + "/" + 
+                                fechaFinalizacion.get(Calendar.YEAR)+")";
     }
 
 

@@ -16,10 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
- * Esta clase hereda de JFrame, esta ventana permite al usuario ver detalles de una reserva solo para verificar, no confirmar una reserva
+ * Esta clase hereda de JFrame, esta ventana permite al usuario ver detalles de una reserva solo 
+ * para verificar, no confirmar una reserva
  * @since 30/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public final class Reservas extends JFrame implements ActionListener {

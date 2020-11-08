@@ -1,6 +1,5 @@
 package GUI;
 
-import static GUI.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles;
 import Modelo.EmpresaMantenimiento;
 import Modelo.Servicio;
 import Modelo.TServicio;
@@ -19,10 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Esta clase hereda de JFrame, permite al usuario agregar un nuevo servicio a un vehículo determinado desplegando una ventana
+ * Esta clase hereda de JFrame, permite al usuario agregar un nuevo servicio a un 
+ * vehículo determinado desplegando una ventana
  * @since 22/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public final class AgregarServicio extends JFrame implements ActionListener {
@@ -183,15 +184,11 @@ public final class AgregarServicio extends JFrame implements ActionListener {
         }
 
         if (e.getSource()==botonAtras){
-            
-            
-
             Inicio.VentanaMenuAdministrador(true);
             Inicio.VentanaAgregarServicio(false); 
-            
             limpiarCampos();
-          
         }
+        
         String fiTemp;
         String ffTemp;
         
@@ -210,23 +207,34 @@ public final class AgregarServicio extends JFrame implements ActionListener {
                 fiTemp=dia+"/"+mes+"/"+año;
             }
             try{
-                if (TextFieldTipoServicio.getSelectedItem() == null || TextFieldEmpresaServicio.getSelectedItem() == "" || TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || TextFieldEmpresaServicio.getSelectedItem()==null || TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || TextFieldMontoPagado.getText().equals("")) {
+                if (TextFieldTipoServicio.getSelectedItem() == null || 
+                        TextFieldEmpresaServicio.getSelectedItem() == "" || 
+                            TextFieldFechaFinal.getDate() == null || TextFieldFechaInicio.getDate() == null || 
+                                TextFieldEmpresaServicio.getSelectedItem()==null || 
+                                    TextFieldDetalles.getText().equals("") || TextFieldIdentificador.getText().equals("") || 
+                                        TextFieldMontoPagado.getText().equals("")) {
                     JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             
                 } else if(Inicio.adminApp.obtenerVehiculo(TextFieldVehiculoRelacionado.getText())==null){
-                    JOptionPane.showMessageDialog(this, "No se encontró el vehículo con placa "+TextFieldVehiculoRelacionado.getText());
-                    TextFieldVehiculoRelacionado.setText("");
+                    JOptionPane.showMessageDialog(this, "No se encontró el vehículo con placa "+
+                            TextFieldVehiculoRelacionado.getText());
+                                TextFieldVehiculoRelacionado.setText("");
                 }else if(!numerosCorrectos()){
                     JOptionPane.showMessageDialog(this, "Ingreso incorrecto en los campos numéricos");
                 }else {
-                    Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
+                    Inicio.adminApp.registrarNuevoServicio(Integer.parseInt(
+                            TextFieldIdentificador.getText()), TextFieldFechaInicio.getCalendar(), 
+                                TextFieldFechaFinal.getCalendar(), Double.parseDouble(TextFieldMontoPagado.getText()), 
+                                    TextFieldDetalles.getText(), (TServicio) TextFieldTipoServicio.getSelectedItem(), 
+                                        (EmpresaMantenimiento) TextFieldEmpresaServicio.getSelectedItem(), false);
                     
                     JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo servicio de mantenimiento");
                     
-                    Inicio.adminApp.agregarServicioAVehiculo(TextFieldVehiculoRelacionado.getText(), Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
+                    Inicio.adminApp.agregarServicioAVehiculo(TextFieldVehiculoRelacionado.getText(), 
+                            Inicio.adminApp.obtenerServicio(Integer.parseInt(TextFieldIdentificador.getText())));
                     
                     DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.listaServicios.toArray());
-                    ServiciosAsociadosDisponibles.setModel(mod);
+                    GUI.TablaAgregarServiciosAsociados.ServiciosAsociadosDisponibles.setModel(mod);
                     
                     limpiarCampos();
 

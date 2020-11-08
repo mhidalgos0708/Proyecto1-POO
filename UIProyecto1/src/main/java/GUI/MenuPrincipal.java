@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
 /**
- * Esta clase hereda de JFrame, esta ventana permite al usuario acceder a las funciones del programa con botones
+ * Esta clase hereda de JFrame, esta ventana permite al usuario acceder a las funciones del programa 
+ * con botones
  * @since 22/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public class MenuPrincipal extends JFrame implements ActionListener {

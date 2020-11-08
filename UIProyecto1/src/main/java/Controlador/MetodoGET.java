@@ -12,6 +12,7 @@ import java.net.URL;
 
 /**
  * Esta clase se conecta a una url y retorna el contenido del sitio.
+ * 
  * @since 24/10/2020
  * @version 1.0
  * @author Hans Araya Tutorial
@@ -20,6 +21,8 @@ import java.net.URL;
 public class MetodoGET {
     
     /**
+     * Este método se conecta a una url y retorna el contenido del sitio.
+     * 
      * @param leerURL
      * @SuppressWarnings("ConvertToTryWithResources")
      * @return String con el contenido del sitio

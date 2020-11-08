@@ -17,14 +17,16 @@ import javax.swing.JFrame;
  * Esta clase hereda de JFrame, permite al usuario editar los datos de un vehículo en una ventana
  * @since 21/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 
 public final class EditarVehiculo extends JFrame implements ActionListener {
     String Placa;
     String filename = "Sin fotografía";
-    TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
+    TEstilo[] TiposEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, 
+        TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible, TEstilo.Económico};
     TTransmision[] TiposTransmision = {null, TTransmision.Automática, TTransmision.Manual};
     String[] TiposSedes = Inicio.listaSedes;
     TEstado[] Estados={null, TEstado.Activo, TEstado.Mantenimiento, TEstado.Inactivo};
@@ -271,7 +273,8 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
     }
     
     /**
-     * Este método permite obtener el índice en el que la ComboBox del índice debe estar a la hora de cargar la información de la sede de un vehículo
+     * Este método permite obtener el índice en el que la ComboBox del índice debe estar a la 
+     * hora de cargar la información de la sede de un vehículo
      * @param V Parámetro de tipo vehículo
      * @return Número entero
      */
@@ -334,7 +337,15 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
         if (e.getSource()==botonConfirmar){
             
             
-            if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0 || TextFieldAñoFabricacion.equals("") || img2.equals("Sin Fotografía") || TextFieldTransmision.getSelectedItem()==null || TextFieldEstado.getSelectedItem()==null || TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") || TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") || TextFieldKilometraje.getText().equals("") || TextFieldCapacidadPersonas.getText().equals("") || TextFieldMarcaSeleccionada.getText().equals("") || TextFieldColorSeleccionado.getText().equals(""))
+            if (ComboBoxVehículoSeleccionado.getSelectedIndex()==0 || 
+                    ComboBoxTipoCarroSeleccionado.getSelectedIndex()==0 || 
+                    TextFieldAñoFabricacion.equals("") || img2.equals("Sin Fotografía") || 
+                        TextFieldTransmision.getSelectedItem()==null || TextFieldEstado.getSelectedItem()==null || 
+                            TextFieldSede.getSelectedItem().equals("") || TextFieldMPG.getText().equals("") || 
+                                TextFieldVin.getText().equals("") || TextFieldNumeroPuertas.getText().equals("") ||
+                                    TextFieldCapacidadMaletas.getText().equals("") || TextFieldCostoDiario.getText().equals("") ||
+                                        TextFieldKilometraje.getText().equals("") || TextFieldCapacidadPersonas.getText().equals("") || 
+                                            TextFieldMarcaSeleccionada.getText().equals("") || TextFieldColorSeleccionado.getText().equals(""))
             {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido, estado incompleto de elementos");
             } else if(!camposNumericosCorrectos()){
@@ -381,7 +392,9 @@ public final class EditarVehiculo extends JFrame implements ActionListener {
                 ComboBoxVehículoSeleccionado.removeAllItems();
                 if (ComboBoxTipoCarroSeleccionado.getSelectedItem()!=null) {
                     System.out.println(ComboBoxTipoCarroSeleccionado.getSelectedItem());
-                    DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), Calendar.getInstance(), Calendar.getInstance(), false).toArray());
+                    DefaultComboBoxModel mod= new DefaultComboBoxModel
+                        (Inicio.adminApp.getVehiculosTipo((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), 
+                                Calendar.getInstance(), Calendar.getInstance(), false).toArray());
                     ComboBoxVehículoSeleccionado.setModel(mod);
                 }
                 

@@ -16,7 +16,8 @@ import java.util.Set;
  * Esta clase hereda de JFrame, esta ventana permite al usuario realizar reservas
  * @since 25/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public final class RealizarReserva extends JFrame implements ActionListener {
@@ -50,12 +51,14 @@ public final class RealizarReserva extends JFrame implements ActionListener {
     /**
      *
      */
-    static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= new com.toedter.calendar.JDateChooser();
+    static public com.toedter.calendar.JDateChooser TextFieldFechaInicio= 
+            new com.toedter.calendar.JDateChooser();
 
     /**
      *
      */
-    static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= new com.toedter.calendar.JDateChooser();
+    static public com.toedter.calendar.JDateChooser TextFieldFechaFinalizacion= 
+            new com.toedter.calendar.JDateChooser();
 
     /**
      *
@@ -288,7 +291,10 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                     System.out.println(clienteRelacionado);
                     TextoNombreCliente.setText(clienteRelacionado.getNombreCompleto());
                     TextoCedulaCliente.setText("Cédula: "+clienteRelacionado.getCedula());
-                    TextoLicencia.setText("Licencia " + clienteRelacionado.getNumeroLicencia() + " ("+clienteRelacionado.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(clienteRelacionado.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(clienteRelacionado.getFechaExpiracionLicencia()) +")");
+                    TextoLicencia.setText("Licencia " + clienteRelacionado.getNumeroLicencia() + 
+                            " ("+clienteRelacionado.getTipoLicencia() +") " + "("+ 
+                                Utilitaria.formatoFecha(clienteRelacionado.getFechaEmisionLicencia()) 
+                                    + " - " + Utilitaria.formatoFecha(clienteRelacionado.getFechaExpiracionLicencia()) +")");
                     TextoCorreoCliente.setText("Correo: " + clienteRelacionado.getCorreoElectronico());
                     TextoDireccionCliente.setText("Dirección: "+clienteRelacionado.getDireccionExacta());
                     
@@ -353,7 +359,11 @@ public final class RealizarReserva extends JFrame implements ActionListener {
                 correoTemporal=dia+"/"+mes+"/"+año;
             }
        
-            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || TextFieldSedeRecogida.getSelectedItem().equals(null) || TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") || clienteRelacionado == null ||TextoTL.getText().equals("")) {
+            if (TextoPlacaSeleccionada.getText().equals("No se ha seleccionado el vehículo") || 
+                    TextFieldSedeRecogida.getSelectedItem().equals(null) ||
+                        TextFieldSedeEntrega.getSelectedItem().equals(null) ||TextFieldFechaInicio.getDate()==null ||
+                            TextFieldFechaFinalizacion.getDate()==null || TextFieldBuscarCliente.getText().equals("") ||
+                                clienteRelacionado == null ||TextoTL.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
@@ -378,21 +388,32 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(ServiciosOpcionales);
             
             Set keys = diccionario.keySet();
-            Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},{"GPS", keys.contains("GPS") ? "Sí" : "No"},{"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},{"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},{"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
+            Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},
+                {"GPS", keys.contains("GPS") ? "Sí" : "No"},
+                    {"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},
+                        {"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},
+                            {"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
         
             Inicio.frameConfirmarReserva.ContenidoTextoID.setText(String.valueOf(Inicio.listaReservas.size()));
             
-            Inicio.frameConfirmarReserva.ContenidoTextoRecogida.setText(TextFieldSedeRecogida.getSelectedItem().toString());
-            Inicio.frameConfirmarReserva.ContenidoTextoEntrega.setText(TextFieldSedeEntrega.getSelectedItem().toString());
-            Inicio.frameConfirmarReserva.ContenidoTextoInicio.setText(Utilitaria.formatoFecha(TextFieldFechaInicio.getCalendar()));
-            Inicio.frameConfirmarReserva.ContenidoTextoFinal.setText(Utilitaria.formatoFecha(TextFieldFechaFinalizacion.getCalendar()));
-            Inicio.frameConfirmarReserva.ContenidoTextoSolicitud.setText(Utilitaria.formatoFecha(Calendar.getInstance()));
-            Inicio.frameConfirmarReserva.ContenidoTextoOperador.setText(Inicio.adminApp.getOperadorActivo().toString());
+            Inicio.frameConfirmarReserva.ContenidoTextoRecogida.setText
+                (TextFieldSedeRecogida.getSelectedItem().toString());
+            Inicio.frameConfirmarReserva.ContenidoTextoEntrega.setText
+                (TextFieldSedeEntrega.getSelectedItem().toString());
+            Inicio.frameConfirmarReserva.ContenidoTextoInicio.setText
+                (Utilitaria.formatoFecha(TextFieldFechaInicio.getCalendar()));
+            Inicio.frameConfirmarReserva.ContenidoTextoFinal.setText
+                (Utilitaria.formatoFecha(TextFieldFechaFinalizacion.getCalendar()));
+            Inicio.frameConfirmarReserva.ContenidoTextoSolicitud.setText
+                (Utilitaria.formatoFecha(Calendar.getInstance()));
+            Inicio.frameConfirmarReserva.ContenidoTextoOperador.setText
+                (Inicio.adminApp.getOperadorActivo().toString());
             
             Vehiculo Auto = Inicio.adminApp.obtenerVehiculo(TextoPlacaSeleccionada.getText());
             Cliente Persona = Inicio.adminApp.obtenerCliente(TextFieldBuscarCliente.getText());
             
-            Inicio.frameConfirmarReserva.ContenidoTextoCliente.setText(Inicio.adminApp.obtenerCliente(TextFieldBuscarCliente.getText()).toString());
+            Inicio.frameConfirmarReserva.ContenidoTextoCliente.setText(
+                    Inicio.adminApp.obtenerCliente(TextFieldBuscarCliente.getText()).toString());
             TablaServiciosReserva.frameTablaServiciosPorReserva.agregarServicios(O);
             Detalles.TextoPlacaSeleccionado.setText(Auto.getPlaca());
             Detalles.TextoAñoSeleccionado.setText(String.valueOf(Auto.getAñoFabricacion()));
@@ -426,7 +447,10 @@ public final class RealizarReserva extends JFrame implements ActionListener {
             DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
             DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
             DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+            DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + 
+                    " ("+Persona.getTipoLicencia() +") " + "("+ 
+                        Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + 
+                            Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
 
             imagenSeleccionada = new ImageIcon(Persona.getImagen());
             DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
@@ -455,9 +479,11 @@ public final class RealizarReserva extends JFrame implements ActionListener {
         }
         if(e.getSource()==botonSeleccionarvehiculo){
             if (TextFieldFechaInicio.getDate()==null || TextFieldFechaFinalizacion.getDate()==null){
-                JOptionPane.showMessageDialog(this, "Ingrese fechas de inicio y finalización para seleccionar un vehículo");
-            }else if (TextFieldFechaInicio.getCalendar().compareTo(TextFieldFechaFinalizacion.getCalendar())==1){
-                JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior o igual a la de finalización");
+                JOptionPane.showMessageDialog
+                    (this, "Ingrese fechas de inicio y finalización para seleccionar un vehículo");
+            }else if(TextFieldFechaInicio.getCalendar().compareTo(TextFieldFechaFinalizacion.getCalendar())==1){
+                JOptionPane.showMessageDialog
+                    (this, "La fecha de inicio debe ser anterior o igual a la de finalización");
             }else{
                 Inicio.VentanaSeleccionadoVehículo(true);
                 Inicio.frameRealizarReserva.setEnabled(false);

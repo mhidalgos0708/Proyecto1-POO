@@ -12,7 +12,8 @@ import java.awt.Toolkit;
  * Esta clase hereda de JFrame, despliega los datos de un cliente en una ventana
  * @since 2/11/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  */
 
 public class DatosCliente extends javax.swing.JFrame {

@@ -10,7 +10,8 @@ import javax.swing.JFrame;
  * Esta clase hereda de JFrame, despliega los datos de un cliente en una ventana
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 
@@ -52,7 +53,8 @@ public final class Detalles extends JFrame implements ActionListener {
     public static JLabel TextoSedeSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoCostoeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoCapacidadSeleccionado = new JLabel("No se ha seleccionado Vehículo");
-    public static JLabel TextoTipoTransimisionSeleccionado = new JLabel("No se ha seleccionado Vehículo");
+    public static JLabel TextoTipoTransimisionSeleccionado = 
+            new JLabel("No se ha seleccionado Vehículo");
     public static JLabel TextoEstadoSeleccionado = new JLabel("No se ha seleccionado Vehículo");
     public static JButton botonVerServicios = new JButton("Ver");
     public static JLabel TextoImagenSeleccionado = new JLabel("No se ha seleccionado Vehículo");

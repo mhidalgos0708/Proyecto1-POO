@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Esta clase hereda de JFrame, permite al usuario agregar una nueva empresa desplegando una ventana
+ * Esta clase hereda de JFrame, permite al usuario agregar una nueva empresa 
+ * desplegando una ventana
  * @since 22/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public final class AgregarEmpresa extends JFrame implements ActionListener {
@@ -136,19 +138,26 @@ public final class AgregarEmpresa extends JFrame implements ActionListener {
         
         if (e.getSource()==botonAgregarEmpresa){
            
-            if (TextFieldDistrito.getText().equals("") || TextFieldSeñas.getText().equals("") || TextFieldTelefono.getText().equals("") || TextFieldNumeroCedula.getText().equals("") || TextFieldSeñas.getText().equals("") || TextFieldCanton.getText().equals("") || TextFieldRazonSocial.getText().equals("") || TextFieldProvincia.getText().equals("")) {
+            if (TextFieldDistrito.getText().equals("") || TextFieldSeñas.getText().equals("") ||
+                    TextFieldTelefono.getText().equals("") || TextFieldNumeroCedula.getText().equals("") || 
+                        TextFieldSeñas.getText().equals("") || TextFieldCanton.getText().equals("") || 
+                            TextFieldRazonSocial.getText().equals("") || TextFieldProvincia.getText().equals("")){
                 JOptionPane.showMessageDialog(this, "Ingreso inválido o incompleto de elementos");
             
             } else if(!Inicio.adminApp.verificarTelefono(TextFieldTelefono.getText())){
                 JOptionPane.showMessageDialog(this, "Teléfono inválido ingresado");
             }else {
-                Inicio.adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), TextFieldSeñas.getText(), false);
+                Inicio.adminApp.registrarEmpresaServicios(TextFieldRazonSocial.getText(), 
+                        TextFieldNumeroCedula.getText(), TextFieldTelefono.getText(), 
+                            TextFieldProvincia.getText(), TextFieldCanton.getText(), TextFieldDistrito.getText(), 
+                                TextFieldSeñas.getText(), false);
                 Inicio.adminApp.cargarInformacionJSON("empresas.json", "Empresa");
                 
                 DefaultComboBoxModel mod = new DefaultComboBoxModel(Inicio.listaEmpresas.toArray());
                 AgregarServicio.TextFieldEmpresaServicio.setModel(mod);
                 
-                JOptionPane.showMessageDialog(this, "Se ha agregado una nueva empresa de mantenimiento");
+                JOptionPane.showMessageDialog
+                    (this, "Se ha agregado una nueva empresa de mantenimiento");
                 TextFieldRazonSocial.setText("");
                 TextFieldProvincia.setText("");
                 TextFieldCanton.setText("");

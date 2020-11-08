@@ -23,7 +23,8 @@ import Modelo.Vehiculo;
  * Esta clase es el núcleo del programa, aquí se ubica el main y se crean las ventanas.
  * @since 22/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  *
  */
 public class Inicio {
@@ -37,7 +38,8 @@ public class Inicio {
     static String[] listaSedes = {"", "Zapote", "Cartago", "Heredia", "Uruca" };
     public static ArrayList<Reserva> listaReservas   = Inicio.adminApp.getListaReservas();
     static ArrayList<Servicio> listaServicios  = Inicio.adminApp.getListaServicios();
-    static ArrayList<EmpresaMantenimiento> listaEmpresas = Inicio.adminApp.getListaEmpresasMantenimiento();
+    static ArrayList<EmpresaMantenimiento> listaEmpresas = 
+            Inicio.adminApp.getListaEmpresasMantenimiento();
     static TEstilo[] listaEstilos = {null, TEstilo.Compacto, TEstilo.PickUp, 
         TEstilo.Intermedio, TEstilo.SUV, TEstilo.MiniVan, TEstilo.Convertible,
         TEstilo.Económico};
@@ -64,7 +66,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de agregar empresa y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es
+     * visible o no en determinado momento
      */
     public static void VentanaAgregarEmpresa(boolean visibilidad) {
         frameAgregarEmpresa.setTitle("Rent a Car - Agregar Empresa");
@@ -78,7 +81,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de agregar servicio y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es
+     * visible o no en determinado momento
      */
     public static void VentanaAgregarServicio(boolean visibilidad) {
         frameAgregarServicio.setTitle("Rent a Car - Menú Administrador - Agregar Servicio");
@@ -92,7 +96,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de agregar vehículo y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es
+     * visible o no en determinado momento
      */
     public static void VentanaAgregarVehiculo(boolean visibilidad) {
         frameAgregarVehiculo.setTitle("Rent a Car - Menú Administrador - Agregar Vehículo");
@@ -106,7 +111,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de confirmar reserva y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es
+     * visible o no en determinado momento
      */
     public static void VentanaConfirmarReserva(boolean visibilidad) {
         frameConfirmarReserva.setTitle("Rent a Car - Consultar");
@@ -120,7 +126,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de consultar reserva y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaConsultarReserva(boolean visibilidad) {
         frameConsultarReserva.setTitle("Rent a Car - Consultar Reserva");
@@ -133,8 +140,10 @@ public class Inicio {
     }
 
     /**
-     * Este método define las características de la ventana que posee los detalles del vehículo y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * Este método define las características de la ventana que posee los detalles del vehículo y su 
+     * visibilidad
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaDetallesVehículo(boolean visibilidad) {
         frameDetallesVehículo.setTitle("Rent a Car - Detalles del Vehículo");
@@ -148,7 +157,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de editar vehículo y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaEditarVehiculo(boolean visibilidad) {
         frameEditarVehiculo.setTitle("Rent a Car - Menú Administrador - Editar Vehículo");
@@ -162,7 +172,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de login y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaLogin(boolean visibilidad) {
         frameLogin.setTitle("Rent a Car - Inicio de Sesión");
@@ -176,7 +187,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana del menú de administrador y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaMenuAdministrador(boolean visibilidad) {
         frameMenuAdministrador.setTitle("Rent a Car - Menú Administrador");
@@ -190,7 +202,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de menú principal y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaMenuPrincipal(boolean visibilidad) {
         frameMenuPrincipal.setTitle(" Plataforma Rent a Car");
@@ -204,7 +217,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de realizar reserva y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaRealizarReserva(boolean visibilidad) {
         frameRealizarReserva.setTitle("Rent a Car - Realizar Reserva");
@@ -218,7 +232,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de registrar cliente y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaRegistrarCliente(boolean visibilidad) {
         frameRegistrarCliente.setTitle("Rent a Car - Registrar Cliente");
@@ -232,7 +247,8 @@ public class Inicio {
 
     /**
      * Este método define las características de la ventana de registrar operador y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaRegistrarOperador(boolean visibilidad) {
         frameRegistrarOperador.setTitle("Rent a Car - Registrar Operador");
@@ -245,8 +261,10 @@ public class Inicio {
     }
 
     /**
-     * Este método define las características de la ventana que contiene los datos de la reserva y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * Este método define las características de la ventana que contiene los datos de la reserva y 
+     * su visibilidad
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaReserva(boolean visibilidad) {
         frameRes.setTitle("Rent a Car - Consultar");
@@ -259,8 +277,10 @@ public class Inicio {
     }
 
     /**
-     * Este método define las características de la ventana de los datos del vehículo seleccionado y su visibilidad
-     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es visible o no en determinado momento
+     * Este método define las características de la ventana de los datos del vehículo seleccionado y 
+     * su visibilidad
+     * @param visibilidad Recibe como parámetro un valor booleano que define si la ventana es 
+     * visible o no en determinado momento
      */
     public static void VentanaSeleccionadoVehículo(boolean visibilidad) {
         frameSeleccionadoVehículo.setTitle("Rent a Car - Seleccionando Vehículo");

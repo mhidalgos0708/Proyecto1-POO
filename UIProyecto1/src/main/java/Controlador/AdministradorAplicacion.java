@@ -42,10 +42,12 @@ import Modelo.TServicio;
 import Modelo.TTransmision;
 
 /**
- * Esta clase permite la comunicación entre la interfaz gráfica, las clases de la capa Modelo y los archivos JSON.
+ * Esta clase permite la comunicación entre la interfaz gráfica, las clases de 
+ * la capa Modelo y los archivos JSON.
  * @since 24/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public class AdministradorAplicacion {
@@ -53,13 +55,19 @@ public class AdministradorAplicacion {
     private ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
     private ArrayList<Operador> listaOperadores = new ArrayList<Operador>();
     private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
-    private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento = new ArrayList<EmpresaMantenimiento>();
+    private ArrayList<EmpresaMantenimiento> listaEmpresasMantenimiento = 
+            new ArrayList<EmpresaMantenimiento>();
     private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
     private ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
-    private HashMap<String, Double> serviciosEspeciales = new HashMap<String, Double>();
+    private HashMap<String, Double> serviciosEspeciales = 
+            new HashMap<String, Double>();
     private int numeroFactura;
     
     /**
+     * Este método verifica que la cédula del cliente es 
+     * única, llama al constructor de la clase Cliente y agrega
+     * la instancia a la lista de clientes del administrador.
+     * 
      * @param nombreCompleto 
      * @param cedula Es el identificador del cliente.
      * @param direccionExacta
@@ -70,21 +78,25 @@ public class AdministradorAplicacion {
      * @param tipoLicencia
      * @param fechaExpiracionLicencia
      * @param imagen
-     * @param lectura Indica si el registro de cliente debe omitir la escritura en el archivo JSON.
-     * Este método verifica que la cédula del cliente es única, llama al constructor de la clase Cliente y agrega
-     * la instancia a la lista de clientes del administrador.
+     * @param lectura Indica si el registro de cliente debe omitir la escritura 
+     * en el archivo JSON. 
+     * 
      * @return true si la cédula es única, false en caso contrario.
      */
     
-    public boolean registrarCliente(String nombreCompleto, String cedula, String direccionExacta, String correoElectronico, 
-                   String telefono, String numeroLicencia, Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
-                   Calendar fechaExpiracionLicencia, String imagen, boolean lectura)
+    public boolean registrarCliente(String nombreCompleto, String cedula, 
+            String direccionExacta, String correoElectronico, 
+                   String telefono, String numeroLicencia, 
+                   Calendar fechaEmisionLicencia, TLicencia tipoLicencia, 
+                   Calendar fechaExpiracionLicencia, String imagen, 
+                   boolean lectura)
     {
         if(obtenerCliente(cedula) == null) {
-            Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, direccionExacta, correoElectronico, telefono,
-                                           numeroLicencia, fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,
-                                           imagen);
+            Cliente nuevoCliente = new Cliente(nombreCompleto, cedula, 
+            direccionExacta, correoElectronico, telefono, numeroLicencia, 
+            fechaEmisionLicencia, tipoLicencia, fechaExpiracionLicencia,imagen);
             listaClientes.add(nuevoCliente);
+            
             if(!lectura) {
                 agregarInformacionJSON("clientes.json","Cliente");
             }
@@ -94,8 +106,12 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método verifica que la placa del vehículo es 
+     * única, llama al constructor de la clase Vehículo y agrega
+     * la instancia a la lista de vehículos del administrador.
+     * 
      * @param placa Es el identificador del vehículo.
-     * @param añoFabricacion
+     * @param añoFabricacion 
      * @param estilo
      * @param color
      * @param marca
@@ -111,21 +127,24 @@ public class AdministradorAplicacion {
      * @param estado
      * @param listaServiciosRelacionados
      * @param imagen
-     * @param lectura Indica si el registro de vehículo debe omitir la escritura en el archivo JSON.
-     * Este método verifica que la placa del vehículo es única, llama al constructor de la clase Vehículo y agrega
-     * la instancia a la lista de vehículos del administrador.
+     * @param lectura Indica si el registro de vehículo debe omitir la escritura 
+     * en el archivo JSON. 
      * @return true si la placa es única, false en caso contrario.
      */
     
-    public boolean registrarVehiculo(String placa, int añoFabricacion, TEstilo estilo, String color, String marca, 
-                    int capacidad, double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
-                    String sede, double costoDiario, int capacidadMaletas, TTransmision tipoTransmision, 
-                    TEstado estado, ArrayList<Servicio> listaServiciosRelacionados, String imagen, boolean lectura)
+    public boolean registrarVehiculo(String placa, int añoFabricacion, 
+            TEstilo estilo, String color, String marca, int capacidad, 
+            double kilometraje, int numeroPuertas, String numeroVin, double mpg, 
+            String sede, double costoDiario, int capacidadMaletas, 
+            TTransmision tipoTransmision, TEstado estado, 
+            ArrayList<Servicio> listaServiciosRelacionados, String imagen, 
+            boolean lectura)
     {
         if(obtenerVehiculo(placa) == null) {
-            Vehiculo nuevoVehiculo = new Vehiculo(placa, añoFabricacion, estilo, color, marca, capacidad, kilometraje,
-                                              numeroPuertas, numeroVin, mpg, sede, costoDiario, capacidadMaletas,
-                                              tipoTransmision, estado, listaServiciosRelacionados, imagen);
+            Vehiculo nuevoVehiculo = new Vehiculo(placa, añoFabricacion, estilo,
+            color, marca, capacidad, kilometraje, numeroPuertas, numeroVin, mpg,
+            sede, costoDiario, capacidadMaletas, tipoTransmision, estado, 
+            listaServiciosRelacionados, imagen);
             listaVehiculos.add(nuevoVehiculo);
             if(!lectura) {
                 agregarInformacionJSON("vehiculos.json", "Vehiculo");
@@ -136,6 +155,10 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método verifica que la cédula jurídica de la 
+     * empresa es única, llama al constructor de la clase EmpresaMantenimiento y
+     * agrega la instancia a la lista de empresas del administrador.
+     * 
      * @param razonSocial
      * @param numeroCedula Es el identificador de la empresa de mantenimiento.
      * @param telefono
@@ -143,18 +166,21 @@ public class AdministradorAplicacion {
      * @param canton
      * @param distrito
      * @param señas
-     * @param lectura Indica si el registro de empresa debe omitir la escritura en el archivo JSON.
-     * Este método verifica que la cédula jurídica de la empresa es única, llama al constructor de la clase 
-     * EmpresaMantenimiento y agrega la instancia a la lista de empresas del administrador.
+     * @param lectura Indica si el registro de empresa debe omitir la escritura 
+     * en el archivo JSON. 
+     * 
      * @return true si la cédula jurídica es única, false en caso contrario.
      */
     
-    public boolean registrarEmpresaServicios(String razonSocial, String numeroCedula, String telefono, String provincia, 
-                                          String canton, String distrito, String señas, boolean lectura)
+    public boolean registrarEmpresaServicios(String razonSocial, 
+            String numeroCedula, String telefono, String provincia, 
+            String canton, String distrito, String señas, boolean lectura)
     {
         if(obtenerEmpresa(numeroCedula) == null) {
-            EmpresaMantenimiento nuevaEmpresa = new EmpresaMantenimiento(razonSocial, numeroCedula, telefono, provincia,
-                                                                     canton, distrito, señas);
+            EmpresaMantenimiento nuevaEmpresa = 
+            new EmpresaMantenimiento(razonSocial, numeroCedula, telefono, 
+            provincia,canton, distrito, señas);
+            
             listaEmpresasMantenimiento.add(nuevaEmpresa);
             if(!lectura) {
                 agregarInformacionJSON("empresas.json","Empresa");
@@ -165,6 +191,10 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método verifica que el identificador del servicio 
+     * es único, llama al constructor de la clase Servicio y
+     * agrega la instancia a la lista de servicios del administrador.
+     * 
      * @param identificador
      * @param fechaInicio
      * @param fechaFinalizacion
@@ -172,19 +202,23 @@ public class AdministradorAplicacion {
      * @param detalles
      * @param tipo
      * @param empresaRelacionada
-     * @param lectura Indica si el registro de servicio debe omitir la escritura en el archivo JSON.
-     * Este método verifica que el identificador del servicio es único, llama al constructor de la clase Servicio y
-     * agrega la instancia a la lista de servicios del administrador.
+     * @param lectura Indica si el registro de servicio debe omitir la escritura 
+     * en el archivo JSON.
+     * 
      * @return true si el identificador es único, false en caso contrario.
      */
     
-    public boolean registrarNuevoServicio(int identificador, Calendar fechaInicio, Calendar fechaFinalizacion, double montoPagado, 
-                                       String detalles, TServicio tipo, EmpresaMantenimiento empresaRelacionada, boolean lectura)
+    public boolean registrarNuevoServicio(int identificador, 
+            Calendar fechaInicio, Calendar fechaFinalizacion, 
+            double montoPagado, String detalles, TServicio tipo, 
+            EmpresaMantenimiento empresaRelacionada, boolean lectura)
     {
         if(obtenerServicio(identificador) == null) {
-            Servicio nuevoServicio = new Servicio(identificador, fechaInicio, fechaFinalizacion, montoPagado, 
-                                              detalles, tipo, empresaRelacionada);
+            Servicio nuevoServicio = new Servicio(identificador, fechaInicio, 
+            fechaFinalizacion, montoPagado, detalles, tipo, empresaRelacionada);
+            
             listaServicios.add(nuevoServicio);
+            
             if(!lectura) {
                 agregarInformacionJSON("servicios.json","Servicio");
             }
@@ -194,20 +228,27 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método verifica que el correo electrónico del 
+     * operador es único, llama al constructor de la clase 
+     * Operador y agrega la instancia a la lista de operadores del administrador
+     * 
      * @param correoElectronico Es el identificador de operador.
      * @param contraseña
      * @param nombreCompleto
      * @param estado
-     * @param lectura Indica si el registro de operador debe omitir la escritura en el archivo JSON.
-     * Este método verifica que el correo electrónico del operador es único, llama al constructor de la clase 
-     * Operador y agrega la instancia a la lista de operadores del administrador.
+     * @param lectura Indica si el registro de operador debe omitir la escritura
+     * en el archivo JSON. 
+     * 
      * @return true si el correo es único, false en caso contrario.
      */
     
-    public boolean registrarOperador(String correoElectronico, String contraseña, String nombreCompleto, boolean estado, boolean lectura)
+    public boolean registrarOperador(String correoElectronico, 
+            String contraseña, String nombreCompleto, boolean estado, 
+            boolean lectura)
     {
         if(obtenerOperador(correoElectronico) == null) {
-            Operador nuevoOperador = new Operador(correoElectronico, contraseña, nombreCompleto, estado);
+            Operador nuevoOperador = new Operador(correoElectronico, contraseña,
+            nombreCompleto, estado);
             listaOperadores.add(nuevoOperador);
             if(!lectura) {
                 agregarInformacionJSON("operadores.json","Operador");
@@ -218,6 +259,10 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método llama al constructor de la clase Reserva, 
+     * agrega la instancia a la lista de reservas del administrador e incrementa
+     * el número de factura consecutivo.
+     * 
      * @param sedeRecogida
      * @param sedeEntrega
      * @param fechaInicio
@@ -227,18 +272,22 @@ public class AdministradorAplicacion {
      * @param vehiculoSeleccionado
      * @param clienteRelacionado
      * @param serviciosOpcionales
-     * @param lectura Indica si el registro de reserva debe omitir la escritura en el archivo JSON.
-     * Este método llama al constructor de la clase Reserva, agrega la instancia a la lista de reservas del 
-     * administrador e incrementa el número de factura consecutivo.
+     * @param lectura Indica si el registro de reserva debe omitir la escritura 
+     * en el archivo JSON. 
+     * 
      * @return true una vez completada la reserva.
      */
     
-    public boolean realizarReserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
-                   Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
-                   HashMap serviciosOpcionales, boolean lectura)
+    public boolean realizarReserva(String sedeRecogida, String sedeEntrega, 
+            Calendar fechaInicio, Calendar fechaFinalizacion, 
+            Calendar fechaSolicitud, Operador operador, 
+            Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
+            HashMap serviciosOpcionales, boolean lectura)
     {
-        Reserva nuevaReserva = new Reserva(sedeRecogida, sedeEntrega, fechaInicio, fechaFinalizacion, fechaSolicitud, operador,
-                                           vehiculoSeleccionado, clienteRelacionado, serviciosOpcionales, numeroFactura);
+        Reserva nuevaReserva = new Reserva(sedeRecogida, sedeEntrega, 
+                fechaInicio, fechaFinalizacion, fechaSolicitud, operador,
+                vehiculoSeleccionado, clienteRelacionado, serviciosOpcionales, 
+                numeroFactura);
         listaReservas.add(nuevaReserva);
         System.out.println(nuevaReserva);
         if(!lectura) {
@@ -249,9 +298,13 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método busca el vehículo registrado con la placa en la lista de 
+     * vehículos del administrador.
+     * 
      * @param pId Es la placa de un vehículo.
-     * Este método busca el vehículo registrado con la placa en la lista de vehículos del administrador.
-     * @return Vehiculo si la placa está en la lista de vehículos del administrador, null en caso contrario.
+     * 
+     * @return Vehiculo si la placa está en la lista de vehículos del 
+     * administrador, null en caso contrario.
      */
     
     public Vehiculo obtenerVehiculo(String pID)
@@ -269,9 +322,12 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pCorreo Es el correo de un operador.
      * Este método busca el correo en la lista de operadores del administrador.
-     * @return Operador si el correo está en la lista de operadores del administrador, null en caso contrario.
+     * 
+     * @param pCorreo Es el correo de un operador.
+     * 
+     * @return Operador si el correo está en la lista de operadores del 
+     * administrador, null en caso contrario.
      */
     
     public Operador obtenerOperador(String pCorreo)
@@ -289,9 +345,12 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pId Es la cédula de un cliente.
      * Este método busca la cédula en la lista de clientes del administrador.
-     * @return Cliente si la cédula está en la lista de clientes del administrador, null en caso contrario.
+     * 
+     * @param pId Es la cédula de un cliente.
+     * 
+     * @return Cliente si la cédula está en la lista de clientes del 
+     * administrador, null en caso contrario.
      */
     
     public Cliente obtenerCliente(String pId)
@@ -309,9 +368,13 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método busca el identificador en la lista de servicios del 
+     * administrador.
+     * 
      * @param pId Es el identificador de un servicio.
-     * Este método busca el identificador en la lista de servicios del administrador.
-     * @return Servicio si el identificador está en la lista de servicios del administrador, null en caso contrario.
+     * 
+     * @return Servicio si el identificador está en la lista de servicios del 
+     * administrador, null en caso contrario.
      */
     
     public Servicio obtenerServicio(int pId)
@@ -329,9 +392,13 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método busca el número de factura en la lista de reservas del 
+     * administrador.
+     * 
      * @param pId Es el número de factura de una reserva.
-     * Este método busca el número de factura en la lista de reservas del administrador.
-     * @return Reserva si el número está en la lista de reservas del administrador, null en caso contrario.
+     * 
+     * @return Reserva si el número está en la lista de reservas del 
+     * administrador, null en caso contrario.
      */
     
     public Reserva obtenerReserva(int pId)
@@ -349,9 +416,13 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método busca la cédula jurídica en la lista de empresas del 
+     * administrador.
+     * 
      * @param pId Es la cédula jurídica de una empresa de mantenimiento.
-     * Este método busca la cédula jurídica en la lista de empresas del administrador.
-     * @return EmpresaMantenimiento si la cédula está en la lista de empresas del administrador, null en caso contrario.
+     * 
+     * @return EmpresaMantenimiento si la cédula está en la lista de empresas
+     * del administrador, null en caso contrario.
      */
     
     public EmpresaMantenimiento obtenerEmpresa(String pId)
@@ -370,6 +441,7 @@ public class AdministradorAplicacion {
     
     /**
      * Este método retorna el número de factura actual.
+     * 
      * @return int con el atributo numeroFactura.
      */
     
@@ -387,7 +459,8 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * Este método agrega los nombres y precios de los servicios especiales en el diccionario del atributo
+     * Este método agrega los nombres y precios de los servicios especiales en 
+     * el diccionario del atributo
      * serviciosEspeciales.
      */
     
@@ -400,60 +473,67 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param serviciosSeleccionados Es un ArrayList con los nombres de los servicios especiales seleccionados.
-     * Este método coloca los nombres de los servicios especiales y sus respectivos precios, obtenidos del atributo
+     * Este método coloca los nombres de los
+     * servicios especiales y sus respectivos precios, obtenidos del atributo
      * serviciosEspeciales, en un nuevo diccionario.
-     * @return HashMap de servicios especiales seleccionados durante la realización de una reserva.
+     * 
+     * @param serviciosSeleccionados Es un ArrayList con los nombres de los 
+     * servicios especiales seleccionados. 
+     * @return HashMap de servicios especiales seleccionados durante la 
+     * realización de una reserva.
      */
     
-    public HashMap generarServiciosEspeciales(ArrayList<String> serviciosSeleccionados) {
+    public HashMap generarServiciosEspeciales(ArrayList<String> SEspeciales) {
         HashMap<String, Double> servicios = new HashMap<>();
-        for(int i = 0; i < serviciosSeleccionados.size(); i++) {
-            String nombreServicio = serviciosSeleccionados.get(i);
-            servicios.put(nombreServicio, serviciosEspeciales.get(nombreServicio));
+        for(int i = 0; i < SEspeciales.size(); i++) {
+            String nombreServicio = SEspeciales.get(i);
+            servicios.put(nombreServicio, 
+            serviciosEspeciales.get(nombreServicio));
         }
         return servicios;
     }
     
     /**
+     * Este método recorre la lista de vehículos del administrador. Si el estado
+     * del vehículo actual es activo y la lista de servicios relacionados está 
+     * vacía, agrega el vehículo al ArrayList. Si el estado del vehículo
+     * actual es activo y ningún lapso de tiempo de los servicios relacionados 
+     * coincide con el comprendido en los
+     * parámetros, entonces agrega el vehículo al ArrayList.
+     * 
      * @param fInicio Es la fecha inicio de una reserva.
      * @param fFinal Es la fecha final de una reserva.
-     * Este método recorre la lista de vehículos del administrador. Si el estado del vehículo actual es activo y
-     * la lista de servicios relacionados está vacía, agrega el vehículo al ArrayList. Si el estado del vehículo
-     * actual es activo y ningún lapso de tiempo de los servicios relacionados coincide con el comprendido en los
-     * parámetros, entonces agrega el vehículo al ArrayList.
-     * @return ArrayList de los vehículos cuyos servicios no coinciden con las fechas de la reserva.
+     * 
+     * @return ArrayList de los vehículos cuyos servicios no coinciden con las 
+     * fechas de la reserva.
      */
     
-    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunFecha(Calendar fInicio, Calendar fFinal)
-    {
+    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunFecha(Calendar fInicio, 
+            Calendar fFinal){
         ArrayList<Vehiculo> vehiculosSegunTipo = new ArrayList();
         Vehiculo elVehiculo;
         for(int i = 0; i < listaVehiculos.size(); i++)
         {
             elVehiculo = listaVehiculos.get(i);
-            ArrayList<Servicio> listaServicios = elVehiculo.getListaServiciosRelacionados();
+            ArrayList<Servicio> listaServicios = 
+            elVehiculo.getListaServiciosRelacionados();
             if(elVehiculo.getEstado() == TEstado.Activo)
             {
-                if(listaServicios.isEmpty())
-                {
+                if(listaServicios.isEmpty()){
                     vehiculosSegunTipo.add(elVehiculo);
                 }
-                else
-                {
-                    for(int j = 0; j < listaServicios.size(); j++)
-                    {
+                else{
+                    for(int j = 0; j < listaServicios.size(); j++){
                         Servicio elServicio = listaServicios.get(j);
-                        if(fInicio.before(elServicio.getFechaInicio())&& fFinal.after(elServicio.getFechaFinalizacion()))
-                        {}
-                        else if(fFinal.after(elServicio.getFechaInicio())&& fFinal.before(elServicio.getFechaFinalizacion()))
-                        {}
-                        else if(fInicio.after(elServicio.getFechaInicio())&& fInicio.before(elServicio.getFechaFinalizacion()))
-                        {}
-                        else if(fInicio.after(elServicio.getFechaInicio())&& fFinal.before(elServicio.getFechaFinalizacion()))
-                        {}
-                        else
-                        {
+                        if(fInicio.before(elServicio.getFechaInicio())&& 
+                           fFinal.after(elServicio.getFechaFinalizacion())){}
+                        else if(fFinal.after(elServicio.getFechaInicio())&& 
+                           fFinal.before(elServicio.getFechaFinalizacion())){}
+                        else if(fInicio.after(elServicio.getFechaInicio())&& 
+                           fInicio.before(elServicio.getFechaFinalizacion())){}
+                        else if(fInicio.after(elServicio.getFechaInicio())&& 
+                           fFinal.before(elServicio.getFechaFinalizacion())){}
+                        else{
                             vehiculosSegunTipo.add(elVehiculo);
                         }
                     }
@@ -464,14 +544,19 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param estilo
-     * @param listaActVehiculos Lista de vehículos retornada por el método filtrarTipoVehiculoSegúnFecha.
-     * Este método recorre la lista de vehículos y agrega a un nuevo ArrayList aquellos vehículos que poseen el
+     * Este método recorre la lista de vehículos 
+     * y agrega a un nuevo ArrayList aquellos vehículos que poseen el
      * mismo estilo indicado.
+     * 
+     * @param estilo
+     * @param listaActVehiculos Lista de vehículos retornada por el método 
+     * filtrarTipoVehiculoSegúnFecha. 
+     * 
      * @return ArrayList de los vehículos que poseen el estilo recibido.
      */
     
-    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunEstilo(TEstilo estilo, ArrayList<Vehiculo> listaActVehiculos)
+    public ArrayList<Vehiculo> filtrarTipoVehiculoSegunEstilo(TEstilo estilo, 
+        ArrayList<Vehiculo> listaActVehiculos)
     {
         ArrayList<Vehiculo> vehiculosSegunEstilo = new ArrayList();
         Vehiculo elVehiculo;
@@ -487,9 +572,11 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pNombreCompleto
-     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen el mismo
-     * operador indicado.
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList 
+     * aquellas reservas que poseen el mismo operador indicado.
+     * 
+     * @param pNombreCompleto Nombre del operador que realiza la reserva
+     * 
      * @return ArrayList de las reservas realizadas por el operador recibido.
      */
     
@@ -510,10 +597,12 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pSedeRecogida
-     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen la misma
-     * sede de recogida indicada.
-     * @return ArrayList de las reservas que poseen la sede de recogida recibida.
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList 
+     * aquellas reservas que poseen la misma sede de recogida indicada.
+     * 
+     * @param pSedeRecogida String con el nombre de la sede incluida en la reserva
+     * 
+     * @return ArrayList de las reservas que poseen la sede de recogida recibida
      */
     
     public ArrayList<Reserva> filtrarReservaRecogida(String pSedeRecogida)
@@ -532,9 +621,11 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pPlaca
-     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen el mismo
-     * vehículo indicado.
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList 
+     * aquellas reservas que poseen el mismo vehículo indicado.
+     * 
+     * @param pPlaca Vehículo asociado con la reserva a buscar
+     * 
      * @return ArrayList de las reservas que poseen el vehículo recibido.
      */
     
@@ -555,10 +646,15 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param pFInicio
-     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList aquellas reservas que poseen la misma
-     * fecha de inicio indicada.
-     * @return ArrayList de las reservas que poseen la misma fecha de inicio recibida.
+     * 
+     * Este método recorre la lista de reservas y agrega a un nuevo ArrayList 
+     * aquellas reservas que poseen la misma fecha de inicio indicada.
+     * 
+     * @param pFInicio Calendar con la fecha de inicio de las reservas que se
+     * pretenden obtener
+     * 
+     * @return ArrayList con las reservas que cumplen la fecha de inicio
+     * indicada como parámetro
      */
     
     public ArrayList<Reserva> filtrarReservaInicio(Calendar pFInicio)
@@ -566,7 +662,8 @@ public class AdministradorAplicacion {
         ArrayList<Reserva> reservasSegunInicio = new ArrayList<Reserva>();
         for(Reserva R: listaReservas)
         {
-            if(R.getFechaInicio().get(Calendar.DAY_OF_YEAR)==pFInicio.get(Calendar.DAY_OF_YEAR) && R.getFechaInicio().get(Calendar.YEAR)==pFInicio.get(Calendar.YEAR))
+            if(R.getFechaInicio().get(Calendar.DAY_OF_YEAR)==pFInicio.get(Calendar.DAY_OF_YEAR) &&
+                    R.getFechaInicio().get(Calendar.YEAR)==pFInicio.get(Calendar.YEAR))
             {
                 reservasSegunInicio.add(R);
             }
@@ -575,8 +672,10 @@ public class AdministradorAplicacion {
     }
    
     /**
-     * Este método genera una contraseña colocando un caracter especial al inicio, números aleatorios hasta la mitad
-     * de la longitud de la contraseña, letras minúsculas y mayúsculas alternadas en los caracteres restantes.
+     * Este método genera una contraseña colocando un caracter especial al 
+     * inicio, números aleatorios hasta la mitad de la longitud de la contraseña,
+     * letras minúsculas y mayúsculas alternadas en los caracteres restantes.
+     * 
      * @return String con una contraseña única.
      */
     
@@ -636,11 +735,16 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param placa
-     * Este método verifica que la placa tenga la longitud, estructura y contenido adecuados. Si la longitud es de 
-     * 6 caracteres, entonces la placa debe contener únicamente números. Si la longitud es de 7 caracteres, entonces
-     * la placa debe tener tres letras, un guión y tres números.
-     * @return true si la placa cumple con los requisitos, false en caso contrario.
+     * Este método verifica que la placa tenga la longitud, estructura y 
+     * contenido adecuados. Si la longitud es de 6 caracteres, entonces la placa
+     * debe contener únicamente números. Si la longitud es de 7 caracteres, 
+     * entonces la placa debe tener tres letras, un guión y tres números.
+     * 
+     * @param placa String con la placa relacionada a las reservas que se desean
+     * obtener
+     * 
+     * @return true si la placa cumple con los requisitos, false en caso 
+     * contrario.
      */
     
     public boolean verificarPlaca(String placa)
@@ -671,25 +775,35 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param correo
      * Este método verifica que la estructura del correo electrónico es válida.
-     * @return true si el correo cumple con los requisitos, false en caso contrario.
+     * 
+     * @param correo String con el correo relacionado a las reservas que se 
+     * desean obtener
+     * 
+     * @return true si el correo cumple con los requisitos, false en caso 
+     * contrario.
      */
     
     public boolean verificarCorreo(String correo)
     {
-        Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
+                       + "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
  
         Matcher comparador = patron.matcher(correo);
         return comparador.find();
     }
     
     /**
-     * @param Telefono
-     * Este método verifica que la estructura del número telefónico es válida. Debe tener una longitud de 12 caracteres,
-     * los primeros cuatro deben ser el código telefónico de Costa Rica +506, el siguiente caracter debe ser 2, 6, 7
-     * u 8, y los caracteres restantes deben ser numéricos.
-     * @return true si el número telefónico cumple con los requisitos, false en caso contrario.
+     * Este método verifica que la estructura del número telefónico es válida. 
+     * Debe tener una longitud de 12 caracteres, los primeros cuatro deben ser 
+     * el código telefónico de Costa Rica +506, el siguiente caracter debe ser 
+     * 2, 6, 7 u 8, y los caracteres restantes deben ser numéricos.
+     * 
+     * @param Telefono String con el teléfono asociado a la reservas que se
+     * desean obtener
+     * 
+     * @return true si el número telefónico cumple con los requisitos, false en
+     * caso contrario.
      */
     
     public boolean verificarTelefono(String Telefono)
@@ -698,8 +812,8 @@ public class AdministradorAplicacion {
         {
             return false;
         }
-        if(Telefono.charAt(0) != '+' && Telefono.charAt(1) != '5' && Telefono.charAt(2) != '0'
-           && Telefono.charAt(3) != '6')
+        if(Telefono.charAt(0) != '+' && Telefono.charAt(1) != '5' && 
+                Telefono.charAt(2) != '0'&& Telefono.charAt(3) != '6')
         {
             return false;
         }
@@ -711,9 +825,12 @@ public class AdministradorAplicacion {
         }
         for(int i = 5; i < 12; i++)
         {
-            if(Telefono.charAt(i) != '1' && Telefono.charAt(i) != '2' && Telefono.charAt(i) != '3' &&
-               Telefono.charAt(i) != '4' && Telefono.charAt(i) != '5' && Telefono.charAt(i) != '6' &&
-               Telefono.charAt(i) != '7' && Telefono.charAt(i) != '8' && Telefono.charAt(i) != '9' &&
+            if(Telefono.charAt(i) != '1' && Telefono.charAt(i) != '2' && 
+                    Telefono.charAt(i) != '3' &&
+               Telefono.charAt(i) != '4' && Telefono.charAt(i) != '5' && 
+                    Telefono.charAt(i) != '6' &&
+               Telefono.charAt(i) != '7' && Telefono.charAt(i) != '8' && 
+                    Telefono.charAt(i) != '9' &&
                Telefono.charAt(i) != '0')
             {
                 return false;
@@ -723,11 +840,16 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param archivo Es el nombre del archivo JSON.
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * Este método lee el archivo y llama al método registrarDato para agregar los elementos del objeto indicado
+     * Este método lee el archivo y llama al método registrarDato para agregar 
+     * los elementos del objeto indicado
      * en la lista del administrador que corresponde.
-     * @return true si la lectura del archivo JSON finalizó correctamente, false en caso contrario.
+     * 
+     * @param archivo Es el nombre del archivo JSON.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * 
+     * @return true si la lectura del archivo JSON finalizó correctamente, 
+     * false en caso contrario.
      */
     
     public boolean cargarInformacionJSON(String archivo, String nombreObjeto) {
@@ -749,25 +871,41 @@ public class AdministradorAplicacion {
     }
     
     /**
+     * Este método llama al método Registrar del objeto indicado. Los parámetros
+     * de dicho método se obtienen de dato, los atributos son convertidos de 
+     * strings JSON a los tipos de datos que solían tener previamente a la 
+     * escritura del archivo JSON.
+     * 
      * @param dato Es el objeto de JSON leído del archivo.
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * Este método llama al método Registrar del objeto indicado. Los parámetros de dicho método se obtienen de dato,
-     * los atributos son convertidos de strings JSON a los tipos de datos que solían tener previamente a la escritura
-     * del archivo JSON.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * 
      */
     
     public void registrarDato(JSONObject dato, String nombreObjeto) {
         switch(nombreObjeto) {
             case "Cliente":
-                registrarCliente((dato.get("Nombre")).toString(), (dato.get("Cedula")).toString(), (dato.get("Direccion")).toString(), 
-                                (dato.get("Correo")).toString(), (dato.get("Telefono")).toString(), (dato.get("Numero licencia")).toString(),
-                                Utilitaria.obtenerFecha((dato.get("Fecha emision licencia")).toString()), TLicencia.valueOf((dato.get("Tipo licencia")).toString()), 
-                                Utilitaria.obtenerFecha((dato.get("Fecha expiracion licencia")).toString()), (dato.get("Imagen")).toString(), true);
+                registrarCliente((dato.get("Nombre")).toString(), 
+                (dato.get("Cedula")).toString(), 
+                (dato.get("Direccion")).toString(), 
+                (dato.get("Correo")).toString(), 
+                (dato.get("Telefono")).toString(), 
+                (dato.get("Numero licencia")).toString(), 
+                Utilitaria.obtenerFecha((dato.get("Fecha emision licencia")).toString()),
+                TLicencia.valueOf((dato.get("Tipo licencia")).toString()), 
+                Utilitaria.obtenerFecha((dato.get("Fecha expiracion licencia")).toString()), 
+                (dato.get("Imagen")).toString(), true);
+                
                 break;
+                
             case "Operador":
-                registrarOperador((dato.get("Correo")).toString(), (dato.get("Contraseña")).toString(), 
-                                  (dato.get("Nombre")).toString(), Boolean.parseBoolean((dato.get("Estado")).toString()), true);
+                registrarOperador((dato.get("Correo")).toString(), 
+                        (dato.get("Contraseña")).toString(), 
+                        (dato.get("Nombre")).toString(), 
+                        Boolean.parseBoolean((dato.get("Estado")).toString()), 
+                        true);
                 break;
+                
             case "Vehiculo":
                 ArrayList<Servicio> listaServiciosRelacionados = new ArrayList<>();
                 JSONArray servicios = (JSONArray) dato.get("Lista servicios relacionados");
@@ -777,31 +915,44 @@ public class AdministradorAplicacion {
                     registrarDato(servicioJSON, "Servicio");
                     listaServiciosRelacionados.add(obtenerServicio(identificador));
                 }
-                registrarVehiculo((dato.get("Placa")).toString(), Integer.parseInt((dato.get("Año fabricación")).toString()),
-                                  TEstilo.valueOf((dato.get("Estilo")).toString()), (dato.get("Color")).toString(), (dato.get("Marca")).toString(), 
-                                  Integer.parseInt((dato.get("Capacidad")).toString()), Double.parseDouble((dato.get("Kilometraje")).toString()),
-                                  Integer.parseInt((dato.get("Numero puertas")).toString()), (dato.get("Numero vin")).toString(),
-                                  Double.parseDouble((dato.get("Mpg")).toString()), (dato.get("Sede")).toString(), 
-                                  Double.parseDouble((dato.get("Costo diario")).toString()), Integer.parseInt((dato.get("Capacidad maletas")).toString()),
-                                  TTransmision.valueOf((dato.get("Transmision")).toString()), TEstado.valueOf(( dato.get("Estado")).toString()), 
-                                  listaServiciosRelacionados, (dato.get("Imagen")).toString(), true);
+                registrarVehiculo((dato.get("Placa")).toString(), 
+                    Integer.parseInt((dato.get("Año fabricación")).toString()),
+                        TEstilo.valueOf((dato.get("Estilo")).toString()), (dato.get("Color")).toString(), 
+                            (dato.get("Marca")).toString(), Integer.parseInt((dato.get("Capacidad")).toString()), 
+                                Double.parseDouble((dato.get("Kilometraje")).toString()),
+                                    Integer.parseInt((dato.get("Numero puertas")).toString()), 
+                                        (dato.get("Numero vin")).toString(), Double.parseDouble((dato.get("Mpg")).toString()), 
+                                            (dato.get("Sede")).toString(), Double.parseDouble((dato.get("Costo diario")).toString()), 
+                                                Integer.parseInt((dato.get("Capacidad maletas")).toString()), 
+                                                    TTransmision.valueOf((dato.get("Transmision")).toString()), 
+                                                        TEstado.valueOf(( dato.get("Estado")).toString()), 
+                                                            listaServiciosRelacionados, (dato.get("Imagen")).toString(), true);
                 break;
+                
             case "Empresa":
-                registrarEmpresaServicios((dato.get("Razon social")).toString(), (dato.get("Cedula")).toString(), 
-                                          (dato.get("Telefono")).toString(), (dato.get("Provincia")).toString(), 
-                                          (dato.get("Canton")).toString(), (dato.get("Distrito")).toString(),
-                                          (dato.get("Señas")).toString(), true);
+                registrarEmpresaServicios((dato.get("Razon social")).toString(), 
+                        (dato.get("Cedula")).toString(), 
+                        (dato.get("Telefono")).toString(), 
+                        (dato.get("Provincia")).toString(), 
+                        (dato.get("Canton")).toString(), 
+                        (dato.get("Distrito")).toString(),
+                        (dato.get("Señas")).toString(), true);
                 break;
+                
             case "Servicio":
                 JSONArray empresas = (JSONArray) dato.get("Empresa relacionada");
                 JSONObject empresaJSON = (JSONObject) empresas.get(0);
                 String cedulaJuridica = (empresaJSON.get("Cedula")).toString();
                 registrarDato(empresaJSON, "Empresa");
                 EmpresaMantenimiento empresa = obtenerEmpresa(cedulaJuridica);
-                registrarNuevoServicio(Integer.parseInt((dato.get("Identificador")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()),
-                                       Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), Double.parseDouble((dato.get("Monto pagado")).toString()),
-                                       (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()), empresa, true);
+                registrarNuevoServicio(Integer.parseInt((dato.get("Identificador")).toString()), 
+                        Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()),
+                            Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
+                                Double.parseDouble((dato.get("Monto pagado")).toString()),
+                                       (dato.get("Detalles")).toString(), TServicio.valueOf((dato.get("Tipo")).toString()),
+                                            empresa, true);
                 break;
+                
             case "Reserva":
                 HashMap<String, Double> dicServiciosOpcionales = new HashMap<>();
                 JSONArray serviciosOpcionales = (JSONArray) dato.get("Servicios opcionales");
@@ -809,27 +960,39 @@ public class AdministradorAplicacion {
                     JSONObject par = (JSONObject) serviciosOpcionales.get(i);
                     dicServiciosOpcionales.put((par.get("Key")).toString(), Double.parseDouble((par.get("Value")).toString()));
                 }
-                realizarReserva((dato.get("Sede recogida")).toString(), (dato.get("Sede entrega")).toString(), 
-                                Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()), Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
-                                Utilitaria.obtenerFecha((dato.get("Fecha solicitud")).toString()), obtenerOperador(buscarObjeto(dato, "Operador", "Correo")),
-                                obtenerVehiculo(buscarObjeto(dato, "Vehiculo", "Placa")), obtenerCliente(buscarObjeto(dato, "Cliente", "Cedula")), 
-                                dicServiciosOpcionales, true);
+                realizarReserva((dato.get("Sede recogida")).toString(), (dato.get("Sede entrega")).toString(),
+                    Utilitaria.obtenerFecha((dato.get("Fecha inicio")).toString()),
+                        Utilitaria.obtenerFecha((dato.get("Fecha final")).toString()), 
+                            Utilitaria.obtenerFecha((dato.get("Fecha solicitud")).toString()), 
+                                obtenerOperador(buscarObjeto(dato, "Operador", "Correo")),
+                                    obtenerVehiculo(buscarObjeto(dato, "Vehiculo", "Placa")), 
+                                        obtenerCliente(buscarObjeto(dato, "Cliente", "Cedula")), 
+                                            dicServiciosOpcionales, true);
                 break;
+                
             default:
                 break;
         }
     }
     
     /**
-     * @param nombreArchivo
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * Este método lee el archivo JSON y almacena su contenido en un arreglo de objetos JSON. Si el archivo está vacío,
-     * crea un nuevo arreglo. Se llama al método agregarDato para construir el objeto JSON con los datos del registro
-     * más reciente. Este objeto es empacado, agregado al arreglo y escrito en el archivo JSON.
+     * Este método lee el archivo JSON y almacena su contenido en un arreglo de 
+     * objetos JSON. Si el archivo está vacío, crea un nuevo arreglo. Se llama 
+     * al método agregarDato para construir el objeto JSON con los datos del 
+     * registro más reciente. Este objeto es empacado, agregado al arreglo y 
+     * escrito en el archivo JSON.
+     * 
+     * @param nombreArchivo Nombre del archivo en el cual se cargará la
+     * información
+     * 
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * 
      * @return true si la escritura del archivo JSON finalizó correctamente.
      */
     
-    public boolean agregarInformacionJSON(String nombreArchivo, String nombreObjeto) {
+    public boolean agregarInformacionJSON(String nombreArchivo, 
+            String nombreObjeto) {
         JSONParser jsonParser = new JSONParser();
         JSONArray listaDatosJSON;
         try (FileReader reader = new FileReader(nombreArchivo)) {
@@ -859,23 +1022,30 @@ public class AdministradorAplicacion {
     }
    
     /**
+     * Este método emplea los métodos accesores de las clases de la capa modelo 
+     * para construir un objeto JSON con los datos del objeto indicado.
+     * 
      * @param dato Es el objeto de JSON leído del archivo.
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * @param ultimo Indica si se debe revisar el último elemento registrado de una lista.
-     * @param indice Es utilizado para registrar la lista de servicios relacionados.
-     * Este método emplea los métodos accesores de las clases de la capa modelo para construir un objeto JSON con
-     * los datos del objeto indicado.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * @param ultimo Indica si se debe revisar el último elemento registrado de 
+     * una lista.
+     * @param indice Es utilizado para registrar la lista de servicios 
+     * relacionados.
+     * 
      * @return JSONObject del último registro indicado.
      */
     
-    public JSONObject agregarDato(JSONObject dato, String nombreObjeto, boolean ultimo, int indice) {
+    public JSONObject agregarDato(JSONObject dato, String nombreObjeto, 
+            boolean ultimo, int indice) {
         switch(nombreObjeto) {
             case "Cliente":
                 Cliente ultimoCliente;
                 if(ultimo) {
                     ultimoCliente = listaClientes.get(listaClientes.size()-1);
                 } else {
-                    ultimoCliente = (listaReservas.get(listaReservas.size()-1)).getClienteRelacionado();
+                    ultimoCliente = 
+                    (listaReservas.get(listaReservas.size()-1)).getClienteRelacionado();
                 }
                 dato.put("Nombre", ultimoCliente.getNombreCompleto());
                 dato.put("Cedula", ultimoCliente.getCedula());
@@ -883,9 +1053,11 @@ public class AdministradorAplicacion {
                 dato.put("Correo", ultimoCliente.getCorreoElectronico());
                 dato.put("Telefono", ultimoCliente.getTelefono());
                 dato.put("Numero licencia", ultimoCliente.getNumeroLicencia());
-                dato.put("Fecha emision licencia", Utilitaria.formatoFechaJSON(ultimoCliente.getFechaEmisionLicencia()));
+                dato.put("Fecha emision licencia", 
+                Utilitaria.formatoFechaJSON(ultimoCliente.getFechaEmisionLicencia()));
                 dato.put("Tipo licencia", (ultimoCliente.getTipoLicencia()).toString());
-                dato.put("Fecha expiracion licencia", Utilitaria.formatoFechaJSON(ultimoCliente.getFechaExpiracionLicencia()));
+                dato.put("Fecha expiracion licencia", 
+                Utilitaria.formatoFechaJSON(ultimoCliente.getFechaExpiracionLicencia()));
                 dato.put("Imagen", ultimoCliente.getImagen());
                 break;
             case "Operador":
@@ -905,9 +1077,11 @@ public class AdministradorAplicacion {
                 if(ultimo) {
                     ultimoVehiculo = listaVehiculos.get(listaVehiculos.size()-1);
                 } else {
-                    ultimoVehiculo = listaReservas.get(listaReservas.size()-1).getVehiculoSeleccionado();
+                    ultimoVehiculo = 
+                        listaReservas.get(listaReservas.size()-1).getVehiculoSeleccionado();
                 }
-                ArrayList<Servicio> listaServiciosRegistrados = ultimoVehiculo.getListaServiciosRelacionados();
+                ArrayList<Servicio> listaServiciosRegistrados = 
+                        ultimoVehiculo.getListaServiciosRelacionados();
                 JSONObject servicioJSON = new JSONObject();
                 JSONArray listaServiciosJSON = new JSONArray();
                 for(int i = 0; i < listaServiciosRegistrados.size(); i++) {
@@ -926,7 +1100,8 @@ public class AdministradorAplicacion {
                 dato.put("Mpg", Double.toString(ultimoVehiculo.getMpg()));
                 dato.put("Sede", ultimoVehiculo.getSede());
                 dato.put("Costo diario", Double.toString(ultimoVehiculo.getCostoDiario()));
-                dato.put("Capacidad maletas", Integer.toString(ultimoVehiculo.getCapacidadMaletas()));
+                dato.put("Capacidad maletas", 
+                        Integer.toString(ultimoVehiculo.getCapacidadMaletas()));
                 dato.put("Transmision", (ultimoVehiculo.getTipoTransmision()).toString());
                 dato.put("Estado", (ultimoVehiculo.getEstado()).toString());
                 dato.put("Lista servicios relacionados", listaServiciosJSON);
@@ -935,9 +1110,11 @@ public class AdministradorAplicacion {
             case "Empresa":
                 EmpresaMantenimiento ultimaEmpresa;
                 if(ultimo) {
-                    ultimaEmpresa = listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
+                    ultimaEmpresa = 
+                            listaEmpresasMantenimiento.get(listaEmpresasMantenimiento.size()-1);
                 } else {
-                    ultimaEmpresa = (listaServicios.get(listaServicios.size()-1)).getEmpresaRelacionada();
+                    ultimaEmpresa = 
+                        (listaServicios.get(listaServicios.size()-1)).getEmpresaRelacionada();
                 }
                 dato.put("Razon social", ultimaEmpresa.getRazonSocial());
                 dato.put("Cedula", ultimaEmpresa.getNumeroCedula());
@@ -953,13 +1130,16 @@ public class AdministradorAplicacion {
                     ultimoServicio = listaServicios.get(listaServicios.size()-1);
                 } else {
                     Vehiculo ultimoVehiculoRegistrado = listaVehiculos.get(listaVehiculos.size()-1);
-                    ultimoServicio = ultimoVehiculoRegistrado.getListaServiciosRelacionados().get(indice);
+                    ultimoServicio = 
+                            ultimoVehiculoRegistrado.getListaServiciosRelacionados().get(indice);
                 }
                 JSONObject empresaJSON = new JSONObject();
                 JSONArray listaEmpresasJSON = new JSONArray();
                 dato.put("Identificador", Integer.toString(ultimoServicio.getIdentificador()));
-                dato.put("Fecha inicio", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaInicio()));
-                dato.put("Fecha final", Utilitaria.formatoFechaJSON(ultimoServicio.getFechaFinalizacion()));
+                dato.put("Fecha inicio", 
+                        Utilitaria.formatoFechaJSON(ultimoServicio.getFechaInicio()));
+                dato.put("Fecha final", 
+                        Utilitaria.formatoFechaJSON(ultimoServicio.getFechaFinalizacion()));
                 dato.put("Monto pagado", Double.toString(ultimoServicio.getMontoPagado()));
                 dato.put("Detalles", ultimoServicio.getDetalles());
                 dato.put("Tipo", (ultimoServicio.getTipo()).toString());
@@ -972,7 +1152,8 @@ public class AdministradorAplicacion {
                 JSONArray operadorJSON = prepararArrayObjetos("Operador");
                 JSONArray vehiculoJSON = prepararArrayObjetos("Vehiculo");
                 JSONArray clienteJSON = prepararArrayObjetos("Cliente");
-                HashMap<String, Double> serviciosOpcionales = ultimaReserva.getServiciosOpcionales();
+                HashMap<String, Double> serviciosOpcionales = 
+                        ultimaReserva.getServiciosOpcionales();
                 JSONArray serviciosOpcionalesJSON = new JSONArray();
                 for (String i : serviciosOpcionales.keySet()) {
                     JSONObject par = new JSONObject();
@@ -982,9 +1163,12 @@ public class AdministradorAplicacion {
                 }
                 dato.put("Sede recogida", ultimaReserva.getSedeRecogida());
                 dato.put("Sede entrega", ultimaReserva.getSedeEntrega());
-                dato.put("Fecha inicio", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaInicio()));
-                dato.put("Fecha final", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaFinalizacion()));
-                dato.put("Fecha solicitud", Utilitaria.formatoFechaJSON(ultimaReserva.getFechaSolicitud()));
+                dato.put("Fecha inicio", 
+                        Utilitaria.formatoFechaJSON(ultimaReserva.getFechaInicio()));
+                dato.put("Fecha final", 
+                        Utilitaria.formatoFechaJSON(ultimaReserva.getFechaFinalizacion()));
+                dato.put("Fecha solicitud", 
+                        Utilitaria.formatoFechaJSON(ultimaReserva.getFechaSolicitud()));
                 dato.put("Operador", operadorJSON);
                 dato.put("Vehiculo", vehiculoJSON);
                 dato.put("Cliente", clienteJSON);
@@ -997,8 +1181,11 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
      * Este método verifica que el tamaño de las listas es mayor que uno.
+     * 
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * 
      * @return true si la lista indicada tiene más de un elemento.
      */
     
@@ -1021,15 +1208,19 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param dato Es el objeto de JSON leído del archivo.
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * @param id Indica el nombre del identificador.
-     * Este método llama al método registrarDato para registrar las partes de un todo. También busca el valor del 
+     * Este método llama al método registrarDato para registrar las partes de
+     * un todo. También busca el valor del 
      * identificador de la parte para colocarla en el registro del todo.
+     * 
+     * @param dato Es el objeto de JSON leído del archivo.
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * @param id Indica el nombre del identificador.
+     * 
      * @return String identificador de la parte indicada.
      */
     
-    public String buscarObjeto(JSONObject dato, String nombreObjeto, String id) {
+    public String buscarObjeto(JSONObject dato, String nombreObjeto, String id){
         JSONArray listaObjetos = (JSONArray) dato.get(nombreObjeto);
         JSONObject objetoJSON = (JSONObject) listaObjetos.get(0);
         registrarDato(objetoJSON, nombreObjeto);
@@ -1037,9 +1228,13 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param nombreObjeto Es el nombre que representa la clase en el archivo JSON.
-     * Este método coloca partes de un todo en el archivo JSON que le corresponde y lo agrega a un arreglo de 
+     * Este método coloca partes de un todo en el archivo JSON que le 
+     * corresponde y lo agrega a un arreglo de 
      * objetos JSON para que el todo también puede agregarlo en su archivo JSON.
+     * 
+     * @param nombreObjeto Es el nombre que representa la clase en el archivo 
+     * JSON.
+     * 
      * @return JSONArray de un objeto indicado.
      */
     
@@ -1052,11 +1247,16 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param placa
+     * Recorre los vehículos del archivo hasta encontrar la placa indicada. 
+     * Recorre todos los pares del diccionario
+     * agregando sus llaves y valores en el objeto Vehiculo seleccionado. 
+     * Llama al método setDatoEdicion.
+     * 
+     * @param placa Placa del vehículo a editar
      * @param edicion Es el diccionario que contiene todas las modificaciones.
-     * Recorre los vehículos del archivo hasta encontrar la placa indicada. Recorre todos los pares del diccionario
-     * agregando sus llaves y valores en el objeto Vehiculo seleccionado. Llama al método setDatoEdicion.
-     * @return true si la edición del vehículo finaliza correctamente, false en caso contrario.
+     * 
+     * @return true si la edición del vehículo finaliza correctamente, 
+     * false en caso contrario.
      */
     
     public boolean editarVehiculoJSON(String placa, HashMap edicion) {
@@ -1072,7 +1272,8 @@ public class AdministradorAplicacion {
                 JSONObject vehiculo = (JSONObject) vehiculoActualJSON.get("Vehiculo");
                 for(int j = 0; j < edicion.keySet().size(); j++) {
                     if((vehiculo.get("Placa")).toString().equals(placa)) {
-                        vehiculo.put(edicion.keySet().toArray()[j], edicion.get(edicion.keySet().toArray()[j]));
+                        vehiculo.put(edicion.keySet().toArray()[j], 
+                                edicion.get(edicion.keySet().toArray()[j]));
                     }
                     //Línea para comprobar la actualización de la lista de vehículos
                     setDatoEdicion(vehiculoActual, (edicion.keySet().toArray()[j]).toString(), 
@@ -1095,16 +1296,21 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param placa
-     * @param servicioActual
-     * Este método recorre el arreglo de vehículos que posee el archivo JSON hasta encontrar el vehículo con la
-     * placa indicada. Construye un arreglo de objetos JSON con la empresa relacionada al servicioActual para agregarlo 
-     * junto con los datos atómicos del servicioActual a un objeto JSON. El servicio es agregado al arreglo de servicios
-     * relacionados del vehículo actual.
-     * @return true si se agrega el servicio al vehículo correctamente, false en caso contrario.
+     * Este método recorre el arreglo de vehículos que posee el archivo JSON 
+     * hasta encontrar el vehículo con la placa indicada. Construye un arreglo 
+     * de objetos JSON con la empresa relacionada al servicioActual para 
+     * agregarlo junto con los datos atómicos del servicioActual a un objeto 
+     * JSON. El servicio es agregado al arreglo de servicios relacionados del 
+     * vehículo actual.
+     * 
+     * @param placa String con la placa del vehículo al cual se le va a agregar un servicio
+     * @param servicioActual Servicio a agregar
+     * 
+     * @return true si se agrega el servicio al vehículo correctamente, 
+     * false en caso contrario.
      */
     
-    public boolean agregarServicioAVehiculo(String placa, Servicio servicioActual) {
+    public boolean agregarServicioAVehiculo(String placa, Servicio servicioActual){
         Vehiculo vehiculoActual = obtenerVehiculo(placa);
         boolean servicioAgregado = vehiculoActual.agregarServicio(servicioActual);
         JSONParser jsonParser = new JSONParser();
@@ -1130,16 +1336,23 @@ public class AdministradorAplicacion {
                     
                     empresasRelacionadas.add(objetoEmpresa);
                     
-                    JSONArray serviciosRelacionados = (JSONArray) vehiculo.get("Lista servicios relacionados");
+                    JSONArray serviciosRelacionados;
+                    serviciosRelacionados = (JSONArray)vehiculo.get("Lista servicios relacionados");
                     
                     if(servicioAgregado) {
                         JSONObject servicioNuevo = new JSONObject();
-                        servicioNuevo.put("Identificador", Integer.toString(servicioActual.getIdentificador()));
-                        servicioNuevo.put("Fecha inicio", Utilitaria.formatoFechaJSON(servicioActual.getFechaInicio()));
-                        servicioNuevo.put("Fecha final", Utilitaria.formatoFechaJSON(servicioActual.getFechaFinalizacion()));
-                        servicioNuevo.put("Monto pagado", Double.toString(servicioActual.getMontoPagado()));
-                        servicioNuevo.put("Detalles", servicioActual.getDetalles());
-                        servicioNuevo.put("Tipo", (servicioActual.getTipo()).toString());
+                        servicioNuevo.put("Identificador", 
+                                Integer.toString(servicioActual.getIdentificador()));
+                        servicioNuevo.put("Fecha inicio", 
+                                Utilitaria.formatoFechaJSON(servicioActual.getFechaInicio()));
+                        servicioNuevo.put("Fecha final", 
+                                Utilitaria.formatoFechaJSON(servicioActual.getFechaFinalizacion()));
+                        servicioNuevo.put("Monto pagado", 
+                                Double.toString(servicioActual.getMontoPagado()));
+                        servicioNuevo.put("Detalles", 
+                                servicioActual.getDetalles());
+                        servicioNuevo.put("Tipo", 
+                                (servicioActual.getTipo()).toString());
                         servicioNuevo.put("Empresa relacionada", empresasRelacionadas);
                         serviciosRelacionados.add(servicioNuevo);
                     }
@@ -1160,13 +1373,16 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param vehiculoActual
-     * @param nombreDato
-     * @param datoActualizado
      * Este método llama al método accesor set del atributo indicado.
+     * 
+     * @param vehiculoActual Vehiculo el cual se va a editar
+     * @param nombreDato Dato a actualizar
+     * @param datoActualizadob Nuevo dato a actualizar
+     * 
      */
     
-    public void setDatoEdicion(Vehiculo vehiculoActual, String nombreDato, String datoActualizado) {
+    public void setDatoEdicion(Vehiculo vehiculoActual, String nombreDato, 
+            String datoActualizado) {
         switch(nombreDato) {
             case "Año fabricación":
                 vehiculoActual.setAñoFabricacion(Integer.parseInt(datoActualizado));
@@ -1219,15 +1435,18 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * @param laReserva
      * En este método se hace uso de la librería ItectPDF para generar un formato para una factura.
      * Para ello se definen párrafos con datos fijos que describen el valor que correspode, 
      * y esos valores se toman del parámetro ingresado, que hace referencia a una reserva hecha.
+     * 
+     * @param laReserva
+     * 
      * @return String que contiene el nombre del archivo generado
      */
 
-    public String crearPDF(Reserva laReserva) throws FileNotFoundException, DocumentException, IOException
-    {
+    public String crearPDF(Reserva laReserva) throws FileNotFoundException, 
+            DocumentException, IOException{
+        
         TipoCambioBCCR servicioTipoCambio = new TipoCambioBCCR();
         String nombre= "Reserva" + laReserva.getNumeroFactura() + ".pdf";
         Document documento = new Document();
@@ -1247,9 +1466,12 @@ public class AdministradorAplicacion {
         titulo.setAlignment(Paragraph.ALIGN_CENTER);
         documento.add(titulo);
         
-        Paragraph p1 = new Paragraph ("\nFecha de solicitud: " + formatoFecha(laReserva.getFechaSolicitud()));
-        Paragraph p2 = new Paragraph("Número de factura: " + laReserva.getNumeroFactura());
-        Paragraph p25 = new Paragraph("Tipo de cambio del dólar: " + servicioTipoCambio.getVenta());  
+        Paragraph p1; 
+        p1 = new Paragraph("\nFecha de solicitud: " + formatoFecha(laReserva.getFechaSolicitud()));
+        Paragraph p2;
+        p2 = new Paragraph("Número de factura: " + laReserva.getNumeroFactura());
+        Paragraph p25;
+        p25 = new Paragraph("Tipo de cambio del dólar: " + servicioTipoCambio.getVenta());
         p1.setAlignment(Paragraph.ALIGN_RIGHT);
         p2.setAlignment(Paragraph.ALIGN_RIGHT);
         p25.setAlignment(Paragraph.ALIGN_RIGHT);
@@ -1259,23 +1481,36 @@ public class AdministradorAplicacion {
                 + varOperador.getNombreCompleto());
         
         Paragraph p4 = new Paragraph("\nDatos del cliente");
-        Paragraph p5 = new Paragraph("Nombre completo: " + laReserva.getClienteRelacionado().getNombreCompleto());
-        Paragraph p6 = new Paragraph("Número de teléfono: " + laReserva.getClienteRelacionado().getCedula());
-        Paragraph p7 = new Paragraph("Correo electrónico: " + laReserva.getClienteRelacionado().getCorreoElectronico());
-        Paragraph p8 = new Paragraph("Dirección exacta: " + laReserva.getClienteRelacionado().getDireccionExacta());
+        Paragraph p5 = new Paragraph("Nombre completo: " + 
+                laReserva.getClienteRelacionado().getNombreCompleto());
+        Paragraph p6 = new Paragraph("Número de teléfono: " + 
+                laReserva.getClienteRelacionado().getCedula());
+        Paragraph p7 = new Paragraph("Correo electrónico: " + 
+                laReserva.getClienteRelacionado().getCorreoElectronico());
+        Paragraph p8 = new Paragraph("Dirección exacta: " + 
+                laReserva.getClienteRelacionado().getDireccionExacta());
       
         Paragraph p9 = new Paragraph("\nDatos de la reserva");
-        Paragraph p10 = new Paragraph("Sede donde se entrega el vehículo: " + laReserva.getSedeEntrega());
-        Paragraph p11 = new Paragraph("Sede donde se recoge el vehículo: " + laReserva.getSedeRecogida());
-        Paragraph p12 = new Paragraph("Fecha de inicio de la renta: " + formatoFecha(laReserva.getFechaInicio()));
-        Paragraph p13 = new Paragraph("Fecha de finalización de la renta: " + formatoFecha(laReserva.getFechaFinalizacion()));
-        Paragraph p14 = new Paragraph("Duración de la reserva: " + laReserva.getDuracion() + " día(s)");
+        Paragraph p10 = new Paragraph("Sede donde se entrega el vehículo: " + 
+                laReserva.getSedeEntrega());
+        Paragraph p11 = new Paragraph("Sede donde se recoge el vehículo: " + 
+                laReserva.getSedeRecogida());
+        Paragraph p12 = new Paragraph("Fecha de inicio de la renta: " + 
+                formatoFecha(laReserva.getFechaInicio()));
+        Paragraph p13 = new Paragraph("Fecha de finalización de la renta: " + 
+                formatoFecha(laReserva.getFechaFinalizacion()));
+        Paragraph p14 = new Paragraph("Duración de la reserva: " + 
+                laReserva.getDuracion() + " día(s)");
         Paragraph p15 = new Paragraph("\nDatos del vehículo");
-        Paragraph p16 = new Paragraph("Estilo: " + laReserva.getVehiculoSeleccionado().getEstilo() + 
+        Paragraph p16 = new Paragraph("Estilo: " + 
+                laReserva.getVehiculoSeleccionado().getEstilo() + 
                 "\nMarca: " + laReserva.getVehiculoSeleccionado().getMarca() + 
-                "\nAño de fabricación: " + laReserva.getVehiculoSeleccionado().getAñoFabricacion() + 
-                "\nNúmero de placa: " + laReserva.getVehiculoSeleccionado().getPlaca() + 
-                "\nCosto diario: " + laReserva.getVehiculoSeleccionado().getCostoDiario());
+                "\nAño de fabricación: " + 
+                laReserva.getVehiculoSeleccionado().getAñoFabricacion() + 
+                "\nNúmero de placa: " + 
+                laReserva.getVehiculoSeleccionado().getPlaca() + 
+                "\nCosto diario: " + 
+                laReserva.getVehiculoSeleccionado().getCostoDiario());
         
         
         documento.add(p1);
@@ -1323,7 +1558,8 @@ public class AdministradorAplicacion {
         documento.add(pD);
         Paragraph p22 = new Paragraph("\nMonto Total: ");
         Paragraph p23 = new Paragraph("CRC " + laReserva.getCostoTotal());
-        Paragraph p24 = new Paragraph("USD " + laReserva.getCostoTotal()/servicioTipoCambio.getVenta());
+        Paragraph p24 = new Paragraph("USD " + 
+                laReserva.getCostoTotal()/servicioTipoCambio.getVenta());
         p23.setAlignment(Paragraph.ALIGN_RIGHT);
         p24.setAlignment(Paragraph.ALIGN_RIGHT);
         documento.add(p22);   
@@ -1336,7 +1572,10 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método verifica las credenciales de un operador
+     * @param username String con el nombre de usuario que intenta el ingreso al sistema
+     * @param password String con la contraseña de usuario que intenta el ingreso al sistema
+     * @return true si la combinación de usuario y contraseña existe, false si no
      */
     
     public boolean verificarCredenciales(String username, String password)
@@ -1357,11 +1596,16 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * 
+     * Este método envía un correo con las credenciales de un operador recién registrado a su correo
+     * @param elOperador Operador que representa el operador de servicio al cliente que ha sido 
+     * registrado en el momento
+     * @param pass Contraseña generada por generarContraseña()
+     * @see #generarContraseña() 
+     * @return Llamada al método de EnviarEmail
      */
     
-    public boolean mandarCorreoCredenciales(Operador elOperador, String pass) throws FileNotFoundException, DocumentException
-    {
+    public boolean mandarCorreoCredenciales(Operador elOperador, String pass) 
+            throws FileNotFoundException, DocumentException{
         String password = pass;
         String nombre = "Credenciales" + elOperador.getNombreCompleto()+ ".pdf";
         String ruta = "src\\main\\java\\img\\" + nombre;
@@ -1374,8 +1618,8 @@ public class AdministradorAplicacion {
                                     + "\nContraseña:" + password);
         documento.add(p1);
         documento.close();        
-        return EnviarEmail.enviarCorreo(elOperador.getCorreoElectronico(),"Envio de credenciales", 
-                "Se adjunta un pdf con los credenciales", ruta);        
+        return EnviarEmail.enviarCorreo(elOperador.getCorreoElectronico(),
+                "Envio de credenciales", "Se adjunta un pdf con los credenciales", ruta);
     }
     
     /**
@@ -1397,22 +1641,29 @@ public class AdministradorAplicacion {
     }
     
     /**
-     * Este método se encarga de obtener todos los vehículos de cierto tipo, tomando en cuenta si se encuentra reservados
+     * Este método se encarga de obtener todos los vehículos de cierto tipo, 
+     * tomando en cuenta si se encuentra reservados
      * los vehículos dentro de estas o si se encuentran en una sede específica
      * 
      * @param tipo TEstilo que indica el tipo de vehículo a buscar
-     * @param ConSede Valor booleano que indica si se busca tomando en cuenta la sede actual o no
+     * @param ConSede Valor booleano que indica si se busca tomando en cuenta la 
+     * sede actual o no
      * @param Desde Calendar con la fecha desde donde se realiza la reserva
      * @param Hasta Calendar con la fecha hasta donde se realiza la reserva
-     * @return ArrayList con todos los vehículos que cumplen las condiciones de entrada
+     * @return ArrayList con todos los vehículos que cumplen las condiciones de 
+     * entrada
      */
     
-    public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo, Calendar Desde, Calendar Hasta, boolean ConSede) {
+    public ArrayList<Vehiculo> getVehiculosTipo(TEstilo tipo, Calendar Desde, 
+            Calendar Hasta, boolean ConSede) {
         ArrayList<Vehiculo> temp = new ArrayList<>();
         temp.add(null);
         if (ConSede) {
             for (Vehiculo V: listaVehiculos) {
-                if (V.getEstado().equals(TEstado.Activo) && V.getEstilo().equals(tipo)  && !V.isRentadoEnElRango(Desde, Hasta) && V.getSede().equals(GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem())) {
+                if (V.getEstado().equals(TEstado.Activo) && V.getEstilo().equals(tipo) 
+                    && !V.isRentadoEnElRango(Desde, Hasta) && 
+                        V.getSede().equals(GUI.RealizarReserva.
+                                TextFieldSedeRecogida.getSelectedItem())){
                     temp.add(V);
                 }
             }

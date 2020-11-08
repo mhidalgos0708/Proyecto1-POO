@@ -9,7 +9,8 @@ package GUI;
  * Esta clase hereda de JFrame, esta ventana muestra los servicios asociados a un vehículo
  * @since 03/11/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public class TablaServiciosAsociados extends javax.swing.JFrame {

@@ -15,7 +15,8 @@ import Controlador.TipoCambioBCCR;
  * Esta clase modela las reservas que se van a almacenar y crear en el sistema
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 
@@ -34,9 +35,10 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, Calendar fechaFinalizacion, 
-                   Calendar fechaSolicitud, Operador operador, Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, 
-                   HashMap serviciosOpcionales, int numeroFactura) {
+    public Reserva(String sedeRecogida, String sedeEntrega, Calendar fechaInicio, 
+            Calendar fechaFinalizacion, Calendar fechaSolicitud, Operador operador, 
+                Vehiculo vehiculoSeleccionado, Cliente clienteRelacionado, HashMap serviciosOpcionales, 
+                    int numeroFactura) {
         this.sedeRecogida = sedeRecogida;
         this.sedeEntrega = sedeEntrega;
         this.fechaInicio = fechaInicio;
@@ -130,7 +132,8 @@ public class Reserva {
     }
 
     /**
-     *  Este método se utiliza para obtener la duración de una reserva y colocarla en el pdf de la reserva
+     *  Este método se utiliza para obtener la duración de una reserva y colocarla en el pdf de 
+     * la reserva
      * @return Entero con la duración de días de la reserva
      */
     public int getDuracion()
@@ -152,7 +155,8 @@ public class Reserva {
     }
     
     /**
-     * Este método calcula el costo de la reserva tomando en cuenta solo el vehículo para ser colocado posteriormente en el pdf de la reserva
+     * Este método calcula el costo de la reserva tomando en cuenta solo el vehículo para ser 
+     * colocado posteriormente en el pdf de la reserva
      * @return Double con el costo de la reserva sin servicios opcionales
      */
     public double getCostoRenta()
@@ -162,7 +166,8 @@ public class Reserva {
     }
 
     /**
-     * Este método calcula el total del precio de los servicios opcionales seleccionados en una reserva en dólares según el HashMap de servicios
+     * Este método calcula el total del precio de los servicios opcionales seleccionados en una 
+     * reserva en dólares según el HashMap de servicios
      * del objeto
      * @return Double del precio total en dólares de los sevicios opcionales seleccionados en una reserva
      */
@@ -179,9 +184,11 @@ public class Reserva {
     }
 
     /**
-     * Este método calcula el total del precio de los servicios opcionales seleccionados en una reserva en colones según el HashMap de servicios
+     * Este método calcula el total del precio de los servicios opcionales seleccionados en una 
+     * reserva en colones según el HashMap de servicios
      * del objeto
-     * @return Double con el costo en colones de los servicios opcionales seleccionados en la reserva actual
+     * @return Double con el costo en colones de los servicios opcionales seleccionados en la 
+     * reserva actual
      */
     public double getCostoSO()
     {
@@ -197,7 +204,8 @@ public class Reserva {
     }
 
     /**
-     * Este método obtiene el costo total de toda la reserva actual incluyendo servicios especiales y costo de renta del vehículo
+     * Este método obtiene el costo total de toda la reserva actual incluyendo servicios especiales 
+     * y costo de renta del vehículo
      * @return Double con el costo total de la reserva
      */
     public double getCostoTotal()
@@ -206,13 +214,19 @@ public class Reserva {
     }
     
     /**
-     * En este método se obtienen los servicios opcionales contenidos en la reserva y si están, se indican como un sí en la tabla,
+     * En este método se obtienen los servicios opcionales contenidos en la reserva y si están, se 
+     * indican como un sí en la tabla,
      * si no, se coloca un no.
-     * @return Array conteniendo llaves con los servicios opcionales y si están contenidos como su valor
+     * @return Array conteniendo llaves con los servicios opcionales y si están contenidos como su 
+     * valor
      */
     public Object[][] getArrayServicios(){
         Set keys = serviciosOpcionales.keySet();
-        Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},{"GPS", keys.contains("GPS") ? "Sí" : "No"},{"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},{"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},{"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
+        Object[][] O = new Object[][]{{"WiFi", keys.contains("WiFi limitado") ? "Sí" : "No"},
+            {"GPS", keys.contains("GPS") ? "Sí" : "No"},
+                {"Seguro", keys.contains("Cobertura por daños a terceros") ? "Sí" : "No"},
+                    {"Asistencia", keys.contains("Asistencia en carretera") ? "Sí" : "No"},
+                        {"Asiento Niños", keys.contains("Asiento para niño") ? "Sí" : "No"}};
         return O;
     }
     

@@ -1,11 +1,4 @@
 package GUI;
- 
-/**
- * Esta clase hereda de JFrame, despliega los datos de la reserva desplegando una ventana
- * @since 27/10/2020
- * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
- */
 
 import Controlador.Utilitaria;
 import Modelo.Cliente;
@@ -18,6 +11,13 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.JFrame;
 
+/**
+ * Esta clase hereda de JFrame, despliega los datos de la reserva desplegando una ventana
+ * @since 27/10/2020
+ * @version 1.0
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
+ */
 
 public final class ConsultarReserva extends JFrame implements ActionListener {
     String[] Operadores = {"", "Operador1", "Operador2"};
@@ -147,7 +147,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
         }
         if(e.getSource()==TextFieldInicioReserva){
             FiltroFecha.frameRegistrarOperador.setVisible(true);
-            FiltroFecha.frameRegistrarOperador.setLocation(GUI.Inicio.dim.width/2-FiltroFecha.frameRegistrarOperador.getSize().width/2, GUI.Inicio.dim.height/2-FiltroFecha.frameRegistrarOperador.getSize().height/2);
+                FiltroFecha.frameRegistrarOperador.setLocation(GUI.Inicio.dim.width/2-
+                        FiltroFecha.frameRegistrarOperador.getSize().width/2, 
+                            GUI.Inicio.dim.height/2-
+                                    FiltroFecha.frameRegistrarOperador.getSize().height/2);
         
         }
         
@@ -168,7 +171,9 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     
                     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-                    DatosCliente.frameDatosCliente.setLocation(dim.width/2-DatosCliente.frameDatosCliente.getSize().width/2, dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
+                    DatosCliente.frameDatosCliente.setLocation(dim.width/2-
+                            DatosCliente.frameDatosCliente.getSize().width/2, 
+                                dim.height/2-DatosCliente.frameDatosCliente.getSize().height/2);
 
                     Inicio.VentanaConsultarReserva(false); 
                     
@@ -177,9 +182,15 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     Inicio.frameRes.ContenidoTextoID.setText(String.valueOf(Resultado.getNumeroFactura()));
                     Inicio.frameRes.ContenidoTextoRecogida.setText(Resultado.getSedeRecogida());
                     Inicio.frameRes.ContenidoTextoEntrega.setText(Resultado.getSedeEntrega());
-                    Inicio.frameRes.ContenidoTextoInicio.setText(Resultado.getFechaInicio().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaInicio().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaInicio().get(Calendar.YEAR));
-                    Inicio.frameRes.ContenidoTextoFinal.setText(Resultado.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaFinalizacion().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaFinalizacion().get(Calendar.YEAR));
-                    Inicio.frameRes.ContenidoTextoSolicitud.setText(Resultado.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) + "/" + (Resultado.getFechaSolicitud().get(Calendar.MONTH)+1) + "/" + Resultado.getFechaSolicitud().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoInicio.setText(Resultado.getFechaInicio().get(Calendar.DAY_OF_MONTH)
+                            + "/" + (Resultado.getFechaInicio().get(Calendar.MONTH)+1) + "/" + 
+                                Resultado.getFechaInicio().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoFinal.setText(Resultado.getFechaFinalizacion().get(Calendar.DAY_OF_MONTH)
+                            + "/" + (Resultado.getFechaFinalizacion().get(Calendar.MONTH)+1) + 
+                                "/" + Resultado.getFechaFinalizacion().get(Calendar.YEAR));
+                    Inicio.frameRes.ContenidoTextoSolicitud.setText(Resultado.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) 
+                            + "/" + (Resultado.getFechaSolicitud().get(Calendar.MONTH)+1) + 
+                                "/" + Resultado.getFechaSolicitud().get(Calendar.YEAR));
                     Inicio.frameRes.ContenidoTextoOperador.setText(Resultado.getOperador().toString());
                     Vehiculo Auto = Resultado.getVehiculoSeleccionado();
                     Cliente Persona = Resultado.getClienteRelacionado();
@@ -217,7 +228,10 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                     DatosCliente.frameDatosCliente.textCedula.setText("Cédula: "+Persona.getCedula());
                     DatosCliente.frameDatosCliente.textoCorreo.setText("Correo: "+Persona.getCorreoElectronico());
                     DatosCliente.frameDatosCliente.textoDireccion.setText("Correo: "+Persona.getDireccionExacta());
-                    DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha(Persona.getFechaEmisionLicencia()) + " - " + Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
+                    DatosCliente.frameDatosCliente.textoLicencia.setText("Licencia: "+ Persona.getNumeroLicencia() + 
+                            " ("+Persona.getTipoLicencia() +") " + "("+ Utilitaria.formatoFecha
+                                (Persona.getFechaEmisionLicencia()) + " - " + 
+                                       Utilitaria.formatoFecha(Persona.getFechaExpiracionLicencia()) +")");
                     
                     imagenSeleccionada = new ImageIcon(Persona.getImagen());
                     DatosCliente.frameDatosCliente.img2.setIcon(imagenSeleccionada);
@@ -234,7 +248,8 @@ public final class ConsultarReserva extends JFrame implements ActionListener {
                 }
 
             } catch (Exception error){
-                JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar caracteres alfabéticos");
+                JOptionPane.showMessageDialog(this, "Error, el número de factura no puede llevar "
+                        + "caracteres alfabéticos");
             }
         }
         

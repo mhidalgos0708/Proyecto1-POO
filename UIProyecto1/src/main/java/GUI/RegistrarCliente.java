@@ -11,13 +11,16 @@ import java.util.Calendar;
  * Esta clase hereda de JFrame, esta ventana permite al usuario registrar clientes
  * @since 25/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public final class RegistrarCliente extends JFrame implements ActionListener {
     
     String filename;
-    TLicencia[] TiposLicencias = {TLicencia.A1, TLicencia.A2, TLicencia.A3, TLicencia.A4, TLicencia.B1, TLicencia.B2, TLicencia.B3, TLicencia.B4, TLicencia.C1, TLicencia.C2, TLicencia.D1, TLicencia.D2, TLicencia.D3, TLicencia.E1, TLicencia.E2};
+    TLicencia[] TiposLicencias = {TLicencia.A1, TLicencia.A2, TLicencia.A3, TLicencia.A4, 
+        TLicencia.B1, TLicencia.B2, TLicencia.B3, TLicencia.B4, TLicencia.C1, TLicencia.C2, 
+            TLicencia.D1, TLicencia.D2, TLicencia.D3, TLicencia.E1, TLicencia.E2};
     Container container = getContentPane();
     final JFileChooser explorer = new JFileChooser();
     
@@ -30,8 +33,10 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
     
     JComboBox<TLicencia> TextFieldTipoLicencia = new JComboBox<>(TiposLicencias);
     
-    com.toedter.calendar.JDateChooser TextFieldFechaEmisionLicencia= new com.toedter.calendar.JDateChooser();
-    com.toedter.calendar.JDateChooser TextFieldFechaExpiracionLicencia= new com.toedter.calendar.JDateChooser();
+    com.toedter.calendar.JDateChooser TextFieldFechaEmisionLicencia= 
+            new com.toedter.calendar.JDateChooser();
+    com.toedter.calendar.JDateChooser TextFieldFechaExpiracionLicencia= 
+            new com.toedter.calendar.JDateChooser();
     
     JLabel TextoNombreCompleto = new JLabel("Nombre Completo");
     JLabel TextoCédula = new JLabel("Cédula");
@@ -184,7 +189,12 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
                 fechaexpiracionlicenciaTemporal=dia+"/"+mes+"/"+año;
             }
             
-            if (TextFieldFechaExpiracionLicencia.getDate() == null || TextFieldNombreCompleto.getText().equals("") || TextFieldCédula.getText().equals("") ||TextFieldDirección.getText().equals("") ||TextFieldCorreo.getText().equals("") ||TextFieldTeléfono.getText().equals("") ||TextFieldNumeroLicencia.getText().equals("") || filename.equals("No se ha seleccionado imagen") || TextFieldFechaEmisionLicencia.getDate() == null) {
+            if (TextFieldFechaExpiracionLicencia.getDate() == null || 
+                    TextFieldNombreCompleto.getText().equals("") || TextFieldCédula.getText().equals("") ||
+                        TextFieldDirección.getText().equals("") ||TextFieldCorreo.getText().equals("") ||
+                            TextFieldTeléfono.getText().equals("") ||TextFieldNumeroLicencia.getText().equals("") || 
+                                filename.equals("No se ha seleccionado imagen") || 
+                                    TextFieldFechaEmisionLicencia.getDate() == null) {
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de elementos");
             }else if (!Inicio.adminApp.verificarCorreo(TextFieldCorreo.getText())){
                 JOptionPane.showMessageDialog(this, "Correo inválido");
@@ -193,7 +203,11 @@ public final class RegistrarCliente extends JFrame implements ActionListener {
             }else if(Inicio.adminApp.obtenerCliente(TextFieldCédula.getText())!=null){
                 JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese número de identificación");
             }else {   
-                Inicio.adminApp.registrarCliente(TextFieldNombreCompleto.getText(), TextFieldCédula.getText(), TextFieldDirección.getText(), TextFieldCorreo.getText(), TextFieldTeléfono.getText(), TextFieldNumeroLicencia.getText(), TextFieldFechaEmisionLicencia.getCalendar(), (TLicencia) TextFieldTipoLicencia.getSelectedItem(), TextFieldFechaExpiracionLicencia.getCalendar(), filename, false);
+                Inicio.adminApp.registrarCliente(TextFieldNombreCompleto.getText(), TextFieldCédula.getText(), 
+                        TextFieldDirección.getText(), TextFieldCorreo.getText(), TextFieldTeléfono.getText(), 
+                            TextFieldNumeroLicencia.getText(), TextFieldFechaEmisionLicencia.getCalendar(), 
+                                (TLicencia) TextFieldTipoLicencia.getSelectedItem(), 
+                                    TextFieldFechaExpiracionLicencia.getCalendar(), filename, false);
                 Inicio.adminApp.cargarInformacionJSON("clientes.json", "Cliente");
                 JOptionPane.showMessageDialog(this, "Se ha agregado un nuevo Cliente");
                 TextFieldNombreCompleto.setText("");

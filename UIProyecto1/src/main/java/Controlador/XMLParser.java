@@ -30,7 +30,8 @@ public class XMLParser {
     private final String xml;
     private final Element rootElement;
     
-    public XMLParser(String data) throws SAXException, IOException, ParserConfigurationException{
+    public XMLParser(String data) throws SAXException, IOException, 
+            ParserConfigurationException{
         data =  replaceChars(data);
         this.xml = data;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -40,8 +41,10 @@ public class XMLParser {
     }
   
     /**
-     * @param tag
      * Este método retorna el valor contenido en la etiqueta del tipo de cambio
+     * 
+     * @param tag
+     * 
      * @SuppressWarnings("UseSpecificCatch")
      * @return String
      */

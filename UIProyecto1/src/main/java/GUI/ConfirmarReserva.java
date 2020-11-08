@@ -24,10 +24,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 /**
- * Esta clase hereda de JFrame, despliega los datos de la reserva y permite al usuario confirmarla en una ventana
+ * Esta clase hereda de JFrame, despliega los datos de la reserva y permite al usuario 
+ * confirmarla en una ventana
  * @since 28/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo 
+ * Sandoval, Silvia Melissa Rodríguez Fernández
  */
 
 public final class ConfirmarReserva extends JFrame implements ActionListener {
@@ -177,20 +179,6 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
         }
         
         if (e.getSource()==botonOk){
-            if(GUI.RealizarReserva.TextFieldFechaInicio.getCalendar()!=null){
-               int año = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.YEAR);
-               int mes = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = GUI.RealizarReserva.TextFieldFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
-                String direccionTemporal=dia+"/"+mes+"/"+año;
-            }
-            if(GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar()!=null){
-               int año = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.YEAR);
-               int mes = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.MONTH) + 1;
-               int dia = GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar().get(Calendar.DAY_OF_MONTH);
-                String correoTemporal=dia+"/"+mes+"/"+año;
-            }
-       
-
             
             if(GUI.RealizarReserva.SO1.isSelected()){
                 GUI.RealizarReserva.ServiciosOpcionales.add("WiFi limitado");
@@ -206,11 +194,20 @@ public final class ConfirmarReserva extends JFrame implements ActionListener {
 
             HashMap diccionario = Inicio.adminApp.generarServiciosEspeciales(GUI.RealizarReserva.ServiciosOpcionales);
 
-            Inicio.adminApp.realizarReserva((String) GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem(), (String) GUI.RealizarReserva.TextFieldSedeEntrega.getSelectedItem(), GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), Inicio.adminApp.obtenerVehiculo(GUI.RealizarReserva.TextoPlacaSeleccionada.getText()), GUI.RealizarReserva.clienteRelacionado, diccionario, false);
+            Inicio.adminApp.realizarReserva((String) GUI.RealizarReserva.TextFieldSedeRecogida.getSelectedItem(),
+                (String) GUI.RealizarReserva.TextFieldSedeEntrega.getSelectedItem(), 
+                    GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), 
+                        GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), 
+                            Calendar.getInstance(), Inicio.adminApp.getOperadorActivo(), 
+                                Inicio.adminApp.obtenerVehiculo(GUI.RealizarReserva.TextoPlacaSeleccionada.getText()), 
+                                    GUI.RealizarReserva.clienteRelacionado, diccionario, false);
             
             try {
-                String archivo = Inicio.adminApp.crearPDF(Inicio.adminApp.obtenerReserva(Inicio.listaReservas.size()-1));
-                Controlador.EnviarEmail.enviarCorreo(Inicio.adminApp.obtenerCliente(GUI.RealizarReserva.TextFieldBuscarCliente.getText()).getCorreoElectronico(), "Comprobante de Reserva - Rent A Car", "Gracias por reservar con nosotros!", archivo);
+                String archivo;
+                archivo = Inicio.adminApp.crearPDF(Inicio.adminApp.obtenerReserva(Inicio.listaReservas.size()-1));
+                Controlador.EnviarEmail.enviarCorreo(Inicio.adminApp.obtenerCliente(GUI.RealizarReserva.
+                        TextFieldBuscarCliente.getText()).getCorreoElectronico(), 
+                            "Comprobante de Reserva - Rent A Car", "Gracias por reservar con nosotros!", archivo);
             } catch (DocumentException ex) {
                 Logger.getLogger(ConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {

@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  * Esta clase hereda de JFrame, esta ventana permite al usuario realizar acciones de administrador
  * @since 26/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public final class RegistrarOperador extends JFrame implements ActionListener {
@@ -101,10 +102,12 @@ public final class RegistrarOperador extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Ingreso incompleto de datos");
             }else {
                 String password = AdministradorAplicacion.generarContraseña();
-                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), password, TextFieldNombreCompleto.getText(), false, false);
+                Inicio.adminApp.registrarOperador(TextFieldCorreo.getText(), password, 
+                        TextFieldNombreCompleto.getText(), false, false);
                 Inicio.adminApp.cargarInformacionJSON("operadores.json", "Operador");
                 try {
-                    Inicio.adminApp.mandarCorreoCredenciales(Inicio.adminApp.obtenerOperador(TextFieldCorreo.getText()), password);
+                    Inicio.adminApp.mandarCorreoCredenciales(Inicio.adminApp.obtenerOperador
+                        (TextFieldCorreo.getText()), password);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(RegistrarOperador.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (DocumentException ex) {

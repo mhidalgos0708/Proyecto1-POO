@@ -12,16 +12,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
 /**
- * Esta clase hereda de JFrame, esta ventana permite al usuario seleccionar un automóvil para reservarlo
+ * Esta clase hereda de JFrame, esta ventana permite al usuario seleccionar un automóvil para 
+ * reservarlo
  * @since 26/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 public final class SeleccionarVehículo extends JFrame implements ActionListener {
     String filename;
-    String[] TiposLicencias = {"", "A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","D1","D2","D3","E1","E2"};
-    String[] TiposCarros = {"", "Compacto", "Pickup", "Intermedio", "SUV", "Mini-van", "Convertible", "Económico"};
+    String[] TiposLicencias = 
+        {"", "A1","A2","A3","A4","B1","B2","B3","B4","C1","C2","D1","D2","D3","E1","E2"};
+    String[] TiposCarros = 
+        {"", "Compacto", "Pickup", "Intermedio", "SUV", "Mini-van", "Convertible", "Económico"};
     String[] VehículosCompacto={"", "Compacto1", "Compacto2"};
     String[] VehículosPickup={"", "Pickup1", "Pickup2"};
     String[] VehículosIntermedio={"", "Intermedio1", "Intermedio2"};
@@ -213,7 +217,8 @@ public final class SeleccionarVehículo extends JFrame implements ActionListener
                 JOptionPane.showMessageDialog(this, "Este vehículo se encuentra inactivo");
             }else {
                 JOptionPane.showMessageDialog(this, "Se ha seleccionado un vehículo");
-                RealizarReserva.AutoSeleccionado = (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
+                RealizarReserva.AutoSeleccionado = 
+                        (Vehiculo) ComboBoxVehículoSeleccionado.getSelectedItem();
                 RealizarReserva.TextoPlacaSeleccionada.setText(TextoPlacaSeleccionado.getText());
                 ComboBoxTipoCarroSeleccionado.setSelectedIndex(0);
                 Inicio.frameRealizarReserva.setEnabled(true);
@@ -238,7 +243,12 @@ public final class SeleccionarVehículo extends JFrame implements ActionListener
                 
                 ComboBoxVehículoSeleccionado.removeAllItems();
                 System.out.println(ComboBoxTipoCarroSeleccionado.getSelectedItem());
-                DefaultComboBoxModel mod= new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), true).toArray());
+                DefaultComboBoxModel mod = 
+                        new DefaultComboBoxModel(Inicio.adminApp.getVehiculosTipo
+                            ((TEstilo)ComboBoxTipoCarroSeleccionado.getSelectedItem(), 
+                                    GUI.RealizarReserva.TextFieldFechaInicio.getCalendar(), 
+                                        GUI.RealizarReserva.TextFieldFechaFinalizacion.getCalendar(), 
+                                            true).toArray());
                 ComboBoxVehículoSeleccionado.setModel(mod);
             }
             

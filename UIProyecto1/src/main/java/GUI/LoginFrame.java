@@ -8,10 +8,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
 /**
- * Esta clase hereda de JFrame, esta ventana permite al usuario ingresar al sistema con sus credenciales
+ * Esta clase hereda de JFrame, esta ventana permite al usuario ingresar al sistema con sus 
+ * credenciales
  * @since 22/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 
@@ -102,7 +104,8 @@ public final class LoginFrame extends JFrame implements ActionListener {
             String pwdText = passwordField.getText();
             
             for (int i = 0; i < Inicio.listaOperadores.size(); i++) {
-                    if(usrText.equals(Inicio.listaOperadores.get(i).getUsername()) && pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
+                    if(usrText.equals(Inicio.listaOperadores.get(i).getUsername()) && 
+                            pwdText.equals(Inicio.listaOperadores.get(i).getContraseña())){
                         passcheck=true;
                         JOptionPane.showMessageDialog(this, "Inicio de Sesión Aceptado");
                         passwordField.setText("");

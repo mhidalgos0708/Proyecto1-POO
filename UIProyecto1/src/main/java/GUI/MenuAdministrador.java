@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
  * Esta clase hereda de JFrame, esta ventana permite al usuario realizar acciones de administrador
  * @since 23/10/2020
  * @version 1.0
- * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, Silvia Melissa Rodríguez Fernández
+ * @author Fabricio Delgado Morales, Johan Alonso Calvo Vargas, Mariana Hidalgo Sandoval, 
+ * Silvia Melissa Rodríguez Fernández
  * 
  */
 
@@ -17,10 +18,14 @@ public final class MenuAdministrador extends JFrame implements ActionListener {
  
     Container container = getContentPane();
     
-    JButton botonAgregarVehiculo = new JButton("<html><center>Agregar Vehículo<br>a flotilla</center></html>");
-    JButton botonEditarVehiculo = new JButton("<html><center>Editar información<br>de vehículo</center></html>");
-    JButton botonRegistrarEmpresaServicios = new JButton("<html><center>Registrar nueva<br>empresa de servicios</center></html>");
-    JButton botonRegistrarServicioMantenimiento = new JButton("<html><center>Registrar nuevo<br>servicio de mantenimiento</center></html>");
+    JButton botonAgregarVehiculo = 
+            new JButton("<html><center>Agregar Vehículo<br>a flotilla</center></html>");
+    JButton botonEditarVehiculo = 
+            new JButton("<html><center>Editar información<br>de vehículo</center></html>");
+    JButton botonRegistrarEmpresaServicios = 
+            new JButton("<html><center>Registrar nueva<br>empresa de servicios</center></html>");
+    JButton botonRegistrarServicioMantenimiento = 
+            new JButton("<html><center>Registrar nuevo<br>servicio de mantenimiento</center></html>");
     JButton botonAtras = new JButton("Atrás");
  
     MenuAdministrador() {
